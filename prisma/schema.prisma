@@ -1,0 +1,98 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Carregamento {
+  id                      String   @id
+  productId               String
+  referenceName           String
+  referenceSize           Int
+  referenceScreenText     String
+  hasSingleAmount         Boolean?
+  singleAmountDescription String?
+  hasFreeAmount           Boolean?
+  singleAmount            Int?
+  maxFreeAmount           Int?
+  minFreeAmount           Int?
+  Produto                 Produto  @relation(fields: [productId], references: [id])
+}
+
+model Entitade {
+  id                String     @id
+  selectionName     String
+  screenName        String
+  checkDigit        Boolean    @default(false)
+  useLeftZero       Boolean
+  validateReference Boolean    @default(false)
+  utilizadorId      String
+  Utilizador        Utilizador @relation(fields: [utilizadorId], references: [id], onDelete: Cascade)
+  Servico           Servico[]
+}
+
+model Pagamento {
+  id                  String  @id
+  productId           String  @unique
+  referenceName       String
+  referenceSize       Int
+  referenceScreenText String
+  isNew               Boolean @default(true)
+  maxAmount           Int
+  minAmount           Int
+  Produto             Produto @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Produto {
+  id            String         @id
+  serviceId     String
+  selectionName String
+  screenName    String
+  type          ProdutoTipo
+  Carregamento  Carregamento[]
+  Pagamento     Pagamento?
+  Servico       Servico        @relation(fields: [serviceId], references: [id], onDelete: Cascade)
+  Recarga       Recarga[]
+}
+
+model Recarga {
+  id        String  @id
+  productId String
+  units     String
+  amount    Int
+  Produto   Produto @relation(fields: [productId], references: [id], onDelete: Cascade)
+}
+
+model Servico {
+  id              String    @id
+  entityId        String
+  systemName      String
+  screenName      String
+  selectionName_1 String
+  selectionName_2 String
+  Produto         Produto[]
+  Entitade        Entitade  @relation(fields: [entityId], references: [id], onDelete: Cascade)
+}
+
+model Utilizador {
+  id       String     @id @unique
+  email    String?
+  picture  String?
+  name     String?
+  surname  String?
+  Entitade Entitade[]
+}
+
+enum ProdutoTipo {
+  Pagamentos
+  Carregamentos
+  Recargas
+}
+
+enum RealTimeNotificationType {
+  E038v03
+  E038v04
+}
