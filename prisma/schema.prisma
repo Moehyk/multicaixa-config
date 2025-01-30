@@ -8,7 +8,7 @@ datasource db {
 }
 
 model Carregamento {
-  id                      String   @id
+  id                      String   @id @default(cuid())
   productId               String
   referenceName           String
   referenceSize           Int
@@ -23,7 +23,7 @@ model Carregamento {
 }
 
 model Entitade {
-  id                String     @id
+  id                String     @id @default(cuid())
   selectionName     String
   screenName        String
   checkDigit        Boolean    @default(false)
@@ -35,7 +35,7 @@ model Entitade {
 }
 
 model Pagamento {
-  id                  String  @id
+  id                  String  @id @default(cuid())
   productId           String  @unique
   referenceName       String
   referenceSize       Int
@@ -47,7 +47,7 @@ model Pagamento {
 }
 
 model Produto {
-  id            String         @id
+  id            String         @id @default(cuid())
   serviceId     String
   selectionName String
   screenName    String
@@ -59,7 +59,7 @@ model Produto {
 }
 
 model Recarga {
-  id        String  @id
+  id        String  @id @default(cuid())
   productId String
   units     String
   amount    Int
@@ -67,7 +67,7 @@ model Recarga {
 }
 
 model Servico {
-  id              String    @id
+  id              String    @id @default(cuid())
   entityId        String
   systemName      String
   screenName      String
