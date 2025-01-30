@@ -56,7 +56,7 @@ export const servico = {
     }
   },
 
-  get: async (id: string) => {
+  get: cache(async (id: string) => {
     try {
       const servico = await db.servico.findUnique({
         where: {
@@ -68,9 +68,9 @@ export const servico = {
     } catch (error) {
       return { status: 400, message: "Serviço não encontrado.", error };
     }
-  },
+  }),
 
-  getAll: async (id: string) => {
+  getAll: cache(async (id: string) => {
     try {
       const servicos = await db.servico.findMany({
         where: {
@@ -86,7 +86,7 @@ export const servico = {
         error,
       };
     }
-  },
+  }),
 
   delete: async (id: string) => {
     try {
