@@ -1,4 +1,4 @@
-import { Button, Anchor } from "@mantine/core";
+import { Anchor } from "@mantine/core";
 
 export default function Home() {
   return (
