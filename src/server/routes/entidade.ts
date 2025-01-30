@@ -39,11 +39,13 @@ export const entidade = {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar criar a entidade.",
+          error,
         };
       } else {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar editar a entidade.",
+          error,
         };
       }
     }
@@ -58,7 +60,7 @@ export const entidade = {
       });
       return { data, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Entidade não encontrada." };
+      return { status: 400, message: "Entidade não encontrada.", error };
     }
   }),
 
@@ -72,7 +74,11 @@ export const entidade = {
       });
       return { status: 200, data };
     } catch (error) {
-      return { status: 400, message: "Lista de entidades não encontrada." };
+      return {
+        status: 400,
+        message: "Lista de entidades não encontrada.",
+        error,
+      };
     }
   }),
 
@@ -91,6 +97,7 @@ export const entidade = {
       return {
         status: 400,
         message: "Aconteceu um erro ao tentar apagar a entidade.",
+        error,
       };
     }
   },

@@ -41,6 +41,7 @@ export const pagamento = {
       return {
         status: 400,
         message: "Aconteceu um erro ao tentar configurar o pagamento.",
+        error,
       };
     }
   },
@@ -60,7 +61,7 @@ export const pagamento = {
 
       return { data: pagamento, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Pagamento não encontrado." };
+      return { status: 400, message: "Pagamento não encontrado.", error };
     }
   }),
 };

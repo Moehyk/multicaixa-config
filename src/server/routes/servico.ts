@@ -44,11 +44,13 @@ export const servico = {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar criar o serviço.",
+          error,
         };
       } else {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar editar o serviço.",
+          error,
         };
       }
     }
@@ -64,7 +66,7 @@ export const servico = {
 
       return { data: servico, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Serviço não encontrado." };
+      return { status: 400, message: "Serviço não encontrado.", error };
     }
   },
 
@@ -78,7 +80,11 @@ export const servico = {
 
       return { data: servicos, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Lista de serviços não encontrada." };
+      return {
+        status: 400,
+        message: "Lista de serviços não encontrada.",
+        error,
+      };
     }
   },
 
@@ -97,6 +103,7 @@ export const servico = {
       return {
         status: 400,
         message: "Aconteceu um erro ao tentar apagar o serviço.",
+        error,
       };
     }
   },

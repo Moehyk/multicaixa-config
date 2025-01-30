@@ -41,11 +41,13 @@ export const produto = {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar criar o produto.",
+          error,
         };
       } else {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar editar o produto.",
+          error,
         };
       }
     }
@@ -61,7 +63,7 @@ export const produto = {
 
       return { data: produto, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Produto não encontrado." };
+      return { status: 400, message: "Produto não encontrado.", error };
     }
   }),
 
@@ -75,7 +77,11 @@ export const produto = {
 
       return { status: 200, data };
     } catch (error) {
-      return { status: 400, message: "Lista de produtos não encontrada." };
+      return {
+        status: 400,
+        message: "Lista de produtos não encontrada.",
+        error,
+      };
     }
   }),
 
@@ -94,6 +100,7 @@ export const produto = {
       return {
         status: 400,
         message: "Aconteceu um erro ao tentar apagar o produto.",
+        error,
       };
     }
   },

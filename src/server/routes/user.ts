@@ -29,7 +29,7 @@ export const user = {
       });
       return { data, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Autorização negada." };
+      return { status: 400, message: "Autorização negada.", error };
     }
   }),
 };

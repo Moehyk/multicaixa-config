@@ -12,7 +12,11 @@ export const carregamento = {
 
       return { status: 200, data };
     } catch (error) {
-      return { status: 400, message: "Lista de carregamentos não encontrada." };
+      return {
+        status: 400,
+        message: "Lista de carregamentos não encontrada.",
+        error,
+      };
     }
   }),
 };
