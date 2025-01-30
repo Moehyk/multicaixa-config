@@ -5,51 +5,53 @@ import { CreateServicoParams } from "@/types";
 
 export const servico = {
   create: async ({ entityId, id, input }: CreateServicoParams) => {
-    const servico = await db.servico.upsert({
-      where: {
-        id: id,
-      },
-      create: {
-        entityId: entityId,
-        screenName: input.screenName,
-        selectionName_1: input.selectionName_1,
-        selectionName_2: input.selectionName_2,
-        systemName: input.systemName,
-      },
-      update: {
-        entityId: entityId,
-        screenName: input.screenName,
-        selectionName_1: input.selectionName_1,
-        selectionName_2: input.selectionName_2,
-        systemName: input.systemName,
-      },
-    });
+    try {
+      await db.servico.upsert({
+        where: {
+          id: id,
+        },
+        create: {
+          entityId: entityId,
+          screenName: input.screenName,
+          selectionName_1: input.selectionName_1,
+          selectionName_2: input.selectionName_2,
+          systemName: input.systemName,
+        },
+        update: {
+          entityId: entityId,
+          screenName: input.screenName,
+          selectionName_1: input.selectionName_1,
+          selectionName_2: input.selectionName_2,
+          systemName: input.systemName,
+        },
+      });
 
-    if (!id) {
-      if (!servico) {
+      revalidatePath("/multicaixa/entidades/[id]", "page");
+
+      if (!id) {
+        return {
+          status: 200,
+          message: "Serviço criado com sucesso.",
+        };
+      } else {
+        return {
+          status: 200,
+          message: "Serviço editado com sucesso.",
+        };
+      }
+    } catch (error) {
+      if (!id) {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar criar o serviço.",
         };
+      } else {
+        return {
+          status: 400,
+          message: "Aconteceu um erro ao tentar editar o serviço.",
+        };
       }
-
-      return {
-        status: 200,
-        message: "Serviço criado com sucesso.",
-      };
     }
-
-    if (!servico) {
-      return {
-        status: 400,
-        message: "Aconteceu um erro ao tentar editar o serviço.",
-      };
-    }
-
-    return {
-      status: 200,
-      message: "Serviço editado com sucesso.",
-    };
   },
 
   get: async (id: string) => {
@@ -67,15 +69,17 @@ export const servico = {
   },
 
   getAll: async (id: string) => {
-    const data = await db.servico.findMany({
-      where: {
-        entityId: id,
-      },
-    });
+    try {
+      const servicos = await db.servico.findMany({
+        where: {
+          entityId: id,
+        },
+      });
 
-    if (!data) throw new Error("Lista de serviços não encontrada");
-
-    return data;
+      return { data: servicos, status: 200 };
+    } catch (error) {
+      return { status: 400, message: "Lista de serviços não encontrada." };
+    }
   },
 
   delete: async (id: string) => {
@@ -85,6 +89,8 @@ export const servico = {
           id: id,
         },
       });
+
+      revalidatePath("/multicaixa/entidades/[id]", "page");
 
       return { status: 200, message: "Serviço apagado com sucesso." };
     } catch (error) {

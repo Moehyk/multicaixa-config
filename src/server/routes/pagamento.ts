@@ -1,3 +1,5 @@
+import { cache } from "react";
+import { revalidatePath } from "next/cache";
 import { db } from "..";
 import { CreatePagamentoParams } from "@/types";
 
@@ -26,6 +28,11 @@ export const pagamento = {
         },
       });
 
+      revalidatePath(
+        "/multicaixa/entidades/[id]/servicos/[id]/produtos/[id]",
+        "page"
+      );
+
       return {
         status: 200,
         message: "Pagamento configurado com sucesso.",
@@ -38,16 +45,22 @@ export const pagamento = {
     }
   },
 
-  get: async (id: string) => {
+  get: cache(async (id: string) => {
     try {
       const pagamento = await db.pagamento.findUnique({
         where: {
           productId: id,
         },
       });
+
+      revalidatePath(
+        "/multicaixa/entidades/[id]/servicos/[id]/produtos/[id]",
+        "page"
+      );
+
       return { data: pagamento, status: 200 };
     } catch (error) {
       return { status: 400, message: "Pagamento não encontrado." };
     }
-  },
+  }),
 };

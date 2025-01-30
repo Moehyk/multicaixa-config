@@ -5,51 +5,53 @@ import { CreateProdutoParams } from "@/types";
 
 export const produto = {
   create: async ({ id, input, serviceId }: CreateProdutoParams) => {
-    const produto = await db.produto.upsert({
-      where: {
-        id: id,
-      },
-      create: {
-        screenName: input.screenName,
-        selectionName: input.selectionName,
-        type: input.type,
-        serviceId: serviceId,
-      },
-      update: {
-        screenName: input.screenName,
-        selectionName: input.selectionName,
-        serviceId: serviceId,
-      },
-    });
+    try {
+      await db.produto.upsert({
+        where: {
+          id: id,
+        },
+        create: {
+          screenName: input.screenName,
+          selectionName: input.selectionName,
+          type: input.type,
+          serviceId: serviceId,
+        },
+        update: {
+          screenName: input.screenName,
+          selectionName: input.selectionName,
+          serviceId: serviceId,
+        },
+      });
 
-    if (!id) {
-      if (!produto) {
+      revalidatePath("/multicaixa/entidades/[id]/servicos/[id]", "page");
+
+      if (!id) {
+        return {
+          status: 200,
+          message: "Produto criado com sucesso.",
+        };
+      } else {
+        return {
+          status: 200,
+          message: "Produto editado com sucesso.",
+        };
+      }
+    } catch (error) {
+      if (!id) {
         return {
           status: 400,
           message: "Aconteceu um erro ao tentar criar o produto.",
         };
+      } else {
+        return {
+          status: 400,
+          message: "Aconteceu um erro ao tentar editar o produto.",
+        };
       }
-
-      return {
-        status: 200,
-        message: "Produto criado com sucesso.",
-      };
     }
-
-    if (!produto) {
-      return {
-        status: 400,
-        message: "Aconteceu um erro ao tentar editar o produto.",
-      };
-    }
-
-    return {
-      status: 200,
-      message: "Produto editado com sucesso.",
-    };
   },
 
-  get: async (id: string) => {
+  get: cache(async (id: string) => {
     try {
       const produto = await db.produto.findUnique({
         where: {
@@ -61,9 +63,9 @@ export const produto = {
     } catch (error) {
       return { status: 400, message: "Produto não encontrado." };
     }
-  },
+  }),
 
-  getAll: async (id: string) => {
+  getAll: cache(async (id: string) => {
     try {
       const data = await db.produto.findMany({
         where: {
@@ -75,7 +77,7 @@ export const produto = {
     } catch (error) {
       return { status: 400, message: "Lista de produtos não encontrada." };
     }
-  },
+  }),
 
   delete: async (id: string) => {
     try {
@@ -84,6 +86,8 @@ export const produto = {
           id: id,
         },
       });
+
+      revalidatePath("/multicaixa/entidades/[id]/servicos/[id]", "page");
 
       return { status: 200, message: "Produto apagado com sucesso." };
     } catch (error) {

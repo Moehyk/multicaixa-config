@@ -1,8 +1,8 @@
+import { cache } from "react";
 import { db } from "..";
-import { CreateCarregamentoParams } from "@/types";
 
 export const carregamento = {
-  getAll: async (id: string) => {
+  getAll: cache(async (id: string) => {
     try {
       const data = await db.carregamento.findMany({
         where: {
@@ -14,5 +14,5 @@ export const carregamento = {
     } catch (error) {
       return { status: 400, message: "Lista de carregamentos não encontrada." };
     }
-  },
+  }),
 };
