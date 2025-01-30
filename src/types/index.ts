@@ -1,0 +1,48 @@
+import {
+  Entitade,
+  Servico,
+  Produto,
+  Pagamento,
+  Carregamento,
+} from "@prisma/client";
+
+export type EntidadeForm = Omit<Entitade, "id" | "utilizadorId">;
+export type ServicoForm = Omit<Servico, "id" | "entityId">;
+export type ProdutoForm = Omit<Produto, "id" | "serviceId">;
+export type PagamentoForm = Omit<Pagamento, "id" | "productId" | "isNew">;
+export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
+
+export type GridButton = {
+  id: string;
+  text: string;
+};
+
+export type CreateServicoParams = {
+  input: ServicoForm;
+  entityId: string;
+  id: string | undefined;
+};
+
+export type CreateProdutoParams = {
+  input: ProdutoForm;
+  serviceId: string;
+  id: string | undefined;
+};
+
+export type CreatePagamentoParams = {
+  input: PagamentoForm;
+  productId: string;
+  id: string | undefined;
+};
+
+export type CreateCarregamentoParams = {
+  input: CarregamentoForm;
+  productId: string;
+  id: string | undefined;
+};
+
+export type UrlParams = {
+  entidadeId: string;
+  servicoId: string;
+  produtoId: string;
+};
