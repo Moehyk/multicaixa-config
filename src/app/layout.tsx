@@ -1,5 +1,8 @@
 import { Geist, Geist_Mono } from "next/font/google";
 
+import { RootWrapper, PageWrapper } from "@/components/wrappers";
+import { Header } from "@/components/header";
+import { Footer } from "@/components/footer";
 import { AuthProvider, StylesProvider } from "@/components/providers";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
@@ -37,7 +40,13 @@ export default function RootLayout({
         <body
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
-          <StylesProvider>{children}</StylesProvider>
+          <StylesProvider>
+            <RootWrapper>
+              <Header />
+              <PageWrapper>{children}</PageWrapper>
+              <Footer />
+            </RootWrapper>
+          </StylesProvider>
         </body>
       </html>
     </AuthProvider>
