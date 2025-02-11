@@ -2,7 +2,6 @@ import type { Config } from "tailwindcss";
 
 export default {
   corePlugins: {
-    preflight: false,
     container: false,
   },
   content: [
@@ -57,13 +56,21 @@ export default {
           padding: "0 1rem",
           marginLeft: "auto",
           marginRight: "auto",
-          "@screen md": {
-            padding: "0 1rem",
+          "@screen sm": {
+            maxWidth: "540px",
           },
-          "@screen xl": {
+          "@screen md": {
+            maxWidth: "720px",
             padding: "0 2rem",
           },
+          "@screen lg": {
+            maxWidth: "960px",
+          },
+          "@screen xl": {
+            maxWidth: "1140px",
+          },
           "@screen 2xl": {
+            maxWidth: "1320px",
             padding: "0 4rem",
           },
         },
