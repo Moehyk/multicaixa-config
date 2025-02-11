@@ -10,7 +10,6 @@ import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-import bg_image from "../../public/bg.jpg";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,12 +38,6 @@ export default function RootLayout({
           <ColorSchemeScript />
         </head>
         <body
-          style={{
-            backgroundImage: `url(${bg_image.src})`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center top",
-            backgroundSize: "100% 400px",
-          }}
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <StylesProvider>
