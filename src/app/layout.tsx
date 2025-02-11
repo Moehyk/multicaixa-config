@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 
 import { RootWrapper, PageWrapper } from "@/components/wrappers";
@@ -6,10 +7,10 @@ import { Footer } from "@/components/footer";
 import { AuthProvider, StylesProvider } from "@/components/providers";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
-import type { Metadata } from "next";
 import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import bg_image from "../../public/bg.jpg";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -38,6 +39,12 @@ export default function RootLayout({
           <ColorSchemeScript />
         </head>
         <body
+          style={{
+            backgroundImage: `url(${bg_image.src})`,
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center top",
+            backgroundSize: "100% 400px",
+          }}
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <StylesProvider>
