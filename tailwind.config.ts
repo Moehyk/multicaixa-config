@@ -20,9 +20,11 @@ export default {
     },
     extend: {
       spacing: {
+        66: "16.5rem",
         88: "22rem",
       },
       flex: {
+        1: "1",
         "col-fluid": "1 0 auto",
         "row-fluid": "1 auto",
       },
