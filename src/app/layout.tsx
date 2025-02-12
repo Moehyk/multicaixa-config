@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 
 import { RootWrapper, PageWrapper } from "@/components/wrappers";
 import { Header } from "@/components/header";
@@ -7,19 +6,11 @@ import { Footer } from "@/components/footer";
 import { AuthProvider, StylesProvider } from "@/components/providers";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
+import { geistMono, geistSans } from "@/utils";
+
 import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "MCX-Config App",

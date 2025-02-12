@@ -18,6 +18,10 @@ export default {
       "2xl": "1400px",
     },
     extend: {
+      fontFamily: {
+        sans: ["var(--font-geist-sans)"],
+        mono: ["var(--font-geist-mono)"],
+      },
       spacing: {
         66: "16.5rem",
         88: "22rem",

@@ -1,5 +1,6 @@
 import { createTheme, InputWrapper } from "@mantine/core";
 import { brand, gray, green, orange, red } from "./colors";
+import { geistMono, geistSans } from "@/utils";
 
 export const theme = createTheme({
   cursorType: "pointer",
@@ -14,11 +15,13 @@ export const theme = createTheme({
     xl: "0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1)",
   },
   colors: {
-    brand: brand,
+    brand,
     green,
     orange,
     red,
   },
+  fontFamily: geistSans.style.fontFamily,
+  fontFamilyMonospace: geistMono.style.fontFamily,
   components: {
     InputWrapper: InputWrapper.extend({
       defaultProps: {
