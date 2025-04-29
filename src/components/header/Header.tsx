@@ -1,6 +1,8 @@
 "use client";
 import { useColorScheme } from "@mantine/hooks";
 
+import { Anchor } from "@mantine/core";
+
 import Image from "next/image";
 
 import logo_light from "@/assets/logo_light.svg";
@@ -14,25 +16,17 @@ function StickyHeader() {
 
 export default function Header() {
   return (
-    <header className="flex items-center h-20 mb-10 border-b border-b-gray-900">
-      <div className="container w-full flex items-center">
+    <header className="flex items-center h-20 bg-white shadow-sm">
+      <div className="container w-full flex items-center justify-between">
         <Image
-          src={logo_dark}
+          src={logo_light}
           alt="Logo"
           width={40}
           height={40}
           className="object-contain"
         />
-        <div className="flex items-center justify-between flex-1 ml-12">
-          <nav>
-            <ul className="flex gap-4 text-white text-sm">
-              <li>Link 1</li>
-              <li>Link 2</li>
-              <li>Link 3</li>
-              <li>Link 4</li>
-            </ul>
-          </nav>
-          <div>User</div>
+        <div>
+          <Anchor href="/multicaixa">Multicaixa</Anchor>
         </div>
       </div>
     </header>
