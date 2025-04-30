@@ -21,7 +21,7 @@ export default async function MulticaixaPage() {
       <div>
         {entidades?.map((e) => (
           <div key={e.id}>
-            <div>{e.screenName}</div>
+            <a href={`/multicaixa/entidade/${e.id}`}>{e.screenName}</a>
             <div>{e.id}</div>
           </div>
         ))}
