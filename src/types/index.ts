@@ -42,7 +42,7 @@ export type CreateCarregamentoParams = {
 };
 
 export type UrlParams = {
-  entidadeId: string;
-  servicoId: string;
-  produtoId: string;
+  eid: string;
+  pid: string;
+  sid: string;
 };
