@@ -1,12 +1,12 @@
 import {
-  Entitade,
+  Empresa,
   Servico,
   Produto,
   Pagamento,
   Carregamento,
 } from "@prisma/client";
 
-export type EntidadeForm = Omit<Entitade, "id" | "utilizadorId">;
+export type EmpresaForm = Omit<Empresa, "id" | "utilizadorId">;
 export type ServicoForm = Omit<Servico, "id" | "entityId">;
 export type ProdutoForm = Omit<Produto, "id" | "serviceId">;
 export type PagamentoForm = Omit<Pagamento, "id" | "productId" | "isNew">;
