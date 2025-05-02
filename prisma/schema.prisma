@@ -11,7 +11,7 @@ model Montante {
   id                      String        @id @default(cuid())
   carregamentoId          String
   carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id])
-  montante                Int
+  montante                Float
   descricao               String
 }
 
@@ -24,8 +24,8 @@ model Carregamento {
   texto_ecra_referencia   String
   montante_tipo           MontanteTipo
   montante_livre          Boolean
-  montante_minimo         Int?
-  montante_maximo         Int?
+  montante_minimo         Float?
+  montante_maximo         Float?
   montante_pre_definido   Boolean
   montantes               Montante[]
 }
@@ -34,7 +34,7 @@ model Empresa {
   id                      String        @id @default(cuid())
   utilizadorId            String        @unique
   utilizador              Utilizador    @relation(fields: [utilizadorId], references: [id], onDelete: Cascade)
-  cae                     Int
+  cae                     String
   nome                    String
   numero_pessoa_colectiva String
   sigla                   String
@@ -44,7 +44,7 @@ model Empresa {
   telefone                String
   email                   String
   logo                    String
-  numero_entidade         Int
+  numero_entidade         String
   desig_ecra              String
   desig_tecla_seleccao    String
   servicos                Servico[]
@@ -58,8 +58,8 @@ model Pagamento {
   tamanho_referencia      Int
   texto_ecra_referencia   String
   isNew                   Boolean       @default(true)
-  montante_minimo         Int
-  montante_maximo         Int
+  montante_minimo         Float
+  montante_maximo         Float
 }
 
 model Produto {
@@ -80,7 +80,7 @@ model Recarga {
   recargas                Recargas      @relation(fields: [recargasId], references: [id], onDelete: Cascade)
   productId               String
   desig_unidade           String
-  desig_montante          Int
+  desig_montante          Float
 }
 
 model Recargas {
