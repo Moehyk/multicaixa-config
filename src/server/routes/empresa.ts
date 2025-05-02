@@ -58,16 +58,17 @@ export const empresa = {
     }
   },
 
-  get: cache(async (id: string) => {
+  get: cache(async () => {
+    const user = await getUser();
     try {
       const data = await db.empresa.findUnique({
         where: {
-          id: id,
+          utilizadorId: user?.id,
         },
       });
       return { data, status: 200 };
     } catch (error) {
-      if (!id) {
+      if (!user) {
         return {
           status: 400,
           message: "utilizador não encontrado",
