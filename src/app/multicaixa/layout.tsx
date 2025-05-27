@@ -1,13 +1,15 @@
-import React from "react";
+import { Suspense } from "react";
 import { EmpresaWidget } from "@/components";
 
 export default function MulticaixaLayout({
   children,
 }: React.PropsWithChildren) {
   return (
-    <div>
-      <EmpresaWidget />
+    <>
+      <Suspense fallback={<div>Loading...</div>}>
+        <EmpresaWidget />
+      </Suspense>
       {children}
-    </div>
+    </>
   );
 }
