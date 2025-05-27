@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { db } from "..";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
+import { revalidatePath } from "next/cache";
 
 export const user = {
   get: cache(async () => {
@@ -27,6 +28,7 @@ export const user = {
           surname: user.family_name,
         },
       });
+      revalidatePath("/multicaixa", "page");
       return { data, status: 200 };
     } catch (error) {
       return { status: 400, message: "Autorização negada.", error };
