@@ -8,9 +8,9 @@ import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
 import { geistMono, geistSans } from "@/utils";
 
-import "./globals.css";
 import "@mantine/core/styles.css";
 import "@mantine/notifications/styles.css";
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "MCX-Config App",
