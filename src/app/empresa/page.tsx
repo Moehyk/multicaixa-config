@@ -8,12 +8,12 @@ export default async function CriarEmpresaPage() {
   const header = data ? data.nome : "Criar Empresa";
 
   return (
-    <Card withBorder>
+    <Card withBorder p={32}>
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">{header}</h1>
         {data && <Button>Editar</Button>}
       </div>
-      <EmpresaForm />
+      <EmpresaForm id={data?.id} />
     </Card>
   );
 }
