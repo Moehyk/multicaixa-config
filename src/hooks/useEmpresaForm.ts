@@ -16,7 +16,6 @@ export const useEmpresaForm = () =>
       email: "",
       cae: "",
       numero_pessoa_colectiva: "",
-      logo: "",
       numero_entidade: "",
       desig_ecra: "",
       desig_tecla_seleccao: "",

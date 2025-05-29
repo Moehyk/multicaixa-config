@@ -43,7 +43,6 @@ model Empresa {
   responsavel             String
   telefone                String
   email                   String
-  logo                    String
   numero_entidade         String
   desig_ecra              String
   desig_tecla_seleccao    String
