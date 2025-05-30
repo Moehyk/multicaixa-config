@@ -48,6 +48,8 @@ export default {
         body: "rgb(var(--bg-body) / <alpha-value>)",
         header: "rgb(var(--bg-header) / <alpha-value>)",
         border: "rgb(var(--border) / <alpha-value>)",
+        "modal-footer": "rgb(var(--modal-footer) / <alpha-value>)",
+        "modal-footer-b": "rgb(var(--modal-footer-border) / <alpha-value>)",
         toolbar: "rgb(var(--toolbar-bg) / <alpha-value>)",
       },
     },

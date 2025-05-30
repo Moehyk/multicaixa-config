@@ -1,7 +1,6 @@
-import { createTheme, InputWrapper, Input, TextInput } from "@mantine/core";
+import { createTheme, TextInput, Modal, Card } from "@mantine/core";
 import { brand, gray, green, orange, red } from "./colors";
 import { geistMono, geistSans } from "@/utils";
-import { styleText } from "util";
 
 export const theme = createTheme({
   cursorType: "pointer",
@@ -24,10 +23,36 @@ export const theme = createTheme({
   fontFamily: geistSans.style.fontFamily,
   fontFamilyMonospace: geistMono.style.fontFamily,
   components: {
+    Card: Card.extend({
+      styles: {
+        root: {
+          backgroundColor: "var(--mantine-paper)",
+          borderRadius: "var(--mantine-default-radius)",
+        },
+      },
+    }),
     TextInput: TextInput.extend({
       defaultProps: {
         h: 96,
         size: "md",
+      },
+    }),
+    Modal: Modal.extend({
+      styles: {
+        root: {
+          border: "1px solid var(--mantine-paper-border)",
+        },
+        body: {
+          backgroundColor: "var(--mantine-modal)",
+          padding: 0,
+        },
+        header: {
+          backgroundColor: "var(--mantine-modal)",
+        },
+        title: {
+          fontSize: "var(--mantine-font-size-xl)",
+          fontWeight: 600,
+        },
       },
     }),
   },
