@@ -1,31 +1,29 @@
 import { db } from "..";
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { checkIfQueryParamsIsValid, getInvalidParamsMessage } from "@/utils";
 import { Prisma } from "@prisma/client";
 
-import { EmpresaForm } from "@/types";
+import { Empresa } from "@prisma/client";
 
 const { getUser } = getKindeServerSession();
 
 export const empresa = {
-  create: async (input: EmpresaForm, id: string | undefined) => {
+  create: async (input: Empresa) => {
     try {
       const user = await getUser();
       if (!user?.id) throw new Error("User not authenticated");
 
       // 1. Prepare the where clause
-      const where = id
-        ? { id } // For updates
+      const where = input.id
+        ? { id: input.id } // For updates
         : { utilizadorId: user.id }; // For creations
 
       // 2. Perform the upsert
       const empresa = await db.empresa.upsert({
         where,
         create: {
-          utilizadorId: user.id,
           ...input,
         },
         update: {
@@ -38,7 +36,7 @@ export const empresa = {
       revalidatePath("/multicaixa", "page");
       return {
         status: 200,
-        message: id ? "Empresa atualizada" : "Empresa criada",
+        message: input.id ? "Empresa atualizada" : "Empresa criada",
         data: { id: empresa.id }, // Return only essential data
       };
     } catch (error) {
@@ -89,7 +87,7 @@ export const empresa = {
     }
   },
 
-  get: async () => {
+  get: cache(async () => {
     const user = await getUser();
     try {
       const data = await db.empresa.findUnique({
@@ -113,7 +111,7 @@ export const empresa = {
         };
       }
     }
-  },
+  }),
 
   delete: async (id: string) => {
     try {

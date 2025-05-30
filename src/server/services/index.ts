@@ -3,13 +3,11 @@
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
 import { api } from "..";
-import { EmpresaForm } from "@/types";
 
-export const updateEmpresa = async (
-  values: EmpresaForm,
-  id: string | undefined
-) => {
-  const response = await api.empresa.create(values, id);
+import { Empresa } from "@prisma/client";
+
+export const updateEmpresa = async (values: Empresa) => {
+  const response = await api.empresa.create(values);
 
   return response;
 };
@@ -33,8 +31,8 @@ export const initEmpresa = async () => {
   return { empresaExist, empresa };
 };
 
-export const createEmpresa = async (values: EmpresaForm, id?: string) => {
-  const response = await api.empresa.create(values, id);
+export const createEmpresa = async (values: Empresa) => {
+  const response = await api.empresa.create(values);
 
   return response;
 };
