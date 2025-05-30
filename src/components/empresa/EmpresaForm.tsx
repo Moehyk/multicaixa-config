@@ -32,7 +32,6 @@ export default function EmpresaForm({ id }: { id: string | undefined }) {
           label="Sigla"
           placeholder="Sigla da empresa"
           className="flex-1"
-          size="md"
         />
         <TextInput
           {...getInputProps("numero_pessoa_colectiva")}

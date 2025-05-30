@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { EmpresaWidget } from "@/components";
+import { EmpresaWidget } from "@/components/empresa";
 
 export default function MulticaixaLayout({
   children,

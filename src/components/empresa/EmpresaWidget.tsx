@@ -2,7 +2,7 @@ import { initEmpresa } from "@/server/services";
 import { redirect } from "next/navigation";
 
 import Link from "next/link";
-import { CriarEmpresaModal } from "@/components";
+import CriarEmpresaModal from "./CriarEmpresaModal";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
 import { IconMail, IconPhone, IconSettings } from "@tabler/icons-react";
 
@@ -42,7 +42,6 @@ export default async function EmpresaWidget() {
 
   return (
     <div className="relative h-32 mb-8">
-      <LogoImg url={empresa.logo} />
       <Card withBorder className="pl-16 pr-8 ml-12 h-32 flex justify-center">
         <div className="flex justify-between items-center">
           <div className="flex flex-col gap-2">
