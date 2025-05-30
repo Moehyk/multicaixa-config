@@ -13,8 +13,8 @@ export default function EmpresaModalForm() {
   } = useEmpresaModalForm();
 
   return (
-    <div>
-      <Stepper active={active}>
+    <div className="p-2">
+      <Stepper active={active} className="h-88">
         <Stepper.Step label="Dados da Empresa">
           <div className="flex gap-2">
             <TextInput
@@ -81,27 +81,19 @@ export default function EmpresaModalForm() {
           Form Values: {JSON.stringify(getValues())}
         </Stepper.Completed>
       </Stepper>
-      {active !== 0 && (
-        <Button
-          onClick={() => {
-            console.log("active", active);
-            prevStep();
-          }}
-        >
-          Voltar
-        </Button>
-      )}
-      {active !== 3 && (
-        <Button
-          onClick={() => {
-            console.log("active", active);
-            nextStep();
-          }}
-        >
-          Próximo
-        </Button>
-      )}
-      {active === 3 && <Button onClick={() => {}}>Finalizar</Button>}
+      <div className="flex w-full mt-4">
+        {active !== 0 && <Button onClick={prevStep}>Voltar</Button>}
+        {active !== 3 && (
+          <Button onClick={nextStep} className="ml-auto">
+            Próximo
+          </Button>
+        )}
+        {active === 3 && (
+          <Button onClick={() => {}} className="ml-auto">
+            Finalizar
+          </Button>
+        )}
+      </div>
     </div>
   );
 }
