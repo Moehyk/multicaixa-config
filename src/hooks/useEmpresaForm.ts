@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 import { zodResolver } from "mantine-form-zod-resolver";
@@ -9,9 +9,11 @@ import {
   empresaStepThreeSchema,
 } from "@/utils/schemas";
 import { EmpresaForm } from "@/types";
-import { use } from "react";
+import { Empresa } from "@prisma/client";
 
-const initialValues: EmpresaForm = {
+const initialValues: Empresa = {
+  id: "",
+  utilizadorId: "",
   nome: "",
   sigla: "",
   morada: "",
@@ -26,18 +28,26 @@ const initialValues: EmpresaForm = {
   desig_tecla_seleccao: "",
 };
 
-export const useEmpresaForm = () =>
-  useForm<EmpresaForm>({
+export const useEmpresaForm = (data: Empresa) => {
+  const form = useForm<Empresa>({
     mode: "uncontrolled",
     initialValues,
     validate: zodResolver(empresaSchema),
   });
 
+  useEffect(() => {
+    form.setInitialValues(data);
+    form.setValues(data);
+  }, [data]);
+
+  return form;
+};
+
 export const useEmpresaModalForm = () => {
   const [active, setActive] = useState(0);
   const [opened, { close }] = useDisclosure(true);
 
-  const form = useForm<EmpresaForm>({
+  const form = useForm<Empresa>({
     mode: "controlled",
     initialValues,
     validate: zodResolver(
