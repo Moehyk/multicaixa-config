@@ -21,18 +21,6 @@ function IconGroup({
   );
 }
 
-function LogoImg({ url }: { url: string | undefined }) {
-  return (
-    <img
-      alt="empresa logo"
-      src={url ? url : "/placeholder_log.png"}
-      width={96}
-      height={96}
-      className="rounded-lg border border-gray-200 object-cover drop-shadow-lg absolute top-1/2 -translate-y-1/2 z-50"
-    />
-  );
-}
-
 export default async function EmpresaWidget() {
   const { empresa } = await initEmpresa();
 
