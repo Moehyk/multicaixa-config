@@ -6,7 +6,7 @@ export const carregamento = {
     try {
       const data = await db.carregamento.findMany({
         where: {
-          productId: id,
+          id: id,
         },
       });
 

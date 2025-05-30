@@ -11,14 +11,14 @@ export const produto = {
           id: id,
         },
         create: {
-          screenName: input.screenName,
-          selectionName: input.selectionName,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
           type: input.type,
           serviceId: serviceId,
         },
         update: {
-          screenName: input.screenName,
-          selectionName: input.selectionName,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
           serviceId: serviceId,
         },
       });

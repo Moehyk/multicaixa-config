@@ -2,27 +2,30 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db } from "..";
 import { CreateServicoParams } from "@/types";
+import { Servico } from "@prisma/client";
 
 export const servico = {
-  create: async ({ entityId, id, input }: CreateServicoParams) => {
+  create: async ({ empresaId, id, input }: CreateServicoParams) => {
     try {
       await db.servico.upsert({
         where: {
           id: id,
         },
         create: {
-          entityId: entityId,
-          screenName: input.screenName,
-          selectionName_1: input.selectionName_1,
-          selectionName_2: input.selectionName_2,
-          systemName: input.systemName,
+          empresaId,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao_1: input.desig_tecla_seleccao_1,
+          desig_tecla_seleccao_2: input.desig_tecla_seleccao_2,
+          desig_sistema: input.desig_sistema,
+          suprimir_produtos: input.suprimir_produtos,
         },
         update: {
-          entityId: entityId,
-          screenName: input.screenName,
-          selectionName_1: input.selectionName_1,
-          selectionName_2: input.selectionName_2,
-          systemName: input.systemName,
+          empresaId,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao_1: input.desig_tecla_seleccao_1,
+          desig_tecla_seleccao_2: input.desig_tecla_seleccao_2,
+          desig_sistema: input.desig_sistema,
+          suprimir_produtos: input.suprimir_produtos,
         },
       });
 
@@ -74,7 +77,7 @@ export const servico = {
     try {
       const servicos = await db.servico.findMany({
         where: {
-          entityId: id,
+          empresaId: id,
         },
       });
 
