@@ -1,2 +1,2 @@
-export { useEmpresaForm } from "./useEmpresaForm";
+export { useEmpresaForm, useEmpresaModalForm } from "./useEmpresaForm";
 export { useFormMutation } from "./useFormMutation";
