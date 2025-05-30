@@ -32,3 +32,9 @@ export const initEmpresa = async () => {
 
   return { empresaExist, empresa };
 };
+
+export const createEmpresa = async (values: EmpresaForm, id?: string) => {
+  const response = await api.empresa.create(values, id);
+
+  return response;
+};
