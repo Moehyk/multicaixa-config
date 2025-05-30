@@ -29,32 +29,32 @@ export default async function EmpresaWidget() {
   }
 
   return (
-    <div className="relative h-32 mb-8">
-      <Card withBorder className="pl-16 pr-8 ml-12 h-32 flex justify-center">
-        <div className="flex justify-between items-center">
-          <div className="flex flex-col gap-2">
-            <p className="text-2xl font-semibold">{empresa.nome}</p>
-            <div className="text-sm flex gap-6">
-              <IconGroup text={empresa.email}>
-                <IconMail />
-              </IconGroup>
-              <IconGroup text={empresa.telefone}>
-                <IconPhone />
-              </IconGroup>
-            </div>
-          </div>
-          <Tooltip label="Editar Empresa" position="bottom">
-            <ActionIcon
-              component={Link}
-              href="/empresa"
-              variant="default"
-              size="xl"
-            >
-              <IconSettings size={32} stroke={1.5} />
-            </ActionIcon>
-          </Tooltip>
+    <Card
+      withBorder
+      px={32}
+      className="h-32 flex-row justify-between items-center mb-8"
+    >
+      <div className="flex flex-col gap-2">
+        <p className="text-2xl font-semibold">{empresa.nome}</p>
+        <div className="text-sm flex gap-6">
+          <IconGroup text={empresa.email}>
+            <IconMail />
+          </IconGroup>
+          <IconGroup text={empresa.telefone}>
+            <IconPhone />
+          </IconGroup>
         </div>
-      </Card>
-    </div>
+      </div>
+      <Tooltip label="Editar Empresa" position="bottom">
+        <ActionIcon
+          component={Link}
+          href="/empresa"
+          variant="default"
+          size="xl"
+        >
+          <IconSettings size={32} stroke={1.5} />
+        </ActionIcon>
+      </Tooltip>
+    </Card>
   );
 }
