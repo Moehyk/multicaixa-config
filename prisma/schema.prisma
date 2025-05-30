@@ -92,7 +92,7 @@ model Recargas {
 model Servico {
   id                      String        @id @default(cuid())
   empresaId               String
-  entitade                Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+  empresa                 Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
   desig_sistema           String
   desig_ecra              String
   desig_tecla_seleccao_1  String
