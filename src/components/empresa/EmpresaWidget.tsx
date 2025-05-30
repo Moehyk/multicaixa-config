@@ -2,7 +2,7 @@ import { initEmpresa } from "@/server/services";
 import { redirect } from "next/navigation";
 
 import Link from "next/link";
-import CriarEmpresaModal from "./CriarEmpresaModal";
+import EmpresaModalForm from "./EmpresaModalForm";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
 import { IconMail, IconPhone, IconSettings } from "@tabler/icons-react";
 
@@ -25,7 +25,7 @@ export default async function EmpresaWidget() {
   const { empresa } = await initEmpresa();
 
   if (!empresa) {
-    return <CriarEmpresaModal />;
+    return <EmpresaModalForm />;
   }
 
   return (
