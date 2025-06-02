@@ -5,15 +5,14 @@ import { EmpresaForm } from "@/components/empresa";
 export default async function CriarEmpresaPage() {
   const { data } = await api.empresa.get();
 
-  const header = data ? data.nome : "Criar Empresa";
+  if (!data) {
+    return <div>Ups...</div>;
+  }
 
   return (
-    <Card withBorder p={32}>
-      <div className="flex justify-between items-center">
-        <h1 className="text-2xl font-semibold">{header}</h1>
-        {data && <Button>Editar</Button>}
-      </div>
-      <EmpresaForm id={data?.id} />
+    <Card withBorder p={0}>
+      <h1 className="text-2xl font-semibold p-8">{data.nome}</h1>
+      <EmpresaForm {...data} />
     </Card>
   );
 }
