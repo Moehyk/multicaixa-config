@@ -95,19 +95,27 @@ export const empresa = {
           utilizadorId: user?.id,
         },
       });
-      return { data, status: 200 };
+      return { data, status: 200, message: "Empresa recuperada com sucesso" };
     } catch (error) {
       if (!user) {
         return {
           status: 400,
-          message: "utilizador não encontrado",
-          error: String(error),
+          message: "Utilizador não encontrado",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+          // Include stack only in development
+          ...(process.env.NODE_ENV === "development" && {
+            debug: error instanceof Error ? error.stack : undefined,
+          }),
         };
       } else {
         return {
           status: 500,
-          message: "o servidor não conseguiu processar a solicitação",
-          error: String(error),
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+          // Include stack only in development
+          ...(process.env.NODE_ENV === "development" && {
+            debug: error instanceof Error ? error.stack : undefined,
+          }),
         };
       }
     }
@@ -129,13 +137,21 @@ export const empresa = {
         return {
           status: 400,
           message: "utilizador não encontrado",
-          error,
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+          // Include stack only in development
+          ...(process.env.NODE_ENV === "development" && {
+            debug: error instanceof Error ? error.stack : undefined,
+          }),
         };
       } else {
         return {
           status: 500,
-          message: "o servidor não conseguiu processar a solicitação",
-          error,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+          // Include stack only in development
+          ...(process.env.NODE_ENV === "development" && {
+            debug: error instanceof Error ? error.stack : undefined,
+          }),
         };
       }
     }
