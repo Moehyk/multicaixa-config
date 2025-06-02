@@ -1,18 +1,20 @@
 import { api } from "@/server";
-import { Card, Button } from "@mantine/core";
+import { Card, Button, ThemeIcon } from "@mantine/core";
 import { EmpresaForm } from "@/components/empresa";
 
-export default async function CriarEmpresaPage() {
-  const { data } = await api.empresa.get();
+import { IconExclamationCircle } from "@tabler/icons-react";
 
-  if (!data) {
-    return <div>Ups...</div>;
-  }
+export default async function CriarEmpresaPage() {
+  const { data, message } = await api.empresa.get();
+
+  if (!data) throw new Error(message);
 
   return (
-    <Card withBorder p={0}>
-      <h1 className="text-2xl font-semibold p-8">{data.nome}</h1>
-      <EmpresaForm {...data} />
-    </Card>
+    <>
+      <Card withBorder p={0}>
+        <h1 className="text-2xl font-semibold p-8">{data.nome}</h1>
+        <EmpresaForm {...data} />
+      </Card>
+    </>
   );
 }

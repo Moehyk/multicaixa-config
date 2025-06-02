@@ -3,3 +3,4 @@ export { default as Grid } from "./Grid";
 export { default as GridCard } from "./GridCard";
 export { default as NewGridItem } from "./NewGridItem";
 export { default as GlobalLoader } from "./GlobalLoader";
+export { default as ErrorWidget } from "./ErrorWidget";
