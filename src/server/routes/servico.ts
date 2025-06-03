@@ -17,7 +17,6 @@ export const servico = {
           desig_tecla_seleccao_1: input.desig_tecla_seleccao_1,
           desig_tecla_seleccao_2: input.desig_tecla_seleccao_2,
           desig_sistema: input.desig_sistema,
-          suprimir_produtos: input.suprimir_produtos,
         },
         update: {
           empresaId,
@@ -25,7 +24,6 @@ export const servico = {
           desig_tecla_seleccao_1: input.desig_tecla_seleccao_1,
           desig_tecla_seleccao_2: input.desig_tecla_seleccao_2,
           desig_sistema: input.desig_sistema,
-          suprimir_produtos: input.suprimir_produtos,
         },
       });
 
