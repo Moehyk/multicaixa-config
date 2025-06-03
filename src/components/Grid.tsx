@@ -1,6 +1,7 @@
 import GridServico from "./GridServico";
 import GridProduto from "./GridProduto";
 import GridNoProduto from "./GridNoProduto";
+import GridNoServico from "./GridNoServico";
 
 import { Button } from "@mantine/core";
 
@@ -22,3 +23,4 @@ export default function Grid({ children }: { children: React.ReactNode }) {
 Grid.Servico = GridServico;
 Grid.Produto = GridProduto;
 Grid.NoProduto = GridNoProduto;
+Grid.NoServico = GridNoServico;
