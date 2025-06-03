@@ -2,7 +2,7 @@
 
 import { useMotionIcon } from "@/hooks";
 
-import { Card, Button, Collapse, Tooltip, ActionIcon } from "@mantine/core";
+import { Card, Collapse, Tooltip, ActionIcon } from "@mantine/core";
 import { IconTrash, IconEdit, IconPlus } from "@tabler/icons-react";
 
 export default function GridServico({
@@ -18,7 +18,7 @@ export default function GridServico({
     <Card withBorder className="justify-center ">
       <div className="w-full flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <ActionIcon variant="default" onClick={motionIcon}>
+          <ActionIcon variant="default" onClick={motionIcon} size="lg">
             <MotionIcon
               size={16}
               variants={{ open: { rotate: -180 }, closed: { rotate: 0 } }}
@@ -29,23 +29,23 @@ export default function GridServico({
           <h2 className="font-semibold text-xl">{title}</h2>
         </div>
         <div className="flex items-center gap-2">
-          <Button.Group>
+          <ActionIcon.Group>
             <Tooltip label="Criar Produto" position="top">
-              <Button size="xs" variant="default" radius="xs">
+              <ActionIcon size="lg" variant="default">
                 <IconPlus size={16} />
-              </Button>
+              </ActionIcon>
             </Tooltip>
             <Tooltip label="Editar Serviço" position="top">
-              <Button size="xs" variant="default" radius="xs">
+              <ActionIcon size="lg" variant="default">
                 <IconEdit size={16} />
-              </Button>
+              </ActionIcon>
             </Tooltip>
             <Tooltip label="Apagar Serviço" position="top">
-              <Button size="xs" variant="default" radius="xs">
+              <ActionIcon size="lg" variant="default">
                 <IconTrash size={16} />
-              </Button>
+              </ActionIcon>
             </Tooltip>
-          </Button.Group>
+          </ActionIcon.Group>
         </div>
       </div>
       <Collapse
