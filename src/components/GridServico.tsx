@@ -1,7 +1,9 @@
 "use client";
 
-import { Card, Button } from "@mantine/core";
-import { IconTrash, IconEdit } from "@tabler/icons-react";
+import { useMotionIcon } from "@/hooks";
+
+import { Card, Button, Collapse, Tooltip, ActionIcon } from "@mantine/core";
+import { IconTrash, IconEdit, IconPlus } from "@tabler/icons-react";
 
 export default function GridServico({
   children,
@@ -10,37 +12,51 @@ export default function GridServico({
   children?: React.ReactNode;
   title: string;
 }) {
+  const { MotionIcon, openedIcon, opened, motionIcon } = useMotionIcon();
+
   return (
-    <Card withBorder className="justify-center gap-8">
+    <Card withBorder className="justify-center ">
       <div className="w-full flex items-center justify-between">
-        <h2 className="font-semibold text-xl">{title}</h2>
+        <div className="flex items-center gap-4">
+          <ActionIcon variant="default" onClick={motionIcon}>
+            <MotionIcon
+              size={16}
+              variants={{ open: { rotate: -180 }, closed: { rotate: 0 } }}
+              animate={openedIcon ? "open" : "closed"}
+              transition={{ duration: 0.2, ease: "easeInOut" }}
+            />
+          </ActionIcon>
+          <h2 className="font-semibold text-xl">{title}</h2>
+        </div>
         <div className="flex items-center gap-2">
-          <Button
-            size="xs"
-            variant="light"
-            radius="xs"
-            leftSection={<IconEdit size={16} />}
-          >
-            Editar
-          </Button>
-          <Button
-            variant="light"
-            size="xs"
-            radius="xs"
-            color="red"
-            leftSection={<IconTrash size={16} />}
-          >
-            Apagar
-          </Button>
+          <Button.Group>
+            <Tooltip label="Criar Produto" position="top">
+              <Button size="xs" variant="default" radius="xs">
+                <IconPlus size={16} />
+              </Button>
+            </Tooltip>
+            <Tooltip label="Editar Serviço" position="top">
+              <Button size="xs" variant="default" radius="xs">
+                <IconEdit size={16} />
+              </Button>
+            </Tooltip>
+            <Tooltip label="Apagar Serviço" position="top">
+              <Button size="xs" variant="default" radius="xs">
+                <IconTrash size={16} />
+              </Button>
+            </Tooltip>
+          </Button.Group>
         </div>
       </div>
-      <Card
-        withBorder
-        bg="var(--mantine-color-body)"
-        className="grid gap-2 bg-blue-50"
+      <Collapse
+        in={opened}
+        animateOpacity={false}
+        transitionTimingFunction="linear"
       >
-        {children}
-      </Card>
+        <Card withBorder bg="var(--mantine-color-body)" className="gap-2 mt-8">
+          {children}
+        </Card>
+      </Collapse>
     </Card>
   );
 }
