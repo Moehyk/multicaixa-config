@@ -1,16 +1,10 @@
 import { api } from "@/server";
 import { redirect } from "next/navigation";
+import { entidade } from "../dummyData";
+
+import { EmpresaWidget } from "@/components/empresa";
 
 import { Grid } from "@/components";
-import { Breadcrumbs, Anchor, Card } from "@mantine/core";
-
-const items = [{ title: "Serviços", href: "/multicaixa" }].map(
-  (item, index) => (
-    <Anchor href={item.href} key={index} className="font-semibold">
-      {item.title}
-    </Anchor>
-  )
-);
 
 export default async function MulticaixaPage() {
   const { data: empresa, message: eMessage } = await api.empresa.get();
@@ -21,18 +15,19 @@ export default async function MulticaixaPage() {
     empresa.id
   );
 
-  if (!servicos) throw new Error(sMessage);
+  //if (!servicos) throw new Error(sMessage);
 
   return (
     <>
-      <Breadcrumbs>{items}</Breadcrumbs>
-      <Grid action="SERVICO">
-        <Grid.Card title="Serviço 1" action="SERVICO" />
-        <Grid.Card title="Serviço 2" action="SERVICO" />
-        <Grid.Card title="Serviço 3" action="SERVICO" />
-        <Grid.Card title="Serviço 4" action="SERVICO" />
-        <Grid.Card title="Serviço 5" action="SERVICO" />
-        <Grid.Card title="Serviço 6" action="SERVICO" />
+      <EmpresaWidget {...empresa} />
+      <Grid>
+        {entidade.servicos.map((servico) => (
+          <Grid.Servico key={servico.id} title={servico.desig_ecra}>
+            {servico.produtos.map((produto) => (
+              <Grid.Produto key={produto.id} title={produto.desig_ecra} />
+            ))}
+          </Grid.Servico>
+        ))}
       </Grid>
     </>
   );
