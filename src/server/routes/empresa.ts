@@ -94,6 +94,9 @@ export const empresa = {
         where: {
           utilizadorId: user?.id,
         },
+        include: {
+          servicos: true,
+        },
       });
       return { data, status: 200, message: "Empresa recuperada com sucesso" };
     } catch (error) {

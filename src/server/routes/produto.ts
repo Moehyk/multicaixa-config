@@ -14,12 +14,12 @@ export const produto = {
           desig_ecra: input.desig_ecra,
           desig_tecla_seleccao: input.desig_tecla_seleccao,
           type: input.type,
-          serviceId: serviceId,
+          servicoId: serviceId,
         },
         update: {
           desig_ecra: input.desig_ecra,
           desig_tecla_seleccao: input.desig_tecla_seleccao,
-          serviceId: serviceId,
+          servicoId: serviceId,
         },
       });
 
@@ -71,7 +71,7 @@ export const produto = {
     try {
       const data = await db.produto.findMany({
         where: {
-          serviceId: id,
+          servicoId: id,
         },
       });
 

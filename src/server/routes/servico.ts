@@ -77,6 +77,9 @@ export const servico = {
         where: {
           empresaId: id,
         },
+        include: {
+          produtos: true,
+        },
       });
 
       return { data: servicos, status: 200 };
