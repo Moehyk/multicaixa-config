@@ -96,7 +96,7 @@ model Servico {
   desig_ecra              String
   desig_tecla_seleccao_1  String
   desig_tecla_seleccao_2  String
-  Produto                 Produto[]
+  produtos                Produto[]
 }
 
 model Utilizador {
