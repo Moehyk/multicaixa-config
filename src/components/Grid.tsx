@@ -1,19 +1,22 @@
-import NewGridItem from "./NewGridItem";
-import GridCard from "./GridCard";
+import GridServico from "./GridServico";
+import GridProduto from "./GridProduto";
 
-export default function Grid({
-  action,
-  children,
-}: {
-  action: "SERVICO" | "CARGAMENTO" | "RECARGAMENTO";
-  children: React.ReactNode;
-}) {
+import { Button } from "@mantine/core";
+
+export default function Grid({ children }: { children: React.ReactNode }) {
   return (
-    <div className="grid grid-cols-4 gap-4 mt-4">
-      <NewGridItem action={action} />
-      {children}
-    </div>
+    <>
+      <div className="flex justify-between items-center mb-4">
+        <div className="flex items-stretch gap-2">
+          <div className="w-1  bg-blue-500" />
+          <h2 className="text-xl font-semibold">Lista de Serviços</h2>
+        </div>
+        <Button>Novo Serviço</Button>
+      </div>
+      <div className="flex flex-col gap-4">{children}</div>
+    </>
   );
 }
 
-Grid.Card = GridCard;
+Grid.Servico = GridServico;
+Grid.Produto = GridProduto;
