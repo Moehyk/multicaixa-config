@@ -1,20 +1,39 @@
-import React from "react";
-
-import { Card, Button, ThemeIcon, Alert } from "@mantine/core";
+import { Card, Button, Alert } from "@mantine/core";
 import { IconExclamationCircle } from "@tabler/icons-react";
 
 export default function GridNoProduto() {
-  const icon = <IconExclamationCircle />;
+  const icon = <IconExclamationCircle size={28} stroke={1.75} />;
 
   return (
     <Alert
-      variant="outline"
-      color="brand"
+      variant="default"
       title="Este serviço não possui produtos"
       icon={icon}
-      className="self-center bg-white"
+      w="100%"
+      styles={{
+        wrapper: {
+          alignItems: "center",
+          gap: "0.5rem",
+        },
+        body: {
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        },
+        icon: {
+          width: "2rem",
+          height: "2rem",
+          margin: 0,
+          justifyContent: "center",
+        },
+        title: {
+          fontWeight: 600,
+        },
+      }}
     >
-      <Button size="xs">Adicionar Produto</Button>
+      <Button variant="default" size="xs">
+        Criar Produto
+      </Button>
     </Alert>
   );
 }
