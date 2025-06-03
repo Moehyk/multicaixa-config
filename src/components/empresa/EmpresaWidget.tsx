@@ -1,3 +1,5 @@
+"use client";
+
 import { initEmpresa } from "@/server/services";
 import { redirect } from "next/navigation";
 
@@ -23,7 +25,7 @@ function IconGroup({
   );
 }
 
-export default async function EmpresaWidget(empresa: Empresa) {
+export default function EmpresaWidget(empresa: Empresa) {
   if (!empresa) {
     return <EmpresaModalForm />;
   }
