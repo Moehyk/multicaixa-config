@@ -6,6 +6,8 @@ import EmpresaModalForm from "./EmpresaModalForm";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
 import { IconMail, IconPhone, IconSettings } from "@tabler/icons-react";
 
+import type { Empresa } from "@prisma/client";
+
 function IconGroup({
   children,
   text,
@@ -21,9 +23,7 @@ function IconGroup({
   );
 }
 
-export default async function EmpresaWidget() {
-  const { empresa } = await initEmpresa();
-
+export default async function EmpresaWidget(empresa: Empresa) {
   if (!empresa) {
     return <EmpresaModalForm />;
   }
@@ -32,7 +32,7 @@ export default async function EmpresaWidget() {
     <Card
       withBorder
       px={32}
-      className="h-32 flex-row justify-between items-center mb-8"
+      className="h-32 flex-row justify-between items-center mb-16"
     >
       <div className="flex flex-col gap-2">
         <p className="text-2xl font-semibold">{empresa.nome}</p>
