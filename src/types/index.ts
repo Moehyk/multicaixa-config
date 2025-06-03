@@ -4,6 +4,9 @@ import {
   Produto,
   Pagamento,
   Carregamento,
+  Recarga,
+  Recargas,
+  Montante,
 } from "@prisma/client";
 
 export type EmpresaForm = Omit<Empresa, "id" | "utilizadorId">;
@@ -45,4 +48,31 @@ export type UrlParams = {
   eid: string;
   pid: string;
   sid: string;
+};
+
+type ProdutoBase = Omit<Produto, "type">;
+
+type ProdutoPagamento = ProdutoBase & {
+  type: "pagamento";
+  pagamento: Pagamento;
+};
+
+type ProdutoCarregamento = ProdutoBase & {
+  type: "carregamento";
+  carregamento: Carregamento & { montantes: Montante[] };
+};
+
+type ProdutoRecarga = ProdutoBase & {
+  type: "recargas";
+  recargas: Recargas & { recargas: Recarga[] };
+};
+
+type ProdutoType = ProdutoPagamento | ProdutoCarregamento | ProdutoRecarga;
+
+export type Entidade = Empresa & {
+  servicos: [
+    Servico & {
+      produtos: ProdutoType[];
+    }
+  ];
 };
