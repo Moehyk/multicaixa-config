@@ -1,36 +1,24 @@
+import { zodResolver } from "mantine-form-zod-resolver";
+
 import { useState, useEffect } from "react";
 import { useDisclosure } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
-import { zodResolver } from "mantine-form-zod-resolver";
+
 import {
   empresaSchema,
   empresaStepOneSchema,
   empresaStepTwoSchema,
   empresaStepThreeSchema,
 } from "@/utils/schemas";
-import { EmpresaForm } from "@/types";
 
-const initialValues: EmpresaForm = {
-  id: "",
-  utilizadorId: "",
-  nome: "",
-  sigla: "",
-  morada: "",
-  localidade: "",
-  responsavel: "",
-  telefone: "",
-  email: "",
-  cae: "",
-  numero_pessoa_colectiva: "",
-  numero_entidade: "",
-  desig_ecra: "",
-  desig_tecla_seleccao: "",
-};
+import { initialEmpresaFormValues } from "@/constants/form-values";
+
+import { EmpresaForm } from "@/types";
 
 export const useEmpresaForm = (data: EmpresaForm) => {
   const form = useForm<EmpresaForm>({
     mode: "uncontrolled",
-    initialValues,
+    initialValues: initialEmpresaFormValues,
     validate: zodResolver(empresaSchema),
   });
 
@@ -48,7 +36,7 @@ export const useEmpresaModalForm = () => {
 
   const form = useForm<EmpresaForm>({
     mode: "controlled",
-    initialValues,
+    initialValues: initialEmpresaFormValues,
     validate: zodResolver(
       active === 0
         ? empresaStepOneSchema
