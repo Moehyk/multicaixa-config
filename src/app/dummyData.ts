@@ -44,7 +44,7 @@ export const entidade: Entidade = {
         {
           id: "P2",
           servicoId: "S1",
-          type: "carregamento",
+          type: "carregamentos",
           desig_ecra: "Mimo Carregamentos",
           desig_tecla_seleccao: "Carregamentos",
           carregamento: {

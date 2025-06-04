@@ -58,7 +58,7 @@ type ProdutoPagamento = ProdutoBase & {
 };
 
 type ProdutoCarregamento = ProdutoBase & {
-  type: "carregamento";
+  type: "carregamentos";
   carregamento: Carregamento & { montantes: Montante[] };
 };
 
