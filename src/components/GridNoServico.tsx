@@ -10,8 +10,28 @@ export default function GridNoServico() {
       color="brand"
       title="Sem serviços para apresentar"
       icon={icon}
-      className="self-center"
       w="100%"
+      styles={{
+        wrapper: {
+          alignItems: "center",
+          gap: "0.5rem",
+        },
+        body: {
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+        },
+        icon: {
+          width: "2rem",
+          height: "2rem",
+          margin: 0,
+          justifyContent: "center",
+        },
+        title: {
+          fontWeight: 500,
+          fontSize: "1rem",
+        },
+      }}
     />
   );
 }
