@@ -161,5 +161,14 @@ export const entidade: Entidade = {
         },
       ],
     },
+    {
+      id: "S2",
+      empresaId: "E1",
+      desig_sistema: "Mimo WhatsApp",
+      desig_ecra: "Mimo WhatsApp",
+      desig_tecla_seleccao_1: "Mimo WhatsApp",
+      desig_tecla_seleccao_2: "Serviço WhatsApp Business",
+      produtos: [],
+    },
   ],
 };
