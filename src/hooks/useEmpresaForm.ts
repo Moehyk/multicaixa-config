@@ -9,9 +9,8 @@ import {
   empresaStepThreeSchema,
 } from "@/utils/schemas";
 import { EmpresaForm } from "@/types";
-import { Empresa } from "@prisma/client";
 
-const initialValues: Empresa = {
+const initialValues: EmpresaForm = {
   id: "",
   utilizadorId: "",
   nome: "",
@@ -28,8 +27,8 @@ const initialValues: Empresa = {
   desig_tecla_seleccao: "",
 };
 
-export const useEmpresaForm = (data: Empresa) => {
-  const form = useForm<Empresa>({
+export const useEmpresaForm = (data: EmpresaForm) => {
+  const form = useForm<EmpresaForm>({
     mode: "uncontrolled",
     initialValues,
     validate: zodResolver(empresaSchema),
@@ -47,7 +46,7 @@ export const useEmpresaModalForm = () => {
   const [active, setActive] = useState(0);
   const [opened, { close }] = useDisclosure(true);
 
-  const form = useForm<Empresa>({
+  const form = useForm<EmpresaForm>({
     mode: "controlled",
     initialValues,
     validate: zodResolver(
