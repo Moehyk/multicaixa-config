@@ -28,25 +28,23 @@ export default function GridServico({
           </ActionIcon>
           <h2 className="font-semibold text-xl">{title}</h2>
         </div>
-        <div className="flex items-center gap-2">
-          <ActionIcon.Group>
-            <Tooltip label="Criar Produto" position="top">
-              <ActionIcon size="lg" variant="default">
-                <IconPlus size={16} />
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="Editar Serviço" position="top">
-              <ActionIcon size="lg" variant="default">
-                <IconEdit size={16} />
-              </ActionIcon>
-            </Tooltip>
-            <Tooltip label="Apagar Serviço" position="top">
-              <ActionIcon size="lg" variant="default">
-                <IconTrash size={16} />
-              </ActionIcon>
-            </Tooltip>
-          </ActionIcon.Group>
-        </div>
+        <ActionIcon.Group>
+          <Tooltip label="Criar Produto" position="top">
+            <ActionIcon size="lg" variant="default">
+              <IconPlus size={16} />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label="Editar Serviço" position="top">
+            <ActionIcon size="lg" variant="default">
+              <IconEdit size={16} />
+            </ActionIcon>
+          </Tooltip>
+          <Tooltip label="Apagar Serviço" position="top">
+            <ActionIcon size="lg" variant="default">
+              <IconTrash size={16} />
+            </ActionIcon>
+          </Tooltip>
+        </ActionIcon.Group>
       </div>
       <Collapse
         in={opened}
