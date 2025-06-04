@@ -3,6 +3,8 @@
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import { theme, resolver } from "@/mantine";
+import { ModalsProvider } from "@mantine/modals";
+import { modalsOptions } from "@/mantine/modals";
 
 export default function StylesProvider({ children }: React.PropsWithChildren) {
   return (
@@ -11,8 +13,10 @@ export default function StylesProvider({ children }: React.PropsWithChildren) {
       cssVariablesResolver={resolver}
       defaultColorScheme="auto"
     >
-      <Notifications />
-      {children}
+      <ModalsProvider {...modalsOptions}>
+        <Notifications />
+        {children}
+      </ModalsProvider>
     </MantineProvider>
   );
 }
