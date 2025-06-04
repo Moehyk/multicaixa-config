@@ -10,7 +10,7 @@ import {
 } from "@prisma/client";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
-export type ServicoForm = Omit<Servico, "id" | "empresaId">;
+export type ServicoForm = Omit<Servico, "produtos">;
 export type ProdutoForm = Omit<Produto, "id" | "serviceId">;
 export type PagamentoForm = Omit<Pagamento, "id" | "productId" | "isNew">;
 export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
