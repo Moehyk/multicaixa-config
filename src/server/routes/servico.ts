@@ -1,57 +1,42 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db } from "..";
-import { CreateServicoParams } from "@/types";
+import { Prisma } from "@prisma/client";
+import { db, getUser } from "..";
+import { processUpsertError } from "@/utils";
+
+import { ServicoForm } from "@/types";
 import { Servico } from "@prisma/client";
+import { empresa } from "./empresa";
 
 export const servico = {
-  create: async ({ empresaId, id, input }: CreateServicoParams) => {
+  create: async (input: ServicoForm) => {
     try {
-      await db.servico.upsert({
+      const user = await getUser();
+      if (!user?.id) throw new Error("User not authenticated");
+
+      const servico = await db.servico.upsert({
         where: {
-          id: id,
+          id: input.id,
         },
         create: {
-          empresaId,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          desig_sistema: input.desig_sistema,
+          ...input,
         },
         update: {
-          empresaId,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          desig_sistema: input.desig_sistema,
+          ...input,
         },
       });
 
-      revalidatePath("/multicaixa/entidades/[id]", "page");
+      revalidatePath("/multicaixa", "page");
 
-      if (!id) {
-        return {
-          status: 200,
-          message: "Serviço criado com sucesso.",
-        };
-      } else {
-        return {
-          status: 200,
-          message: "Serviço editado com sucesso.",
-        };
-      }
+      return {
+        status: 200,
+        message: input.id ? "Serviço atualizado" : "Serviço criado",
+        data: servico,
+      };
     } catch (error) {
-      if (!id) {
-        return {
-          status: 400,
-          message: "Aconteceu um erro ao tentar criar o serviço.",
-          error,
-        };
-      } else {
-        return {
-          status: 400,
-          message: "Aconteceu um erro ao tentar editar o serviço.",
-          error,
-        };
-      }
+      const response = processUpsertError(error, input);
+
+      return response;
     }
   },
 
@@ -60,6 +45,9 @@ export const servico = {
       const servico = await db.servico.findUnique({
         where: {
           id: id,
+        },
+        include: {
+          produtos: true,
         },
       });
 
