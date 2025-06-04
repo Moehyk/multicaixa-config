@@ -1,12 +1,9 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { Prisma } from "@prisma/client";
 import { db, getUser } from "..";
 import { processUpsertError } from "@/utils";
 
 import { ServicoForm } from "@/types";
-import { Servico } from "@prisma/client";
-import { empresa } from "./empresa";
 
 export const servico = {
   create: async (input: ServicoForm) => {
