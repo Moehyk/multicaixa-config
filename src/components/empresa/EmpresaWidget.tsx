@@ -1,8 +1,5 @@
 "use client";
 
-import { initEmpresa } from "@/server/services";
-import { redirect } from "next/navigation";
-
 import Link from "next/link";
 import EmpresaModalForm from "./EmpresaModalForm";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
@@ -50,7 +47,7 @@ export default function EmpresaWidget(empresa: Empresa) {
       <Tooltip label="Editar Empresa" position="bottom">
         <ActionIcon
           component={Link}
-          href="/empresa"
+          href="/multicaixa/empresa"
           variant="default"
           size="xl"
         >
