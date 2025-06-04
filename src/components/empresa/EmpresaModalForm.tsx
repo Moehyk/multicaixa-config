@@ -45,8 +45,7 @@ export default function EmpresaModalForm() {
     form: { getInputProps, values, key },
   } = useEmpresaModalForm();
 
-  const { isMutating, setIsFetching, startTransition, push, back } =
-    useFormMutation();
+  const { isMutating, setIsFetching } = useFormMutation();
 
   const handleSubmit = async () => {
     setIsFetching(true);
@@ -56,9 +55,10 @@ export default function EmpresaModalForm() {
     setIsFetching(false);
     if (response.status !== 200) {
       errorNotification(response);
+    } else {
+      sucessNotification(response);
+      close();
     }
-
-    close();
   };
 
   return (
