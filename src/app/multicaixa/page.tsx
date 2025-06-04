@@ -28,7 +28,7 @@ export default async function MulticaixaPage() {
               {servico.produtos.length === 0 && <Grid.NoProduto />}
               {servico.produtos.length > 0 &&
                 servico.produtos.map((produto) => (
-                  <Grid.Produto key={produto.id} title={produto.desig_ecra} />
+                  <Grid.Produto {...produto} key={produto.id} />
                 ))}
             </Grid.Servico>
           ))}

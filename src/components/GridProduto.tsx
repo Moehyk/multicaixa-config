@@ -1,12 +1,33 @@
 "use client";
 
-import React from "react";
-import { Card } from "@mantine/core";
+import { Card, ActionIcon, Tooltip, Badge } from "@mantine/core";
+import { IconTrash, IconEdit } from "@tabler/icons-react";
 
-export default function GridProduto({ title }: { title: string }) {
+import { gridProdutoBadgeColor } from "@/config";
+
+import type { Produto } from "@prisma/client";
+
+export default function GridProduto({ desig_ecra, type }: Produto) {
   return (
-    <Card withBorder className="gap-2">
-      {title}
+    <Card withBorder className="flex-row items-center justify-between gap-2">
+      <div className="flex items-center gap-4">
+        <h2 className="font-semibold">{desig_ecra}</h2>
+        <Badge variant="light" size="sm" color={gridProdutoBadgeColor[type]}>
+          {type}
+        </Badge>
+      </div>
+      <ActionIcon.Group>
+        <Tooltip label="Editar Serviço" position="top" color="">
+          <ActionIcon size="lg" variant="default">
+            <IconEdit size={16} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label="Apagar Serviço" position="top">
+          <ActionIcon size="lg" variant="default">
+            <IconTrash size={16} />
+          </ActionIcon>
+        </Tooltip>
+      </ActionIcon.Group>
     </Card>
   );
 }
