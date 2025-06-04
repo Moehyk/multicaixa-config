@@ -2,24 +2,17 @@ import { api } from "@/server";
 import { redirect } from "next/navigation";
 import { entidade } from "../dummyData";
 
-import { EmpresaWidget } from "@/components/empresa";
-
 import { Grid } from "@/components";
 
 export default async function MulticaixaPage() {
-  const { data: empresa, message: eMessage } = await api.empresa.get();
+  const { data, message } = await api.empresa.get();
 
-  if (!empresa) throw new Error(eMessage);
+  if (!data) throw new Error(message);
 
-  const { data: servicos, message: sMessage } = await api.servico.getAll(
-    empresa.id
-  );
-
-  //if (!servicos) throw new Error(sMessage);
+  const { servicos } = data;
 
   return (
     <>
-      <EmpresaWidget {...empresa} />
       <Grid>
         {entidade.servicos.length === 0 && <Grid.NoServico />}
         {entidade.servicos.length > 0 &&
