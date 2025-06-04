@@ -14,15 +14,13 @@ export const servico = {
         create: {
           empresaId,
           desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao_1: input.desig_tecla_seleccao_1,
-          desig_tecla_seleccao_2: input.desig_tecla_seleccao_2,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
           desig_sistema: input.desig_sistema,
         },
         update: {
           empresaId,
           desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao_1: input.desig_tecla_seleccao_1,
-          desig_tecla_seleccao_2: input.desig_tecla_seleccao_2,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
           desig_sistema: input.desig_sistema,
         },
       });

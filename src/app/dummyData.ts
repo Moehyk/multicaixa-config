@@ -21,8 +21,7 @@ export const entidade: Entidade = {
       empresaId: "E1",
       desig_sistema: "Mimo SMS",
       desig_ecra: "Mimo SMS",
-      desig_tecla_seleccao_1: "Mimo SMS",
-      desig_tecla_seleccao_2: "Serviço Bulk SMS",
+      desig_tecla_seleccao: "Mimo SMS",
       produtos: [
         {
           id: "P1",
@@ -166,8 +165,7 @@ export const entidade: Entidade = {
       empresaId: "E1",
       desig_sistema: "Mimo WhatsApp",
       desig_ecra: "Mimo WhatsApp",
-      desig_tecla_seleccao_1: "Mimo WhatsApp",
-      desig_tecla_seleccao_2: "Serviço WhatsApp Business",
+      desig_tecla_seleccao: "Mimo WhatsApp",
       produtos: [],
     },
   ],

@@ -94,8 +94,7 @@ model Servico {
   empresa                 Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
   desig_sistema           String
   desig_ecra              String
-  desig_tecla_seleccao_1  String
-  desig_tecla_seleccao_2  String
+  desig_tecla_seleccao  String
   produtos                Produto[]
 }
 
