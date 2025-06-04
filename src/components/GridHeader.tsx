@@ -1,6 +1,7 @@
 "use client";
-import { openContextModal } from "@mantine/modals";
+import { modals } from "@mantine/modals";
 import { Button } from "@mantine/core";
+import { ServicoModalForm } from "@/components/servico";
 
 export default function GridHeader({ empresaId }: { empresaId: string }) {
   return (
@@ -11,12 +12,9 @@ export default function GridHeader({ empresaId }: { empresaId: string }) {
       </div>
       <Button
         onClick={() =>
-          openContextModal({
-            modal: "criar-servico",
-            innerProps: {
-              id: "",
-              empresaId: empresaId,
-            },
+          modals.open({
+            title: "Criar Novo Serviço",
+            children: <ServicoModalForm empresaId={empresaId} />,
           })
         }
       >
