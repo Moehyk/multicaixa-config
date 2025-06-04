@@ -1,4 +1,5 @@
 import { Geist, Geist_Mono } from "next/font/google";
+import { Prisma } from "@prisma/client";
 
 export const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,4 +33,52 @@ export const getInvalidParamsMessage = (params: Record<string, any>) => {
   return `os seguintes parâmetros não foram submetidos: ${invalidParams.join(
     ", "
   )}`;
+};
+
+export const processUpsertError = (
+  error: unknown,
+  input: Record<string, any>
+) => {
+  const isValid = checkIfQueryParamsIsValid(input);
+
+  if (!isValid) {
+    const message = getInvalidParamsMessage(input);
+
+    return {
+      status: 400,
+      message,
+      error: error instanceof Error ? error.message : "Erro desconhecido",
+      // Include stack only in development
+      ...(process.env.NODE_ENV === "development" && {
+        debug: error instanceof Error ? error.stack : undefined,
+      }),
+    };
+  } else {
+    if (error instanceof Error) {
+      console.error("Error Stack:", error.stack);
+      console.error("Error Details:", {
+        message: error.message,
+        name: error.name,
+        cause: error.cause,
+      });
+
+      // For Prisma errors
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        console.error("Prisma Error Code:", error.code);
+        console.error("Prisma Meta:", error.meta);
+      }
+    } else {
+      console.error("Unknown Error Type:", error);
+    }
+
+    return {
+      status: 500,
+      message: "Ocorreu um erro ao processar sua solicitação",
+      error: error instanceof Error ? error.message : "Erro desconhecido",
+      // Include stack only in development
+      ...(process.env.NODE_ENV === "development" && {
+        debug: error instanceof Error ? error.stack : undefined,
+      }),
+    };
+  }
 };
