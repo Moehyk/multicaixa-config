@@ -2,9 +2,7 @@ import { ServicoModalForm } from "@/components/servico";
 
 import type { ModalsProviderProps } from "@mantine/modals";
 
-const modals = {
-  "criar-servico": ServicoModalForm,
-};
+const modals = {};
 
 declare module "@mantine/modals" {
   export interface MantineModalsOverride {
@@ -17,5 +15,6 @@ export const modalsOptions: ModalsProviderProps = {
   modalProps: {
     centered: true,
     withCloseButton: false,
+    closeOnClickOutside: false,
   },
 };
