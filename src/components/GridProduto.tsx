@@ -17,12 +17,12 @@ export default function GridProduto({ desig_ecra, type }: Produto) {
         </Badge>
       </div>
       <ActionIcon.Group>
-        <Tooltip label="Editar Serviço" position="top" color="">
+        <Tooltip label="Editar Produto" position="top">
           <ActionIcon size="lg" variant="default">
             <IconEdit size={16} />
           </ActionIcon>
         </Tooltip>
-        <Tooltip label="Apagar Serviço" position="top">
+        <Tooltip label="Apagar Produto" position="top">
           <ActionIcon size="lg" variant="default">
             <IconTrash size={16} />
           </ActionIcon>
