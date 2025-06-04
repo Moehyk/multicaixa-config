@@ -37,7 +37,7 @@ export const empresa = {
       return {
         status: 200,
         message: input.id ? "Empresa atualizada" : "Empresa criada",
-        data: { id: empresa.id }, // Return only essential data
+        data: empresa, // Return only essential data
       };
     } catch (error) {
       const isValid = checkIfQueryParamsIsValid(input);
