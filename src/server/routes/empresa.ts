@@ -43,7 +43,7 @@ export const empresa = {
     }
   },
 
-  get: cache(async () => {
+  get: async () => {
     const user = await getUser();
     try {
       const data = await db.empresa.findUnique({
@@ -56,7 +56,7 @@ export const empresa = {
       });
       return { data, status: 200, message: "Empresa recuperada com sucesso" };
     } catch (error) {
-      return processGetDeleteError(user.id, "utilizador", error);
+      return processGetDeleteError(user.id, "empresa", error);
     }
-  }),
+  },
 };
