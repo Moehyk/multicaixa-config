@@ -4,13 +4,11 @@ import EmpresaModalForm from "./EmpresaModalForm";
 import EmpresaWidget from "./EmpresaWidget";
 
 export default async function EmpresaLoader() {
-  const { data: empresa, message: eMessage } = await api.empresa.get();
+  const { data, message } = await api.empresa.get();
 
-  if (!empresa) throw new Error(eMessage);
-
-  if (!empresa) {
+  if (!data) {
     return <EmpresaModalForm />;
   }
 
-  return <EmpresaWidget {...empresa} />;
+  return <EmpresaWidget {...data} />;
 }
