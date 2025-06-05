@@ -9,7 +9,7 @@ datasource db {
 
 model Montante {
   id                      String        @id @default(cuid())
-  carregamentoId          String        @unique
+  carregamentoId          String
   carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id])
   montante                Float
   descricao               String
@@ -63,7 +63,7 @@ model Pagamento {
 
 model Produto {
   id                      String        @id @default(cuid())
-  servicoId               String        @unique
+  servicoId               String
   servico                 Servico       @relation(fields: [servicoId], references: [id], onDelete: Cascade)
   desig_ecra              String
   desig_tecla_seleccao    String
@@ -75,7 +75,7 @@ model Produto {
 
 model Recarga {
   id                      String        @id @default(cuid())
-  recargasId              String        @unique
+  recargasId              String
   recargas                Recargas      @relation(fields: [recargasId], references: [id], onDelete: Cascade)
   desig_unidade           String
   desig_montante          Float
@@ -90,7 +90,7 @@ model Recargas {
 
 model Servico {
   id                      String        @id @default(cuid())
-  empresaId               String        @unique
+  empresaId               String
   empresa                 Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
   desig_sistema           String
   desig_ecra              String

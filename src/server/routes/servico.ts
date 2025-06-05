@@ -3,22 +3,41 @@ import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
 import { processUpsertError } from "@/utils";
 
-import { ServicoForm } from "@/types";
+import { ServicoForm, CreateServicoParams } from "@/types";
 
 export const servico = {
-  create: async (input: ServicoForm) => {
+  create: async (empresaId: string, input: ServicoForm) => {
     try {
       const user = await getUser();
       if (!user?.id) throw new Error("User not authenticated");
 
-      const servico = await db.servico.upsert({
+      const servico = await db.servico.create({
+        data: { ...input, empresaId },
+      });
+
+      revalidatePath("/multicaixa", "page");
+
+      return {
+        status: 200,
+        message: "Serviço criado",
+        data: servico,
+      };
+    } catch (error) {
+      const response = processUpsertError(error, input);
+
+      return response;
+    }
+  },
+  update: async (id: string, input: ServicoForm) => {
+    try {
+      const user = await getUser();
+      if (!user?.id) throw new Error("User not authenticated");
+
+      const servico = await db.servico.update({
         where: {
-          id: input.id,
+          id: id,
         },
-        create: {
-          ...input,
-        },
-        update: {
+        data: {
           ...input,
         },
       });
@@ -27,7 +46,7 @@ export const servico = {
 
       return {
         status: 200,
-        message: input.id ? "Serviço atualizado" : "Serviço criado",
+        message: "Serviço actualizado",
         data: servico,
       };
     } catch (error) {
