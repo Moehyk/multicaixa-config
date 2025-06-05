@@ -1,4 +1,4 @@
-import { createServico } from "@/server/services";
+import { upsertServico } from "@/server/services";
 import { modals } from "@mantine/modals";
 import { useServicoForm, useFormMutation } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
@@ -20,7 +20,7 @@ export default function ServicoModalForm({
   const handleSubmit = async (values: ServicoForm) => {
     setIsFetching(true);
 
-    const response = await createServico(empresaId, values);
+    const response = await upsertServico({ empresaId, input: values });
 
     setIsFetching(false);
     if (response.status !== 200) {
