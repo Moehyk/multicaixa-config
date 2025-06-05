@@ -1,6 +1,5 @@
 import { api } from "@/server";
-import { Card, Skeleton } from "@mantine/core";
-import { EmpresaForm, EmpresaLoading } from "@/components/empresa";
+import { EmpresaForm } from "@/components/empresa";
 
 export default async function CriarEmpresaPage() {
   const { data, message } = await api.empresa.get();

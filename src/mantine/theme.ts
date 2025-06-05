@@ -19,6 +19,7 @@ export const theme = createTheme({
     green,
     orange,
     red,
+    gray,
   },
   fontFamily: geistSans.style.fontFamily,
   fontFamilyMonospace: geistMono.style.fontFamily,

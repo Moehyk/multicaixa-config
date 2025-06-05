@@ -1,4 +1,4 @@
-import { Card, Button, Alert } from "@mantine/core";
+import { Button, Alert } from "@mantine/core";
 import { IconExclamationCircle } from "@tabler/icons-react";
 
 export default function GridNoProduto() {

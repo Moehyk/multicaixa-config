@@ -1,5 +1,3 @@
-import { ServicoModalForm } from "@/components/servico";
-
 import type { ModalsProviderProps } from "@mantine/modals";
 
 const modals = {};

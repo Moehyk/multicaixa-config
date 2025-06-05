@@ -29,7 +29,7 @@ export const useEmpresaForm = (values: EmpresaForm) => {
   useEffect(() => {
     form.setInitialValues(values);
     form.setValues(values);
-  }, [values]);
+  }, [values, form]);
 
   return form;
 };
@@ -84,7 +84,7 @@ export const useServicoForm = (values?: ServicoForm) => {
       form.setInitialValues(values);
       form.setValues(values);
     }
-  }, [values]);
+  }, [values, form]);
 
   return form;
 };

@@ -1,5 +1,4 @@
 import { api } from "@/server";
-import { redirect } from "next/navigation";
 import { entidade } from "../dummyData";
 
 import { Grid, GridHeader } from "@/components";
