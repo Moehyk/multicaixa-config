@@ -10,7 +10,7 @@ import {
 } from "@prisma/client";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
-export type ServicoForm = Omit<Servico, "produtos">;
+export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
 export type ProdutoForm = Omit<Produto, "id" | "serviceId">;
 export type PagamentoForm = Omit<Pagamento, "id" | "productId" | "isNew">;
 export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
@@ -23,7 +23,6 @@ export type GridButton = {
 export type CreateServicoParams = {
   input: ServicoForm;
   empresaId: string;
-  id: string | undefined;
 };
 
 export type CreateProdutoParams = {
