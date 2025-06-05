@@ -72,7 +72,7 @@ export const useEmpresaModalForm = () => {
   };
 };
 
-export const useServicoForm = (values: ServicoForm | undefined) => {
+export const useServicoForm = (values?: ServicoForm) => {
   const form = useForm<ServicoForm>({
     mode: "uncontrolled",
     initialValues: initialServicoFormValues,
@@ -80,7 +80,7 @@ export const useServicoForm = (values: ServicoForm | undefined) => {
   });
 
   useEffect(() => {
-    if (values?.id) {
+    if (values) {
       form.setInitialValues(values);
       form.setValues(values);
     }

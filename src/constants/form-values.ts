@@ -19,7 +19,6 @@ export const initialEmpresaFormValues: EmpresaForm = {
 
 export const initialServicoFormValues: ServicoForm = {
   id: "",
-  empresaId: "",
   desig_ecra: "",
   desig_tecla_seleccao: "",
   desig_sistema: "",
