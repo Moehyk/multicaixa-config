@@ -1,7 +1,10 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
-import { processUpsertError } from "@/utils";
+import {
+  processCreateUpdateError,
+  processGetDeleteError,
+} from "@/utils/errors";
 
 import { Empresa } from "@prisma/client";
 
@@ -36,9 +39,7 @@ export const empresa = {
         data: empresa, // Return only essential data
       };
     } catch (error) {
-      const response = processUpsertError(error, input);
-
-      return response;
+      return processCreateUpdateError(input, error);
     }
   },
 
@@ -55,63 +56,7 @@ export const empresa = {
       });
       return { data, status: 200, message: "Empresa recuperada com sucesso" };
     } catch (error) {
-      if (!user) {
-        return {
-          status: 400,
-          message: "Utilizador não encontrado",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-          // Include stack only in development
-          ...(process.env.NODE_ENV === "development" && {
-            debug: error instanceof Error ? error.stack : undefined,
-          }),
-        };
-      } else {
-        return {
-          status: 500,
-          message: "Ocorreu um erro ao processar sua solicitação",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-          // Include stack only in development
-          ...(process.env.NODE_ENV === "development" && {
-            debug: error instanceof Error ? error.stack : undefined,
-          }),
-        };
-      }
+      return processGetDeleteError(user.id, "utilizador", error);
     }
   }),
-
-  delete: async (id: string) => {
-    try {
-      await db.empresa.delete({
-        where: {
-          id: id,
-        },
-      });
-
-      revalidatePath("/multicaixa", "page");
-
-      return { status: 200, message: "empresa apagada com sucesso" };
-    } catch (error) {
-      if (!id) {
-        return {
-          status: 400,
-          message: "utilizador não encontrado",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-          // Include stack only in development
-          ...(process.env.NODE_ENV === "development" && {
-            debug: error instanceof Error ? error.stack : undefined,
-          }),
-        };
-      } else {
-        return {
-          status: 500,
-          message: "Ocorreu um erro ao processar sua solicitação",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-          // Include stack only in development
-          ...(process.env.NODE_ENV === "development" && {
-            debug: error instanceof Error ? error.stack : undefined,
-          }),
-        };
-      }
-    }
-  },
 };

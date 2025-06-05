@@ -73,3 +73,5 @@ type ServicoWithProdutos = Servico & { produtos: ProdutoType[] };
 export type Entidade = Empresa & {
   servicos: ServicoWithProdutos[];
 };
+
+export type DataModel = "utilizador" | "empresa" | "servico" | "produto";

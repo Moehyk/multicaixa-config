@@ -1,7 +1,10 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
-import { processUpsertError } from "@/utils";
+import {
+  processCreateUpdateError,
+  processGetDeleteError,
+} from "@/utils/errors";
 
 import { ServicoForm } from "@/types";
 
@@ -28,9 +31,7 @@ export const servico = {
         data: servico,
       };
     } catch (error) {
-      const response = processUpsertError(error, input);
-
-      return response;
+      return processCreateUpdateError(input, error);
     }
   },
   update: async (input: ServicoForm) => {
@@ -55,9 +56,7 @@ export const servico = {
         data: servico,
       };
     } catch (error) {
-      const response = processUpsertError(error, input);
-
-      return response;
+      return processCreateUpdateError(input, error);
     }
   },
 
@@ -74,7 +73,7 @@ export const servico = {
 
       return { data: servico, status: 200 };
     } catch (error) {
-      return { status: 400, message: "Serviço não encontrado.", error };
+      return processGetDeleteError(id, "servico", error);
     }
   }),
 
@@ -91,11 +90,7 @@ export const servico = {
 
       return { data: servicos, status: 200 };
     } catch (error) {
-      return {
-        status: 400,
-        message: "Lista de serviços não encontrada.",
-        error,
-      };
+      return processGetDeleteError(id, "empresa", error);
     }
   }),
 
@@ -107,15 +102,11 @@ export const servico = {
         },
       });
 
-      revalidatePath("/multicaixa/entidades/[id]", "page");
+      revalidatePath("/multicaixa", "page");
 
       return { status: 200, message: "Serviço apagado com sucesso." };
     } catch (error) {
-      return {
-        status: 400,
-        message: "Aconteceu um erro ao tentar apagar o serviço.",
-        error,
-      };
+      return processGetDeleteError(id, "servico", error);
     }
   },
 };
