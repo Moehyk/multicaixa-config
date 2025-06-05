@@ -8,10 +8,10 @@ export const pagamento = {
     try {
       await db.pagamento.upsert({
         where: {
-          productId: productId,
+          produtoId: productId,
         },
         create: {
-          productId: productId,
+          produtoId: productId,
           montante_maximo: input.montante_maximo,
           montante_minimo: input.montante_minimo,
           desig_referencia: input.desig_referencia,
@@ -19,7 +19,7 @@ export const pagamento = {
           tamanho_referencia: input.tamanho_referencia,
         },
         update: {
-          productId: productId,
+          produtoId: productId,
           montante_maximo: input.montante_maximo,
           montante_minimo: input.montante_minimo,
           desig_referencia: input.desig_referencia,
@@ -50,7 +50,7 @@ export const pagamento = {
     try {
       const pagamento = await db.pagamento.findUnique({
         where: {
-          productId: id,
+          produtoId: id,
         },
       });
 
