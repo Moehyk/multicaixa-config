@@ -9,13 +9,17 @@ import {
   empresaStepOneSchema,
   empresaStepTwoSchema,
   empresaStepThreeSchema,
+  servicoSchema,
 } from "@/utils/schemas";
 
-import { initialEmpresaFormValues } from "@/constants/form-values";
+import {
+  initialEmpresaFormValues,
+  initialServicoFormValues,
+} from "@/constants/form-values";
 
-import { EmpresaForm } from "@/types";
+import { EmpresaForm, ServicoForm } from "@/types";
 
-export const useEmpresaForm = (data: EmpresaForm) => {
+export const useEmpresaForm = (values: EmpresaForm) => {
   const form = useForm<EmpresaForm>({
     mode: "uncontrolled",
     initialValues: initialEmpresaFormValues,
@@ -23,9 +27,9 @@ export const useEmpresaForm = (data: EmpresaForm) => {
   });
 
   useEffect(() => {
-    form.setInitialValues(data);
-    form.setValues(data);
-  }, [data]);
+    form.setInitialValues(values);
+    form.setValues(values);
+  }, [values]);
 
   return form;
 };
@@ -66,4 +70,21 @@ export const useEmpresaModalForm = () => {
     opened,
     close,
   };
+};
+
+export const useServicoForm = (values: ServicoForm | undefined) => {
+  const form = useForm<ServicoForm>({
+    mode: "uncontrolled",
+    initialValues: initialServicoFormValues,
+    validate: zodResolver(servicoSchema),
+  });
+
+  useEffect(() => {
+    if (values?.id) {
+      form.setInitialValues(values);
+      form.setValues(values);
+    }
+  }, [values]);
+
+  return form;
 };

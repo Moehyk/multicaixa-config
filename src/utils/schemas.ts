@@ -54,3 +54,9 @@ export const empresaSchema = z.object({
   desig_ecra,
   desig_tecla_seleccao,
 });
+
+export const servicoSchema = z.object({
+  desig_ecra: z.string().min(1, { message: "Campo obrigatório." }),
+  desig_tecla_seleccao: z.string().min(1, { message: "Campo obrigatório." }),
+  desig_sistema: z.string().min(1, { message: "Campo obrigatório." }),
+});

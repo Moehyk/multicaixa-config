@@ -1,4 +1,4 @@
-import type { EmpresaForm } from "@/types";
+import type { EmpresaForm, ServicoForm } from "@/types";
 
 export const initialEmpresaFormValues: EmpresaForm = {
   id: "",
@@ -15,4 +15,12 @@ export const initialEmpresaFormValues: EmpresaForm = {
   numero_entidade: "",
   desig_ecra: "",
   desig_tecla_seleccao: "",
+};
+
+export const initialServicoFormValues: ServicoForm = {
+  id: "",
+  empresaId: "",
+  desig_ecra: "",
+  desig_tecla_seleccao: "",
+  desig_sistema: "",
 };
