@@ -18,7 +18,7 @@ export default async function MulticaixaPage() {
         {entidade.servicos.length === 0 && <Grid.NoServico />}
         {entidade.servicos.length > 0 &&
           entidade.servicos.map((servico) => (
-            <Grid.Servico key={servico.id} title={servico.desig_sistema}>
+            <Grid.Servico key={servico.id} servico={servico}>
               {servico.produtos.length === 0 && <Grid.NoProduto />}
               {servico.produtos.length > 0 &&
                 servico.produtos.map((produto) => (
@@ -29,10 +29,7 @@ export default async function MulticaixaPage() {
         {servicos.length === 0 && <Grid.NoServico />}
         {servicos.length > 0 &&
           servicos.map((servico) => (
-            <Grid.Servico
-              key={servico.id}
-              title={servico.desig_sistema}
-            ></Grid.Servico>
+            <Grid.Servico key={servico.id} servico={servico}></Grid.Servico>
           ))}
       </Grid>
     </>

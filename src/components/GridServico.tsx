@@ -1,18 +1,28 @@
 "use client";
 
 import { useMotionIcon } from "@/hooks";
+import { modals } from "@mantine/modals";
 
+import { ServicoModalForm } from "@/components/servico";
 import { Card, Collapse, Tooltip, ActionIcon } from "@mantine/core";
 import { IconTrash, IconEdit, IconPlus } from "@tabler/icons-react";
 
+import type { Servico } from "@prisma/client";
+
 export default function GridServico({
   children,
-  title,
+  servico: { empresaId, ...servico },
 }: {
   children?: React.ReactNode;
-  title: string;
+  servico: Servico;
 }) {
   const { MotionIcon, openedIcon, opened, motionIcon } = useMotionIcon();
+
+  const handleEditarServico = () =>
+    modals.open({
+      title: "Editar Serviço",
+      children: <ServicoModalForm empresaId={empresaId} servico={servico} />,
+    });
 
   return (
     <Card withBorder className="justify-center ">
@@ -26,7 +36,7 @@ export default function GridServico({
               transition={{ duration: 0.2, ease: "easeInOut" }}
             />
           </ActionIcon>
-          <h2 className="font-semibold text-xl">{title}</h2>
+          <h2 className="font-semibold text-xl">{servico.desig_sistema}</h2>
         </div>
         <ActionIcon.Group>
           <Tooltip label="Criar Produto" position="top">
@@ -35,7 +45,11 @@ export default function GridServico({
             </ActionIcon>
           </Tooltip>
           <Tooltip label="Editar Serviço" position="top">
-            <ActionIcon size="lg" variant="default">
+            <ActionIcon
+              size="lg"
+              variant="default"
+              onClick={handleEditarServico}
+            >
               <IconEdit size={16} />
             </ActionIcon>
           </Tooltip>
