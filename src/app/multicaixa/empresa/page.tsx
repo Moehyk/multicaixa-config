@@ -1,10 +1,13 @@
+import { notFound } from "next/navigation";
 import { api } from "@/server";
 import { EmpresaForm } from "@/components/empresa";
 
 export default async function CriarEmpresaPage() {
-  const { data, message } = await api.empresa.get();
+  const { data } = await api.empresa.get();
 
-  if (!data) throw new Error(message);
+  if (!data) {
+    notFound();
+  }
 
   const { servicos, ...empresaData } = data;
 
@@ -14,3 +17,5 @@ export default async function CriarEmpresaPage() {
     </>
   );
 }
+
+export const dynamic = "force-dynamic";

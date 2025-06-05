@@ -1,12 +1,15 @@
+import { notFound } from "next/navigation";
 import { api } from "@/server";
 import { entidade } from "../dummyData";
 
 import { Grid, GridHeader } from "@/components";
 
 export default async function MulticaixaPage() {
-  const { data, message } = await api.empresa.get();
+  const { data } = await api.empresa.get();
 
-  if (!data) throw new Error(message);
+  if (!data) {
+    notFound();
+  }
 
   const { servicos, id } = data;
 
@@ -34,3 +37,5 @@ export default async function MulticaixaPage() {
     </>
   );
 }
+
+export const dynamic = "force-dynamic";
