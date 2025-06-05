@@ -1,9 +1,8 @@
 "use client";
+
 import { modals } from "@mantine/modals";
 import { Button } from "@mantine/core";
 import { ServicoModalForm } from "@/components/servico";
-
-import type { ServicoForm } from "@/types";
 
 export default function GridHeader({ empresaId }: { empresaId: string }) {
   return (
