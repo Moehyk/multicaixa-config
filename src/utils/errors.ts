@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import type { DataModel } from "@/types";
 
-const checkIfQueryParamsIsValid = (params: Record<string, any>) =>
+const checkIfQueryParamsIsValid = (params: Record<string, string>) =>
   Object.values(params).every((value) => {
     if (value === null) {
       return false;
@@ -9,7 +9,7 @@ const checkIfQueryParamsIsValid = (params: Record<string, any>) =>
     return true;
   });
 
-const getInvalidParamsMessage = (params: Record<string, any>) => {
+const getInvalidParamsMessage = (params: Record<string, string>) => {
   const invalidParams: string[] = [];
 
   for (const [key, value] of Object.entries(params)) {
@@ -18,14 +18,19 @@ const getInvalidParamsMessage = (params: Record<string, any>) => {
     }
   }
 
-  invalidParams.length === 0 && invalidParams.push("nenhum");
+  if (invalidParams.length === 0) {
+    invalidParams.push("nenhum");
+  }
 
   return `os seguintes parâmetros não foram submetidos: ${invalidParams.join(
     ", "
   )}`;
 };
 
-const processValidationError = (input: Record<string, any>, error: unknown) => {
+const processValidationError = (
+  input: Record<string, string>,
+  error: unknown
+) => {
   const message = getInvalidParamsMessage(input);
 
   return {
@@ -48,6 +53,7 @@ const processInvalidIdError = (data: DataModel, error: unknown) => {
     ...(process.env.NODE_ENV === "development" && {
       debug: error instanceof Error ? error.stack : undefined,
     }),
+    data: null,
   };
 };
 
@@ -77,6 +83,7 @@ const processError500 = (error: unknown) => {
     ...(process.env.NODE_ENV === "development" && {
       debug: error instanceof Error ? error.stack : undefined,
     }),
+    data: null,
   };
 };
 
