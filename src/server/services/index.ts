@@ -1,10 +1,9 @@
 "use server";
 
-import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 import { api } from "..";
 
 import { Empresa } from "@prisma/client";
+import { ServicoForm } from "@/types";
 
 export const updateEmpresa = async (values: Empresa) => {
   const response = await api.empresa.create(values);
@@ -33,6 +32,12 @@ export const initEmpresa = async () => {
 
 export const createEmpresa = async (values: Empresa) => {
   const response = await api.empresa.create(values);
+
+  return response;
+};
+
+export const createServico = async (empresaId: string, values: ServicoForm) => {
+  const response = await api.servico.create({ ...values, empresaId });
 
   return response;
 };
