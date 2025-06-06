@@ -1,6 +1,10 @@
+import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
+
 import type { ModalsProviderProps } from "@mantine/modals";
 
-const modals = {};
+const modals = {
+  "confirm-delete": ConfirmDeleteModal,
+};
 
 declare module "@mantine/modals" {
   export interface MantineModalsOverride {
