@@ -1,5 +1,6 @@
 "use client";
 
+import { deleteServico } from "@/server/actions";
 import { useMotionIcon } from "@/hooks";
 import { modals } from "@mantine/modals";
 
@@ -18,10 +19,21 @@ export default function GridServico({
 }) {
   const { MotionIcon, openedIcon, opened, motionIcon } = useMotionIcon();
 
-  const handleEditarServico = () =>
+  const handleEditServico = () =>
     modals.open({
       title: "Editar Serviço",
       children: <ServicoModalForm empresaId={empresaId} servico={servico} />,
+    });
+
+  const handleDeleteServico = () =>
+    modals.openContextModal({
+      title: "Apagar Serviço",
+      modal: "confirm-delete",
+      innerProps: {
+        model: "servico",
+        dataId: servico.id,
+        onDelete: deleteServico,
+      },
     });
 
   return (
@@ -45,16 +57,16 @@ export default function GridServico({
             </ActionIcon>
           </Tooltip>
           <Tooltip label="Editar Serviço" position="top">
-            <ActionIcon
-              size="lg"
-              variant="default"
-              onClick={handleEditarServico}
-            >
+            <ActionIcon size="lg" variant="default" onClick={handleEditServico}>
               <IconEdit size={16} />
             </ActionIcon>
           </Tooltip>
           <Tooltip label="Apagar Serviço" position="top">
-            <ActionIcon size="lg" variant="default">
+            <ActionIcon
+              size="lg"
+              variant="default"
+              onClick={handleDeleteServico}
+            >
               <IconTrash size={16} />
             </ActionIcon>
           </Tooltip>
