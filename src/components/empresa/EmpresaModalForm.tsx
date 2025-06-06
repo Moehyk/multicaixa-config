@@ -1,6 +1,6 @@
 "use client";
 
-import { createEmpresa } from "@/server/services";
+import { upsertEmpresa } from "@/server/actions";
 import { useEmpresaModalForm, useFormMutation } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
@@ -50,7 +50,7 @@ export default function EmpresaModalForm() {
   const handleSubmit = async () => {
     setIsFetching(true);
 
-    const response = await createEmpresa(values);
+    const response = await upsertEmpresa(values);
 
     setIsFetching(false);
     if (response.status !== 200) {

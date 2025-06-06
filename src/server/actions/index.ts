@@ -5,19 +5,7 @@ import { api } from "..";
 import { Empresa } from "@prisma/client";
 import { CreateServicoParams } from "@/types";
 
-export const updateEmpresa = async (values: Empresa) => {
-  const response = await api.empresa.create(values);
-
-  return response;
-};
-
-export const getEmpresa = async () => {
-  const response = await api.empresa.get();
-
-  return response;
-};
-
-export const createEmpresa = async (values: Empresa) => {
+export const upsertEmpresa = async (values: Empresa) => {
   const response = await api.empresa.create(values);
 
   return response;
@@ -32,4 +20,10 @@ export const upsertServico = async ({
   } else {
     return api.servico.create(empresaId, input);
   }
+};
+
+export const deleteServico = async (id: string) => {
+  const response = await api.servico.delete(id);
+
+  return response;
 };

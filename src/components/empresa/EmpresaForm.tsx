@@ -1,6 +1,6 @@
 "use client";
 
-import { updateEmpresa } from "@/server/services";
+import { upsertEmpresa } from "@/server/actions";
 import { useFormMutation, useEmpresaForm } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
@@ -16,7 +16,7 @@ export default function EmpresaForm(data: EmpresaForm) {
 
   const handleSubmit = async (values: EmpresaForm) => {
     setIsFetching(true);
-    const response = await updateEmpresa(values);
+    const response = await upsertEmpresa(values);
     setIsFetching(false);
 
     if (response.status !== 200) {
