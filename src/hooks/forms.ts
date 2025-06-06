@@ -20,16 +20,16 @@ import {
 import { EmpresaForm, ServicoForm } from "@/types";
 
 export const useEmpresaForm = (values: EmpresaForm) => {
-  const form = useForm<EmpresaForm>({
+  const { setInitialValues, setValues, ...form } = useForm<EmpresaForm>({
     mode: "uncontrolled",
     initialValues: initialEmpresaFormValues,
     validate: zodResolver(empresaSchema),
   });
 
   useEffect(() => {
-    form.setInitialValues(values);
-    form.setValues(values);
-  }, [values, form]);
+    setInitialValues(values);
+    setValues(values);
+  }, [values]);
 
   return form;
 };
@@ -73,7 +73,7 @@ export const useEmpresaModalForm = () => {
 };
 
 export const useServicoForm = (values?: ServicoForm) => {
-  const form = useForm<ServicoForm>({
+  const { setInitialValues, setValues, ...form } = useForm<ServicoForm>({
     mode: "uncontrolled",
     initialValues: initialServicoFormValues,
     validate: zodResolver(servicoSchema),
@@ -81,8 +81,8 @@ export const useServicoForm = (values?: ServicoForm) => {
 
   useEffect(() => {
     if (values) {
-      form.setInitialValues(values);
-      form.setValues(values);
+      setInitialValues(values);
+      setValues(values);
     }
   }, [values]);
 
