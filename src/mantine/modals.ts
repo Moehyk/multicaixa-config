@@ -13,6 +13,5 @@ export const modalsOptions: ModalsProviderProps = {
   modalProps: {
     centered: true,
     withCloseButton: false,
-    closeOnClickOutside: false,
   },
 };

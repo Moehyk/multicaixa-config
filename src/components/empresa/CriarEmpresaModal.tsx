@@ -10,6 +10,7 @@ export default function CriarEmpresaModal() {
     <Modal
       opened={true}
       withCloseButton={false}
+      closeOnClickOutside={false}
       title="Criar Empresa"
       size="xl"
       onClose={() => {}}
