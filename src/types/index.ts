@@ -74,4 +74,22 @@ export type Entidade = Empresa & {
   servicos: ServicoWithProdutos[];
 };
 
-export type DataModel = "utilizador" | "empresa" | "servico" | "produto";
+export type DataModel =
+  | "utilizador"
+  | "empresa"
+  | "servico"
+  | "produto"
+  | "montante"
+  | "recarga";
+
+export type BaseApiResponse = {
+  status: number;
+  message: string;
+  data?: unknown;
+  error?: string;
+  debug?: string;
+};
+
+export type DeleteHandler<T extends BaseApiResponse = BaseApiResponse> = (
+  id: string
+) => Promise<T>;
