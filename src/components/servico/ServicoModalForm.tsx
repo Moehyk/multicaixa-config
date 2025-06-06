@@ -1,4 +1,4 @@
-import { upsertServico } from "@/server/services";
+import { upsertServico } from "@/server/actions";
 import { modals } from "@mantine/modals";
 import { useServicoForm, useFormMutation } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
@@ -33,7 +33,7 @@ export default function ServicoModalForm({
 
   return (
     <form onSubmit={onSubmit(handleSubmit)}>
-      <div className="flex flex-col p-4">
+      <div className="flex flex-col">
         <TextInput
           {...getInputProps("desig_sistema")}
           label="Designação p/ Sistema"
@@ -47,7 +47,7 @@ export default function ServicoModalForm({
           label="Designação p/ Selecção"
         />
       </div>
-      <div className="flex gap-2 justify-end bg-modal-footer p-4 border-t border-modal-footer-b">
+      <div className="flex gap-4 justify-end">
         <Button
           variant="default"
           onClick={() => {

@@ -45,7 +45,6 @@ export const theme = createTheme({
         },
         body: {
           backgroundColor: "var(--mantine-modal)",
-          padding: 0,
         },
         header: {
           backgroundColor: "var(--mantine-modal)",
