@@ -1,3 +1,5 @@
+"use client";
+
 import { upsertServico } from "@/server/actions";
 import { modals } from "@mantine/modals";
 import { useServicoForm, useFormMutation } from "@/hooks";
