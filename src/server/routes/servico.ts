@@ -2,11 +2,12 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
 import {
-  processCreateUpdateError,
-  processGetDeleteError,
+  getInvalidParamsMessage,
+  checkIfQueryParamsIsValid,
 } from "@/utils/errors";
 
 import { ServicoForm } from "@/types";
+import { Prisma } from "@prisma/client";
 
 export const servico = {
   create: async (empresaId: string, input: ServicoForm) => {
@@ -31,7 +32,40 @@ export const servico = {
         data: servico,
       };
     } catch (error) {
-      return processCreateUpdateError(input, error);
+      if (error instanceof Error) {
+        console.error("Error Stack:", error.stack);
+        console.error("Error Details:", {
+          message: error.message,
+          name: error.name,
+          cause: error.cause,
+        });
+
+        // For Prisma errors
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          console.error("Prisma Error Code:", error.code);
+          console.error("Prisma Meta:", error.meta);
+        }
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
+
+      const isValid = checkIfQueryParamsIsValid(input);
+
+      if (!isValid) {
+        const message = getInvalidParamsMessage(input);
+
+        return {
+          status: 400,
+          message,
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      } else {
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      }
     }
   },
   update: async (input: ServicoForm) => {
@@ -56,7 +90,40 @@ export const servico = {
         data: servico,
       };
     } catch (error) {
-      return processCreateUpdateError(input, error);
+      if (error instanceof Error) {
+        console.error("Error Stack:", error.stack);
+        console.error("Error Details:", {
+          message: error.message,
+          name: error.name,
+          cause: error.cause,
+        });
+
+        // For Prisma errors
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          console.error("Prisma Error Code:", error.code);
+          console.error("Prisma Meta:", error.meta);
+        }
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
+
+      const isValid = checkIfQueryParamsIsValid(input);
+
+      if (!isValid) {
+        const message = getInvalidParamsMessage(input);
+
+        return {
+          status: 400,
+          message,
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      } else {
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      }
     }
   },
 
@@ -73,7 +140,36 @@ export const servico = {
 
       return { data: servico, status: 200 };
     } catch (error) {
-      return processGetDeleteError(id, "servico", error);
+      if (error instanceof Error) {
+        console.error("Error Stack:", error.stack);
+        console.error("Error Details:", {
+          message: error.message,
+          name: error.name,
+          cause: error.cause,
+        });
+
+        // For Prisma errors
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          console.error("Prisma Error Code:", error.code);
+          console.error("Prisma Meta:", error.meta);
+        }
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
+
+      if (!id) {
+        return {
+          status: 400,
+          message: "servicoId inválido",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      }
+
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      };
     }
   }),
 
@@ -83,14 +179,40 @@ export const servico = {
         where: {
           empresaId: id,
         },
-        include: {
-          produtos: true,
-        },
       });
 
       return { data: servicos, status: 200 };
     } catch (error) {
-      return processGetDeleteError(id, "empresa", error);
+      if (error instanceof Error) {
+        console.error("Error Stack:", error.stack);
+        console.error("Error Details:", {
+          message: error.message,
+          name: error.name,
+          cause: error.cause,
+        });
+
+        // For Prisma errors
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          console.error("Prisma Error Code:", error.code);
+          console.error("Prisma Meta:", error.meta);
+        }
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
+
+      if (!id) {
+        return {
+          status: 400,
+          message: "empresaId fornecido inválido",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      }
+
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      };
     }
   }),
 
@@ -104,9 +226,38 @@ export const servico = {
 
       revalidatePath("/multicaixa", "page");
 
-      return { status: 200, message: "Serviço apagado com sucesso." };
+      return { status: 200, message: "Serviço removido." };
     } catch (error) {
-      return processGetDeleteError(id, "servico", error);
+      if (error instanceof Error) {
+        console.error("Error Stack:", error.stack);
+        console.error("Error Details:", {
+          message: error.message,
+          name: error.name,
+          cause: error.cause,
+        });
+
+        // For Prisma errors
+        if (error instanceof Prisma.PrismaClientKnownRequestError) {
+          console.error("Prisma Error Code:", error.code);
+          console.error("Prisma Meta:", error.meta);
+        }
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
+
+      if (!id) {
+        return {
+          status: 400,
+          message: "servicoId inválido",
+          error: error instanceof Error ? error.message : "Erro desconhecido",
+        };
+      }
+
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error: error instanceof Error ? error.message : "Erro desconhecido",
+      };
     }
   },
 };
