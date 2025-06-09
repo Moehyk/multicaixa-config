@@ -23,7 +23,6 @@ export default function ConfirmDeleteModal({
   const handleDelete = async () => {
     setIsFetching(true);
     const response = await onDelete(dataId);
-    console.log("response", response.data);
     setIsFetching(false);
 
     if (response.status !== 200) {
