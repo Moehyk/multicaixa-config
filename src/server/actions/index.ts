@@ -11,6 +11,12 @@ export const upsertEmpresa = async (values: Empresa) => {
   return response;
 };
 
+export const getServicos = async (empresaId: string) => {
+  const response = await api.servico.getAll(empresaId);
+
+  return response;
+};
+
 export const upsertServico = async ({
   empresaId,
   input,
