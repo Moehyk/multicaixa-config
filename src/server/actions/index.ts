@@ -17,14 +17,20 @@ export const getServicos = async (empresaId: string) => {
   return response;
 };
 
+export const getServico = async (id: string) => {
+  const response = await api.servico.get(id);
+
+  return response;
+};
+
 export const upsertServico = async ({
   empresaId,
   input,
 }: CreateServicoParams) => {
   if (input.id) {
-    return api.servico.update(input);
+    return await api.servico.update(input);
   } else {
-    return api.servico.create(empresaId, input);
+    return await api.servico.create(empresaId, input);
   }
 };
 
