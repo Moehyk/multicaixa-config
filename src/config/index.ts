@@ -10,3 +10,13 @@ export const confirmDeleteConfig: { [key: string]: string } = {
   recarga: "Tem a certeza que pretende apagar recarga?",
   montante: "Tem a certeza que pretende apagar pagamento?",
 };
+
+export const errorIdMessage: { [key: string]: string } = {
+  empresa: "Empresa inexistente",
+  servico: "Serviço inexistente",
+  produto: "Produto inexistente",
+  pagamento: "Pagamento inexistente",
+  carregamento: "Carregamento inexistente",
+  recarga: "Recarga inexistente",
+  montante: "Montante inexistente",
+};

@@ -8,6 +8,7 @@ import {
   Recargas,
   Montante,
 } from "@prisma/client";
+import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
 export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
@@ -92,3 +93,11 @@ export type BaseApiResponse = {
 export type DeleteHandler<T extends BaseApiResponse = BaseApiResponse> = (
   id: string
 ) => Promise<T>;
+
+export type ValidationParams = {
+  cuid: boolean;
+  user: KindeUser<Record<string, any>>;
+  data: DataModel;
+  inputs: boolean;
+  message?: string;
+};
