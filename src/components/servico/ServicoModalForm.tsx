@@ -25,7 +25,7 @@ export default function ServicoModalForm({
     const response = await upsertServico({ empresaId, input: values });
 
     setIsFetching(false);
-    if (response.status !== 200) {
+    if (!response.data) {
       errorNotification(response);
     } else {
       sucessNotification(response);
