@@ -23,3 +23,9 @@ export const getInvalidParamsMessage = (params: Record<string, string>) => {
     ", "
   )}`;
 };
+
+export const isValidCuid = (id: string): boolean => {
+  // Basic regex for CUID (v2) validation
+  const cuidRegex = /^c[^\s-]{8,}$/i;
+  return cuidRegex.test(id);
+};
