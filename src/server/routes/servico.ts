@@ -2,18 +2,29 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
 import {
-  getInvalidParamsMessage,
-  checkIfQueryParamsIsValid,
+  validateCuid,
+  validateUser,
+  validateInputs,
+  throwValidationError,
+  processErrors,
 } from "@/utils/errors";
 
 import { ServicoForm } from "@/types";
-import { Prisma } from "@prisma/client";
 
 export const servico = {
   create: async (empresaId: string, input: ServicoForm) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(empresaId);
+    const { isInputsValid, message } = validateInputs(input);
+
     try {
-      const user = await getUser();
-      if (!user?.id) throw new Error("User not authenticated");
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: "empresa",
+        inputs: isInputsValid,
+        message,
+      });
 
       const servico = await db.servico.create({
         data: {
@@ -33,52 +44,45 @@ export const servico = {
       };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: isCuidValid,
+          inputs: isInputsValid,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      const isValid = checkIfQueryParamsIsValid(input);
-
-      if (!isValid) {
-        const message = getInvalidParamsMessage(input);
-
-        return {
-          status: 400,
-          message,
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      } else {
-        return {
-          status: 500,
-          message: "Ocorreu um erro ao processar sua solicitação",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error,
+      };
     }
   },
   update: async (input: ServicoForm) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(input.id);
+    const { isInputsValid, message } = validateInputs(input);
+
     try {
-      const user = await getUser();
-      if (!user?.id) throw new Error("User not authenticated");
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: "servico",
+        inputs: isInputsValid,
+        message,
+      });
 
       const servico = await db.servico.update({
         where: {
           id: input.id,
         },
         data: {
-          ...input,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
+          desig_sistema: input.desig_sistema,
         },
       });
 
@@ -91,90 +95,75 @@ export const servico = {
       };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: isCuidValid,
+          inputs: isInputsValid,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      const isValid = checkIfQueryParamsIsValid(input);
-
-      if (!isValid) {
-        const message = getInvalidParamsMessage(input);
-
-        return {
-          status: 400,
-          message,
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      } else {
-        return {
-          status: 500,
-          message: "Ocorreu um erro ao processar sua solicitação",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error,
+      };
     }
   },
 
   get: cache(async (id: string) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(id);
+
     try {
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: "servico",
+        inputs: true,
+      });
+
       const servico = await db.servico.findUnique({
         where: {
           id: id,
-        },
-        include: {
-          produtos: true,
         },
       });
 
       return { data: servico, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: isCuidValid,
+          inputs: true,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      if (!id) {
-        return {
-          status: 400,
-          message: "servicoId inválido",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
-
       return {
         status: 500,
         message: "Ocorreu um erro ao processar sua solicitação",
-        error: error instanceof Error ? error.message : "Erro desconhecido",
+        error,
       };
     }
   }),
 
   getAll: cache(async (id: string) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(id);
+
     try {
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: "empresa",
+        inputs: true,
+      });
+
       const servicos = await db.servico.findMany({
         where: {
           empresaId: id,
@@ -184,40 +173,35 @@ export const servico = {
       return { data: servicos, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: isCuidValid,
+          inputs: true,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      if (!id) {
-        return {
-          status: 400,
-          message: "empresaId fornecido inválido",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
-
       return {
         status: 500,
         message: "Ocorreu um erro ao processar sua solicitação",
-        error: error instanceof Error ? error.message : "Erro desconhecido",
+        error,
       };
     }
   }),
 
   delete: async (id: string) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(id);
     try {
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: "servico",
+        inputs: true,
+      });
+
       await db.servico.delete({
         where: {
           id: id,
@@ -229,34 +213,20 @@ export const servico = {
       return { status: 200, message: "Serviço removido." };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: isCuidValid,
+          inputs: true,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      if (!id) {
-        return {
-          status: 400,
-          message: "servicoId inválido",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
-
       return {
         status: 500,
         message: "Ocorreu um erro ao processar sua solicitação",
-        error: error instanceof Error ? error.message : "Erro desconhecido",
+        error,
       };
     }
   },

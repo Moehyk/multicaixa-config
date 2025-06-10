@@ -2,18 +2,29 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
 import {
-  getInvalidParamsMessage,
-  checkIfQueryParamsIsValid,
+  validateUser,
+  validateInputs,
+  validateCuid,
+  processErrors,
+  throwValidationError,
 } from "@/utils/errors";
 
 import { Empresa } from "@prisma/client";
-import { Prisma } from "@prisma/client";
 
 export const empresa = {
   create: async (input: Empresa) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(input.id);
+    const { isInputsValid, message } = validateInputs(input);
+
     try {
-      const user = await getUser();
-      if (!user?.id) throw new Error("User not authenticated");
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: "empresa",
+        inputs: isInputsValid,
+        message,
+      });
 
       // 1. Prepare the where clause
       const where = input.id
@@ -51,81 +62,57 @@ export const empresa = {
       };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: true,
+          inputs: isInputsValid,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      const isValid = checkIfQueryParamsIsValid(input);
-
-      if (!isValid) {
-        const message = getInvalidParamsMessage(input);
-
-        return {
-          status: 400,
-          message,
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      } else {
-        return {
-          status: 500,
-          message: "Ocorreu um erro ao processar sua solicitação",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error,
+      };
     }
   },
 
   get: cache(async () => {
-    const user = await getUser();
+    const user = await validateUser();
+
     try {
+      throwValidationError({
+        user,
+        cuid: true,
+        data: "utilizador",
+        inputs: true,
+      });
+
       const data = await db.empresa.findUnique({
         where: {
-          utilizadorId: user?.id,
+          utilizadorId: user.id,
         },
       });
       return { data, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
-        console.error("Error Stack:", error.stack);
-        console.error("Error Details:", {
-          message: error.message,
-          name: error.name,
-          cause: error.cause,
+        const response = processErrors(error, {
+          cuid: true,
+          inputs: true,
+          user: user,
         });
 
-        // For Prisma errors
-        if (error instanceof Prisma.PrismaClientKnownRequestError) {
-          console.error("Prisma Error Code:", error.code);
-          console.error("Prisma Meta:", error.meta);
-        }
+        return response!;
       } else {
         console.error("Unknown Error Type:", error);
       }
-
-      if (!user.id) {
-        return {
-          status: 400,
-          message: "utilizadorId inválido",
-          error: error instanceof Error ? error.message : "Erro desconhecido",
-        };
-      }
-
       return {
         status: 500,
         message: "Ocorreu um erro ao processar sua solicitação",
-        error: error instanceof Error ? error.message : "Erro desconhecido",
+        error,
       };
     }
   }),
