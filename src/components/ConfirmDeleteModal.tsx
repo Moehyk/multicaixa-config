@@ -35,8 +35,7 @@ export default function ConfirmDeleteModal({
 
   return (
     <>
-      <p>{confirmDeleteConfig[model]}</p>
-      <p>ID: {dataId}</p>
+      <p className="font-medium">{confirmDeleteConfig[model]}</p>
       <div className="flex gap-4 justify-end mt-8">
         <Button variant="default" onClick={() => context.closeModal(id)}>
           Cancelar
