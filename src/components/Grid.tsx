@@ -1,7 +1,7 @@
-import GridServico from "./GridServico";
+import GridServico from "./servico/GridServico";
 import GridProduto from "./GridProduto";
 import GridNoProduto from "./GridNoProduto";
-import GridNoServico from "./GridNoServico";
+import GridNoServico from "./servico/GridNoServico";
 
 export default function Grid({ children }: { children: React.ReactNode }) {
   return <div className="flex flex-col gap-4">{children}</div>;
