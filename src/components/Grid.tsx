@@ -1,6 +1,6 @@
 import GridServico from "./servico/GridServico";
-import GridProduto from "./GridProduto";
-import GridNoProduto from "./GridNoProduto";
+import GridProduto from "./produto/GridProduto";
+import GridNoProduto from "./produto/GridNoProduto";
 import GridNoServico from "./servico/GridNoServico";
 
 export default function Grid({ children }: { children: React.ReactNode }) {
