@@ -1,12 +1,20 @@
-"use server";
+import { getServicos } from "@/server/actions";
 
-import { api } from "@/server";
+import { Grid, GridError } from "@/components";
 
 export default async function ServicoLoader({ id }: { id: string }) {
-  const { data: servicos } = await api.servico.getAll(id);
+  const { data } = await getServicos(id);
 
-  if (!servicos) {
-    return <div>Ups, no data!</div>;
+  if (!data) {
+    return <GridError message="Não foi possível carregar os serviços." />;
   }
-  return <div>Servico Loader</div>;
+  return (
+    <>
+      {data && data.length === 0 && <Grid.NoServico />}
+      {data.length > 0 &&
+        data.map((servico) => (
+          <Grid.Servico key={servico.id} servico={servico}></Grid.Servico>
+        ))}
+    </>
+  );
 }
