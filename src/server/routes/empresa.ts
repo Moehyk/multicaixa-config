@@ -14,13 +14,12 @@ import { Empresa } from "@prisma/client";
 export const empresa = {
   create: async (input: Empresa) => {
     const user = await validateUser();
-    const isCuidValid = validateCuid(input.id);
     const { isInputsValid, message } = validateInputs(input);
 
     try {
       throwValidationError({
         user,
-        cuid: isCuidValid,
+        cuid: true,
         data: "empresa",
         inputs: isInputsValid,
         message,
@@ -35,7 +34,19 @@ export const empresa = {
       const empresa = await db.empresa.upsert({
         where,
         create: {
-          ...input,
+          utilizadorId: user.id,
+          cae: input.cae,
+          nome: input.nome,
+          sigla: input.sigla,
+          telefone: input.telefone,
+          email: input.email,
+          responsavel: input.responsavel,
+          morada: input.morada,
+          localidade: input.localidade,
+          numero_pessoa_colectiva: input.numero_pessoa_colectiva,
+          numero_entidade: input.numero_entidade,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
         },
         update: {
           cae: input.cae,
