@@ -1,7 +1,6 @@
 import { zodResolver } from "mantine-form-zod-resolver";
 
 import { useState, useEffect } from "react";
-import { useDisclosure } from "@mantine/hooks";
 import { useForm } from "@mantine/form";
 
 import {
@@ -36,7 +35,6 @@ export const useEmpresaForm = (values: EmpresaForm) => {
 
 export const useEmpresaModalForm = () => {
   const [active, setActive] = useState(0);
-  const [opened, { close }] = useDisclosure(true);
 
   const form = useForm<EmpresaForm>({
     mode: "controlled",
@@ -67,8 +65,6 @@ export const useEmpresaModalForm = () => {
     form,
     nextStep,
     prevStep,
-    opened,
-    close,
   };
 };
 
