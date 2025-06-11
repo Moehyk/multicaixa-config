@@ -87,7 +87,7 @@ export type BaseApiResponse = {
   status: number;
   message: string;
   data?: unknown;
-  error?: string;
+  error?: unknown;
 };
 
 export type DeleteHandler<T extends BaseApiResponse = BaseApiResponse> = (
