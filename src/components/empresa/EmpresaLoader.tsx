@@ -1,6 +1,6 @@
 import { api } from "@/server";
 
-import EmpresaModalForm from "./EmpresaModalForm";
+import EmpresaModalForm from "./CriarEmpresaModal";
 import EmpresaWidget from "./EmpresaWidget";
 
 export default async function EmpresaLoader() {
