@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import EmpresaModalForm from "./EmpresaModalForm";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
 import { IconMail, IconPhone, IconSettings } from "@tabler/icons-react";
 
@@ -23,10 +22,6 @@ function IconGroup({
 }
 
 export default function EmpresaWidget(empresa: Empresa) {
-  if (!empresa) {
-    return <EmpresaModalForm />;
-  }
-
   return (
     <Card
       withBorder
