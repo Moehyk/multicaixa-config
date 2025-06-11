@@ -7,7 +7,7 @@ export default async function EmpresaLoader() {
   const { data } = await api.empresa.get();
 
   if (!data) {
-    return <EmpresaModalForm />;
+    return <></>;
   }
 
   return <EmpresaWidget {...data} />;
