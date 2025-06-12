@@ -3,6 +3,10 @@ export const splitArray = <T>(
   firstArrLength: number,
   arrLength: number
 ): T[][] => {
+  if (arr.length <= firstArrLength + 1) {
+    return [[...arr]];
+  }
+
   const firstArray = arr.slice(0, firstArrLength);
   const restOfArray = arr.slice(firstArrLength);
   const finalArray: T[][] = [firstArray];
@@ -11,15 +15,11 @@ export const splitArray = <T>(
     finalArray.push(restOfArray.slice(i, i + arrLength));
   }
 
-  if (arr.length <= firstArrLength + 1) {
-    return [[...arr]];
-  }
-
   if (finalArray[finalArray.length - 1].length <= 1) {
-    return [
-      ...finalArray.filter((_, i) => i !== -2 && i !== -1),
-      finalArray.splice(-2).flat(),
-    ];
+    const previousArrays = finalArray.slice(0, -2);
+    const lastCombinedArray = finalArray.splice(-2).flat();
+
+    return [...previousArrays, lastCombinedArray];
   }
 
   return finalArray;
