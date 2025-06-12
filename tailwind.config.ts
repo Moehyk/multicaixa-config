@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { brand } from "./src/mantine/colors";
 
 export default {
   corePlugins: {
@@ -43,16 +44,16 @@ export default {
       },
       colors: {
         brand: {
-          50: "#e6f2ff",
-          100: "#d1e0ff",
-          200: "#a2befa",
-          300: "#709af3",
-          400: "#467bee",
-          500: "#2b68ec",
-          600: "#1a5eeb",
-          700: "#084ed2",
-          800: "#0045bd",
-          900: "#003ba8",
+          50: brand[0],
+          100: brand[1],
+          200: brand[2],
+          300: brand[3],
+          400: brand[4],
+          500: brand[5],
+          600: brand[6],
+          700: brand[7],
+          800: brand[8],
+          900: brand[9],
         },
         transparent: "transparent",
         current: "currentColor",
