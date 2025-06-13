@@ -1,8 +1,16 @@
 "use client";
 
+import { modals } from "@mantine/modals";
+
 import Link from "next/link";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
-import { IconMail, IconPhone, IconSettings } from "@tabler/icons-react";
+import {
+  IconMail,
+  IconPhone,
+  IconSettings,
+  IconDeviceDesktop,
+} from "@tabler/icons-react";
+import { Multicaixa } from "@/components/multicaixa";
 
 import type { Empresa } from "@prisma/client";
 
@@ -39,16 +47,32 @@ export default function EmpresaWidget(empresa: Empresa) {
           </IconGroup>
         </div>
       </div>
-      <Tooltip label="Editar Empresa" position="bottom">
-        <ActionIcon
-          component={Link}
-          href="/multicaixa/empresa"
-          variant="default"
-          size="xl"
-        >
-          <IconSettings size={32} stroke={1.5} />
-        </ActionIcon>
-      </Tooltip>
+      <div className="flex gap-4">
+        <Tooltip label="Multicaixa" position="bottom">
+          <ActionIcon
+            variant="default"
+            size="xl"
+            onClick={() =>
+              modals.open({
+                size: 1200,
+                children: <Multicaixa {...empresa} />,
+              })
+            }
+          >
+            <IconDeviceDesktop size={32} stroke={1.5} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label="Editar Empresa" position="bottom">
+          <ActionIcon
+            component={Link}
+            href="/multicaixa/empresa"
+            variant="default"
+            size="xl"
+          >
+            <IconSettings size={32} stroke={1.5} />
+          </ActionIcon>
+        </Tooltip>
+      </div>
     </Card>
   );
 }

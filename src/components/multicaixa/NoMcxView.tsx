@@ -2,7 +2,7 @@ import { Paper } from "@mantine/core";
 
 import type { DataModel } from "@/types";
 
-export default function NoMcxGrid({ dataModel }: { dataModel: DataModel }) {
+export default function NoMcxView({ dataModel }: { dataModel: DataModel }) {
   const unavailableText: { [key: string]: string } = {
     servico: "Sem serviços disponíveis",
     produto: "Sem produtos disponíveis",

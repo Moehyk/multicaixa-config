@@ -1,9 +1,10 @@
 import { useEffect, useState, Dispatch, SetStateAction } from "react";
 import { splitArray } from "@/utils/split-array";
 
+import NoMcxView from "./NoMcxView";
 import McxSelectBtn from "./McxSelectBtn";
 
-import type { GridButton, GroupButtons } from "@/types";
+import type { GridButton, GroupButtons, DataModel } from "@/types";
 
 function OnlyOneGroup({ buttons }: GroupButtons) {
   return (
@@ -97,7 +98,7 @@ function MultiGroupBetweenPage({
   );
 }
 
-export default function McxGrid({ buttons }: { buttons: GridButton[] }) {
+function ButtonGrid({ buttons }: { buttons: GridButton[] }) {
   const splitButtons = splitArray(buttons, 7, 6);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageBtns, setPageBtns] = useState<GridButton[]>(
@@ -136,6 +137,23 @@ export default function McxGrid({ buttons }: { buttons: GridButton[] }) {
           )}
         </>
       )}
+    </div>
+  );
+}
+
+export default function McxSelectionView({
+  buttons,
+  dataModel,
+}: {
+  buttons: GridButton[] | undefined;
+  dataModel: DataModel;
+}) {
+  return (
+    <div className="px-16 py-8 flex items-center justify-center">
+      {(!buttons || buttons.length === 0) && (
+        <NoMcxView dataModel={dataModel} />
+      )}
+      {buttons && buttons.length > 0 && <ButtonGrid buttons={buttons} />}
     </div>
   );
 }

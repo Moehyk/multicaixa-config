@@ -1,5 +1,5 @@
-import NoMcxGrid from "./NoMcxGrid";
-import McxGrid from "./McxGrid";
+import NoMcxView from "./NoMcxView";
+import McxSelectionView from "./McxSelectionView";
 
 import type { GridButton, DataModel } from "@/types";
 
@@ -12,12 +12,5 @@ export default function McxMain({
   buttons: GridButton[] | undefined;
   dataModel: DataModel;
 }) {
-  return (
-    <div className="px-16 py-8 flex items-center justify-center">
-      {(!buttons || buttons.length === 0) && (
-        <NoMcxGrid dataModel={dataModel} />
-      )}
-      {buttons && buttons.length > 0 && <McxGrid buttons={buttons} />}
-    </div>
-  );
+  return <McxSelectionView buttons={buttons} dataModel={dataModel} />;
 }
