@@ -1,21 +1,12 @@
-import type { DataModel } from "@/types";
+import { useMulticaixaController } from "@/context/multicaixa-controller";
 
-export default function McxHeader({
-  dataModel,
-  title,
-}: {
-  title: string | undefined;
-  dataModel: DataModel;
-}) {
-  const subHeader: { [key: string]: string } = {
-    servico: "escolha um serviço",
-    produto: "escolha um produto",
-  };
+export default function McxHeader() {
+  const { desigEcra, ecraSecondary } = useMulticaixaController();
 
   return (
     <div className="text-center uppercase text-white flex-1 pt-8">
-      <h1 className="text-4xl font-bold">{title}</h1>
-      <h2 className="text-2xl font-medium mt-4">{subHeader[dataModel]}</h2>
+      <h1 className="text-4xl font-bold">{desigEcra}</h1>
+      <h2 className="text-2xl font-medium mt-4">{ecraSecondary}</h2>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 "use client";
 
 import { modals } from "@mantine/modals";
+import { useMulticaixaController } from "@/context/multicaixa-controller";
 
 import Link from "next/link";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
@@ -52,12 +53,17 @@ export default function EmpresaWidget(empresa: Empresa) {
           <ActionIcon
             variant="default"
             size="xl"
-            onClick={() =>
+            onClick={() => {
+              useMulticaixaController.setState({
+                desigEcra: empresa.desig_ecra,
+                ecraSecondary: "Escolha um serviço",
+                view: "empresa",
+              });
               modals.open({
                 size: 1200,
                 children: <Multicaixa {...empresa} />,
-              })
-            }
+              });
+            }}
           >
             <IconDeviceDesktop size={32} stroke={1.5} />
           </ActionIcon>

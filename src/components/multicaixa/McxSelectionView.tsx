@@ -1,4 +1,5 @@
-import { useEffect, useState, Dispatch, SetStateAction } from "react";
+import { useEffect, useState } from "react";
+import { useMulticaixaController } from "@/context/multicaixa-controller";
 import { splitArray } from "@/utils/split-array";
 
 import NoMcxView from "./NoMcxView";
@@ -6,15 +7,21 @@ import McxSelectBtn from "./McxSelectBtn";
 
 import type { GridButton, GroupButtons, DataModel } from "@/types";
 
-function OnlyOneGroup({ buttons }: GroupButtons) {
+function OnlyOneGroup({ buttons, dataModel }: GroupButtons) {
   return (
     <>
       {buttons.map((btn, i) => (
         <McxSelectBtn
-          key={btn.id}
+          key={`${btn.id}-${dataModel}`}
           selectName={btn.text}
           selectKey={`${i + 1}`}
-          clickHandler={() => {}}
+          clickHandler={() =>
+            useMulticaixaController.setState({
+              desigEcra: btn.text,
+              ecraSecondary: `Escolha um produto`,
+              view: "servico",
+            })
+          }
         />
       ))}
     </>
@@ -25,6 +32,7 @@ function MultiGroupFirstOrLastPage({
   buttons,
   currentPage,
   dispatch,
+  dataModel,
 }: GroupButtons) {
   return (
     <>
@@ -32,10 +40,16 @@ function MultiGroupFirstOrLastPage({
         <>
           {buttons.map((btn, i) => (
             <McxSelectBtn
-              key={btn.id}
+              key={`${btn.id}-${dataModel}`}
               selectName={btn.text}
               selectKey={`${i + 1}`}
-              clickHandler={() => {}}
+              clickHandler={() =>
+                useMulticaixaController.setState({
+                  desigEcra: btn.text,
+                  ecraSecondary: `Escolha um produto`,
+                  view: "servico",
+                })
+              }
             />
           ))}
           <McxSelectBtn
@@ -54,10 +68,16 @@ function MultiGroupFirstOrLastPage({
           />
           {buttons.map((btn, i) => (
             <McxSelectBtn
-              key={btn.id}
+              key={`${btn.id}-${dataModel}`}
               selectName={btn.text}
               selectKey={`${i + 2}`}
-              clickHandler={() => {}}
+              clickHandler={() =>
+                useMulticaixaController.setState({
+                  desigEcra: btn.text,
+                  ecraSecondary: `Escolha um produto`,
+                  view: "servico",
+                })
+              }
             />
           ))}
         </>
@@ -71,6 +91,7 @@ function MultiGroupBetweenPage({
   currentPage,
   dispatch,
   lastPage,
+  dataModel,
 }: GroupButtons) {
   return (
     <>
@@ -81,10 +102,16 @@ function MultiGroupBetweenPage({
       />
       {buttons.map((btn, i) => (
         <McxSelectBtn
-          key={btn.id}
+          key={`${btn.id}-${dataModel}`}
           selectName={btn.text}
           selectKey={`${i + 2}`}
-          clickHandler={() => {}}
+          clickHandler={() =>
+            useMulticaixaController.setState({
+              desigEcra: btn.text,
+              ecraSecondary: `Escolha um produto`,
+              view: "servico",
+            })
+          }
         />
       ))}
       {currentPage !== lastPage && (
@@ -98,7 +125,13 @@ function MultiGroupBetweenPage({
   );
 }
 
-function ButtonGrid({ buttons }: { buttons: GridButton[] }) {
+function ButtonGrid({
+  buttons,
+  dataModel,
+}: {
+  buttons: GridButton[];
+  dataModel: DataModel;
+}) {
   const splitButtons = splitArray(buttons, 7, 6);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageBtns, setPageBtns] = useState<GridButton[]>(
@@ -116,6 +149,7 @@ function ButtonGrid({ buttons }: { buttons: GridButton[] }) {
           buttons={pageBtns}
           currentPage={currentPage}
           dispatch={setCurrentPage}
+          dataModel={dataModel}
         />
       )}
       {buttons.length >= 9 && (
@@ -125,6 +159,7 @@ function ButtonGrid({ buttons }: { buttons: GridButton[] }) {
               buttons={pageBtns}
               currentPage={currentPage}
               dispatch={setCurrentPage}
+              dataModel={dataModel}
             />
           )}
           {pageBtns.length <= 6 && (
@@ -133,6 +168,7 @@ function ButtonGrid({ buttons }: { buttons: GridButton[] }) {
               currentPage={currentPage}
               dispatch={setCurrentPage}
               lastPage={splitButtons.length}
+              dataModel={dataModel}
             />
           )}
         </>
@@ -153,7 +189,9 @@ export default function McxSelectionView({
       {(!buttons || buttons.length === 0) && (
         <NoMcxView dataModel={dataModel} />
       )}
-      {buttons && buttons.length > 0 && <ButtonGrid buttons={buttons} />}
+      {buttons && buttons.length > 0 && (
+        <ButtonGrid buttons={buttons} dataModel={dataModel} />
+      )}
     </div>
   );
 }
