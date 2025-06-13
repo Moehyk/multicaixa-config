@@ -20,6 +20,10 @@ export default function McxToolbar({ title }: { title: string }) {
                 desigEcra: title,
                 ecraSecondary: "Escolha um serviço",
                 view: "empresa",
+                carregamentoId: undefined,
+                recargasId: undefined,
+                produtoId: undefined,
+                servicoId: undefined,
               })
             }
           >

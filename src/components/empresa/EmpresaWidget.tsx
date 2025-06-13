@@ -58,6 +58,10 @@ export default function EmpresaWidget(empresa: Empresa) {
                 desigEcra: empresa.desig_ecra,
                 ecraSecondary: "Escolha um serviço",
                 view: "empresa",
+                carregamentoId: undefined,
+                recargasId: undefined,
+                produtoId: undefined,
+                servicoId: undefined,
               });
               modals.open({
                 size: 1200,
