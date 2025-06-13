@@ -1,3 +1,4 @@
+import type { Dispatch, SetStateAction } from "react";
 import {
   Empresa,
   Servico,
@@ -19,6 +20,13 @@ export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
 export type GridButton = {
   id: string;
   text: string;
+};
+
+export type GroupButtons = {
+  buttons: GridButton[];
+  currentPage: number;
+  dispatch: Dispatch<SetStateAction<number>>;
+  lastPage?: number;
 };
 
 export type CreateServicoParams = {
