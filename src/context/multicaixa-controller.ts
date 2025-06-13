@@ -6,6 +6,10 @@ type State = {
   view: DataModel;
   desigEcra: string;
   ecraSecondary: string;
+  servicoId?: string;
+  produtoId?: string;
+  carregamentoId?: string;
+  recargasId?: string;
 };
 
 export const initialState: State = {
