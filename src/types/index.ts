@@ -27,6 +27,8 @@ export type GroupButtons = {
   currentPage: number;
   dispatch: Dispatch<SetStateAction<number>>;
   lastPage?: number;
+
+  dataModel: DataModel;
 };
 
 export type CreateServicoParams = {
