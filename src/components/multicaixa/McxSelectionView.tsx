@@ -2,10 +2,29 @@ import { useEffect, useState } from "react";
 import { useMulticaixaController } from "@/context/multicaixa-controller";
 import { splitArray } from "@/utils/split-array";
 
-import NoMcxView from "./NoMcxView";
 import McxSelectBtn from "./McxSelectBtn";
 
 import type { GridButton, GroupButtons, DataModel } from "@/types";
+
+const viewController = (state: {
+  view: DataModel;
+  desigEcra: string;
+  ecraSecondary?: string;
+  servicoId?: string;
+  produtoId?: string;
+  carregamentoId?: string;
+  recargasId?: string;
+}) => {
+  const selectView: { [key: string]: DataModel } = {
+    empresa: "servico",
+    servico: "produto",
+  };
+
+  useMulticaixaController.setState({
+    ...state,
+    view: selectView[state.view],
+  });
+};
 
 function OnlyOneGroup({ buttons, dataModel }: GroupButtons) {
   return (
@@ -17,10 +36,14 @@ function OnlyOneGroup({ buttons, dataModel }: GroupButtons) {
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
           clickHandler={() =>
-            useMulticaixaController.setState({
+            viewController({
+              view: dataModel,
               desigEcra: btn.screenText,
-              ecraSecondary: `Escolha um produto`,
-              view: "servico",
+              ecraSecondary: btn.subtitle,
+              servicoId: dataModel === "servico" ? btn.id : undefined,
+              produtoId: dataModel === "produto" ? btn.id : undefined,
+              carregamentoId: dataModel === "carregamento" ? btn.id : undefined,
+              recargasId: dataModel === "recarga" ? btn.id : undefined,
             })
           }
         />
@@ -46,10 +69,15 @@ function MultiGroupFirstOrLastPage({
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
               clickHandler={() =>
-                useMulticaixaController.setState({
+                viewController({
+                  view: dataModel,
                   desigEcra: btn.screenText,
-                  ecraSecondary: `Escolha um produto`,
-                  view: "servico",
+                  ecraSecondary: btn.subtitle,
+                  servicoId: dataModel === "servico" ? btn.id : undefined,
+                  produtoId: dataModel === "produto" ? btn.id : undefined,
+                  carregamentoId:
+                    dataModel === "carregamento" ? btn.id : undefined,
+                  recargasId: dataModel === "recarga" ? btn.id : undefined,
                 })
               }
             />
@@ -75,10 +103,15 @@ function MultiGroupFirstOrLastPage({
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
               clickHandler={() =>
-                useMulticaixaController.setState({
+                viewController({
+                  view: dataModel,
                   desigEcra: btn.screenText,
-                  ecraSecondary: `Escolha um produto`,
-                  view: "servico",
+                  ecraSecondary: btn.subtitle,
+                  servicoId: dataModel === "servico" ? btn.id : undefined,
+                  produtoId: dataModel === "produto" ? btn.id : undefined,
+                  carregamentoId:
+                    dataModel === "carregamento" ? btn.id : undefined,
+                  recargasId: dataModel === "recarga" ? btn.id : undefined,
                 })
               }
             />
@@ -110,10 +143,14 @@ function MultiGroupBetweenPage({
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
           clickHandler={() =>
-            useMulticaixaController.setState({
+            viewController({
+              view: dataModel,
               desigEcra: btn.screenText,
-              ecraSecondary: `Escolha um produto`,
-              view: "servico",
+              ecraSecondary: btn.subtitle,
+              servicoId: dataModel === "servico" ? btn.id : undefined,
+              produtoId: dataModel === "produto" ? btn.id : undefined,
+              carregamentoId: dataModel === "carregamento" ? btn.id : undefined,
+              recargasId: dataModel === "recarga" ? btn.id : undefined,
             })
           }
         />
@@ -129,7 +166,7 @@ function MultiGroupBetweenPage({
   );
 }
 
-function ButtonGrid({
+export default function McxSelectionView({
   buttons,
   dataModel,
 }: {
@@ -176,25 +213,6 @@ function ButtonGrid({
             />
           )}
         </>
-      )}
-    </div>
-  );
-}
-
-export default function McxSelectionView({
-  buttons,
-  dataModel,
-}: {
-  buttons: GridButton[] | undefined;
-  dataModel: DataModel;
-}) {
-  return (
-    <div className="px-16 py-8 flex items-center justify-center">
-      {(!buttons || buttons.length === 0) && (
-        <NoMcxView dataModel={dataModel} />
-      )}
-      {buttons && buttons.length > 0 && (
-        <ButtonGrid buttons={buttons} dataModel={dataModel} />
       )}
     </div>
   );
