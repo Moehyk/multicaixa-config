@@ -10,8 +10,8 @@ type State = {
 
 export const initialState: State = {
   view: "empresa",
-  desigEcra: "BACKBONE",
-  ecraSecondary: "Escolha um serviço",
+  desigEcra: "",
+  ecraSecondary: "",
 };
 
 export const useMulticaixaController = create<State>((set) => ({
