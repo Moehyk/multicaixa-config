@@ -27,13 +27,22 @@ export type GridButton = {
   produtoTipo?: ProdutoTipo;
 };
 
+export type Views =
+  | "empresa"
+  | "servico"
+  | "recarga"
+  | "produto"
+  | "carregamento"
+  | "pagamento"
+  | "montante"
+  | "end";
+
 export type GroupButtons = {
   buttons: GridButton[];
   currentPage: number;
   dispatch: Dispatch<SetStateAction<number>>;
   lastPage?: number;
-
-  dataModel: DataModel;
+  view: Views;
 };
 
 export type CreateServicoParams = {

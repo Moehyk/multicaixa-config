@@ -4,10 +4,10 @@ import { splitArray } from "@/utils/split-array";
 
 import McxSelectBtn from "./McxSelectBtn";
 
-import type { GridButton, GroupButtons, DataModel } from "@/types";
+import type { GridButton, GroupButtons, Views } from "@/types";
 
 const viewController = (state: {
-  view: DataModel;
+  view: Views;
   desigEcra: string;
   ecraSecondary?: string;
   servicoId?: string;
@@ -15,7 +15,7 @@ const viewController = (state: {
   carregamentoId?: string;
   recargasId?: string;
 }) => {
-  const selectView: { [key: string]: DataModel } = {
+  const selectView: { [key: string]: Views } = {
     empresa: "servico",
     servico: "produto",
   };
@@ -26,7 +26,7 @@ const viewController = (state: {
   });
 };
 
-function OnlyOneGroup({ buttons, dataModel }: GroupButtons) {
+function OnlyOneGroup({ buttons, view }: GroupButtons) {
   return (
     <>
       {buttons.map((btn, i) => (
@@ -37,13 +37,13 @@ function OnlyOneGroup({ buttons, dataModel }: GroupButtons) {
           selectKey={`${i + 1}`}
           clickHandler={() =>
             viewController({
-              view: dataModel,
+              view: view,
               desigEcra: btn.screenText,
               ecraSecondary: btn.subtitle,
-              servicoId: dataModel === "servico" ? btn.id : undefined,
-              produtoId: dataModel === "produto" ? btn.id : undefined,
-              carregamentoId: dataModel === "carregamento" ? btn.id : undefined,
-              recargasId: dataModel === "recarga" ? btn.id : undefined,
+              servicoId: view === "servico" ? btn.id : undefined,
+              produtoId: view === "produto" ? btn.id : undefined,
+              carregamentoId: view === "carregamento" ? btn.id : undefined,
+              recargasId: view === "recarga" ? btn.id : undefined,
             })
           }
         />
@@ -56,7 +56,7 @@ function MultiGroupFirstOrLastPage({
   buttons,
   currentPage,
   dispatch,
-  dataModel,
+  view,
 }: GroupButtons) {
   return (
     <>
@@ -70,14 +70,13 @@ function MultiGroupFirstOrLastPage({
               selectKey={`${i + 1}`}
               clickHandler={() =>
                 viewController({
-                  view: dataModel,
+                  view: view,
                   desigEcra: btn.screenText,
                   ecraSecondary: btn.subtitle,
-                  servicoId: dataModel === "servico" ? btn.id : undefined,
-                  produtoId: dataModel === "produto" ? btn.id : undefined,
-                  carregamentoId:
-                    dataModel === "carregamento" ? btn.id : undefined,
-                  recargasId: dataModel === "recarga" ? btn.id : undefined,
+                  servicoId: view === "servico" ? btn.id : undefined,
+                  produtoId: view === "produto" ? btn.id : undefined,
+                  carregamentoId: view === "carregamento" ? btn.id : undefined,
+                  recargasId: view === "recarga" ? btn.id : undefined,
                 })
               }
             />
@@ -104,14 +103,13 @@ function MultiGroupFirstOrLastPage({
               selectKey={`${i + 2}`}
               clickHandler={() =>
                 viewController({
-                  view: dataModel,
+                  view: view,
                   desigEcra: btn.screenText,
                   ecraSecondary: btn.subtitle,
-                  servicoId: dataModel === "servico" ? btn.id : undefined,
-                  produtoId: dataModel === "produto" ? btn.id : undefined,
-                  carregamentoId:
-                    dataModel === "carregamento" ? btn.id : undefined,
-                  recargasId: dataModel === "recarga" ? btn.id : undefined,
+                  servicoId: view === "servico" ? btn.id : undefined,
+                  produtoId: view === "produto" ? btn.id : undefined,
+                  carregamentoId: view === "carregamento" ? btn.id : undefined,
+                  recargasId: view === "recarga" ? btn.id : undefined,
                 })
               }
             />
@@ -127,7 +125,7 @@ function MultiGroupBetweenPage({
   currentPage,
   dispatch,
   lastPage,
-  dataModel,
+  view,
 }: GroupButtons) {
   return (
     <>
@@ -144,13 +142,13 @@ function MultiGroupBetweenPage({
           selectKey={`${i + 2}`}
           clickHandler={() =>
             viewController({
-              view: dataModel,
+              view: view,
               desigEcra: btn.screenText,
               ecraSecondary: btn.subtitle,
-              servicoId: dataModel === "servico" ? btn.id : undefined,
-              produtoId: dataModel === "produto" ? btn.id : undefined,
-              carregamentoId: dataModel === "carregamento" ? btn.id : undefined,
-              recargasId: dataModel === "recarga" ? btn.id : undefined,
+              servicoId: view === "servico" ? btn.id : undefined,
+              produtoId: view === "produto" ? btn.id : undefined,
+              carregamentoId: view === "carregamento" ? btn.id : undefined,
+              recargasId: view === "recarga" ? btn.id : undefined,
             })
           }
         />
@@ -168,10 +166,10 @@ function MultiGroupBetweenPage({
 
 export default function McxSelectionView({
   buttons,
-  dataModel,
+  view,
 }: {
   buttons: GridButton[];
-  dataModel: DataModel;
+  view: Views;
 }) {
   const splitButtons = splitArray(buttons, 7, 6);
   const [currentPage, setCurrentPage] = useState(1);
@@ -190,7 +188,7 @@ export default function McxSelectionView({
           buttons={pageBtns}
           currentPage={currentPage}
           dispatch={setCurrentPage}
-          dataModel={dataModel}
+          view={view}
         />
       )}
       {buttons.length >= 9 && (
@@ -200,7 +198,7 @@ export default function McxSelectionView({
               buttons={pageBtns}
               currentPage={currentPage}
               dispatch={setCurrentPage}
-              dataModel={dataModel}
+              view={view}
             />
           )}
           {pageBtns.length <= 6 && (
@@ -209,7 +207,7 @@ export default function McxSelectionView({
               currentPage={currentPage}
               dispatch={setCurrentPage}
               lastPage={splitButtons.length}
-              dataModel={dataModel}
+              view={view}
             />
           )}
         </>

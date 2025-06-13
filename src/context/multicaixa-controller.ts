@@ -1,9 +1,9 @@
 import { create } from "zustand";
 
-import type { DataModel } from "@/types";
+import type { DataModel, Views } from "@/types";
 
 type State = {
-  view: DataModel;
+  view: Views;
   desigEcra: string;
   ecraSecondary: string;
   servicoId?: string;

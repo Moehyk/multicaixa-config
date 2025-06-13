@@ -1,12 +1,7 @@
 import McxSelectionView from "./McxSelectionView";
 import NoMcxView from "./NoMcxView";
 
-import type {
-  GridButton,
-  DataModel,
-  Entidade,
-  ServicoWithProdutos,
-} from "@/types";
+import type { GridButton, Views, Entidade, ServicoWithProdutos } from "@/types";
 import type { Servico } from "@prisma/client";
 
 const createProdutosButtons = (
@@ -48,7 +43,7 @@ export default function McxDataLayer({
   empresa,
   id,
 }: {
-  nextView: DataModel;
+  nextView: Views;
   empresa: Entidade;
   id: string;
 }) {
@@ -66,7 +61,7 @@ export default function McxDataLayer({
     <div className="px-16 py-8 flex items-center justify-center">
       {(!buttons || buttons.length === 0) && <NoMcxView dataModel={nextView} />}
       {buttons && buttons.length > 0 && (
-        <McxSelectionView buttons={buttons} dataModel={nextView} />
+        <McxSelectionView buttons={buttons} view={nextView} />
       )}
     </div>
   );
