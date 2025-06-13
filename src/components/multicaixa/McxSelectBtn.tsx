@@ -5,11 +5,13 @@ import { UnstyledButton } from "@mantine/core";
 export default function McxSelectBtn({
   clickHandler,
   selectKey,
-  selectName,
+  selectText,
+  selectSecondarytext,
 }: {
   clickHandler: () => void;
   selectKey: string;
-  selectName: string;
+  selectText: string;
+  selectSecondarytext?: string;
 }) {
   return (
     <UnstyledButton
@@ -18,7 +20,10 @@ export default function McxSelectBtn({
     >
       {Number(selectKey) % 2 == 0 && (
         <>
-          {selectName}
+          <div>
+            <p> {selectText}</p>
+            <p> {selectSecondarytext}</p>
+          </div>
           <div className="h-16 w-16 bg-orange-400 rounded flex justify-center items-center text-white text-3xl font-semibold">
             {selectKey}
           </div>
@@ -30,7 +35,10 @@ export default function McxSelectBtn({
           <div className="h-16 w-16 bg-orange-400 rounded flex justify-center items-center text-white text-3xl font-semibold">
             {selectKey}
           </div>
-          {selectName}
+          <div className="text-end">
+            <p> {selectText}</p>
+            <p> {selectSecondarytext}</p>
+          </div>
         </>
       )}
     </UnstyledButton>

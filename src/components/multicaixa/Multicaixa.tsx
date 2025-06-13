@@ -20,7 +20,8 @@ const createButtons = (initArray: any[], size: number, text: string) => {
 
   const gridButtons: GridButton[] = buttonsArray.map((button) => ({
     id: button.id,
-    text: button.desig_tecla_seleccao,
+    selectText: button.desig_tecla_seleccao,
+    screenText: button.desig_ecra,
   }));
 
   return gridButtons;
@@ -32,11 +33,29 @@ const servicosData: {
   desig_ecra: string;
 }[] = [];
 
-const produtosData: {
-  id: string;
-  desig_tecla_seleccao: string;
-  desig_ecra: string;
-}[] = [];
+const produtosData: GridButton[] = [
+  {
+    id: "1",
+    selectText: "Produto 1",
+    screenText: "Produto 1",
+    produtoTipo: "pagamento",
+    selectSecondarytext: "Pagamento",
+  },
+  {
+    id: "2",
+    selectText: "Produto 2",
+    screenText: "Produto 2",
+    produtoTipo: "carregamentos",
+    selectSecondarytext: "Carregamentos",
+  },
+  {
+    id: "3",
+    selectText: "Produto 3",
+    screenText: "Produto 3",
+    produtoTipo: "recargas",
+    selectSecondarytext: "Recargas",
+  },
+];
 
 export default function Multicaixa({ desig_ecra }: Empresa) {
   const servicosButtons: GridButton[] = createButtons(
@@ -54,13 +73,13 @@ export default function Multicaixa({ desig_ecra }: Empresa) {
 
   return (
     <McxWrapper>
-      <McxToolbar />
+      <McxToolbar title={desig_ecra} />
       <McxHeader />
       {view === "empresa" && (
         <McxSelectionView buttons={servicosButtons} dataModel="servico" />
       )}
       {view === "servico" && (
-        <McxSelectionView buttons={produtosButtons} dataModel="produto" />
+        <McxSelectionView buttons={produtosData} dataModel="produto" />
       )}
     </McxWrapper>
   );

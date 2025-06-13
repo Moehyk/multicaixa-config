@@ -12,12 +12,13 @@ function OnlyOneGroup({ buttons, dataModel }: GroupButtons) {
     <>
       {buttons.map((btn, i) => (
         <McxSelectBtn
-          key={`${btn.id}-${dataModel}`}
-          selectName={btn.text}
+          key={`${btn.id}-${btn.selectText}`}
+          selectText={btn.selectText}
+          selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
           clickHandler={() =>
             useMulticaixaController.setState({
-              desigEcra: btn.text,
+              desigEcra: btn.screenText,
               ecraSecondary: `Escolha um produto`,
               view: "servico",
             })
@@ -40,12 +41,13 @@ function MultiGroupFirstOrLastPage({
         <>
           {buttons.map((btn, i) => (
             <McxSelectBtn
-              key={`${btn.id}-${dataModel}`}
-              selectName={btn.text}
+              key={`${btn.id}-${btn.selectText}`}
+              selectText={btn.selectText}
+              selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
               clickHandler={() =>
                 useMulticaixaController.setState({
-                  desigEcra: btn.text,
+                  desigEcra: btn.screenText,
                   ecraSecondary: `Escolha um produto`,
                   view: "servico",
                 })
@@ -53,7 +55,7 @@ function MultiGroupFirstOrLastPage({
             />
           ))}
           <McxSelectBtn
-            selectName="Ecrã Seguinte"
+            selectText="Ecrã Seguinte"
             selectKey="8"
             clickHandler={() => dispatch(currentPage + 1)}
           />
@@ -62,18 +64,19 @@ function MultiGroupFirstOrLastPage({
       {currentPage !== 1 && (
         <>
           <McxSelectBtn
-            selectName="Ecrã Anterior"
+            selectText="Ecrã Anterior"
             selectKey="1"
             clickHandler={() => dispatch(currentPage - 1)}
           />
           {buttons.map((btn, i) => (
             <McxSelectBtn
-              key={`${btn.id}-${dataModel}`}
-              selectName={btn.text}
+              key={`${btn.id}-${btn.selectText}`}
+              selectText={btn.selectText}
+              selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
               clickHandler={() =>
                 useMulticaixaController.setState({
-                  desigEcra: btn.text,
+                  desigEcra: btn.screenText,
                   ecraSecondary: `Escolha um produto`,
                   view: "servico",
                 })
@@ -96,18 +99,19 @@ function MultiGroupBetweenPage({
   return (
     <>
       <McxSelectBtn
-        selectName="Ecrã Anterior"
+        selectText="Ecrã Anterior"
         selectKey="1"
         clickHandler={() => dispatch(currentPage - 1)}
       />
       {buttons.map((btn, i) => (
         <McxSelectBtn
-          key={`${btn.id}-${dataModel}`}
-          selectName={btn.text}
+          key={`${btn.id}-${btn.selectText}`}
+          selectText={btn.selectText}
+          selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
           clickHandler={() =>
             useMulticaixaController.setState({
-              desigEcra: btn.text,
+              desigEcra: btn.screenText,
               ecraSecondary: `Escolha um produto`,
               view: "servico",
             })
@@ -116,7 +120,7 @@ function MultiGroupBetweenPage({
       ))}
       {currentPage !== lastPage && (
         <McxSelectBtn
-          selectName="Ecrã Seguinte"
+          selectText="Ecrã Seguinte"
           selectKey="8"
           clickHandler={() => dispatch(currentPage + 1)}
         />
