@@ -9,11 +9,9 @@ export default async function CriarEmpresaPage() {
     notFound();
   }
 
-  const { servicos, ...empresaData } = data;
-
   return (
     <>
-      <EmpresaForm {...empresaData} />
+      <EmpresaForm {...data} />
     </>
   );
 }
