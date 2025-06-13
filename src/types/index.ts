@@ -8,6 +8,7 @@ import {
   Recarga,
   Recargas,
   Montante,
+  ProdutoTipo,
 } from "@prisma/client";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
@@ -19,7 +20,11 @@ export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
 
 export type GridButton = {
   id: string;
-  text: string;
+  screenText: string;
+  subtitle?: string;
+  selectText: string;
+  selectSecondarytext?: string;
+  produtoTipo?: ProdutoTipo;
 };
 
 export type GroupButtons = {
