@@ -3,13 +3,18 @@ import { EmpresaLoading, EmpresaLoader } from "@/components/empresa";
 
 export default function MulticaixaLayout({
   children,
-}: React.PropsWithChildren) {
+  mcxmodal,
+}: {
+  children: React.ReactNode;
+  mcxmodal: React.ReactNode;
+}) {
   return (
-    <div>
+    <>
       <Suspense fallback={<EmpresaLoading />}>
         <EmpresaLoader />
       </Suspense>
       {children}
-    </div>
+      {mcxmodal}
+    </>
   );
 }

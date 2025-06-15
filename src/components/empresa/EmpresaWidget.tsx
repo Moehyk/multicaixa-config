@@ -1,8 +1,3 @@
-"use client";
-
-import { modals } from "@mantine/modals";
-import { useMulticaixaController } from "@/context/multicaixa-controller";
-
 import Link from "next/link";
 import { Card, ActionIcon, Tooltip } from "@mantine/core";
 import {
@@ -11,7 +6,6 @@ import {
   IconSettings,
   IconDeviceDesktop,
 } from "@tabler/icons-react";
-import { Multicaixa } from "@/components/multicaixa";
 
 import type { Empresa } from "@prisma/client";
 
@@ -51,23 +45,10 @@ export default function EmpresaWidget(empresa: Empresa) {
       <div className="flex gap-4">
         <Tooltip label="Multicaixa" position="bottom">
           <ActionIcon
+            component={Link}
+            href={`/multicaixa/mcx/${empresa.id}`}
             variant="default"
             size="xl"
-            onClick={() => {
-              useMulticaixaController.setState({
-                desigEcra: empresa.desig_ecra,
-                ecraSecondary: "Escolha um serviço",
-                view: "empresa",
-                carregamentoId: undefined,
-                recargasId: undefined,
-                produtoId: undefined,
-                servicoId: undefined,
-              });
-              modals.open({
-                size: 1200,
-                children: <Multicaixa {...empresa} />,
-              });
-            }}
           >
             <IconDeviceDesktop size={32} stroke={1.5} />
           </ActionIcon>

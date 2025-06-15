@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useState } from "react";
 import { useMulticaixaController } from "@/context/multicaixa-controller";
 import { splitArray } from "@/utils/split-array";

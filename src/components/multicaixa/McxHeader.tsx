@@ -1,8 +1,10 @@
-import { useMulticaixaController } from "@/context/multicaixa-controller";
-
-export default function McxHeader() {
-  const { desigEcra, ecraSecondary } = useMulticaixaController();
-
+export default function McxHeader({
+  desigEcra,
+  ecraSecondary,
+}: {
+  desigEcra: string;
+  ecraSecondary?: string;
+}) {
   return (
     <div className="text-center uppercase text-white flex-1 pt-8">
       <h1 className="text-4xl font-bold">{desigEcra}</h1>

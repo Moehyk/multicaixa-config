@@ -106,6 +106,9 @@ export const empresa = {
         where: {
           utilizadorId: user.id,
         },
+        include: {
+          servicos: true,
+        },
       });
       return { data, status: 200 };
     } catch (error) {
