@@ -1,39 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useMulticaixaController } from "@/context/multicaixa-controller";
+import { useRouter, useParams } from "next/navigation";
 import { splitArray } from "@/utils/split-array";
 
 import McxSelectBtn from "./McxSelectBtn";
 
-import { ProdutoTipo } from "@prisma/client";
 import type { GridButton, GroupButtons, Views } from "@/types";
+import { ProdutoTipo } from "@prisma/client";
 
-const viewController = (state: {
-  view: Views;
-  desigEcra: string;
-  ecraSecondary?: string;
-  servicoId?: string;
-  produtoId?: string;
-  carregamentoId?: string;
-  pagamentoId?: string;
-  recargasId?: string;
-  produtoTipo?: ProdutoTipo;
-}) => {
-  console.log("produtoTipo", state.produtoTipo);
-
-  const selectProdutoView: { [key: string]: Views } = {
-    pagamento: "pagamento",
-    carregamentos: "carregamento",
-    recargas: "recarga",
-  };
-
-  useMulticaixaController.setState({
-    ...state,
-  });
-};
-
-function OnlyOneGroup({ buttons, view }: GroupButtons) {
+function OnlyOneGroup({ buttons, to }: GroupButtons) {
   return (
     <>
       {buttons.map((btn, i) => (
@@ -42,20 +18,7 @@ function OnlyOneGroup({ buttons, view }: GroupButtons) {
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
-          clickHandler={() =>
-            viewController({
-              view: view,
-              desigEcra: btn.screenText,
-              ecraSecondary: btn.subtitle,
-              servicoId: view === "servico" ? btn.id : undefined,
-              produtoId: view === "produto" ? btn.id : undefined,
-              produtoTipo: btn.produtoTipo,
-              pagamentoId: btn.produtoTipo === "pagamento" ? btn.id : undefined,
-              carregamentoId:
-                btn.produtoTipo === "carregamentos" ? btn.id : undefined,
-              recargasId: btn.produtoTipo === "recargas" ? btn.id : undefined,
-            })
-          }
+          clickHandler={() => to(btn.id, btn.produtoTipo)}
         />
       ))}
     </>
@@ -66,7 +29,7 @@ function MultiGroupFirstOrLastPage({
   buttons,
   currentPage,
   dispatch,
-  view,
+  to,
 }: GroupButtons) {
   return (
     <>
@@ -78,22 +41,7 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
-              clickHandler={() =>
-                viewController({
-                  view: view,
-                  desigEcra: btn.screenText,
-                  ecraSecondary: btn.subtitle,
-                  servicoId: view === "servico" ? btn.id : undefined,
-                  produtoId: view === "produto" ? btn.id : undefined,
-                  produtoTipo: btn.produtoTipo,
-                  pagamentoId:
-                    btn.produtoTipo === "pagamento" ? btn.id : undefined,
-                  carregamentoId:
-                    btn.produtoTipo === "carregamentos" ? btn.id : undefined,
-                  recargasId:
-                    btn.produtoTipo === "recargas" ? btn.id : undefined,
-                })
-              }
+              clickHandler={() => to(btn.id, btn.produtoTipo)}
             />
           ))}
           <McxSelectBtn
@@ -116,22 +64,7 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
-              clickHandler={() =>
-                viewController({
-                  view: view,
-                  desigEcra: btn.screenText,
-                  ecraSecondary: btn.subtitle,
-                  servicoId: view === "servico" ? btn.id : undefined,
-                  produtoId: view === "produto" ? btn.id : undefined,
-                  produtoTipo: btn.produtoTipo,
-                  pagamentoId:
-                    btn.produtoTipo === "pagamento" ? btn.id : undefined,
-                  carregamentoId:
-                    btn.produtoTipo === "carregamentos" ? btn.id : undefined,
-                  recargasId:
-                    btn.produtoTipo === "recargas" ? btn.id : undefined,
-                })
-              }
+              clickHandler={() => to(btn.id, btn.produtoTipo)}
             />
           ))}
         </>
@@ -145,7 +78,7 @@ function MultiGroupBetweenPage({
   currentPage,
   dispatch,
   lastPage,
-  view,
+  to,
 }: GroupButtons) {
   return (
     <>
@@ -160,20 +93,7 @@ function MultiGroupBetweenPage({
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
-          clickHandler={() =>
-            viewController({
-              view: view,
-              desigEcra: btn.screenText,
-              ecraSecondary: btn.subtitle,
-              servicoId: view === "servico" ? btn.id : undefined,
-              produtoId: view === "produto" ? btn.id : undefined,
-              produtoTipo: btn.produtoTipo,
-              pagamentoId: btn.produtoTipo === "pagamento" ? btn.id : undefined,
-              carregamentoId:
-                btn.produtoTipo === "carregamentos" ? btn.id : undefined,
-              recargasId: btn.produtoTipo === "recargas" ? btn.id : undefined,
-            })
-          }
+          clickHandler={() => to(btn.id, btn.produtoTipo)}
         />
       ))}
       {currentPage !== lastPage && (
@@ -189,16 +109,31 @@ function MultiGroupBetweenPage({
 
 export default function McxSelectionView({
   buttons,
-  view,
+  isDefault,
+  target,
 }: {
   buttons: GridButton[];
-  view: Views;
+  isDefault?: boolean;
+  target: Views;
 }) {
   const splitButtons = splitArray(buttons, 7, 6);
+  const { push } = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageBtns, setPageBtns] = useState<GridButton[]>(
     splitButtons[currentPage - 1]
   );
+
+  const goTo = (id: string, targetView?: ProdutoTipo) => {
+    if (isDefault) {
+      push(`/multicaixa/mcx/${target}/${id}`);
+    } else if (targetView) {
+      console.log(targetView);
+      push(`/multicaixa/mcx/${targetView}/${id}`);
+    } else {
+      console.log("targetView", targetView);
+      console.log(isDefault);
+    }
+  };
 
   useEffect(() => {
     setPageBtns(splitButtons[currentPage - 1]);
@@ -211,7 +146,7 @@ export default function McxSelectionView({
           buttons={pageBtns}
           currentPage={currentPage}
           dispatch={setCurrentPage}
-          view={view}
+          to={goTo}
         />
       )}
       {buttons.length >= 9 && (
@@ -221,7 +156,7 @@ export default function McxSelectionView({
               buttons={pageBtns}
               currentPage={currentPage}
               dispatch={setCurrentPage}
-              view={view}
+              to={goTo}
             />
           )}
           {pageBtns.length <= 6 && (
@@ -230,7 +165,7 @@ export default function McxSelectionView({
               currentPage={currentPage}
               dispatch={setCurrentPage}
               lastPage={splitButtons.length}
-              view={view}
+              to={goTo}
             />
           )}
         </>

@@ -35,7 +35,7 @@ export default async function McxEmpresaView({}) {
           <NoMcxView dataModel="empresa" />
         )}
         {buttons && buttons.length > 0 && (
-          <McxSelectionView buttons={buttons} view="empresa" />
+          <McxSelectionView buttons={buttons} target="servico" isDefault />
         )}
       </McxContentWrapper>
     </>

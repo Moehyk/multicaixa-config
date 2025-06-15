@@ -42,7 +42,7 @@ export type GroupButtons = {
   currentPage: number;
   dispatch: Dispatch<SetStateAction<number>>;
   lastPage?: number;
-  view: Views;
+  to: (id: string, targetView?: ProdutoTipo) => void;
 };
 
 export type CreateServicoParams = {
