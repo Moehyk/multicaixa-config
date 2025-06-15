@@ -2,7 +2,7 @@ import McxSelectionView from "./McxSelectionView";
 import NoMcxView from "./NoMcxView";
 
 import type { GridButton, Views, Entidade, ServicoWithProdutos } from "@/types";
-import type { Servico } from "@prisma/client";
+import type { Servico, ProdutoTipo } from "@prisma/client";
 
 const createProdutosButtons = (
   arr: ServicoWithProdutos[],
@@ -19,7 +19,7 @@ const createProdutosButtons = (
         selectText: produto.desig_tecla_seleccao,
         screenText: produto.desig_ecra,
         produtoTipo: produto.type,
-        subtitle: "Escolha um produto",
+        subtitle: "Escolha uma recarga",
       }))
     );
   }
@@ -38,14 +38,40 @@ const createServicosButtons = (initArray: Servico[]) => {
   return gridButtons;
 };
 
+const createRecargasButtons = (arr: ServicoWithProdutos[], id: string) => {
+  const gridButtons: GridButton[] = [];
+  const recarga = arr
+    .find((servico) => servico.produtos.find((p) => p.id === id))
+    ?.produtos.filter((p) => p.type === "recargas")
+    .map((p) => p.recargas)
+    .find((r) => r.produtoId === id);
+
+  console.log("recargasData", recarga);
+
+  if (recarga) {
+    gridButtons.push(
+      ...recarga.recargas.map((recarga) => ({
+        id: recarga.id,
+        selectText: `${recarga.desig_montante} Kzs`,
+        selectSecondarytext: recarga.desig_unidade,
+        screenText: "",
+      }))
+    );
+  }
+
+  return gridButtons;
+};
+
 export default function McxDataLayer({
   nextView,
   empresa,
   id,
+  produtoTipo,
 }: {
   nextView: Views;
   empresa: Entidade;
   id: string;
+  produtoTipo?: ProdutoTipo;
 }) {
   const buttons: GridButton[] = [];
 
@@ -55,6 +81,10 @@ export default function McxDataLayer({
 
   if (nextView === "produto") {
     buttons.push(...createProdutosButtons(empresa.servicos, id));
+  }
+
+  if (nextView === "end" && produtoTipo === "recargas") {
+    buttons.push(...createRecargasButtons(empresa.servicos, id));
   }
 
   return (

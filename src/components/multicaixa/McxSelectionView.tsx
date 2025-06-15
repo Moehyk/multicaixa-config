@@ -4,6 +4,7 @@ import { splitArray } from "@/utils/split-array";
 
 import McxSelectBtn from "./McxSelectBtn";
 
+import { ProdutoTipo } from "@prisma/client";
 import type { GridButton, GroupButtons, Views } from "@/types";
 
 const viewController = (state: {
@@ -13,16 +14,20 @@ const viewController = (state: {
   servicoId?: string;
   produtoId?: string;
   carregamentoId?: string;
+  pagamentoId?: string;
   recargasId?: string;
+  produtoTipo?: ProdutoTipo;
 }) => {
-  const selectView: { [key: string]: Views } = {
-    empresa: "servico",
-    servico: "produto",
+  console.log("produtoTipo", state.produtoTipo);
+
+  const selectProdutoView: { [key: string]: Views } = {
+    pagamento: "pagamento",
+    carregamentos: "carregamento",
+    recargas: "recarga",
   };
 
   useMulticaixaController.setState({
     ...state,
-    view: selectView[state.view],
   });
 };
 
@@ -42,8 +47,11 @@ function OnlyOneGroup({ buttons, view }: GroupButtons) {
               ecraSecondary: btn.subtitle,
               servicoId: view === "servico" ? btn.id : undefined,
               produtoId: view === "produto" ? btn.id : undefined,
-              carregamentoId: view === "carregamento" ? btn.id : undefined,
-              recargasId: view === "recarga" ? btn.id : undefined,
+              produtoTipo: btn.produtoTipo,
+              pagamentoId: btn.produtoTipo === "pagamento" ? btn.id : undefined,
+              carregamentoId:
+                btn.produtoTipo === "carregamentos" ? btn.id : undefined,
+              recargasId: btn.produtoTipo === "recargas" ? btn.id : undefined,
             })
           }
         />
@@ -75,8 +83,13 @@ function MultiGroupFirstOrLastPage({
                   ecraSecondary: btn.subtitle,
                   servicoId: view === "servico" ? btn.id : undefined,
                   produtoId: view === "produto" ? btn.id : undefined,
-                  carregamentoId: view === "carregamento" ? btn.id : undefined,
-                  recargasId: view === "recarga" ? btn.id : undefined,
+                  produtoTipo: btn.produtoTipo,
+                  pagamentoId:
+                    btn.produtoTipo === "pagamento" ? btn.id : undefined,
+                  carregamentoId:
+                    btn.produtoTipo === "carregamentos" ? btn.id : undefined,
+                  recargasId:
+                    btn.produtoTipo === "recargas" ? btn.id : undefined,
                 })
               }
             />
@@ -108,8 +121,13 @@ function MultiGroupFirstOrLastPage({
                   ecraSecondary: btn.subtitle,
                   servicoId: view === "servico" ? btn.id : undefined,
                   produtoId: view === "produto" ? btn.id : undefined,
-                  carregamentoId: view === "carregamento" ? btn.id : undefined,
-                  recargasId: view === "recarga" ? btn.id : undefined,
+                  produtoTipo: btn.produtoTipo,
+                  pagamentoId:
+                    btn.produtoTipo === "pagamento" ? btn.id : undefined,
+                  carregamentoId:
+                    btn.produtoTipo === "carregamentos" ? btn.id : undefined,
+                  recargasId:
+                    btn.produtoTipo === "recargas" ? btn.id : undefined,
                 })
               }
             />
@@ -147,8 +165,11 @@ function MultiGroupBetweenPage({
               ecraSecondary: btn.subtitle,
               servicoId: view === "servico" ? btn.id : undefined,
               produtoId: view === "produto" ? btn.id : undefined,
-              carregamentoId: view === "carregamento" ? btn.id : undefined,
-              recargasId: view === "recarga" ? btn.id : undefined,
+              produtoTipo: btn.produtoTipo,
+              pagamentoId: btn.produtoTipo === "pagamento" ? btn.id : undefined,
+              carregamentoId:
+                btn.produtoTipo === "carregamentos" ? btn.id : undefined,
+              recargasId: btn.produtoTipo === "recargas" ? btn.id : undefined,
             })
           }
         />

@@ -1,5 +1,6 @@
 import { create } from "zustand";
 
+import type { ProdutoTipo } from "@prisma/client";
 import type { DataModel, Views } from "@/types";
 
 type State = {
@@ -8,6 +9,8 @@ type State = {
   ecraSecondary: string;
   servicoId?: string;
   produtoId?: string;
+  produtoTipo?: ProdutoTipo;
+  pagamentoId?: string;
   carregamentoId?: string;
   recargasId?: string;
 };
