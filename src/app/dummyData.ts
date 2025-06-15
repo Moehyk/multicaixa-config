@@ -28,7 +28,7 @@ export const entidade: Entidade = {
           servicoId: "S1",
           type: "pagamento",
           desig_ecra: "Mimo Pagamentos",
-          desig_tecla_seleccao: "Carregamento Livre",
+          desig_tecla_seleccao: "Pagamento p/ Referência",
           pagamento: {
             id: "PG1",
             produtoId: "P1",
@@ -154,6 +154,43 @@ export const entidade: Entidade = {
                 recargasId: "RG1",
                 desig_unidade: "5000 SMS",
                 desig_montante: 62130.0,
+              },
+            ],
+          },
+        },
+        {
+          id: "P4",
+          servicoId: "S1",
+          type: "recargas",
+          desig_ecra: "Mimo Mais Recargas",
+          desig_tecla_seleccao: "Mais Recargas",
+          recargas: {
+            id: "RG2",
+            produtoId: "P4",
+            recargas: [
+              {
+                id: "RGS8",
+                recargasId: "RG2",
+                desig_unidade: "100 Mensagens",
+                desig_montante: 10000.0,
+              },
+              {
+                id: "RGS9",
+                recargasId: "RG2",
+                desig_unidade: "500 Mensagens",
+                desig_montante: 50000.0,
+              },
+              {
+                id: "RGS10",
+                recargasId: "RG2",
+                desig_unidade: "1000 Mensagens",
+                desig_montante: 100000.0,
+              },
+              {
+                id: "RGS11",
+                recargasId: "RG2",
+                desig_unidade: "2000 Mensagens",
+                desig_montante: 200000.0,
               },
             ],
           },
