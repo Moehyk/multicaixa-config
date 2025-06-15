@@ -46,7 +46,7 @@ export default function EmpresaWidget(empresa: Empresa) {
         <Tooltip label="Multicaixa" position="bottom">
           <ActionIcon
             component={Link}
-            href={`/multicaixa/mcx/${empresa.id}`}
+            href="/multicaixa/mcx"
             variant="default"
             size="xl"
           >
