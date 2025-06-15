@@ -1,10 +1,9 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db, getUser } from "..";
+import { db } from "..";
 import {
   validateUser,
   validateInputs,
-  validateCuid,
   processErrors,
   throwValidationError,
 } from "@/utils/errors";

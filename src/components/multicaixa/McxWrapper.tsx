@@ -2,14 +2,9 @@
 
 import { useRouter, usePathname } from "next/navigation";
 import { Modal } from "@mantine/core";
-import path from "path";
 
 export default function McxWrapper({ children }: React.PropsWithChildren) {
-  const { push } = useRouter();
-
   const pathname = usePathname();
-
-  console.log("pathname", pathname);
 
   return (
     <Modal
