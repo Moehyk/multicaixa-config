@@ -6,7 +6,7 @@ import { ValidationParams } from "@/types";
 import { Prisma } from "@prisma/client";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
-const checkIfQueryParamsIsValid = (params: Record<string, string>) =>
+const checkIfQueryParamsIsValid = (params: Record<string, string | number>) =>
   Object.values(params).every((value) => {
     if (value === null) {
       return false;
@@ -14,7 +14,7 @@ const checkIfQueryParamsIsValid = (params: Record<string, string>) =>
     return true;
   });
 
-const getInvalidParamsMessage = (params: Record<string, string>) => {
+const getInvalidParamsMessage = (params: Record<string, string | number>) => {
   const invalidParams: string[] = [];
 
   for (const [key, value] of Object.entries(params)) {
@@ -46,7 +46,7 @@ export const validateUser = async () => {
   return user;
 };
 
-export const validateInputs = (input: Record<string, string>) => {
+export const validateInputs = (input: Record<string, string | number>) => {
   let message = "";
   const isInputsValid = checkIfQueryParamsIsValid(input);
 
