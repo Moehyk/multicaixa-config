@@ -63,7 +63,7 @@ export const servicoSchema = z.object({
 
 const pagamentoSchema = z.object({
   desig_referencia: z.string().min(1, { message: "Campo obrigatório." }),
-  tamanho_referencia: z.number().min(1, { message: "Campo obrigatório." }),
+  tamanho_referencia: z.number().min(3, { message: "Campo obrigatório." }),
   texto_ecra_referencia: z.string().min(1, { message: "Campo obrigatório." }),
   montante_minimo: z.number().min(1, { message: "Campo obrigatório." }),
   montante_maximo: z.number().min(1, { message: "Campo obrigatório." }),
@@ -71,6 +71,6 @@ const pagamentoSchema = z.object({
 
 export const produtoPagamentoSchema = z.object({
   desig_ecra: z.string().min(1, { message: "Campo obrigatório." }),
-  desig_tecla_seleccao: z.number().min(1, { message: "Campo obrigatório." }),
+  desig_tecla_seleccao: z.string().min(1, { message: "Campo obrigatório." }),
   pagamento: pagamentoSchema,
 });
