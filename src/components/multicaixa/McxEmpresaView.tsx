@@ -1,4 +1,4 @@
-import { api } from "@/server";
+import { getEmpresa } from "@/server/services";
 
 import McxHeader from "./McxHeader";
 import McxContentWrapper from "./McxContentWrapper";
@@ -8,7 +8,7 @@ import NoMcxView from "./NoMcxView";
 import type { GridButton } from "@/types";
 
 export default async function McxEmpresaView({}) {
-  const { data } = await api.empresa.get();
+  const { data } = await getEmpresa();
 
   if (!data) {
     return <NoMcxView dataModel="empresa" />;

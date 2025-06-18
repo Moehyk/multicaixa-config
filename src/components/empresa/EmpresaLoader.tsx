@@ -1,9 +1,9 @@
-import { api } from "@/server";
+import { getEmpresa } from "@/server/services";
 
 import EmpresaWidget from "./EmpresaWidget";
 
 export default async function EmpresaLoader() {
-  const { data } = await api.empresa.get();
+  const { data } = await getEmpresa();
 
   if (!data) {
     return <></>;

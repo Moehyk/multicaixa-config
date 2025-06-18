@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { api } from "@/server";
+import { getEmpresa } from "@/server/services";
 import { EmpresaForm } from "@/components/empresa";
 
 export default async function CriarEmpresaPage() {
-  const { data } = await api.empresa.get();
+  const { data } = await getEmpresa();
 
   if (!data) {
     notFound();

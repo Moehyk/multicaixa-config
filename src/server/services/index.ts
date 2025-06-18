@@ -1,12 +1,20 @@
 "use server";
 
-import { api } from "..";
+import { empresa } from "../routes/empresa";
+import { servico } from "../routes/servico";
+import { produto } from "../routes/produto";
 
 import { Empresa } from "@prisma/client";
 import { CreateServicoParams, CreateProdutoParams } from "@/types";
 
 export const upsertEmpresa = async (values: Empresa) => {
-  const response = await api.empresa.create(values);
+  const response = await empresa.create(values);
+
+  return response;
+};
+
+export const getEmpresa = async () => {
+  const response = await empresa.get();
 
   return response;
 };
@@ -16,26 +24,26 @@ export const upsertServico = async ({
   input,
 }: CreateServicoParams) => {
   if (input.id) {
-    return await api.servico.update(input);
+    return await servico.update(input);
   } else {
-    return await api.servico.create(empresaId, input);
+    return await servico.create(empresaId, input);
   }
 };
 
 export const getServico = async (id: string) => {
-  const response = await api.servico.get(id);
+  const response = await servico.get(id);
 
   return response;
 };
 
 export const getServicos = async (empresaId: string) => {
-  const response = await api.servico.getAll(empresaId);
+  const response = await servico.getAll(empresaId);
 
   return response;
 };
 
 export const deleteServico = async (id: string) => {
-  const response = await api.servico.delete(id);
+  const response = await servico.delete(id);
 
   return response;
 };
@@ -45,26 +53,26 @@ export const upsertProduto = async ({
   input,
 }: CreateProdutoParams) => {
   if (input.id) {
-    return await api.produto.update(input);
+    return await produto.update(input);
   } else {
-    return await api.produto.create(servicoId, input);
+    return await produto.create(servicoId, input);
   }
 };
 
 export const getProduto = async (id: string) => {
-  const response = await api.produto.get(id);
+  const response = await produto.get(id);
 
   return response;
 };
 
 export const getProdutos = async (servicoId: string) => {
-  const response = await api.produto.getAll(servicoId);
+  const response = await produto.getAll(servicoId);
 
   return response;
 };
 
 export const deleteProduto = async (id: string) => {
-  const response = await api.produto.delete(id);
+  const response = await produto.delete(id);
 
   return response;
 };

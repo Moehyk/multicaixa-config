@@ -1,11 +1,11 @@
-import { api } from "@/server";
+import { getEmpresa } from "@/server/services";
 import { entidade } from "../dummyData";
 
 import { Grid, GridHeader } from "@/components";
 import { NoEmpresa, Empresa } from "@/components/empresa";
 
 export default async function MulticaixaPage() {
-  const { data: empresa } = await api.empresa.get();
+  const { data: empresa } = await getEmpresa();
 
   if (!empresa) {
     return <NoEmpresa />;
