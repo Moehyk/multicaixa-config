@@ -6,6 +6,7 @@ import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import Link from "next/link";
 import { Button, TextInput, Card } from "@mantine/core";
+import { CardTitle } from "@/components";
 
 import type { EmpresaForm } from "@/types";
 
@@ -31,7 +32,7 @@ export default function EmpresaForm(data: EmpresaForm) {
     <>
       <Card withBorder p={32}>
         <form onSubmit={onSubmit(handleSubmit)}>
-          <h2 className="text-xl font-semibold mb-8">Dados da Empresa</h2>
+          <CardTitle title="Dados da Empresa" />
           <div className="flex gap-4">
             <TextInput
               {...getInputProps("sigla")}
