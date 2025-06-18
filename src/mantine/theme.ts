@@ -1,4 +1,10 @@
-import { createTheme, TextInput, Modal, Card } from "@mantine/core";
+import {
+  createTheme,
+  TextInput,
+  NumberInput,
+  Modal,
+  Card,
+} from "@mantine/core";
 import { brand, gray, green, orange, red } from "./colors";
 import { geistMono, geistSans } from "@/utils";
 
@@ -33,6 +39,12 @@ export const theme = createTheme({
       },
     }),
     TextInput: TextInput.extend({
+      defaultProps: {
+        h: 96,
+        size: "md",
+      },
+    }),
+    NumberInput: NumberInput.extend({
       defaultProps: {
         h: 96,
         size: "md",
