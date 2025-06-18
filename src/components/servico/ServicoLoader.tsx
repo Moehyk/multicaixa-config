@@ -1,4 +1,4 @@
-import { getServicos } from "@/server/actions";
+import { getServicos } from "@/server/services";
 
 import { Grid, GridError } from "@/components";
 

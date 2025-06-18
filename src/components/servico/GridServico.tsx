@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { deleteServico } from "@/server/actions";
+import { deleteServico } from "@/server/services";
 import { useMotionIcon } from "@/hooks";
 import { modals } from "@mantine/modals";
 

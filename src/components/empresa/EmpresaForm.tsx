@@ -1,6 +1,6 @@
 "use client";
 
-import { upsertEmpresa } from "@/server/actions";
+import { upsertEmpresa } from "@/server/services";
 import { useFormMutation, useEmpresaForm } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
