@@ -14,7 +14,10 @@ import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
 export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
-export type ProdutoForm = Omit<Produto, "id" | "serviceId">;
+export type ProdutoForm = Omit<
+  Produto,
+  "serviceId" | "carregamento" | "pagamento" | "recargas"
+>;
 export type PagamentoForm = Omit<Pagamento, "id" | "productId" | "isNew">;
 export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
 
@@ -52,8 +55,7 @@ export type CreateServicoParams = {
 
 export type CreateProdutoParams = {
   input: ProdutoForm;
-  serviceId: string;
-  id: string | undefined;
+  servicoId: string;
 };
 
 export type CreatePagamentoParams = {
