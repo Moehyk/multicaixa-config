@@ -23,7 +23,7 @@ export default function CriarProdutoForm({ id }: { id: string }) {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="pagamento">
-          <CreatePagamentoForm desigEcra="" desigSelecao="" servicoId={id} />
+          <CreatePagamentoForm servicoId={id} />
         </Tabs.Panel>
         <Tabs.Panel value="carregamentos">
           <div className="py-8">
