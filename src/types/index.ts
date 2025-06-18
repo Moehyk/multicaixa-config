@@ -109,6 +109,7 @@ export type DataModel =
   | "servico"
   | "produto"
   | "carregamento"
+  | "pagamento"
   | "montante"
   | "recarga";
 
