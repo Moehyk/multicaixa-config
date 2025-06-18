@@ -1,17 +1,41 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db } from "..";
-import { CreatePagamentoParams } from "@/types";
+import {
+  validateCuid,
+  validateUser,
+  validateInputs,
+  throwValidationError,
+  processErrors,
+} from "@/utils/errors";
+
+import { PagamentoForm } from "@/types";
 
 export const pagamento = {
-  create: async ({ productId, input }: CreatePagamentoParams) => {
+  create: async (produtoId: string, input: PagamentoForm) => {
+    const user = await validateUser();
+    const isCuidValid = validateCuid(produtoId);
+    const { isInputsValid, message } = validateInputs(input);
+
     try {
-      await db.pagamento.upsert({
-        where: {
-          produtoId: productId,
-        },
+      throwValidationError({
+        user,
+        cuid: isCuidValid,
+        data: input.id ? "pagamento" : "produto",
+        inputs: isInputsValid,
+        message,
+      });
+
+      // 1. Prepare the where clause
+      const where = input.id
+        ? { id: input.id } // For updates
+        : { produtoId: produtoId }; // For creations
+
+      // 2. Perform the upsert
+      const pagamento = await db.pagamento.upsert({
+        where,
         create: {
-          produtoId: productId,
+          produtoId: produtoId,
           montante_maximo: input.montante_maximo,
           montante_minimo: input.montante_minimo,
           desig_referencia: input.desig_referencia,
@@ -19,7 +43,6 @@ export const pagamento = {
           tamanho_referencia: input.tamanho_referencia,
         },
         update: {
-          produtoId: productId,
           montante_maximo: input.montante_maximo,
           montante_minimo: input.montante_minimo,
           desig_referencia: input.desig_referencia,
@@ -28,19 +51,29 @@ export const pagamento = {
         },
       });
 
-      revalidatePath(
-        "/multicaixa/entidades/[id]/servicos/[id]/produtos/[id]",
-        "page"
-      );
+      revalidatePath("/multicaixa", "page");
 
+      // 3. Return minimal serializable data
       return {
         status: 200,
-        message: "Pagamento configurado com sucesso.",
+        message: input.id ? "Pagamento atualizado" : "Pagamento criado",
+        data: pagamento, // Return only essential data
       };
     } catch (error) {
+      if (error instanceof Error) {
+        const response = processErrors(error, {
+          cuid: true,
+          inputs: isInputsValid,
+          user: user,
+        });
+
+        return response!;
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
       return {
-        status: 400,
-        message: "Aconteceu um erro ao tentar configurar o pagamento.",
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
         error,
       };
     }
