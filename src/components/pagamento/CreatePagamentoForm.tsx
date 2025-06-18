@@ -36,6 +36,7 @@ export default function CreatePagamentoForm({
         <TextInput
           {...getInputProps("pagamento.desig_referencia")}
           label="Designação p/ referência"
+          maxLength={15}
           className="flex-1"
         />
       </div>
@@ -43,21 +44,38 @@ export default function CreatePagamentoForm({
         {...getInputProps("pagamento.texto_ecra_referencia")}
         label="Texto do ecrã de referência"
         className="flex-1"
+        maxLength={30}
       />
       <div className="flex w-full  gap-4">
         <NumberInput
           {...getInputProps("pagamento.tamanho_referencia")}
           label="Tamanho da referência"
+          min={9}
+          max={15}
         />
         <NumberInput
           {...getInputProps("pagamento.montante_minimo")}
           label="Montante mínimo"
           className="flex-1"
+          suffix=" Kzs"
+          allowNegative={false}
+          thousandSeparator=","
+          fixedDecimalScale
+          decimalScale={2}
+          max={99999999.99}
+          min={0}
         />
         <NumberInput
           {...getInputProps("pagamento.montante_maximo")}
           label="Montante máximo"
           className="flex-1"
+          suffix=" Kzs"
+          allowNegative={false}
+          thousandSeparator=","
+          fixedDecimalScale
+          decimalScale={2}
+          max={99999999.99}
+          min={0}
         />
       </div>
       <div className="flex gap-2 pt-4">
