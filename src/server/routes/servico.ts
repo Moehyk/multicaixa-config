@@ -1,6 +1,6 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db, getUser } from "..";
+import { db } from "..";
 import {
   validateCuid,
   validateUser,
