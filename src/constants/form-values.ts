@@ -32,7 +32,7 @@ export const initialProdutoPagamentoFormValues: ProdutoPagamentoForm = {
   pagamento: {
     id: "",
     desig_referencia: "",
-    tamanho_referencia: 3,
+    tamanho_referencia: 9,
     texto_ecra_referencia: "",
     montante_minimo: 0.0,
     montante_maximo: 0.0,

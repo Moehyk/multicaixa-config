@@ -62,9 +62,18 @@ export const servicoSchema = z.object({
 });
 
 const pagamentoSchema = z.object({
-  desig_referencia: z.string().min(1, { message: "Campo obrigatório." }),
-  tamanho_referencia: z.number().min(3, { message: "Campo obrigatório." }),
-  texto_ecra_referencia: z.string().min(1, { message: "Campo obrigatório." }),
+  desig_referencia: z
+    .string()
+    .min(1, { message: "Campo obrigatório." })
+    .max(15, { message: "Não pode ter mais de 15 caracteres." }),
+  tamanho_referencia: z
+    .number()
+    .min(9, { message: "Campo obrigatório." })
+    .max(15, { message: "Não pode ter mais de 15 dígitos." }),
+  texto_ecra_referencia: z
+    .string()
+    .min(1, { message: "Campo obrigatório." })
+    .max(30, { message: "Não pode ter mais de 30 caracteres." }),
   montante_minimo: z.number().min(1, { message: "Campo obrigatório." }),
   montante_maximo: z.number().min(1, { message: "Campo obrigatório." }),
 });
