@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { deleteServico } from "@/server/actions";
 import { useMotionIcon } from "@/hooks";
 import { modals } from "@mantine/modals";
@@ -52,7 +53,12 @@ export default function GridServico({
         </div>
         <ActionIcon.Group>
           <Tooltip label="Criar Produto" position="top">
-            <ActionIcon size="lg" variant="default">
+            <ActionIcon
+              component={Link}
+              href={`/multicaixa/servico/${servico.id}/criar-produto`}
+              size="lg"
+              variant="default"
+            >
               <IconPlus size={16} />
             </ActionIcon>
           </Tooltip>
