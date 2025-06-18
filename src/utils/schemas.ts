@@ -70,7 +70,7 @@ const pagamentoSchema = z.object({
 });
 
 export const produtoPagamentoSchema = z.object({
-  desig_referencia: z.string().min(1, { message: "Campo obrigatório." }),
-  tamanho_referencia: z.number().min(1, { message: "Campo obrigatório." }),
+  desig_ecra: z.string().min(1, { message: "Campo obrigatório." }),
+  desig_tecla_seleccao: z.number().min(1, { message: "Campo obrigatório." }),
   pagamento: pagamentoSchema,
 });
