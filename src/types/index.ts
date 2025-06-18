@@ -16,10 +16,12 @@ export type EmpresaForm = Omit<Empresa, "servicos">;
 export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
 export type ProdutoForm = Omit<
   Produto,
-  "serviceId" | "carregamento" | "pagamento" | "recargas"
+  "servicoId" | "carregamento" | "pagamento" | "recargas"
 >;
-export type PagamentoForm = Omit<Pagamento, "id" | "productId" | "isNew">;
+export type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew">;
 export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
+
+export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
 
 export type GridButton = {
   id: string;
