@@ -1,3 +1,8 @@
-export { useEmpresaForm, useEmpresaModalForm, useServicoForm } from "./forms";
+export {
+  useEmpresaForm,
+  useEmpresaModalForm,
+  useServicoForm,
+  useProdutoPagamentoForm,
+} from "./forms";
 export { useFormMutation } from "./useFormMutation";
 export { useMotionIcon } from "./useMotionIcon";
