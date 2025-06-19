@@ -1,7 +1,8 @@
+import Link from "next/link";
 import { Button, Alert } from "@mantine/core";
 import { IconExclamationCircle } from "@tabler/icons-react";
 
-export default function GridNoProduto() {
+export default function GridNoProduto({ id }: { id: string }) {
   const icon = <IconExclamationCircle size={28} stroke={1.75} />;
 
   return (
@@ -31,7 +32,12 @@ export default function GridNoProduto() {
         },
       }}
     >
-      <Button variant="default" size="xs">
+      <Button
+        component={Link}
+        href={`multicaixa/servico/${id}/criar-produto`}
+        variant="default"
+        size="xs"
+      >
         Criar Produto
       </Button>
     </Alert>
