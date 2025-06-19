@@ -1,13 +1,13 @@
 import type { Dispatch, SetStateAction } from "react";
-import {
+import type {
   Empresa,
   Servico,
   Produto,
   Pagamento,
-  Carregamento,
-  Recarga,
   Recargas,
-  Montante,
+  RecaMontante,
+  Carregamento,
+  CarrMontante,
   ProdutoTipo,
 } from "@prisma/client";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
@@ -18,10 +18,17 @@ export type ProdutoForm = Omit<
   Produto,
   "servicoId" | "carregamento" | "pagamento" | "recargas"
 >;
-export type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew">;
-export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
 
+type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew">;
 export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
+
+type RecargaMontantesForm = Omit<RecaMontante, "recargaId">;
+type RecargasForm = Omit<Recargas, "produtoId"> & {
+  montantes: RecargaMontantesForm[];
+};
+export type ProdutoRecargasForm = ProdutoForm & { recargas: RecargasForm };
+
+export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
 
 export type GridButton = {
   id: string;
@@ -77,25 +84,6 @@ export type UrlParams = {
   pid: string;
   sid: string;
 };
-
-type ProdutoBase = Omit<Produto, "type">;
-
-type ProdutoPagamento = ProdutoBase & {
-  type: "pagamento";
-  pagamento: Pagamento;
-};
-
-type ProdutoCarregamento = ProdutoBase & {
-  type: "carregamentos";
-  carregamento: Carregamento & { montantes: Montante[] };
-};
-
-type ProdutoRecarga = ProdutoBase & {
-  type: "recargas";
-  recargas: Recargas & { recargas: Recarga[] };
-};
-
-type ProdutoType = ProdutoPagamento | ProdutoCarregamento | ProdutoRecarga;
 
 export type ServicoWithProdutos = Servico & { produtos: Produto[] };
 
