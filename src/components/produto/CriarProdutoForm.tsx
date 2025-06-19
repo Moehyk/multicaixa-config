@@ -2,9 +2,10 @@
 
 import { Card, TextInput, Button, Tabs } from "@mantine/core";
 import { CardTitle } from "@/components";
-import { CreatePagamentoForm } from "@/components/pagamento";
+import CreatePagamentoForm from "./CreatePagamentoForm";
+import CreateRecargasForm from "./CreateRecargasForm";
 
-import { tabsTabStyles } from "@/constants/styles";
+import styles from "./tabs.module.css";
 
 export default function CriarProdutoForm({ id }: { id: string }) {
   return (
@@ -12,13 +13,13 @@ export default function CriarProdutoForm({ id }: { id: string }) {
       <CardTitle title="Criar Produto" />
       <Tabs defaultValue="pagamento" variant="pills">
         <Tabs.List grow>
-          <Tabs.Tab value="pagamento" className={tabsTabStyles}>
+          <Tabs.Tab value="pagamento" className={styles.tabs}>
             Pagamento
           </Tabs.Tab>
-          <Tabs.Tab value="carregamentos" className={tabsTabStyles}>
+          <Tabs.Tab value="carregamentos" className={styles.tabs}>
             Carregamentos
           </Tabs.Tab>
-          <Tabs.Tab value="recargas" className={tabsTabStyles}>
+          <Tabs.Tab value="recargas" className={styles.tabs}>
             Recargas
           </Tabs.Tab>
         </Tabs.List>
@@ -32,10 +33,7 @@ export default function CriarProdutoForm({ id }: { id: string }) {
           </div>
         </Tabs.Panel>
         <Tabs.Panel value="recargas">
-          <div className="py-8">
-            <TextInput label="Descrição" placeholder="Descrição do produto" />
-            <TextInput label="Descrição" placeholder="Descrição do produto" />
-          </div>
+          <CreateRecargasForm servicoId={id} />
         </Tabs.Panel>
       </Tabs>
     </Card>

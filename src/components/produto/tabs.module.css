@@ -1,0 +1,9 @@
+.tabs {
+  font-weight: 500;
+}
+
+.tabs[aria-selected="false"] {
+  background-color: var(--mantine-color-brand-light);
+  border: 1px solid var(--mantine-color-brand-light);
+  color: var(--mantine-color-brand-text);
+}
