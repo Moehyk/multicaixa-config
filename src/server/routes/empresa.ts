@@ -19,7 +19,7 @@ export const empresa = {
       throwValidationError({
         user,
         cuid: true,
-        data: "empresa",
+        data: input.id ? "empresa" : "utilizador",
         inputs: isInputsValid,
         message,
       });
@@ -63,8 +63,9 @@ export const empresa = {
         },
       });
 
-      // 3. Return minimal serializable data
       revalidatePath("/multicaixa", "page");
+
+      // 3. Return minimal serializable data
       return {
         status: 200,
         message: input.id ? "Empresa atualizada" : "Empresa criada",
