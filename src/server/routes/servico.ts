@@ -129,6 +129,9 @@ export const servico = {
         where: {
           id: id,
         },
+        include: {
+          produtos: true,
+        },
       });
 
       return { data: servico, status: 200 };
@@ -167,6 +170,9 @@ export const servico = {
       const servicos = await db.servico.findMany({
         where: {
           empresaId: id,
+        },
+        include: {
+          produtos: true,
         },
       });
 
