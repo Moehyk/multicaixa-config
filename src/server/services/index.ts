@@ -3,9 +3,14 @@
 import { empresa } from "../routes/empresa";
 import { servico } from "../routes/servico";
 import { produto } from "../routes/produto";
+import { pagamento } from "../routes/pagamento";
 
 import { Empresa } from "@prisma/client";
-import { CreateServicoParams, CreateProdutoParams } from "@/types";
+import {
+  CreateServicoParams,
+  CreateProdutoParams,
+  ProdutoPagamentoForm,
+} from "@/types";
 
 export const upsertEmpresa = async (values: Empresa) => {
   const response = await empresa.create(values);
@@ -57,6 +62,28 @@ export const upsertProduto = async ({
   } else {
     return await produto.create(servicoId, input);
   }
+};
+
+export const createProdutoPagamento = async (
+  servicoId: string,
+  input: ProdutoPagamentoForm
+) => {
+  const produtoResponse = await produto.create(servicoId, {
+    desig_ecra: input.desig_ecra,
+    desig_tecla_seleccao: input.desig_tecla_seleccao,
+    type: "pagamento",
+    id: input.id,
+  });
+
+  if (!produtoResponse.data) {
+    return produtoResponse;
+  }
+
+  const pagamentoResponse = await pagamento.create(produtoResponse.data.id, {
+    ...input.pagamento,
+  });
+
+  return pagamentoResponse;
 };
 
 export const getProduto = async (id: string) => {
