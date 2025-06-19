@@ -88,7 +88,8 @@ model Recargas {
   id                      String        @id @default(cuid())
   produtoId               String        @unique
   produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
-  recargas                Recarga[]
+  desig_unidade           String
+  montantes               Int[]
 }
 
 model Montante {
@@ -97,14 +98,6 @@ model Montante {
   carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id])
   montante                Float
   descricao               String
-}
-
-model Recarga {
-  id                      String        @id @default(cuid())
-  recargasId              String
-  recargas                Recargas      @relation(fields: [recargasId], references: [id], onDelete: Cascade)
-  desig_unidade           String
-  desig_montante          Float
 }
 
 enum ProdutoTipo {
