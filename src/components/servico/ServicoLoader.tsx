@@ -8,6 +8,7 @@ export default async function ServicoLoader({ id }: { id: string }) {
   if (!data) {
     return <GridError message="Não foi possível carregar os serviços." />;
   }
+
   return (
     <>
       {data && data.length === 0 && <Grid.NoServico />}
