@@ -1,6 +1,8 @@
 "use client";
 
-import { useProdutoPagamentoForm } from "@/hooks/forms";
+import { createProdutoPagamento } from "@/server/services";
+import { useProdutoPagamentoForm, useFormMutation } from "@/hooks";
+import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import Link from "next/link";
 import { TextInput, NumberInput, Button } from "@mantine/core";
@@ -12,12 +14,21 @@ export default function CreatePagamentoForm({
 }: {
   servicoId: string;
 }) {
-  const { getInputProps, onSubmit, getValues } = useProdutoPagamentoForm();
+  const { isMutating, setIsFetching, startTransition, push } =
+    useFormMutation();
+  const { getInputProps, onSubmit } = useProdutoPagamentoForm();
 
   const handleSubmit = async (values: ProdutoPagamentoForm) => {
-    console.log("clicked");
-    console.log(values);
-    console.log("servico", servicoId);
+    setIsFetching(true);
+    const response = await createProdutoPagamento(servicoId, values);
+    setIsFetching(false);
+
+    if (!response.data) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      startTransition(() => push("/multicaixa"));
+    }
   };
 
   return (
@@ -82,7 +93,7 @@ export default function CreatePagamentoForm({
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
         </Button>
-        <Button size="md" type="submit">
+        <Button size="md" type="submit" loading={isMutating}>
           Criar
         </Button>
       </div>
