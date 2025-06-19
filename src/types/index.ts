@@ -97,7 +97,7 @@ type ProdutoRecarga = ProdutoBase & {
 
 type ProdutoType = ProdutoPagamento | ProdutoCarregamento | ProdutoRecarga;
 
-export type ServicoWithProdutos = Servico & { produtos: ProdutoType[] };
+export type ServicoWithProdutos = Servico & { produtos: Produto[] };
 
 export type Entidade = Empresa & {
   servicos: ServicoWithProdutos[];
