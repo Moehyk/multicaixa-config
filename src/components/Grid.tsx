@@ -1,4 +1,4 @@
-import GridServico from "./servico/GridServico";
+import GridServico from "./servico/ServicoItem";
 import GridProduto from "./produto/GridProduto";
 import GridNoProduto from "./produto/GridNoProduto";
 import GridNoServico from "./servico/GridNoServico";

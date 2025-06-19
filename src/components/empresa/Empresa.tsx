@@ -1,5 +1,5 @@
 import { Suspense } from "react";
-import { Grid, GridHeader, GridLoading, ServicoLoader } from "@/components";
+import { Grid, GridHeader, GridLoading, GridServico } from "@/components";
 
 import type { Empresa } from "@prisma/client";
 
@@ -9,7 +9,7 @@ export default function Empresa({ id }: Empresa) {
       <GridHeader empresaId={id} />
       <Grid>
         <Suspense fallback={<GridLoading rows={4} />}>
-          <ServicoLoader id={id} />
+          <GridServico id={id} />
         </Suspense>
       </Grid>
     </>
