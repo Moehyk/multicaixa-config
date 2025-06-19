@@ -69,7 +69,7 @@ model Carregamento {
   montante_minimo         Float?
   montante_maximo         Float?
   montante_pre_definido   Boolean
-  montantes               Montante[]
+  montantes               CarrMontante[]
 }
 
 model Pagamento {
@@ -89,13 +89,21 @@ model Recargas {
   produtoId               String        @unique
   produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
   desig_unidade           String
-  montantes               Int[]
+  montantes               RecaMontante[]
 }
 
-model Montante {
+model CarrMontante {
   id                      String        @id @default(cuid())
   carregamentoId          String
   carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id])
+  montante                Float
+  descricao               String
+}
+
+model RecaMontante {
+  id                      String        @id @default(cuid())
+  recargaId               String
+  recarga                 Recargas      @relation(fields: [recargaId], references: [id], onDelete: Cascade)
   montante                Float
   descricao               String
 }
