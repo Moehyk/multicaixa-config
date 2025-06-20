@@ -1,54 +1,97 @@
 "use client";
-import { useState } from "react";
+
+import { randomId } from "@mantine/hooks";
+import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
 
 import Link from "next/link";
-import { TextInput, NumberInput, Button, Fieldset } from "@mantine/core";
+import {
+  TextInput,
+  NumberInput,
+  Button,
+  Fieldset,
+  Badge,
+  Alert,
+} from "@mantine/core";
+import { IconTrash, IconForbidFilled } from "@tabler/icons-react";
+
+import type { ProdutoRecargasForm } from "@/types";
 
 export default function CreateRecargasForm({}: { servicoId: string }) {
-  const [qty, setQty] = useState<number>(1);
+  const { isMutating, setIsFetching, startTransition, push } =
+    useFormMutation();
+
+  const { getInputProps, onSubmit, insertListItem, removeListItem, getValues } =
+    useProdutoRecargasForm();
+
+  const montantes = getValues().recargas.montantes;
+  const maxAlertIcon = <IconForbidFilled size={16} />;
+
+  const handleSubmit = async (values: ProdutoRecargasForm) => {
+    console.log("values", values);
+  };
 
   return (
-    <form className="pt-12">
-      <div className="flex w-full  gap-4">
-        <TextInput label="Designação p/ ecrã" className="flex-1" />
-        <TextInput label="Designação p/ tecla de selecção" className="flex-1" />
+    <form onSubmit={onSubmit(handleSubmit)} className="pt-12">
+      <div className="flex items-end w-full  gap-4">
         <TextInput
+          {...getInputProps("desig_ecra")}
+          label="Designação p/ ecrã"
+          className="flex-1"
+        />
+        <TextInput
+          {...getInputProps("desig_tecla_seleccao")}
+          label="Designação p/ tecla de selecção"
+          className="flex-1"
+        />
+        <TextInput
+          {...getInputProps("desig_unidade")}
           label="Designação p/ Unidades"
           className="flex-1"
           maxLength={15}
         />
-        <NumberInput
-          className="w-1/6"
-          value={qty}
-          onChange={(value) => setQty(Number(value))}
-          label="Nº de unidades"
-          allowNegative={false}
-          max={8}
-          min={1}
-        />
       </div>
-      <div className="grid grid-cols-2 grid-rows-auto gap-4">
-        {Array.from({ length: qty }, (_, i) => (
+      <div className="flex gap-4 items-center mt-2 mb-4">
+        <Button
+          variant="default"
+          size="md"
+          disabled={montantes.length === 8}
+          onClick={() =>
+            insertListItem("recargas.montantes", {
+              id: "",
+              quantidade: 0,
+              montante: 0.0,
+            })
+          }
+        >
+          Adicionar Recarga
+        </Button>
+        {montantes.length === 8 && (
+          <Alert
+            color="red"
+            title="Máximo de 8 recargas"
+            icon={maxAlertIcon}
+            styles={{ root: { paddingBlock: 8 }, icon: { marginRight: 4 } }}
+          />
+        )}
+      </div>
+      <div className="grid grid-cols-4 grid-rows-auto gap-4">
+        {montantes.map((_, i) => (
           <Fieldset
             legend={`Recarga ${i + 1}`}
-            key={i}
-            className="flex gap-4 border border-border p-4"
+            key={`${randomId()}-${i}`}
+            className="flex flex-col gap-6"
           >
             <NumberInput
+              {...getInputProps(`recargas.montantes.${i}.quantidade`)}
               className="flex-1"
               label="Quantidade"
-              suffix=" Kzs"
               allowNegative={false}
               thousandSeparator=","
-              fixedDecimalScale
-              decimalScale={2}
-              max={99999999.99}
+              max={99999999}
               min={0}
-              style={{
-                height: "auto",
-              }}
             />
             <NumberInput
+              {...getInputProps(`recargas.montantes.${i}.montante`)}
               className="flex-1"
               label="Montante"
               suffix=" Kzs"
@@ -59,6 +102,15 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
               max={99999999.99}
               min={0}
             />
+            <Button
+              variant="outline"
+              color="red"
+              leftSection={<IconTrash size={16} />}
+              disabled={montantes.length === 1}
+              onClick={() => removeListItem(`recargas.montantes`, i)}
+            >
+              Remover
+            </Button>
           </Fieldset>
         ))}
       </div>
@@ -66,7 +118,7 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
         </Button>
-        <Button size="md" type="submit">
+        <Button size="md" type="submit" loading={isMutating}>
           Criar
         </Button>
       </div>
