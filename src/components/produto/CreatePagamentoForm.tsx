@@ -63,11 +63,6 @@ export default function CreatePagamentoForm({
           label="Tamanho da referência"
           min={9}
           max={15}
-          styles={{
-            root: {
-              height: "96px",
-            },
-          }}
         />
         <NumberInput
           {...getInputProps("pagamento.montante_minimo")}
@@ -80,11 +75,6 @@ export default function CreatePagamentoForm({
           decimalScale={2}
           max={99999999.99}
           min={0}
-          styles={{
-            root: {
-              height: "96px",
-            },
-          }}
         />
         <NumberInput
           {...getInputProps("pagamento.montante_maximo")}
@@ -97,11 +87,6 @@ export default function CreatePagamentoForm({
           decimalScale={2}
           max={99999999.99}
           min={0}
-          styles={{
-            root: {
-              height: "96px",
-            },
-          }}
         />
       </div>
       <div className="flex gap-2 pt-4">

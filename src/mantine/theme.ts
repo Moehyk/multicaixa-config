@@ -47,6 +47,7 @@ export const theme = createTheme({
     NumberInput: NumberInput.extend({
       defaultProps: {
         size: "md",
+        h: 96,
       },
     }),
     Modal: Modal.extend({
