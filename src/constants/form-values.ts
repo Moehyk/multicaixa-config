@@ -1,4 +1,9 @@
-import type { EmpresaForm, ServicoForm, ProdutoPagamentoForm } from "@/types";
+import type {
+  EmpresaForm,
+  ServicoForm,
+  ProdutoPagamentoForm,
+  ProdutoRecargasForm,
+} from "@/types";
 
 export const initialEmpresaFormValues: EmpresaForm = {
   id: "",
@@ -36,5 +41,17 @@ export const initialProdutoPagamentoFormValues: ProdutoPagamentoForm = {
     texto_ecra_referencia: "",
     montante_minimo: 0.0,
     montante_maximo: 0.0,
+  },
+};
+
+export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
+  id: "",
+  desig_ecra: "",
+  desig_tecla_seleccao: "",
+  type: "recargas",
+  recargas: {
+    id: "",
+    desig_unidade: "",
+    montantes: [{ id: "", montante: 0.0, quantidade: 0 }],
   },
 };
