@@ -91,7 +91,6 @@ const recargaSchema = z.object({
   desig_unidade: z.string().min(1, { message: "Campo obrigatório." }),
   montantes: z.array(
     z.object({
-      id: z.string().min(1, { message: "Campo obrigatório." }),
       montante: z.number().min(1, { message: "Campo obrigatório." }),
       quantidade: z.number().min(1, { message: "Campo obrigatório." }),
     })
