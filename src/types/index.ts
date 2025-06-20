@@ -22,7 +22,7 @@ export type ProdutoForm = Omit<
 type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew">;
 export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
 
-type RecargaMontantesForm = Omit<RecaMontante, "recargaId">;
+export type RecargaMontantesForm = Omit<RecaMontante, "recargaId">;
 type RecargasForm = Omit<Recargas, "produtoId"> & {
   montantes: RecargaMontantesForm[];
 };
