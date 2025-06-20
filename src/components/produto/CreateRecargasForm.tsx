@@ -4,14 +4,7 @@ import { randomId } from "@mantine/hooks";
 import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
 
 import Link from "next/link";
-import {
-  TextInput,
-  NumberInput,
-  Button,
-  Fieldset,
-  Badge,
-  Alert,
-} from "@mantine/core";
+import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
 import { IconTrash, IconForbidFilled } from "@tabler/icons-react";
 
 import type { ProdutoRecargasForm } from "@/types";
@@ -27,7 +20,9 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
   const maxAlertIcon = <IconForbidFilled size={16} />;
 
   const handleSubmit = async (values: ProdutoRecargasForm) => {
+    setIsFetching(true);
     console.log("values", values);
+    setIsFetching(false);
   };
 
   return (
@@ -44,7 +39,7 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("desig_unidade")}
+          {...getInputProps("recargas.desig_unidade")}
           label="Designação p/ Unidades"
           className="flex-1"
           maxLength={15}
@@ -79,11 +74,10 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
           <Fieldset
             legend={`Recarga ${i + 1}`}
             key={`${randomId()}-${i}`}
-            className="flex flex-col gap-6"
+            className="flex flex-col"
           >
             <NumberInput
               {...getInputProps(`recargas.montantes.${i}.quantidade`)}
-              className="flex-1"
               label="Quantidade"
               allowNegative={false}
               thousandSeparator=","
@@ -92,7 +86,6 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
             />
             <NumberInput
               {...getInputProps(`recargas.montantes.${i}.montante`)}
-              className="flex-1"
               label="Montante"
               suffix=" Kzs"
               allowNegative={false}
