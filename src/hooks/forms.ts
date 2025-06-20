@@ -10,15 +10,22 @@ import {
   empresaStepThreeSchema,
   servicoSchema,
   produtoPagamentoSchema,
+  produtoRecargasSchema,
 } from "@/utils/schemas";
 
 import {
   initialEmpresaFormValues,
   initialServicoFormValues,
   initialProdutoPagamentoFormValues,
+  initialProdutoRecargasFormValues,
 } from "@/constants/form-values";
 
-import { EmpresaForm, ServicoForm, ProdutoPagamentoForm } from "@/types";
+import {
+  EmpresaForm,
+  ServicoForm,
+  ProdutoPagamentoForm,
+  ProdutoRecargasForm,
+} from "@/types";
 
 export const useEmpresaForm = (values: EmpresaForm) => {
   const { setInitialValues, setValues, ...form } = useForm<EmpresaForm>({
@@ -94,6 +101,25 @@ export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
       initialValues: initialProdutoPagamentoFormValues,
       validate: zodResolver(produtoPagamentoSchema),
     });
+
+  useEffect(() => {
+    if (values) {
+      setInitialValues(values);
+      setValues(values);
+    }
+  }, [values]);
+
+  return form;
+};
+
+export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
+  const { setInitialValues, setValues, ...form } = useForm<ProdutoRecargasForm>(
+    {
+      mode: "uncontrolled",
+      initialValues: initialProdutoRecargasFormValues,
+      validate: zodResolver(produtoRecargasSchema),
+    }
+  );
 
   useEffect(() => {
     if (values) {
