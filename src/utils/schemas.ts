@@ -16,8 +16,14 @@ const telefone = z
   .length(9, { message: "Número de telemóvel inválido." });
 const email = z.string().email({ message: "Email inválido." });
 const numero_entidade = z.string().min(3);
-const desig_ecra = z.string().min(3);
-const desig_tecla_seleccao = z.string().min(3);
+const desig_ecra = z
+  .string()
+  .min(1, { message: "Campo obrigatório." })
+  .max(15, { message: "Não pode ter mais de 15 caracteres." });
+const desig_tecla_seleccao = z
+  .string()
+  .min(1, { message: "Campo obrigatório." })
+  .max(18, { message: "Não pode ter mais de 18 caracteres." });
 
 export const empresaStepOneSchema = z.object({
   nome,
@@ -56,9 +62,12 @@ export const empresaSchema = z.object({
 });
 
 export const servicoSchema = z.object({
-  desig_ecra: z.string().min(1, { message: "Campo obrigatório." }),
-  desig_tecla_seleccao: z.string().min(1, { message: "Campo obrigatório." }),
-  desig_sistema: z.string().min(1, { message: "Campo obrigatório." }),
+  desig_ecra,
+  desig_tecla_seleccao,
+  desig_sistema: z
+    .string()
+    .min(1, { message: "Campo obrigatório." })
+    .max(40, { message: "Não pode ter mais de 40 caracteres." }),
 });
 
 const pagamentoSchema = z.object({
@@ -78,8 +87,25 @@ const pagamentoSchema = z.object({
   montante_maximo: z.number().min(1, { message: "Campo obrigatório." }),
 });
 
+const recargaSchema = z.object({
+  desig_unidade: z.string().min(1, { message: "Campo obrigatório." }),
+  montantes: z.array(
+    z.object({
+      id: z.string().min(1, { message: "Campo obrigatório." }),
+      montante: z.number().min(1, { message: "Campo obrigatório." }),
+      quantidade: z.number().min(1, { message: "Campo obrigatório." }),
+    })
+  ),
+});
+
 export const produtoPagamentoSchema = z.object({
-  desig_ecra: z.string().min(1, { message: "Campo obrigatório." }),
-  desig_tecla_seleccao: z.string().min(1, { message: "Campo obrigatório." }),
+  desig_ecra,
+  desig_tecla_seleccao,
   pagamento: pagamentoSchema,
+});
+
+export const produtoRecargasSchema = z.object({
+  desig_ecra,
+  desig_tecla_seleccao,
+  recargas: recargaSchema,
 });
