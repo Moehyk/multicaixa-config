@@ -105,7 +105,7 @@ model RecaMontante {
   recargaId               String
   recarga                 Recargas      @relation(fields: [recargaId], references: [id], onDelete: Cascade)
   montante                Float
-  descricao               String
+  quantidade              Int
 }
 
 enum ProdutoTipo {
