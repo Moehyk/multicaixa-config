@@ -9,57 +9,80 @@ import {
   processErrors,
 } from "@/utils/errors";
 
-import { ProdutoForm, ServicoForm } from "@/types";
+import { ProdutoForm, ServicoForm, ProdutoRecargasForm } from "@/types";
 
 export const produto = {
-  create: async (servicoId: string, input: ProdutoForm) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(servicoId);
-    const { isInputsValid, message } = validateInputs(input);
-
-    try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "servico",
-        inputs: isInputsValid,
-        message,
+  create: {
+    recargas: async (servicoId: string, input: ProdutoRecargasForm) => {
+      const user = await validateUser();
+      const isCuidValid = validateCuid(servicoId);
+      const { isInputsValid, message } = validateInputs({
+        desig_ecra: input.desig_ecra,
+        desig_tecla_seleccao: input.desig_tecla_seleccao,
       });
 
-      const produto = await db.produto.create({
-        data: {
-          servicoId: servicoId,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          type: input.type,
-        },
-      });
-
-      revalidatePath("/multicaixa", "page");
-
-      return {
-        status: 200,
-        message: "Produto criado",
-        data: produto,
-      };
-    } catch (error) {
-      if (error instanceof Error) {
-        const response = processErrors(error, {
+      try {
+        throwValidationError({
+          user,
           cuid: isCuidValid,
+          data: input.id ? "recargas" : "produto",
           inputs: isInputsValid,
-          user: user,
+          message,
         });
 
-        return response!;
-      } else {
-        console.error("Unknown Error Type:", error);
+        const produtoRecargas = await db.produto.create({
+          data: {
+            servicoId: servicoId,
+            type: "recargas",
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            recargas: {
+              create: {
+                desig_unidade: input.recargas.desig_unidade,
+                montantes: {
+                  createMany: {
+                    data: input.recargas.montantes,
+                  },
+                },
+              },
+            },
+          },
+          include: {
+            recargas: {
+              include: {
+                montantes: true,
+              },
+            },
+          },
+        });
+
+        revalidatePath("/multicaixa", "page");
+
+        // 3. Return minimal serializable data
+        return {
+          status: 200,
+          message: input.id ? "Recargas atualizado" : "Recargas criado",
+          data: produtoRecargas, // Return only essential data
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          const response = processErrors(error, {
+            cuid: true,
+            inputs: isInputsValid,
+            user: user,
+          });
+
+          return response!;
+        } else {
+          console.error("Unknown Error Type:", error);
+        }
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error,
+        };
       }
-      return {
-        status: 500,
-        message: "Ocorreu um erro ao processar sua solicitação",
-        error,
-      };
-    }
+    },
   },
 
   update: async (input: ProdutoForm) => {
