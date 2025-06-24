@@ -3,6 +3,7 @@
 import { Card, TextInput, Button, Tabs } from "@mantine/core";
 import { CardTitle } from "@/components";
 import CreatePagamentoForm from "./CreatePagamentoForm";
+import CreateCarregamentoForm from "./CreateCarregamentoForm";
 import CreateRecargasForm from "./CreateRecargasForm";
 
 import styles from "./tabs.module.css";
@@ -27,10 +28,7 @@ export default function CriarProdutoForm({ id }: { id: string }) {
           <CreatePagamentoForm servicoId={id} />
         </Tabs.Panel>
         <Tabs.Panel value="carregamentos">
-          <div className="py-8">
-            <TextInput label="Descrição" placeholder="Descrição do produto" />
-            <TextInput label="Descrição" placeholder="Descrição do produto" />
-          </div>
+          <CreateCarregamentoForm servicoId={id} />
         </Tabs.Panel>
         <Tabs.Panel value="recargas">
           <CreateRecargasForm servicoId={id} />
