@@ -16,17 +16,19 @@ export type EmpresaForm = Omit<Empresa, "servicos">;
 export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
 export type ProdutoForm = Omit<
   Produto,
-  "servicoId" | "carregamento" | "pagamento" | "recargas"
+  "servicoId" | "carregamento" | "pagamento" | "recargas" | "id"
 >;
 
-type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew">;
+export type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew" | "id">;
 export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
 
-export type RecargaMontantesForm = Omit<RecaMontante, "recargaId">;
-type RecargasForm = Omit<Recargas, "produtoId"> & {
-  montantes: RecargaMontantesForm[];
+export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id">;
+export type RecargasForm = Omit<Recargas, "produtoId" | "id">;
+export type ProdutoRecargasForm = ProdutoForm & {
+  recargas: RecargasForm & {
+    montantes: RecargaMontantesForm[];
+  };
 };
-export type ProdutoRecargasForm = ProdutoForm & { recargas: RecargasForm };
 
 export type CarregamentoForm = Omit<Carregamento, "id" | "productId">;
 
@@ -42,7 +44,7 @@ export type GridButton = {
 export type Views =
   | "empresa"
   | "servico"
-  | "recarga"
+  | "recargas"
   | "produto"
   | "carregamento"
   | "pagamento"
@@ -99,7 +101,7 @@ export type DataModel =
   | "carregamento"
   | "pagamento"
   | "montante"
-  | "recarga";
+  | "recargas";
 
 export type BaseApiResponse = {
   status: number;
