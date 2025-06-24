@@ -20,13 +20,24 @@ export type ProdutoForm = Omit<
 >;
 
 export type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew" | "id">;
+type PagamentoUpdateForm = Omit<Pagamento, "produtoId" | "isNew">;
 export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
+export type ProdutoPagamentoUpdateForm = ProdutoForm & {
+  pagamento: PagamentoUpdateForm;
+};
 
 export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id">;
 export type RecargasForm = Omit<Recargas, "produtoId" | "id">;
+type RecargaMontantesUpdateForm = Omit<RecaMontante, "recargaId">;
+type RecargasUpdateForm = Omit<Recargas, "produtoId">;
 export type ProdutoRecargasForm = ProdutoForm & {
   recargas: RecargasForm & {
     montantes: RecargaMontantesForm[];
+  };
+};
+export type ProdutoRecargasUpdateForm = ProdutoForm & {
+  recargas: RecargasUpdateForm & {
+    montantes: RecargaMontantesUpdateForm[];
   };
 };
 
