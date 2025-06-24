@@ -1,7 +1,9 @@
 "use client";
 
+import { createProdutoRecargas } from "@/server/services";
 import { randomId } from "@mantine/hooks";
 import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
+import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import Link from "next/link";
 import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
@@ -9,7 +11,11 @@ import { IconTrash, IconForbidFilled } from "@tabler/icons-react";
 
 import type { ProdutoRecargasForm } from "@/types";
 
-export default function CreateRecargasForm({}: { servicoId: string }) {
+export default function CreateRecargasForm({
+  servicoId,
+}: {
+  servicoId: string;
+}) {
   const { isMutating, setIsFetching, startTransition, push } =
     useFormMutation();
 
@@ -21,8 +27,15 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
 
   const handleSubmit = async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
-    console.log("values", values);
+    const response = await createProdutoRecargas(servicoId, values);
     setIsFetching(false);
+
+    if (!response.data) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      startTransition(() => push("/multicaixa"));
+    }
   };
 
   return (
@@ -52,7 +65,6 @@ export default function CreateRecargasForm({}: { servicoId: string }) {
           disabled={montantes.length === 8}
           onClick={() =>
             insertListItem("recargas.montantes", {
-              id: "",
               quantidade: 0,
               montante: 0.0,
             })
