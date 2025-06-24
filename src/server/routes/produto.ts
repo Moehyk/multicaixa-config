@@ -9,13 +9,18 @@ import {
   processErrors,
 } from "@/utils/errors";
 
-import { ProdutoForm, ServicoForm, ProdutoRecargasForm } from "@/types";
+import {
+  ProdutoPagamentoForm,
+  ProdutoPagamentoUpdateForm,
+  ProdutoRecargasForm,
+  ProdutoRecargasUpdateForm,
+} from "@/types";
 
 export const produto = {
-  create: {
-    recargas: async (servicoId: string, input: ProdutoRecargasForm) => {
+  pagamento: {
+    create: async (id: string, input: ProdutoPagamentoForm) => {
       const user = await validateUser();
-      const isCuidValid = validateCuid(servicoId);
+      const isCuidValid = validateCuid(id);
       const { isInputsValid, message } = validateInputs({
         desig_ecra: input.desig_ecra,
         desig_tecla_seleccao: input.desig_tecla_seleccao,
@@ -25,14 +30,140 @@ export const produto = {
         throwValidationError({
           user,
           cuid: isCuidValid,
-          data: input.id ? "recargas" : "produto",
+          data: "servico",
+          inputs: isInputsValid,
+          message,
+        });
+
+        const produtoPagamento = await db.produto.create({
+          data: {
+            servicoId: id,
+            type: "pagamento",
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            pagamento: {
+              create: {
+                ...input.pagamento,
+                isNew: true,
+              },
+            },
+          },
+          include: {
+            pagamento: true,
+          },
+        });
+
+        revalidatePath("/multicaixa", "page");
+
+        return {
+          status: 200,
+          message: "Produto Pagamento criado",
+          data: produtoPagamento,
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          const response = processErrors(error, {
+            cuid: true,
+            inputs: isInputsValid,
+            user: user,
+          });
+
+          return response!;
+        } else {
+          console.error("Unknown Error Type:", error);
+        }
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error,
+        };
+      }
+    },
+    update: async (id: string, input: ProdutoPagamentoUpdateForm) => {
+      const user = await validateUser();
+      const isCuidValid = validateCuid(id);
+      const { isInputsValid, message } = validateInputs({
+        desig_ecra: input.desig_ecra,
+        desig_tecla_seleccao: input.desig_tecla_seleccao,
+      });
+
+      try {
+        throwValidationError({
+          user,
+          cuid: isCuidValid,
+          data: "produto",
+          inputs: isInputsValid,
+          message,
+        });
+
+        const produto = await db.produto.update({
+          where: {
+            id,
+          },
+          data: {
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            pagamento: {
+              update: {
+                where: {
+                  id: input.pagamento.id,
+                },
+                data: {
+                  ...input.pagamento,
+                },
+              },
+            },
+          },
+        });
+
+        revalidatePath("/multicaixa", "page");
+
+        return {
+          status: 200,
+          message: "Produto Pagamento actualizado",
+          data: produto,
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          const response = processErrors(error, {
+            cuid: isCuidValid,
+            inputs: isInputsValid,
+            user: user,
+          });
+
+          return response!;
+        } else {
+          console.error("Unknown Error Type:", error);
+        }
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error,
+        };
+      }
+    },
+  },
+  recargas: {
+    create: async (id: string, input: ProdutoRecargasForm) => {
+      const user = await validateUser();
+      const isCuidValid = validateCuid(id);
+      const { isInputsValid, message } = validateInputs({
+        desig_ecra: input.desig_ecra,
+        desig_tecla_seleccao: input.desig_tecla_seleccao,
+      });
+
+      try {
+        throwValidationError({
+          user,
+          cuid: isCuidValid,
+          data: "servico",
           inputs: isInputsValid,
           message,
         });
 
         const produtoRecargas = await db.produto.create({
           data: {
-            servicoId: servicoId,
+            servicoId: id,
             type: "recargas",
             desig_ecra: input.desig_ecra,
             desig_tecla_seleccao: input.desig_tecla_seleccao,
@@ -61,7 +192,7 @@ export const produto = {
         // 3. Return minimal serializable data
         return {
           status: 200,
-          message: input.id ? "Recargas atualizado" : "Recargas criado",
+          message: "Produto Recargas criado",
           data: produtoRecargas, // Return only essential data
         };
       } catch (error) {
@@ -83,57 +214,81 @@ export const produto = {
         };
       }
     },
-  },
+    update: async (
+      id: string,
 
-  update: async (input: ProdutoForm) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(input.id);
-    const { isInputsValid, message } = validateInputs(input);
-
-    try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "produto",
-        inputs: isInputsValid,
-        message,
+      input: ProdutoRecargasUpdateForm
+    ) => {
+      const user = await validateUser();
+      const isCuidValid = validateCuid(id);
+      const { isInputsValid, message } = validateInputs({
+        desig_ecra: input.desig_ecra,
+        desig_tecla_seleccao: input.desig_tecla_seleccao,
       });
 
-      const produto = await db.produto.update({
-        where: {
-          id: input.id,
-        },
-        data: {
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-        },
-      });
-
-      revalidatePath("/multicaixa", "page");
-
-      return {
-        status: 200,
-        message: "Produto actualizado",
-        data: produto,
-      };
-    } catch (error) {
-      if (error instanceof Error) {
-        const response = processErrors(error, {
+      try {
+        throwValidationError({
+          user,
           cuid: isCuidValid,
+          data: "produto",
           inputs: isInputsValid,
-          user: user,
+          message,
         });
 
-        return response!;
-      } else {
-        console.error("Unknown Error Type:", error);
+        const produto = await db.produto.update({
+          where: {
+            id,
+          },
+          data: {
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            recargas: {
+              update: {
+                data: {
+                  desig_unidade: input.recargas.desig_unidade,
+                  montantes: {
+                    updateMany: {
+                      where: {
+                        id: {
+                          in: input.recargas.montantes.map((m) => m.id),
+                        },
+                        recargaId: input.recargas.id,
+                      },
+                      data: input.recargas.montantes,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        revalidatePath("/multicaixa", "page");
+
+        return {
+          status: 200,
+          message: "Produto Recargas actualizado",
+          data: produto,
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          const response = processErrors(error, {
+            cuid: isCuidValid,
+            inputs: isInputsValid,
+            user: user,
+          });
+
+          return response!;
+        } else {
+          console.error("Unknown Error Type:", error);
+        }
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error,
+        };
       }
-      return {
-        status: 500,
-        message: "Ocorreu um erro ao processar sua solicitação",
-        error,
-      };
-    }
+    },
   },
 
   get: cache(async (id: string) => {
@@ -155,7 +310,11 @@ export const produto = {
         include: {
           carregamento: true,
           pagamento: true,
-          recargas: true,
+          recargas: {
+            include: {
+              montantes: true,
+            },
+          },
         },
       });
 
@@ -195,6 +354,15 @@ export const produto = {
       const produtos = await db.produto.findMany({
         where: {
           servicoId: id,
+        },
+        include: {
+          carregamento: true,
+          pagamento: true,
+          recargas: {
+            include: {
+              montantes: true,
+            },
+          },
         },
       });
 
