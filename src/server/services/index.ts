@@ -8,8 +8,10 @@ import { pagamento } from "../routes/pagamento";
 import { Empresa } from "@prisma/client";
 import {
   CreateServicoParams,
-  CreateProdutoParams,
   ProdutoPagamentoForm,
+  ProdutoPagamentoUpdateForm,
+  ProdutoRecargasForm,
+  ProdutoRecargasUpdateForm,
 } from "@/types";
 
 export const upsertEmpresa = async (values: Empresa) => {
@@ -53,38 +55,25 @@ export const deleteServico = async (id: string) => {
   return response;
 };
 
-export const upsertProduto = async ({
-  servicoId,
-  input,
-}: CreateProdutoParams) => {
-  if (input.id) {
-    return await produto.update(input);
-  } else {
-    return await produto.create(servicoId, input);
-  }
-};
-
 export const createProdutoPagamento = async (
   servicoId: string,
   input: ProdutoPagamentoForm
-) => {
-  const produtoResponse = await produto.create(servicoId, {
-    desig_ecra: input.desig_ecra,
-    desig_tecla_seleccao: input.desig_tecla_seleccao,
-    type: "pagamento",
-    id: input.id,
-  });
+) => await produto.pagamento.create(servicoId, input);
 
-  if (!produtoResponse.data) {
-    return produtoResponse;
-  }
+export const updateProdutoPagamento = async (
+  id: string,
+  input: ProdutoPagamentoUpdateForm
+) => await produto.pagamento.update(id, input);
 
-  const pagamentoResponse = await pagamento.create(produtoResponse.data.id, {
-    ...input.pagamento,
-  });
+export const createProdutoRecargas = async (
+  servicoId: string,
+  input: ProdutoRecargasForm
+) => await produto.recargas.create(servicoId, input);
 
-  return pagamentoResponse;
-};
+export const updateProdutoRecargas = async (
+  id: string,
+  input: ProdutoRecargasUpdateForm
+) => await produto.recargas.update(id, input);
 
 export const getProduto = async (id: string) => {
   const response = await produto.get(id);
