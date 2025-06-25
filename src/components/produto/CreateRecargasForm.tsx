@@ -6,8 +6,9 @@ import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import Link from "next/link";
+import MaxItemsAlert from "./MaxItemsAlert";
 import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
-import { IconTrash, IconForbidFilled } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 
 import type { ProdutoRecargasForm } from "@/types";
 
@@ -23,7 +24,6 @@ export default function CreateRecargasForm({
     useProdutoRecargasForm();
 
   const montantes = getValues().recargas.montantes;
-  const maxAlertIcon = <IconForbidFilled size={16} />;
 
   const handleSubmit = async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
@@ -72,14 +72,7 @@ export default function CreateRecargasForm({
         >
           Adicionar Recarga
         </Button>
-        {montantes.length === 8 && (
-          <Alert
-            color="red"
-            title="Máximo de 8 recargas"
-            icon={maxAlertIcon}
-            styles={{ root: { paddingBlock: 8 }, icon: { marginRight: 4 } }}
-          />
-        )}
+        {montantes.length === 8 && <MaxItemsAlert max={8} />}
       </div>
       <div className="grid grid-cols-4 grid-rows-auto gap-4">
         {montantes.map((_, i) => (
