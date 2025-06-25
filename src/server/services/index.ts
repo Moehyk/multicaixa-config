@@ -3,7 +3,6 @@
 import { empresa } from "../routes/empresa";
 import { servico } from "../routes/servico";
 import { produto } from "../routes/produto";
-import { pagamento } from "../routes/pagamento";
 
 import { Empresa } from "@prisma/client";
 import {
