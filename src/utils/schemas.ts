@@ -24,6 +24,29 @@ const desig_tecla_seleccao = z
   .string()
   .min(1, { message: "Campo obrigatório." })
   .max(18, { message: "Não pode ter mais de 18 caracteres." });
+const desig_referencia = z
+  .string()
+  .min(1, { message: "Campo obrigatório." })
+  .max(15, { message: "Não pode ter mais de 15 caracteres." });
+const tamanho_referencia = z
+  .number()
+  .min(9, { message: "Campo obrigatório." })
+  .max(15, { message: "Não pode ter mais de 15 dígitos." });
+const texto_ecra_referencia = z
+  .string()
+  .min(1, { message: "Campo obrigatório." })
+  .max(60, { message: "Não pode ter mais de 60 caracteres." });
+const montante_minimo = z.number().min(1, { message: "Campo obrigatório." });
+const montante_maximo = z.number().min(1, { message: "Campo obrigatório." });
+const montantes = z.array(
+  z.object({
+    montante: z.number().min(1, { message: "Campo obrigatório." }),
+    descricao: z
+      .string()
+      .min(1, { message: "Campo obrigatório." })
+      .max(18, { message: "Não pode ter mais de 18 caracteres." }),
+  })
+);
 
 export const empresaStepOneSchema = z.object({
   nome,
@@ -71,20 +94,11 @@ export const servicoSchema = z.object({
 });
 
 const pagamentoSchema = z.object({
-  desig_referencia: z
-    .string()
-    .min(1, { message: "Campo obrigatório." })
-    .max(15, { message: "Não pode ter mais de 15 caracteres." }),
-  tamanho_referencia: z
-    .number()
-    .min(9, { message: "Campo obrigatório." })
-    .max(15, { message: "Não pode ter mais de 15 dígitos." }),
-  texto_ecra_referencia: z
-    .string()
-    .min(1, { message: "Campo obrigatório." })
-    .max(30, { message: "Não pode ter mais de 30 caracteres." }),
-  montante_minimo: z.number().min(1, { message: "Campo obrigatório." }),
-  montante_maximo: z.number().min(1, { message: "Campo obrigatório." }),
+  desig_referencia,
+  tamanho_referencia,
+  texto_ecra_referencia,
+  montante_minimo,
+  montante_maximo,
 });
 
 const recargaSchema = z.object({
@@ -97,6 +111,36 @@ const recargaSchema = z.object({
   ),
 });
 
+const montanteTipoEnum = z.enum([
+  "montante_livre",
+  "montante_pre_definido",
+  "ambos",
+]);
+
+const carregamentoSchema = z.discriminatedUnion("montante_tipo", [
+  z.object({
+    montante_tipo: montanteTipoEnum.extract(["montante_livre"]),
+    desig_referencia,
+    tamanho_referencia,
+    texto_ecra_referencia,
+    montante_minimo,
+    montante_maximo,
+  }),
+  z.object({
+    montante_tipo: montanteTipoEnum.extract(["montante_pre_definido"]),
+    montantes,
+  }),
+  z.object({
+    montante_tipo: z.literal("ambos"),
+    desig_referencia,
+    tamanho_referencia,
+    texto_ecra_referencia,
+    montante_minimo,
+    montante_maximo,
+    montantes,
+  }),
+]);
+
 export const produtoPagamentoSchema = z.object({
   desig_ecra,
   desig_tecla_seleccao,
@@ -107,4 +151,10 @@ export const produtoRecargasSchema = z.object({
   desig_ecra,
   desig_tecla_seleccao,
   recargas: recargaSchema,
+});
+
+export const produtoCarregamentoSchema = z.object({
+  desig_ecra,
+  desig_tecla_seleccao,
+  carregamento: carregamentoSchema,
 });
