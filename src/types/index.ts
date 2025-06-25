@@ -27,7 +27,9 @@ export type ProdutoPagamentoUpdateForm = ProdutoForm & {
 };
 
 export type RecargasForm = Omit<Recargas, "produtoId" | "id">;
-export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id">;
+export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id"> & {
+  key: string;
+};
 type RecargasUpdateForm = Omit<Recargas, "produtoId">;
 type RecargaMontantesUpdateForm = Omit<RecaMontante, "recargaId">;
 export type ProdutoRecargasForm = ProdutoForm & {
@@ -42,7 +44,9 @@ export type ProdutoRecargasUpdateForm = ProdutoForm & {
 };
 
 export type CarregamentoForm = Omit<Carregamento, "id" | "produtoId">;
-export type CarrMontanteForm = Omit<CarrMontante, "id" | "carregamentoId">;
+export type CarrMontanteForm = Omit<CarrMontante, "id" | "carregamentoId"> & {
+  key: string;
+};
 type CarregamentoUpdateForm = Omit<Carregamento, "produtoId">;
 type CarrMontanteUpdateForm = Omit<CarrMontante, "carregamentoId">;
 

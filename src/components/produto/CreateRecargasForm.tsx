@@ -67,6 +67,7 @@ export default function CreateRecargasForm({
             insertListItem("recargas.montantes", {
               quantidade: 0,
               montante: 0.0,
+              key: randomId(),
             })
           }
         >
@@ -75,10 +76,10 @@ export default function CreateRecargasForm({
         {montantes.length === 8 && <MaxItemsAlert max={8} />}
       </div>
       <div className="grid grid-cols-4 grid-rows-auto gap-4">
-        {montantes.map((_, i) => (
+        {montantes.map((m, i) => (
           <Fieldset
             legend={`Recarga ${i + 1}`}
-            key={`${randomId()}-${i}`}
+            key={m.key}
             className="flex flex-col"
           >
             <NumberInput

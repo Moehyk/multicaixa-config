@@ -1,3 +1,5 @@
+import { randomId } from "@mantine/hooks";
+
 import type {
   EmpresaForm,
   ServicoForm,
@@ -49,7 +51,7 @@ export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
   type: "recargas",
   recargas: {
     desig_unidade: "",
-    montantes: [{ montante: 0.0, quantidade: 0 }],
+    montantes: [{ montante: 0.0, quantidade: 0, key: randomId() }],
   },
 };
 
@@ -64,6 +66,6 @@ export const initialProdutoCarregamentoFormValues: ProdutoCarregamentoForm = {
     montante_tipo: "montante_livre",
     montante_maximo: 0.0,
     montante_minimo: 0.0,
-    montantes: [{ montante: 0.0, descricao: "" }],
+    montantes: [{ montante: 0.0, descricao: "", key: randomId() }],
   },
 };
