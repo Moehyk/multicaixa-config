@@ -3,6 +3,7 @@ import type {
   ServicoForm,
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
+  ProdutoCarregamentoForm,
 } from "@/types";
 
 export const initialEmpresaFormValues: EmpresaForm = {
@@ -49,5 +50,20 @@ export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
   recargas: {
     desig_unidade: "",
     montantes: [{ montante: 0.0, quantidade: 0 }],
+  },
+};
+
+export const initialProdutoCarregamentoFormValues: ProdutoCarregamentoForm = {
+  desig_ecra: "",
+  desig_tecla_seleccao: "",
+  type: "carregamentos",
+  carregamento: {
+    desig_referencia: "",
+    tamanho_referencia: 9,
+    texto_ecra_referencia: "",
+    montante_tipo: "montante_livre",
+    montante_maximo: 0.0,
+    montante_minimo: 0.0,
+    montantes: [{ montante: 0.0, descricao: "" }],
   },
 };
