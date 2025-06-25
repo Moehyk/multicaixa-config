@@ -2,6 +2,7 @@ import {
   createTheme,
   TextInput,
   NumberInput,
+  Select,
   Modal,
   Card,
 } from "@mantine/core";
@@ -45,6 +46,12 @@ export const theme = createTheme({
       },
     }),
     NumberInput: NumberInput.extend({
+      defaultProps: {
+        size: "md",
+        h: 96,
+      },
+    }),
+    Select: Select.extend({
       defaultProps: {
         size: "md",
         h: 96,
