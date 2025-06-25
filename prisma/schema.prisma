@@ -65,11 +65,9 @@ model Carregamento {
   tamanho_referencia      Int
   texto_ecra_referencia   String
   montante_tipo           MontanteTipo
-  montante_livre          Boolean
-  montante_minimo         Float?
-  montante_maximo         Float?
-  montante_pre_definido   Boolean
   montantes               CarrMontante[]
+  montante_maximo         Float?
+  montante_minimo         Float?
 }
 
 model Pagamento {
