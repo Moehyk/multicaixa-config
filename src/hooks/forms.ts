@@ -11,6 +11,7 @@ import {
   servicoSchema,
   produtoPagamentoSchema,
   produtoRecargasSchema,
+  produtoCarregamentoSchema,
 } from "@/utils/schemas";
 
 import {
@@ -18,6 +19,7 @@ import {
   initialServicoFormValues,
   initialProdutoPagamentoFormValues,
   initialProdutoRecargasFormValues,
+  initialProdutoCarregamentoFormValues,
 } from "@/constants/form-values";
 
 import {
@@ -25,6 +27,7 @@ import {
   ServicoForm,
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
+  ProdutoCarregamentoForm,
 } from "@/types";
 
 export const useEmpresaForm = (values: EmpresaForm) => {
@@ -120,6 +123,26 @@ export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
       validate: zodResolver(produtoRecargasSchema),
     }
   );
+
+  useEffect(() => {
+    if (values) {
+      setInitialValues(values);
+      setValues(values);
+    }
+  }, [values]);
+
+  return form;
+};
+
+export const useProdutoCarregamentoForm = (
+  values?: ProdutoCarregamentoForm
+) => {
+  const { setInitialValues, setValues, ...form } =
+    useForm<ProdutoCarregamentoForm>({
+      mode: "uncontrolled",
+      initialValues: initialProdutoCarregamentoFormValues,
+      validate: zodResolver(produtoCarregamentoSchema),
+    });
 
   useEffect(() => {
     if (values) {
