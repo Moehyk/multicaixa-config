@@ -127,11 +127,14 @@ const carregamentoSchema = z.discriminatedUnion("montante_tipo", [
     montante_maximo,
   }),
   z.object({
+    desig_referencia,
+    tamanho_referencia,
+    texto_ecra_referencia,
     montante_tipo: montanteTipoEnum.extract(["montante_pre_definido"]),
     montantes,
   }),
   z.object({
-    montante_tipo: z.literal("ambos"),
+    montante_tipo: montanteTipoEnum.extract(["ambos"]),
     desig_referencia,
     tamanho_referencia,
     texto_ecra_referencia,
