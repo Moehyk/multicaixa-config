@@ -323,7 +323,10 @@ export const produto = {
                 montante_minimo: input.carregamento.montante_minimo,
                 montantes: {
                   createMany: {
-                    data: input.carregamento.montantes,
+                    data: input.carregamento.montantes.map((m) => ({
+                      descricao: m.descricao,
+                      montante: m.montante,
+                    })),
                   },
                 },
               },
