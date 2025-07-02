@@ -14,6 +14,8 @@ import {
   ProdutoPagamentoUpdateForm,
   ProdutoRecargasForm,
   ProdutoRecargasUpdateForm,
+  ProdutoCarregamentoForm,
+  ProdutoCarregamentoUpdateForm,
 } from "@/types";
 
 export const produto = {
@@ -214,11 +216,7 @@ export const produto = {
         };
       }
     },
-    update: async (
-      id: string,
-
-      input: ProdutoRecargasUpdateForm
-    ) => {
+    update: async (id: string, input: ProdutoRecargasUpdateForm) => {
       const user = await validateUser();
       const isCuidValid = validateCuid(id);
       const { isInputsValid, message } = validateInputs({
@@ -268,6 +266,161 @@ export const produto = {
         return {
           status: 200,
           message: "Produto Recargas actualizado",
+          data: produto,
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          const response = processErrors(error, {
+            cuid: isCuidValid,
+            inputs: isInputsValid,
+            user: user,
+          });
+
+          return response!;
+        } else {
+          console.error("Unknown Error Type:", error);
+        }
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error,
+        };
+      }
+    },
+  },
+
+  carregamento: {
+    create: async (id: string, input: ProdutoCarregamentoForm) => {
+      const user = await validateUser();
+      const isCuidValid = validateCuid(id);
+      const { isInputsValid, message } = validateInputs({
+        desig_ecra: input.desig_ecra,
+        desig_tecla_seleccao: input.desig_tecla_seleccao,
+      });
+
+      try {
+        throwValidationError({
+          user,
+          cuid: isCuidValid,
+          data: "servico",
+          inputs: isInputsValid,
+          message,
+        });
+
+        const produtoCarregamento = await db.produto.create({
+          data: {
+            servicoId: id,
+            type: "carregamentos",
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            carregamento: {
+              create: {
+                desig_referencia: input.carregamento.desig_referencia,
+                tamanho_referencia: input.carregamento.tamanho_referencia,
+                texto_ecra_referencia: input.carregamento.texto_ecra_referencia,
+                montante_tipo: input.carregamento.montante_tipo,
+                montante_maximo: input.carregamento.montante_maximo,
+                montante_minimo: input.carregamento.montante_minimo,
+                montantes: {
+                  createMany: {
+                    data: input.carregamento.montantes,
+                  },
+                },
+              },
+            },
+          },
+          include: {
+            carregamento: {
+              include: {
+                montantes: true,
+              },
+            },
+          },
+        });
+
+        revalidatePath("/multicaixa", "page");
+
+        return {
+          status: 200,
+          message: "Produto Carregamento criado",
+          data: produtoCarregamento,
+        };
+      } catch (error) {
+        if (error instanceof Error) {
+          const response = processErrors(error, {
+            cuid: true,
+            inputs: isInputsValid,
+            user: user,
+          });
+
+          return response!;
+        } else {
+          console.error("Unknown Error Type:", error);
+        }
+        return {
+          status: 500,
+          message: "Ocorreu um erro ao processar sua solicitação",
+          error,
+        };
+      }
+    },
+
+    update: async (id: string, input: ProdutoCarregamentoUpdateForm) => {
+      const user = await validateUser();
+      const isCuidValid = validateCuid(id);
+      const { isInputsValid, message } = validateInputs({
+        desig_ecra: input.desig_ecra,
+        desig_tecla_seleccao: input.desig_tecla_seleccao,
+      });
+
+      try {
+        throwValidationError({
+          user,
+          cuid: isCuidValid,
+          data: "produto",
+          inputs: isInputsValid,
+          message,
+        });
+
+        const produto = await db.produto.update({
+          where: {
+            id,
+          },
+          data: {
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            carregamento: {
+              update: {
+                data: {
+                  desig_referencia: input.carregamento.desig_referencia,
+                  tamanho_referencia: input.carregamento.tamanho_referencia,
+                  texto_ecra_referencia:
+                    input.carregamento.texto_ecra_referencia,
+                  montante_tipo: input.carregamento.montante_tipo,
+                  montante_maximo: input.carregamento.montante_maximo,
+                  montante_minimo: input.carregamento.montante_minimo,
+                  montantes: {
+                    updateMany: {
+                      where: {
+                        id: {
+                          in: input.carregamento.montantes.map((m) => m.id),
+                        },
+                        carregamentoId: input.carregamento.id,
+                      },
+                      data: input.carregamento.montantes,
+                    },
+                  },
+                },
+              },
+            },
+          },
+        });
+
+        revalidatePath("/multicaixa", "page");
+
+        return {
+          status: 200,
+          message: "Produto Carregamento actualizado",
           data: produto,
         };
       } catch (error) {
