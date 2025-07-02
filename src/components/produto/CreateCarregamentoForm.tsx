@@ -13,9 +13,8 @@ import {
   Button,
   Select,
   Fieldset,
-  Alert,
 } from "@mantine/core";
-import { IconTrash, IconForbidFilled } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 
 import type { ProdutoCarregamentoForm } from "@/types";
 
