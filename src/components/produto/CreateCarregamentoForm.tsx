@@ -14,9 +14,10 @@ import {
   Select,
   Fieldset,
 } from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
+import { IconTrash, IconPlus } from "@tabler/icons-react";
 
 import type { ProdutoCarregamentoForm } from "@/types";
+import type { MontanteTipo } from "@prisma/client";
 
 export default function CreateCarregamentoForm({
   servicoId,
@@ -32,7 +33,7 @@ export default function CreateCarregamentoForm({
     onSubmit,
     insertListItem,
     removeListItem,
-    errors,
+    setFieldValue,
   } = useProdutoCarregamentoForm();
 
   const montanteTipo = getValues().carregamento.montante_tipo;
@@ -71,116 +72,127 @@ export default function CreateCarregamentoForm({
           className="flex-1"
         />
       </div>
-      <TextInput
-        {...getInputProps("carregamento.texto_ecra_referencia")}
-        label="Texto do ecrã de referência"
-        className="flex-1"
-        maxLength={60}
-      />
-      <div className="flex w-full  gap-4">
+      <div className="flex gap-4">
         <NumberInput
           {...getInputProps("carregamento.tamanho_referencia")}
           label="Tamanho da referência"
           min={9}
           max={15}
+          className="w-1/6"
         />
-        <NumberInput
-          {...getInputProps("carregamento.montante_minimo")}
-          label="Montante mínimo"
+        <TextInput
+          {...getInputProps("carregamento.texto_ecra_referencia")}
+          label="Texto do ecrã de referência"
           className="flex-1"
-          suffix=" Kzs"
-          allowNegative={false}
-          thousandSeparator=","
-          fixedDecimalScale
-          decimalScale={2}
-          max={99999999.99}
-          min={0}
-        />
-        <NumberInput
-          {...getInputProps("carregamento.montante_maximo")}
-          label="Montante máximo"
-          className="flex-1"
-          suffix=" Kzs"
-          allowNegative={false}
-          thousandSeparator=","
-          fixedDecimalScale
-          decimalScale={2}
-          max={99999999.99}
-          min={0}
+          maxLength={60}
         />
       </div>
-      <div className="flex items-end gap-4 w-full">
-        <Select
-          {...getInputProps("carregamento.montante_tipo")}
-          label="Tipo de Montantes"
-          defaultValue={montanteTipo}
-          data={[
-            { value: "montante_livre", label: "Montante Livre" },
-            {
-              value: "montante_pre_definido",
-              label: "Montantes Pré-definidos",
-            },
-            { value: "ambos", label: "Ambos Tipos de Montantes" },
-          ]}
-          className="w-1/4"
-        />
+      <h2 className="text-lg font-medium my-2">Configurar Montantes</h2>
+      <div className="p-8 bg-body border border-border">
+        <div className="flex items-center gap-1 w-full mb-8">
+          <Select
+            value={montanteTipo}
+            onChange={(e) =>
+              setFieldValue("carregamento.montante_tipo", e as MontanteTipo)
+            }
+            data={[
+              { value: "montante_livre", label: "Montante Livre" },
+              {
+                value: "montante_pre_definido",
+                label: "Montantes Pré-definidos",
+              },
+              { value: "ambos", label: "Ambos Tipos de Montantes" },
+            ]}
+            className="w-1/4"
+          />
+          {montanteTipo !== "montante_livre" && (
+            <>
+              <Button
+                variant="transparent"
+                size="md"
+                disabled={montantes.length === 8}
+                leftSection={<IconPlus size={16} />}
+                onClick={() =>
+                  insertListItem("carregamento.montantes", {
+                    descricao: "",
+                    montante: 0.0,
+                    key: randomId(),
+                  })
+                }
+              >
+                Adicionar Montante
+              </Button>
+              {montantes.length === 8 && <MaxItemsAlert max={8} />}
+            </>
+          )}
+        </div>
+        {montanteTipo !== "montante_pre_definido" && (
+          <div className="flex w-full  gap-4">
+            <NumberInput
+              {...getInputProps("carregamento.montante_minimo")}
+              label="Montante mínimo"
+              className="flex-1"
+              suffix=" Kzs"
+              allowNegative={false}
+              thousandSeparator=","
+              fixedDecimalScale
+              decimalScale={2}
+              max={99999999.99}
+              min={0}
+            />
+            <NumberInput
+              {...getInputProps("carregamento.montante_maximo")}
+              label="Montante máximo"
+              className="flex-1"
+              suffix=" Kzs"
+              allowNegative={false}
+              thousandSeparator=","
+              fixedDecimalScale
+              decimalScale={2}
+              max={99999999.99}
+              min={0}
+            />
+          </div>
+        )}
+
         {montanteTipo !== "montante_livre" && (
-          <>
-            <Button
-              variant="default"
-              size="md"
-              disabled={montantes.length === 8}
-              onClick={() =>
-                insertListItem("carregamento.montantes", {
-                  descricao: "",
-                  montante: 0.0,
-                  key: randomId(),
-                })
-              }
-            >
-              Adicionar Recarga
-            </Button>
-            {montantes.length === 8 && <MaxItemsAlert max={8} />}
-          </>
+          <div className="grid grid-cols-4 grid-rows-auto gap-4">
+            {montantes.map((m, i) => (
+              <Fieldset
+                legend={`Montante ${i + 1}`}
+                key={m.key}
+                className="flex flex-col"
+              >
+                <NumberInput
+                  {...getInputProps(`carregamento.montantes.${i}.montante`)}
+                  label="Montante"
+                  suffix=" Kzs"
+                  allowNegative={false}
+                  thousandSeparator=","
+                  fixedDecimalScale
+                  decimalScale={2}
+                  max={99999999.99}
+                  min={0}
+                />
+                <TextInput
+                  {...getInputProps(`carregamento.montantes.${i}.descricao`)}
+                  label="Descrição"
+                />
+
+                <Button
+                  variant="outline"
+                  color="red"
+                  leftSection={<IconTrash size={16} />}
+                  disabled={montantes.length === 1}
+                  onClick={() => removeListItem(`carregamento.montantes`, i)}
+                >
+                  Remover
+                </Button>
+              </Fieldset>
+            ))}
+          </div>
         )}
       </div>
-      {montanteTipo !== "montante_livre" && (
-        <div className="grid grid-cols-4 grid-rows-auto gap-4 pt-8">
-          {montantes.map((m, i) => (
-            <Fieldset
-              legend={`Montante ${i + 1}`}
-              key={m.key}
-              className="flex flex-col"
-            >
-              <NumberInput
-                {...getInputProps(`carregamento.montantes.${i}.montante`)}
-                label="Montante"
-                suffix=" Kzs"
-                allowNegative={false}
-                thousandSeparator=","
-                fixedDecimalScale
-                decimalScale={2}
-                max={99999999.99}
-                min={0}
-              />
-              <TextInput
-                {...getInputProps(`carregamento.montantes.${i}.descricao`)}
-                label="Descrição"
-              />
-
-              <Button
-                variant="outline"
-                color="red"
-                leftSection={<IconTrash size={16} />}
-                disabled={montantes.length === 1}
-                onClick={() => removeListItem(`carregamento.montantes`, i)}
-              >
-                Remover
-              </Button>
-            </Fieldset>
-          ))}
-        </div>
-      )}
       <div className="flex gap-2 pt-8">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
