@@ -1,8 +1,9 @@
 "use client";
 
-import {} from "@/server/services";
+import { createProdutoCarregamento } from "@/server/services";
 import { randomId } from "@mantine/hooks";
 import { useProdutoCarregamentoForm, useFormMutation } from "@/hooks";
+import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import Link from "next/link";
 import MaxItemsAlert from "./MaxItemsAlert";
@@ -38,8 +39,17 @@ export default function CreateCarregamentoForm({
   const montanteTipo = getValues().carregamento.montante_tipo;
   const montantes = getValues().carregamento.montantes;
 
-  const handleSubmit = (values: ProdutoCarregamentoForm) => {
-    console.log(values);
+  const handleSubmit = async (values: ProdutoCarregamentoForm) => {
+    setIsFetching(true);
+    const response = await createProdutoCarregamento(servicoId, values);
+    setIsFetching(false);
+
+    if (!response.data) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      startTransition(() => push("/multicaixa"));
+    }
   };
 
   return (
