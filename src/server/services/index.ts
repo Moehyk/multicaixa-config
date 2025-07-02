@@ -11,6 +11,8 @@ import {
   ProdutoPagamentoUpdateForm,
   ProdutoRecargasForm,
   ProdutoRecargasUpdateForm,
+  ProdutoCarregamentoForm,
+  ProdutoCarregamentoUpdateForm,
 } from "@/types";
 
 export const upsertEmpresa = async (values: Empresa) => {
@@ -73,6 +75,16 @@ export const updateProdutoRecargas = async (
   id: string,
   input: ProdutoRecargasUpdateForm
 ) => await produto.recargas.update(id, input);
+
+export const createProdutoCarregamento = async (
+  servicoId: string,
+  input: ProdutoCarregamentoForm
+) => await produto.carregamento.create(servicoId, input);
+
+export const updateProdutoCarregamento = async (
+  id: string,
+  input: ProdutoCarregamentoUpdateForm
+) => await produto.carregamento.update(id, input);
 
 export const getProduto = async (id: string) => {
   const response = await produto.get(id);
