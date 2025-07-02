@@ -54,7 +54,6 @@ export const theme = createTheme({
     Select: Select.extend({
       defaultProps: {
         size: "md",
-        h: 96,
       },
     }),
     Modal: Modal.extend({
