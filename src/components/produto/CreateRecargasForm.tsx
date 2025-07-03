@@ -58,61 +58,65 @@ export default function CreateRecargasForm({
           maxLength={15}
         />
       </div>
-      <div className="flex gap-4 items-center mt-2 mb-4">
-        <Button
-          variant="default"
-          size="md"
-          disabled={montantes.length === 8}
-          onClick={() =>
-            insertListItem("recargas.montantes", {
-              quantidade: 0,
-              montante: 0.0,
-              key: randomId(),
-            })
-          }
-        >
-          Adicionar Recarga
-        </Button>
-        {montantes.length === 8 && <MaxItemsAlert max={8} />}
-      </div>
-      <div className="grid grid-cols-4 grid-rows-auto gap-4">
-        {montantes.map((m, i) => (
-          <Fieldset
-            legend={`Recarga ${i + 1}`}
-            key={m.key}
-            className="flex flex-col"
+      <h2 className="text-lg font-semibold my-2">Configurar Recargas</h2>
+      <div className="p-6 bg-body border border-border">
+        <div className="flex gap-4 items-center mb-4">
+          <Button
+            variant="default"
+            size="md"
+            disabled={montantes.length === 8}
+            onClick={() =>
+              insertListItem("recargas.montantes", {
+                quantidade: 0,
+                montante: 0.0,
+                key: randomId(),
+              })
+            }
           >
-            <NumberInput
-              {...getInputProps(`recargas.montantes.${i}.quantidade`)}
-              label="Quantidade"
-              allowNegative={false}
-              thousandSeparator=","
-              max={99999999}
-              min={0}
-            />
-            <NumberInput
-              {...getInputProps(`recargas.montantes.${i}.montante`)}
-              label="Montante"
-              suffix=" Kzs"
-              allowNegative={false}
-              thousandSeparator=","
-              fixedDecimalScale
-              decimalScale={2}
-              max={99999999.99}
-              min={0}
-            />
-            <Button
-              variant="outline"
-              color="red"
-              leftSection={<IconTrash size={16} />}
-              disabled={montantes.length === 1}
-              onClick={() => removeListItem(`recargas.montantes`, i)}
+            Adicionar Recarga
+          </Button>
+          {montantes.length === 8 && <MaxItemsAlert max={8} />}
+        </div>
+        <div className="grid grid-cols-4 grid-rows-auto gap-4">
+          {montantes.map((m, i) => (
+            <Fieldset
+              legend={`Recarga ${i + 1}`}
+              key={m.key}
+              className="flex flex-col"
             >
-              Remover
-            </Button>
-          </Fieldset>
-        ))}
+              <NumberInput
+                {...getInputProps(`recargas.montantes.${i}.quantidade`)}
+                label="Quantidade"
+                allowNegative={false}
+                thousandSeparator=","
+                max={99999999}
+                min={0}
+              />
+              <NumberInput
+                {...getInputProps(`recargas.montantes.${i}.montante`)}
+                label="Montante"
+                suffix=" Kzs"
+                allowNegative={false}
+                thousandSeparator=","
+                fixedDecimalScale
+                decimalScale={2}
+                max={99999999.99}
+                min={0}
+              />
+              <Button
+                variant="outline"
+                color="red"
+                leftSection={<IconTrash size={16} />}
+                disabled={montantes.length === 1}
+                onClick={() => removeListItem(`recargas.montantes`, i)}
+              >
+                Remover
+              </Button>
+            </Fieldset>
+          ))}
+        </div>
       </div>
+
       <div className="flex gap-2 pt-8">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
