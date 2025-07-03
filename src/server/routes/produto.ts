@@ -174,7 +174,10 @@ export const produto = {
                 desig_unidade: input.recargas.desig_unidade,
                 montantes: {
                   createMany: {
-                    data: input.recargas.montantes,
+                    data: input.recargas.montantes.map((m) => ({
+                      montante: m.montante,
+                      quantidade: m.quantidade,
+                    })),
                   },
                 },
               },
