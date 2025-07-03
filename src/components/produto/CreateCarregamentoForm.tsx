@@ -87,44 +87,25 @@ export default function CreateCarregamentoForm({
           maxLength={60}
         />
       </div>
-      <h2 className="text-lg font-medium my-2">Configurar Montantes</h2>
-      <div className="p-8 bg-body border border-border">
-        <div className="flex items-center gap-2 w-full mb-8">
-          <Select
-            value={montanteTipo}
-            onChange={(e) =>
-              setFieldValue("carregamento.montante_tipo", e as MontanteTipo)
-            }
-            data={[
-              { value: "montante_livre", label: "Montante Livre" },
-              {
-                value: "montante_pre_definido",
-                label: "Montantes Pré-definidos",
-              },
-              { value: "ambos", label: "Ambos Tipos de Montantes" },
-            ]}
-            className="w-1/4"
-          />
-          {montanteTipo !== "montante_livre" && montantes.length < 8 && (
-            <>
-              <Button
-                variant="transparent"
-                size="md"
-                leftSection={<IconPlus size={16} />}
-                onClick={() =>
-                  insertListItem("carregamento.montantes", {
-                    descricao: "",
-                    montante: 0.0,
-                    key: randomId(),
-                  })
-                }
-              >
-                Adicionar Montante
-              </Button>
-            </>
-          )}
-          <>{montantes.length === 8 && <MaxItemsAlert max={8} />}</>
-        </div>
+      <div className="flex items-center gap-4 mb-2 mt-4">
+        <h2 className="text-lg font-semibold my-2">Configurar Montantes</h2>
+        <Select
+          size="xs"
+          value={montanteTipo}
+          onChange={(e) =>
+            setFieldValue("carregamento.montante_tipo", e as MontanteTipo)
+          }
+          data={[
+            { value: "montante_livre", label: "Montante Livre" },
+            {
+              value: "montante_pre_definido",
+              label: "Montantes Pré-definidos",
+            },
+            { value: "ambos", label: "Ambos" },
+          ]}
+        />
+      </div>
+      <div className="p-6 bg-body border border-border flex flex-col gap-4">
         {montanteTipo !== "montante_pre_definido" && (
           <div className="flex w-full  gap-4">
             <NumberInput
@@ -155,40 +136,60 @@ export default function CreateCarregamentoForm({
         )}
 
         {montanteTipo !== "montante_livre" && (
-          <div className="grid grid-cols-4 grid-rows-auto gap-4">
-            {montantes.map((m, i) => (
-              <Fieldset
-                legend={`Montante ${i + 1}`}
-                key={m.key}
-                className="flex flex-col"
+          <div className="flex flex-col gap-4">
+            <div className="flex items-center gap-2">
+              <Button
+                variant="default"
+                size="md"
+                disabled={montantes.length >= 8}
+                leftSection={<IconPlus size={16} />}
+                onClick={() =>
+                  insertListItem("carregamento.montantes", {
+                    descricao: "",
+                    montante: 0.0,
+                    key: randomId(),
+                  })
+                }
               >
-                <NumberInput
-                  {...getInputProps(`carregamento.montantes.${i}.montante`)}
-                  label="Montante"
-                  suffix=" Kzs"
-                  allowNegative={false}
-                  thousandSeparator=","
-                  fixedDecimalScale
-                  decimalScale={2}
-                  max={99999999.99}
-                  min={0}
-                />
-                <TextInput
-                  {...getInputProps(`carregamento.montantes.${i}.descricao`)}
-                  label="Descrição"
-                />
-
-                <Button
-                  variant="outline"
-                  color="red"
-                  leftSection={<IconTrash size={16} />}
-                  disabled={montantes.length === 1}
-                  onClick={() => removeListItem(`carregamento.montantes`, i)}
+                Adicionar Montante
+              </Button>
+              <>{montantes.length === 8 && <MaxItemsAlert max={8} />}</>
+            </div>
+            <div className="grid grid-cols-4 grid-rows-auto gap-4">
+              {montantes.map((m, i) => (
+                <Fieldset
+                  legend={`Montante ${i + 1}`}
+                  key={m.key}
+                  className="flex flex-col"
                 >
-                  Remover
-                </Button>
-              </Fieldset>
-            ))}
+                  <NumberInput
+                    {...getInputProps(`carregamento.montantes.${i}.montante`)}
+                    label="Montante"
+                    suffix=" Kzs"
+                    allowNegative={false}
+                    thousandSeparator=","
+                    fixedDecimalScale
+                    decimalScale={2}
+                    max={99999999.99}
+                    min={0}
+                  />
+                  <TextInput
+                    {...getInputProps(`carregamento.montantes.${i}.descricao`)}
+                    label="Descrição"
+                  />
+
+                  <Button
+                    variant="outline"
+                    color="red"
+                    leftSection={<IconTrash size={16} />}
+                    disabled={montantes.length === 1}
+                    onClick={() => removeListItem(`carregamento.montantes`, i)}
+                  >
+                    Remover
+                  </Button>
+                </Fieldset>
+              ))}
+            </div>
           </div>
         )}
       </div>
