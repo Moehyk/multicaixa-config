@@ -93,7 +93,7 @@ model Recargas {
 model CarrMontante {
   id                      String        @id @default(cuid())
   carregamentoId          String
-  carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id])
+  carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id], onDelete: Cascade)
   montante                Float
   descricao               String
 }
