@@ -89,7 +89,7 @@ export default function CreateCarregamentoForm({
       </div>
       <h2 className="text-lg font-medium my-2">Configurar Montantes</h2>
       <div className="p-8 bg-body border border-border">
-        <div className="flex items-center gap-1 w-full mb-8">
+        <div className="flex items-center gap-2 w-full mb-8">
           <Select
             value={montanteTipo}
             onChange={(e) =>
@@ -105,12 +105,11 @@ export default function CreateCarregamentoForm({
             ]}
             className="w-1/4"
           />
-          {montanteTipo !== "montante_livre" && (
+          {montanteTipo !== "montante_livre" && montantes.length < 8 && (
             <>
               <Button
                 variant="transparent"
                 size="md"
-                disabled={montantes.length === 8}
                 leftSection={<IconPlus size={16} />}
                 onClick={() =>
                   insertListItem("carregamento.montantes", {
@@ -122,9 +121,9 @@ export default function CreateCarregamentoForm({
               >
                 Adicionar Montante
               </Button>
-              {montantes.length === 8 && <MaxItemsAlert max={8} />}
             </>
           )}
+          <>{montantes.length === 8 && <MaxItemsAlert max={8} />}</>
         </div>
         {montanteTipo !== "montante_pre_definido" && (
           <div className="flex w-full  gap-4">
