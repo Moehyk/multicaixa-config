@@ -111,7 +111,11 @@ export const produto = {
                   id: input.pagamento.id,
                 },
                 data: {
-                  ...input.pagamento,
+                  desig_referencia: input.pagamento.desig_referencia,
+                  tamanho_referencia: input.pagamento.tamanho_referencia,
+                  texto_ecra_referencia: input.pagamento.texto_ecra_referencia,
+                  montante_minimo: input.pagamento.montante_minimo,
+                  montante_maximo: input.pagamento.montante_maximo,
                 },
               },
             },
