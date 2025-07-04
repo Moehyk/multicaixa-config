@@ -1,28 +1,16 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db } from "..";
-import {
-  validateUser,
-  validateInputs,
-  processErrors,
-  throwValidationError,
-} from "@/utils/errors";
+import { db, getUser } from "..";
+import { validateUser, processErrors } from "@/utils/errors";
 
 import { Empresa } from "@prisma/client";
 
 export const empresa = {
   create: async (input: Empresa) => {
-    const user = await validateUser();
-    const { isInputsValid, message } = validateInputs(input);
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: true,
-        data: input.id ? "empresa" : "utilizador",
-        inputs: isInputsValid,
-        message,
-      });
+      validateUser(user);
 
       // 1. Prepare the where clause
       const where = input.id
@@ -33,33 +21,11 @@ export const empresa = {
       const empresa = await db.empresa.upsert({
         where,
         create: {
+          ...input,
           utilizadorId: user.id,
-          cae: input.cae,
-          nome: input.nome,
-          sigla: input.sigla,
-          telefone: input.telefone,
-          email: input.email,
-          responsavel: input.responsavel,
-          morada: input.morada,
-          localidade: input.localidade,
-          numero_pessoa_colectiva: input.numero_pessoa_colectiva,
-          numero_entidade: input.numero_entidade,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
         },
         update: {
-          cae: input.cae,
-          nome: input.nome,
-          sigla: input.sigla,
-          telefone: input.telefone,
-          email: input.email,
-          responsavel: input.responsavel,
-          morada: input.morada,
-          localidade: input.localidade,
-          numero_pessoa_colectiva: input.numero_pessoa_colectiva,
-          numero_entidade: input.numero_entidade,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
+          ...input,
         },
       });
 
@@ -74,8 +40,7 @@ export const empresa = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: true,
-          inputs: isInputsValid,
+          id: !!input.id,
           user: user,
         });
 
@@ -92,15 +57,10 @@ export const empresa = {
   },
 
   get: cache(async () => {
-    const user = await validateUser();
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: true,
-        data: "utilizador",
-        inputs: true,
-      });
+      validateUser(user);
 
       const data = await db.empresa.findUnique({
         where: {
@@ -114,8 +74,7 @@ export const empresa = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: true,
-          inputs: true,
+          id: !!user.id,
           user: user,
         });
 
