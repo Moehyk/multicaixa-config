@@ -20,26 +20,15 @@ export type ProdutoForm = Omit<
 >;
 
 export type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew" | "id">;
-type PagamentoUpdateForm = Omit<Pagamento, "produtoId" | "isNew">;
 export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
-export type ProdutoPagamentoUpdateForm = ProdutoForm & {
-  pagamento: PagamentoUpdateForm;
-};
 
 export type RecargasForm = Omit<Recargas, "produtoId" | "id">;
 export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id"> & {
   key: string;
 };
-type RecargasUpdateForm = Omit<Recargas, "produtoId">;
-type RecargaMontantesUpdateForm = Omit<RecaMontante, "recargaId">;
 export type ProdutoRecargasForm = ProdutoForm & {
   recargas: RecargasForm & {
     montantes: RecargaMontantesForm[];
-  };
-};
-export type ProdutoRecargasUpdateForm = ProdutoForm & {
-  recargas: RecargasUpdateForm & {
-    montantes: RecargaMontantesUpdateForm[];
   };
 };
 
@@ -47,17 +36,9 @@ export type CarregamentoForm = Omit<Carregamento, "id" | "produtoId">;
 export type CarrMontanteForm = Omit<CarrMontante, "id" | "carregamentoId"> & {
   key: string;
 };
-type CarregamentoUpdateForm = Omit<Carregamento, "produtoId">;
-type CarrMontanteUpdateForm = Omit<CarrMontante, "carregamentoId">;
-
 export type ProdutoCarregamentoForm = ProdutoForm & {
   carregamento: CarregamentoForm & {
     montantes: CarrMontanteForm[];
-  };
-};
-export type ProdutoCarregamentoUpdateForm = ProdutoForm & {
-  carregamento: CarregamentoUpdateForm & {
-    montantes: CarrMontanteUpdateForm[];
   };
 };
 
