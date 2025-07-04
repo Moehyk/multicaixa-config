@@ -19,7 +19,6 @@ export type ProdutoForm = {
   servicoId?: string;
   desig_ecra: string;
   desig_tecla_seleccao: string;
-  type: ProdutoTipo;
 };
 
 export type ProdutoPagamentoForm = ProdutoForm & {
@@ -35,17 +34,19 @@ export type ProdutoPagamentoForm = ProdutoForm & {
   };
 };
 
-export type ProdutoRecargasForm = {
-  id?: string;
-  servicoId?: string;
-  desig_ecra: string;
-  desig_tecla_seleccao: string;
-  type: ProdutoTipo;
-};
-
-export type RecargasForm = Omit<Recargas, "produtoId" | "id">;
-export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id"> & {
-  key: string;
+export type ProdutoRecargasForm = ProdutoForm & {
+  recargas: {
+    id?: string;
+    produtoId?: string;
+    desig_unidade: string;
+    montantes: {
+      id: string;
+      recargaId?: string;
+      montante: number;
+      quantidade: number;
+      key: string;
+    }[];
+  };
 };
 
 export type CarregamentoForm = Omit<Carregamento, "id" | "produtoId">;

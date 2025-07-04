@@ -34,6 +34,7 @@ export const produto = {
           data: {
             ...input,
             servicoId: input.servicoId,
+            type: "pagamento",
             pagamento: {
               create: {
                 ...input.pagamento,
@@ -127,7 +128,7 @@ export const produto = {
     },
   },
   recargas: {
-    create: async (id: string, input: ProdutoRecargasForm) => {
+    create: async (input: ProdutoRecargasForm) => {
       const user = await getUser();
 
       try {
@@ -139,13 +140,12 @@ export const produto = {
 
         const produtoRecargas = await db.produto.create({
           data: {
-            servicoId: id,
+            ...input,
+            servicoId: input.servicoId,
             type: "recargas",
-            desigEcra: input.desigEcra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
             recargas: {
               create: {
-                desig_unidade: input.recargas.desig_unidade,
+                ...input.recargas,
                 montantes: {
                   createMany: {
                     data: input.recargas.montantes.map((m) => ({
@@ -177,8 +177,7 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            cuid: true,
-            inputs: isInputsValid,
+            id: !!input.servicoId,
             user: user,
           });
 
@@ -193,34 +192,26 @@ export const produto = {
         };
       }
     },
-    update: async (id: string, input: ProdutoRecargasForm) => {
-      const user = await validateUser();
-      const isCuidValid = validateCuid(id);
-      const { isInputsValid, message } = validateInputs({
-        desigEcra: input.desigEcra,
-        desig_tecla_seleccao: input.desig_tecla_seleccao,
-      });
+    update: async (input: ProdutoRecargasForm) => {
+      const user = await getUser();
 
       try {
-        throwValidationError({
-          user,
-          cuid: isCuidValid,
-          data: "produto",
-          inputs: isInputsValid,
-          message,
-        });
+        validateUser(user);
+
+        if (input.id) {
+          throw idError("produto");
+        }
 
         const produto = await db.produto.update({
           where: {
-            id,
+            id: input.id,
           },
           data: {
-            desigEcra: input.desigEcra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...input,
             recargas: {
               update: {
                 data: {
-                  desig_unidade: input.recargas.desig_unidade,
+                  ...input.recargas,
                   montantes: {
                     updateMany: {
                       where: {
@@ -248,8 +239,7 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            cuid: isCuidValid,
-            inputs: isInputsValid,
+            id: !!input.id,
             user: user,
           });
 
