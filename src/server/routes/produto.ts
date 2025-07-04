@@ -1,7 +1,10 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db } from "..";
+import { db, getUser } from "..";
+
+import { errorIdMessage } from "@/config";
 import {
+  idError,
   validateCuid,
   validateUser,
   validateInputs,
@@ -11,38 +14,26 @@ import {
 
 import {
   ProdutoPagamentoForm,
-  ProdutoPagamentoUpdateForm,
   ProdutoRecargasForm,
-  ProdutoRecargasUpdateForm,
   ProdutoCarregamentoForm,
-  ProdutoCarregamentoUpdateForm,
 } from "@/types";
 
 export const produto = {
   pagamento: {
-    create: async (id: string, input: ProdutoPagamentoForm) => {
-      const user = await validateUser();
-      const isCuidValid = validateCuid(id);
-      const { isInputsValid, message } = validateInputs({
-        desig_ecra: input.desig_ecra,
-        desig_tecla_seleccao: input.desig_tecla_seleccao,
-      });
+    create: async (input: ProdutoPagamentoForm) => {
+      const user = await getUser();
 
       try {
-        throwValidationError({
-          user,
-          cuid: isCuidValid,
-          data: "servico",
-          inputs: isInputsValid,
-          message,
-        });
+        validateUser(user);
+
+        if (!input.servicoId) {
+          throw idError("servico");
+        }
 
         const produtoPagamento = await db.produto.create({
           data: {
-            servicoId: id,
-            type: "pagamento",
-            desig_ecra: input.desig_ecra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...input,
+            servicoId: input.servicoId,
             pagamento: {
               create: {
                 ...input.pagamento,
@@ -65,8 +56,7 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            cuid: true,
-            inputs: isInputsValid,
+            id: !!input.servicoId,
             user: user,
           });
 
@@ -81,41 +71,29 @@ export const produto = {
         };
       }
     },
-    update: async (id: string, input: ProdutoPagamentoUpdateForm) => {
-      const user = await validateUser();
-      const isCuidValid = validateCuid(id);
-      const { isInputsValid, message } = validateInputs({
-        desig_ecra: input.desig_ecra,
-        desig_tecla_seleccao: input.desig_tecla_seleccao,
-      });
+    update: async (input: ProdutoPagamentoForm) => {
+      const user = await getUser();
 
       try {
-        throwValidationError({
-          user,
-          cuid: isCuidValid,
-          data: "produto",
-          inputs: isInputsValid,
-          message,
-        });
+        validateUser(user);
+
+        if (!input.id) {
+          throw idError("produto");
+        }
 
         const produto = await db.produto.update({
           where: {
-            id,
+            id: input.id,
           },
           data: {
-            desig_ecra: input.desig_ecra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...input,
             pagamento: {
               update: {
                 where: {
                   id: input.pagamento.id,
                 },
                 data: {
-                  desig_referencia: input.pagamento.desig_referencia,
-                  tamanho_referencia: input.pagamento.tamanho_referencia,
-                  texto_ecra_referencia: input.pagamento.texto_ecra_referencia,
-                  montante_minimo: input.pagamento.montante_minimo,
-                  montante_maximo: input.pagamento.montante_maximo,
+                  ...input.pagamento,
                 },
               },
             },
@@ -132,8 +110,7 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            cuid: isCuidValid,
-            inputs: isInputsValid,
+            id: !!input.id,
             user: user,
           });
 
@@ -151,27 +128,20 @@ export const produto = {
   },
   recargas: {
     create: async (id: string, input: ProdutoRecargasForm) => {
-      const user = await validateUser();
-      const isCuidValid = validateCuid(id);
-      const { isInputsValid, message } = validateInputs({
-        desig_ecra: input.desig_ecra,
-        desig_tecla_seleccao: input.desig_tecla_seleccao,
-      });
+      const user = await getUser();
 
       try {
-        throwValidationError({
-          user,
-          cuid: isCuidValid,
-          data: "servico",
-          inputs: isInputsValid,
-          message,
-        });
+        validateUser(user);
+
+        if (!input.servicoId) {
+          throw idError("servico");
+        }
 
         const produtoRecargas = await db.produto.create({
           data: {
             servicoId: id,
             type: "recargas",
-            desig_ecra: input.desig_ecra,
+            desigEcra: input.desigEcra,
             desig_tecla_seleccao: input.desig_tecla_seleccao,
             recargas: {
               create: {
@@ -223,11 +193,11 @@ export const produto = {
         };
       }
     },
-    update: async (id: string, input: ProdutoRecargasUpdateForm) => {
+    update: async (id: string, input: ProdutoRecargasForm) => {
       const user = await validateUser();
       const isCuidValid = validateCuid(id);
       const { isInputsValid, message } = validateInputs({
-        desig_ecra: input.desig_ecra,
+        desigEcra: input.desigEcra,
         desig_tecla_seleccao: input.desig_tecla_seleccao,
       });
 
@@ -245,7 +215,7 @@ export const produto = {
             id,
           },
           data: {
-            desig_ecra: input.desig_ecra,
+            desigEcra: input.desigEcra,
             desig_tecla_seleccao: input.desig_tecla_seleccao,
             recargas: {
               update: {
@@ -301,7 +271,7 @@ export const produto = {
       const user = await validateUser();
       const isCuidValid = validateCuid(id);
       const { isInputsValid, message } = validateInputs({
-        desig_ecra: input.desig_ecra,
+        desigEcra: input.desigEcra,
         desig_tecla_seleccao: input.desig_tecla_seleccao,
       });
 
@@ -318,7 +288,7 @@ export const produto = {
           data: {
             servicoId: id,
             type: "carregamentos",
-            desig_ecra: input.desig_ecra,
+            desigEcra: input.desigEcra,
             desig_tecla_seleccao: input.desig_tecla_seleccao,
             carregamento: {
               create: {
@@ -379,7 +349,7 @@ export const produto = {
       const user = await validateUser();
       const isCuidValid = validateCuid(id);
       const { isInputsValid, message } = validateInputs({
-        desig_ecra: input.desig_ecra,
+        desigEcra: input.desigEcra,
         desig_tecla_seleccao: input.desig_tecla_seleccao,
       });
 
@@ -397,7 +367,7 @@ export const produto = {
             id,
           },
           data: {
-            desig_ecra: input.desig_ecra,
+            desigEcra: input.desigEcra,
             desig_tecla_seleccao: input.desig_tecla_seleccao,
             carregamento: {
               update: {
@@ -454,7 +424,7 @@ export const produto = {
     },
   },
 
-  get: cache(async (id: string) => {
+  get: cache(async (id: string): {} => {
     const user = await validateUser();
     const isCuidValid = validateCuid(id);
 

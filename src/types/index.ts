@@ -14,22 +14,38 @@ import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
 export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
-export type ProdutoForm = Omit<
-  Produto,
-  "servicoId" | "carregamento" | "pagamento" | "recargas" | "id"
->;
+export type ProdutoForm = {
+  id?: string;
+  servicoId?: string;
+  desig_ecra: string;
+  desig_tecla_seleccao: string;
+  type: ProdutoTipo;
+};
 
-export type PagamentoForm = Omit<Pagamento, "produtoId" | "isNew" | "id">;
-export type ProdutoPagamentoForm = ProdutoForm & { pagamento: PagamentoForm };
+export type ProdutoPagamentoForm = ProdutoForm & {
+  pagamento: {
+    id?: string;
+    produtoId?: string;
+    desig_referencia: string;
+    tamanho_referencia: number;
+    texto_ecra_referencia: string;
+    isNew: boolean;
+    montante_minimo: number;
+    montante_maximo: number;
+  };
+};
+
+export type ProdutoRecargasForm = {
+  id?: string;
+  servicoId?: string;
+  desig_ecra: string;
+  desig_tecla_seleccao: string;
+  type: ProdutoTipo;
+};
 
 export type RecargasForm = Omit<Recargas, "produtoId" | "id">;
 export type RecargaMontantesForm = Omit<RecaMontante, "recargaId" | "id"> & {
   key: string;
-};
-export type ProdutoRecargasForm = ProdutoForm & {
-  recargas: RecargasForm & {
-    montantes: RecargaMontantesForm[];
-  };
 };
 
 export type CarregamentoForm = Omit<Carregamento, "id" | "produtoId">;
@@ -77,12 +93,6 @@ export type CreateServicoParams = {
 export type CreateProdutoParams = {
   input: ProdutoForm;
   servicoId: string;
-};
-
-export type CreatePagamentoParams = {
-  input: PagamentoForm;
-  productId: string;
-  id: string | undefined;
 };
 
 export type CreateCarregamentoParams = {
