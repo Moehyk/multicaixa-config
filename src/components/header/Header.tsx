@@ -16,7 +16,7 @@ function StickyHeader() {
 
 export default function Header() {
   return (
-    <header className="flex items-center h-20 bg-white shadow-sm">
+    <header className="fixed inset-x-0 top-0 z-50 w-full flex items-center h-20 bg-header border-b border-header-border backdrop-blur-lg">
       <div className="container w-full flex items-center justify-between">
         <Image
           src={logo_light}

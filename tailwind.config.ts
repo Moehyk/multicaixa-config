@@ -59,6 +59,7 @@ export default {
         current: "currentColor",
         body: "rgb(var(--bg-body) / <alpha-value>)",
         header: "rgb(var(--bg-header) / <alpha-value>)",
+        "header-border": "rgb(var(--border-header) / <alpha-value>)",
         border: "rgb(var(--border) / <alpha-value>)",
         "modal-footer": "rgb(var(--modal-footer) / <alpha-value>)",
         "modal-footer-b": "rgb(var(--modal-footer-border) / <alpha-value>)",

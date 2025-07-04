@@ -12,6 +12,8 @@ export const resolver: CSSVariablesResolver = (theme) => ({
     "--border": "206 212 218",
     "--modal-footer": "241 243 245",
     "--modal-footer-border": "222 226 230",
+    "--bg-header": "255 255 255",
+    "--border-header": "222 226 230",
   },
   dark: {
     "--mantine-color-body": "#020617",
