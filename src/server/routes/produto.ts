@@ -2,15 +2,7 @@ import { cache } from "react";
 import { revalidatePath } from "next/cache";
 import { db, getUser } from "..";
 
-import { errorIdMessage } from "@/config";
-import {
-  idError,
-  validateCuid,
-  validateUser,
-  validateInputs,
-  throwValidationError,
-  processErrors,
-} from "@/utils/errors";
+import { idError, validateUser, processErrors } from "@/utils/errors";
 
 import {
   ProdutoPagamentoForm,
@@ -257,37 +249,24 @@ export const produto = {
   },
 
   carregamento: {
-    create: async (id: string, input: ProdutoCarregamentoForm) => {
-      const user = await validateUser();
-      const isCuidValid = validateCuid(id);
-      const { isInputsValid, message } = validateInputs({
-        desigEcra: input.desigEcra,
-        desig_tecla_seleccao: input.desig_tecla_seleccao,
-      });
+    create: async (input: ProdutoCarregamentoForm) => {
+      const user = await getUser();
 
       try {
-        throwValidationError({
-          user,
-          cuid: isCuidValid,
-          data: "servico",
-          inputs: isInputsValid,
-          message,
-        });
+        validateUser(user);
+
+        if (!input.servicoId) {
+          throw idError("servico");
+        }
 
         const produtoCarregamento = await db.produto.create({
           data: {
-            servicoId: id,
+            ...input,
+            servicoId: input.servicoId,
             type: "carregamentos",
-            desigEcra: input.desigEcra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
             carregamento: {
               create: {
-                desig_referencia: input.carregamento.desig_referencia,
-                tamanho_referencia: input.carregamento.tamanho_referencia,
-                texto_ecra_referencia: input.carregamento.texto_ecra_referencia,
-                montante_tipo: input.carregamento.montante_tipo,
-                montante_maximo: input.carregamento.montante_maximo,
-                montante_minimo: input.carregamento.montante_minimo,
+                ...input.carregamento,
                 montantes: {
                   createMany: {
                     data: input.carregamento.montantes.map((m) => ({
@@ -318,8 +297,7 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            cuid: true,
-            inputs: isInputsValid,
+            id: !!input.servicoId,
             user: user,
           });
 
@@ -335,40 +313,26 @@ export const produto = {
       }
     },
 
-    update: async (id: string, input: ProdutoCarregamentoUpdateForm) => {
-      const user = await validateUser();
-      const isCuidValid = validateCuid(id);
-      const { isInputsValid, message } = validateInputs({
-        desigEcra: input.desigEcra,
-        desig_tecla_seleccao: input.desig_tecla_seleccao,
-      });
+    update: async (input: ProdutoCarregamentoForm) => {
+      const user = await getUser();
 
       try {
-        throwValidationError({
-          user,
-          cuid: isCuidValid,
-          data: "produto",
-          inputs: isInputsValid,
-          message,
-        });
+        validateUser(user);
+
+        if (input.id) {
+          throw idError("produto");
+        }
 
         const produto = await db.produto.update({
           where: {
-            id,
+            id: input.id,
           },
           data: {
-            desigEcra: input.desigEcra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...input,
             carregamento: {
               update: {
                 data: {
-                  desig_referencia: input.carregamento.desig_referencia,
-                  tamanho_referencia: input.carregamento.tamanho_referencia,
-                  texto_ecra_referencia:
-                    input.carregamento.texto_ecra_referencia,
-                  montante_tipo: input.carregamento.montante_tipo,
-                  montante_maximo: input.carregamento.montante_maximo,
-                  montante_minimo: input.carregamento.montante_minimo,
+                  ...input.carregamento,
                   montantes: {
                     updateMany: {
                       where: {
@@ -396,8 +360,7 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            cuid: isCuidValid,
-            inputs: isInputsValid,
+            id: !!input.id,
             user: user,
           });
 
@@ -414,17 +377,15 @@ export const produto = {
     },
   },
 
-  get: cache(async (id: string): {} => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(id);
+  get: cache(async (id: string) => {
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "produto",
-        inputs: true,
-      });
+      validateUser(user);
+
+      if (!id) {
+        throw idError("produto");
+      }
 
       const produto = await db.produto.findUnique({
         where: {
@@ -445,8 +406,7 @@ export const produto = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: true,
+          id: !!id,
           user: user,
         });
 
@@ -463,16 +423,14 @@ export const produto = {
   }),
 
   getAll: cache(async (id: string) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(id);
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "servico",
-        inputs: true,
-      });
+      validateUser(user);
+
+      if (!id) {
+        throw idError("servico");
+      }
 
       const produtos = await db.produto.findMany({
         where: {
@@ -493,8 +451,7 @@ export const produto = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: true,
+          id: !!id,
           user: user,
         });
 
@@ -511,15 +468,14 @@ export const produto = {
   }),
 
   delete: async (id: string) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(id);
+    const user = await getUser();
+
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "produto",
-        inputs: true,
-      });
+      validateUser(user);
+
+      if (!id) {
+        throw idError("produto");
+      }
 
       await db.produto.delete({
         where: {
@@ -533,8 +489,7 @@ export const produto = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: true,
+          id: !!id,
           user: user,
         });
 

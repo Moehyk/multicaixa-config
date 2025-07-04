@@ -9,6 +9,7 @@ import type {
   Carregamento,
   CarrMontante,
   ProdutoTipo,
+  MontanteTipo,
 } from "@prisma/client";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
@@ -49,13 +50,23 @@ export type ProdutoRecargasForm = ProdutoForm & {
   };
 };
 
-export type CarregamentoForm = Omit<Carregamento, "id" | "produtoId">;
-export type CarrMontanteForm = Omit<CarrMontante, "id" | "carregamentoId"> & {
-  key: string;
-};
 export type ProdutoCarregamentoForm = ProdutoForm & {
-  carregamento: CarregamentoForm & {
-    montantes: CarrMontanteForm[];
+  carregamento: {
+    id?: string;
+    produtoId?: string;
+    desig_referencia: string;
+    tamanho_referencia: number;
+    texto_ecra_referencia: string;
+    montante_tipo: MontanteTipo;
+    montante_maximo?: number;
+    montante_minimo?: number;
+    montantes: {
+      id: string;
+      carregamentoId?: string;
+      montante: number;
+      descricao: string;
+      key: string;
+    }[];
   };
 };
 
@@ -94,12 +105,6 @@ export type CreateServicoParams = {
 export type CreateProdutoParams = {
   input: ProdutoForm;
   servicoId: string;
-};
-
-export type CreateCarregamentoParams = {
-  input: CarregamentoForm;
-  productId: string;
-  id: string | undefined;
 };
 
 export type UrlParams = {
