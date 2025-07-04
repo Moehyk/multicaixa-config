@@ -3,18 +3,21 @@ import type {
   Empresa,
   Servico,
   Produto,
-  Pagamento,
-  Recargas,
-  RecaMontante,
-  Carregamento,
-  CarrMontante,
   ProdutoTipo,
   MontanteTipo,
 } from "@prisma/client";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
-export type ServicoForm = Omit<Servico, "produtos" | "empresaId">;
+
+export type ServicoForm = {
+  id?: string;
+  empresaId?: string;
+  desig_ecra: string;
+  desig_tecla_seleccao: string;
+  desig_sistema: string;
+};
+
 export type ProdutoForm = {
   id?: string;
   servicoId?: string;
@@ -95,16 +98,6 @@ export type GroupButtons = {
   dispatch: Dispatch<SetStateAction<number>>;
   lastPage?: number;
   to: (id: string, targetView?: ProdutoTipo) => void;
-};
-
-export type CreateServicoParams = {
-  input: ServicoForm;
-  empresaId: string;
-};
-
-export type CreateProdutoParams = {
-  input: ProdutoForm;
-  servicoId: string;
 };
 
 export type UrlParams = {

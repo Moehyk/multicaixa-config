@@ -1,37 +1,25 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db } from "..";
-import {
-  validateCuid,
-  validateUser,
-  validateInputs,
-  throwValidationError,
-  processErrors,
-} from "@/utils/errors";
+import { db, getUser } from "..";
+import { idError, validateUser, processErrors } from "@/utils/errors";
 
 import { ServicoForm } from "@/types";
 
 export const servico = {
-  create: async (empresaId: string, input: ServicoForm) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(empresaId);
-    const { isInputsValid, message } = validateInputs(input);
+  create: async (input: ServicoForm) => {
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "empresa",
-        inputs: isInputsValid,
-        message,
-      });
+      validateUser(user);
+
+      if (!input.empresaId) {
+        throw idError("empresa");
+      }
 
       const servico = await db.servico.create({
         data: {
-          empresaId,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          desig_sistema: input.desig_sistema,
+          ...input,
+          empresaId: input.empresaId,
         },
       });
 
@@ -45,8 +33,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: isInputsValid,
+          id: !!input.empresaId,
           user: user,
         });
 
@@ -62,27 +49,21 @@ export const servico = {
     }
   },
   update: async (input: ServicoForm) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(input.id);
-    const { isInputsValid, message } = validateInputs(input);
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "servico",
-        inputs: isInputsValid,
-        message,
-      });
+      validateUser(user);
+
+      if (!input.id) {
+        throw idError("servico");
+      }
 
       const servico = await db.servico.update({
         where: {
           id: input.id,
         },
         data: {
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          desig_sistema: input.desig_sistema,
+          ...input,
         },
       });
 
@@ -96,8 +77,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: isInputsValid,
+          id: !!input.id,
           user: user,
         });
 
@@ -114,16 +94,14 @@ export const servico = {
   },
 
   get: cache(async (id: string) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(id);
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "servico",
-        inputs: true,
-      });
+      validateUser(user);
+
+      if (!id) {
+        throw idError("servico");
+      }
 
       const servico = await db.servico.findUnique({
         where: {
@@ -138,8 +116,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: true,
+          id: !!id,
           user: user,
         });
 
@@ -156,16 +133,14 @@ export const servico = {
   }),
 
   getAll: cache(async (id: string) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(id);
+    const user = await getUser();
 
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "empresa",
-        inputs: true,
-      });
+      validateUser(user);
+
+      if (!id) {
+        throw idError("empresa");
+      }
 
       const servicos = await db.servico.findMany({
         where: {
@@ -180,8 +155,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: true,
+          id: !!id,
           user: user,
         });
 
@@ -198,15 +172,14 @@ export const servico = {
   }),
 
   delete: async (id: string) => {
-    const user = await validateUser();
-    const isCuidValid = validateCuid(id);
+    const user = await getUser();
+
     try {
-      throwValidationError({
-        user,
-        cuid: isCuidValid,
-        data: "servico",
-        inputs: true,
-      });
+      validateUser(user);
+
+      if (!id) {
+        throw idError("servico");
+      }
 
       await db.servico.delete({
         where: {
@@ -220,8 +193,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          cuid: isCuidValid,
-          inputs: true,
+          id: !!id,
           user: user,
         });
 
