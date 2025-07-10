@@ -97,23 +97,12 @@ export const useServicoForm = (values?: ServicoForm) => {
   return form;
 };
 
-export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
-  const { setInitialValues, setValues, ...form } =
-    useForm<ProdutoPagamentoForm>({
-      mode: "uncontrolled",
-      initialValues: initialProdutoPagamentoFormValues,
-      validate: zodResolver(produtoPagamentoSchema),
-    });
-
-  useEffect(() => {
-    if (values) {
-      setInitialValues(values);
-      setValues(values);
-    }
-  }, [values]);
-
-  return form;
-};
+export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) =>
+  useForm<ProdutoPagamentoForm>({
+    mode: "uncontrolled",
+    initialValues: values ?? initialProdutoPagamentoFormValues,
+    validate: zodResolver(produtoPagamentoSchema),
+  });
 
 export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
   const { setInitialValues, setValues, ...form } = useForm<ProdutoRecargasForm>(
