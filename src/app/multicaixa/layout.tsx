@@ -1,6 +1,3 @@
-import { Suspense } from "react";
-import { EmpresaLoading, EmpresaLoader } from "@/components/empresa";
-
 export default function MulticaixaLayout({
   children,
   mcxmodal,
@@ -10,10 +7,7 @@ export default function MulticaixaLayout({
 }) {
   return (
     <>
-      <Suspense fallback={<EmpresaLoading />}>
-        <EmpresaLoader />
-      </Suspense>
-      {children}
+      <div className="mt-16">{children}</div>
       {mcxmodal}
     </>
   );
