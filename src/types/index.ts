@@ -6,7 +6,6 @@ import type {
   ProdutoTipo,
   MontanteTipo,
 } from "@prisma/client";
-import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export type EmpresaForm = Omit<Empresa, "servicos">;
 
@@ -44,7 +43,7 @@ export type ProdutoRecargasForm = ProdutoForm & {
     produtoId?: string;
     desig_unidade: string;
     montantes: {
-      id: string;
+      id?: string;
       recargaId?: string;
       montante: number;
       quantidade: number;
@@ -64,7 +63,7 @@ export type ProdutoCarregamentoForm = ProdutoForm & {
     montante_maximo?: number;
     montante_minimo?: number;
     montantes: {
-      id: string;
+      id?: string;
       carregamentoId?: string;
       montante: number;
       descricao: string;

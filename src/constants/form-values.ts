@@ -35,8 +35,8 @@ export const initialServicoFormValues: ServicoForm = {
 export const initialProdutoPagamentoFormValues: ProdutoPagamentoForm = {
   desig_ecra: "",
   desig_tecla_seleccao: "",
-  type: "pagamento",
   pagamento: {
+    isNew: true,
     desig_referencia: "",
     tamanho_referencia: 9,
     texto_ecra_referencia: "",
@@ -48,7 +48,6 @@ export const initialProdutoPagamentoFormValues: ProdutoPagamentoForm = {
 export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
   desig_ecra: "",
   desig_tecla_seleccao: "",
-  type: "recargas",
   recargas: {
     desig_unidade: "",
     montantes: [{ montante: 0.0, quantidade: 0, key: randomId() }],
@@ -58,7 +57,6 @@ export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
 export const initialProdutoCarregamentoFormValues: ProdutoCarregamentoForm = {
   desig_ecra: "",
   desig_tecla_seleccao: "",
-  type: "carregamentos",
   carregamento: {
     desig_referencia: "",
     tamanho_referencia: 9,
