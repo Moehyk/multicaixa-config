@@ -4,9 +4,10 @@ import { db, getUser } from "..";
 import { validateUser, processErrors } from "@/utils/errors";
 
 import { Empresa } from "@prisma/client";
+import type { EmpresaForm } from "@/types";
 
 export const empresa = {
-  create: async (input: Empresa) => {
+  create: async (input: EmpresaForm) => {
     const user = await getUser();
 
     try {
@@ -21,11 +22,33 @@ export const empresa = {
       const empresa = await db.empresa.upsert({
         where,
         create: {
-          ...input,
           utilizadorId: user.id,
+          cae: input.cae,
+          nome: input.nome,
+          numero_pessoa_colectiva: input.numero_pessoa_colectiva,
+          sigla: input.sigla,
+          morada: input.morada,
+          localidade: input.localidade,
+          responsavel: input.responsavel,
+          telefone: input.telefone,
+          email: input.email,
+          numero_entidade: input.numero_entidade,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
         },
         update: {
-          ...input,
+          cae: input.cae,
+          nome: input.nome,
+          numero_pessoa_colectiva: input.numero_pessoa_colectiva,
+          sigla: input.sigla,
+          morada: input.morada,
+          localidade: input.localidade,
+          responsavel: input.responsavel,
+          telefone: input.telefone,
+          email: input.email,
+          numero_entidade: input.numero_entidade,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
         },
       });
 

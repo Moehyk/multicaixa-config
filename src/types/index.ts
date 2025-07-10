@@ -7,7 +7,22 @@ import type {
   MontanteTipo,
 } from "@prisma/client";
 
-export type EmpresaForm = Omit<Empresa, "servicos">;
+export type EmpresaForm = {
+  id?: string;
+  utilizadorId: string;
+  cae: string;
+  nome: string;
+  numero_pessoa_colectiva: string;
+  sigla: string;
+  morada: string;
+  localidade: string;
+  responsavel: string;
+  telefone: string;
+  email: string;
+  numero_entidade: string;
+  desig_ecra: string;
+  desig_tecla_seleccao: string;
+};
 
 export type ServicoForm = {
   id?: string;

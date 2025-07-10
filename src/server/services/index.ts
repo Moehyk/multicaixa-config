@@ -4,15 +4,15 @@ import { empresa } from "../routes/empresa";
 import { servico } from "../routes/servico";
 import { produto } from "../routes/produto";
 
-import { Empresa } from "@prisma/client";
 import {
+  EmpresaForm,
   ServicoForm,
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
 } from "@/types";
 
-export const upsertEmpresa = async (values: Empresa) => {
+export const upsertEmpresa = async (values: EmpresaForm) => {
   const response = await empresa.create(values);
 
   return response;
@@ -39,6 +39,7 @@ export const getServico = async (id: string) => {
 };
 
 export const getServicos = async (empresaId: string) => {
+  console.log("empresaId", empresaId);
   const response = await servico.getAll(empresaId);
 
   return response;
