@@ -6,13 +6,10 @@ import { produto } from "../routes/produto";
 
 import { Empresa } from "@prisma/client";
 import {
-  CreateServicoParams,
+  ServicoForm,
   ProdutoPagamentoForm,
-  ProdutoPagamentoUpdateForm,
   ProdutoRecargasForm,
-  ProdutoRecargasUpdateForm,
   ProdutoCarregamentoForm,
-  ProdutoCarregamentoUpdateForm,
 } from "@/types";
 
 export const upsertEmpresa = async (values: Empresa) => {
@@ -27,14 +24,11 @@ export const getEmpresa = async () => {
   return response;
 };
 
-export const upsertServico = async ({
-  empresaId,
-  input,
-}: CreateServicoParams) => {
+export const upsertServico = async (input: ServicoForm) => {
   if (input.id) {
     return await servico.update(input);
   } else {
-    return await servico.create(empresaId, input);
+    return await servico.create(input);
   }
 };
 
@@ -56,35 +50,25 @@ export const deleteServico = async (id: string) => {
   return response;
 };
 
-export const createProdutoPagamento = async (
-  servicoId: string,
-  input: ProdutoPagamentoForm
-) => await produto.pagamento.create(servicoId, input);
+export const createProdutoPagamento = async (input: ProdutoPagamentoForm) =>
+  await produto.pagamento.create(input);
 
-export const updateProdutoPagamento = async (
-  id: string,
-  input: ProdutoPagamentoUpdateForm
-) => await produto.pagamento.update(id, input);
+export const updateProdutoPagamento = async (input: ProdutoPagamentoForm) =>
+  await produto.pagamento.update(input);
 
-export const createProdutoRecargas = async (
-  servicoId: string,
-  input: ProdutoRecargasForm
-) => await produto.recargas.create(servicoId, input);
+export const createProdutoRecargas = async (input: ProdutoRecargasForm) =>
+  await produto.recargas.create(input);
 
-export const updateProdutoRecargas = async (
-  id: string,
-  input: ProdutoRecargasUpdateForm
-) => await produto.recargas.update(id, input);
+export const updateProdutoRecargas = async (input: ProdutoRecargasForm) =>
+  await produto.recargas.update(input);
 
 export const createProdutoCarregamento = async (
-  servicoId: string,
   input: ProdutoCarregamentoForm
-) => await produto.carregamento.create(servicoId, input);
+) => await produto.carregamento.create(input);
 
 export const updateProdutoCarregamento = async (
-  id: string,
-  input: ProdutoCarregamentoUpdateForm
-) => await produto.carregamento.update(id, input);
+  input: ProdutoCarregamentoForm
+) => await produto.carregamento.update(input);
 
 export const getProduto = async (id: string) => {
   const response = await produto.get(id);
