@@ -208,7 +208,7 @@ export const produto = {
                     updateMany: {
                       where: {
                         id: {
-                          in: input.recargas.montantes.map((m) => m.id),
+                          in: input.recargas.montantes.map((m) => m.id!),
                         },
                         recargaId: input.recargas.id,
                       },
@@ -337,7 +337,7 @@ export const produto = {
                     updateMany: {
                       where: {
                         id: {
-                          in: input.carregamento.montantes.map((m) => m.id),
+                          in: input.carregamento.montantes.map((m) => m.id!),
                         },
                         carregamentoId: input.carregamento.id,
                       },
