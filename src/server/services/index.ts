@@ -24,11 +24,11 @@ export const getEmpresa = async () => {
   return response;
 };
 
-export const upsertServico = async (input: ServicoForm) => {
+export const upsertServico = async (id: string, input: ServicoForm) => {
   if (input.id) {
     return await servico.update(input);
   } else {
-    return await servico.create(input);
+    return await servico.create(id, input);
   }
 };
 
@@ -39,7 +39,6 @@ export const getServico = async (id: string) => {
 };
 
 export const getServicos = async (empresaId: string) => {
-  console.log("empresaId", empresaId);
   const response = await servico.getAll(empresaId);
 
   return response;

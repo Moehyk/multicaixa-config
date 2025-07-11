@@ -6,20 +6,22 @@ import { idError, validateUser, processErrors } from "@/utils/errors";
 import { ServicoForm } from "@/types";
 
 export const servico = {
-  create: async (input: ServicoForm) => {
+  create: async (id: string, input: ServicoForm) => {
     const user = await getUser();
 
     try {
       validateUser(user);
 
-      if (!input.empresaId) {
+      if (!id) {
         throw idError("empresa");
       }
 
       const servico = await db.servico.create({
         data: {
-          ...input,
-          empresaId: input.empresaId,
+          empresaId: id,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
+          desig_sistema: input.desig_sistema,
         },
       });
 
@@ -63,7 +65,9 @@ export const servico = {
           id: input.id,
         },
         data: {
-          ...input,
+          desig_ecra: input.desig_ecra,
+          desig_tecla_seleccao: input.desig_tecla_seleccao,
+          desig_sistema: input.desig_sistema,
         },
       });
 

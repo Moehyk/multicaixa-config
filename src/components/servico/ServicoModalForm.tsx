@@ -22,7 +22,7 @@ export default function ServicoModalForm({
   const handleSubmit = async (values: ServicoForm) => {
     setIsFetching(true);
 
-    const response = await upsertServico({ empresaId, input: values });
+    const response = await upsertServico(empresaId, values);
 
     setIsFetching(false);
     if (!response.data) {

@@ -26,7 +26,6 @@ export const initialEmpresaFormValues: EmpresaForm = {
 };
 
 export const initialServicoFormValues: ServicoForm = {
-  id: "",
   desig_ecra: "",
   desig_tecla_seleccao: "",
   desig_sistema: "",
