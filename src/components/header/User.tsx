@@ -3,7 +3,7 @@ import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 import Link from "next/link";
 import { LogoutLink } from "@kinde-oss/kinde-auth-nextjs/components";
 import { Menu, Button } from "@mantine/core";
-import { IconUser, IconBuilding, IconDoorExit } from "@tabler/icons-react";
+import { IconBuilding, IconDoorExit, IconSelector } from "@tabler/icons-react";
 
 export default function User() {
   const { user, isLoading } = useKindeBrowserClient();
@@ -13,10 +13,10 @@ export default function User() {
       <Menu.Target>
         <Button
           loading={isLoading!}
-          variant="default"
-          leftSection={<IconUser size={20} stroke={1.75} />}
+          variant="outline"
+          rightSection={<IconSelector size={20} stroke={1.75} />}
         >
-          {`${user?.given_name} (${user?.family_name})`}
+          {`${user?.given_name} ${user?.family_name}`}
         </Button>
       </Menu.Target>
       <Menu.Dropdown>
