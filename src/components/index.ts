@@ -8,4 +8,6 @@ export { default as GlobalLoader } from "./GlobalLoader";
 export { default as ErrorWidget } from "./ErrorWidget";
 export { default as GridLoading } from "./GridLoading";
 
+export { Toolbar } from "./header";
 export { GridServico } from "./servico";
+export { EmpresaToolbar, EmpresaLoading } from "./empresa";

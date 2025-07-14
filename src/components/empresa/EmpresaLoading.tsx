@@ -1,10 +1,10 @@
 import EmpresaCard from "./EmpresaCard";
-import { Card, Skeleton } from "@mantine/core";
+import { Card, Skeleton, Loader } from "@mantine/core";
 
 export default function EmpresaLoading() {
   return (
-    <EmpresaCard>
-      <Skeleton height={36} radius="xl" />
-    </EmpresaCard>
+    <div className="flex items-center justify-center w-full">
+      <Loader height={36} radius="xl" type="dots" />
+    </div>
   );
 }
