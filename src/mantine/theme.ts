@@ -11,7 +11,7 @@ import { geistMono, geistSans } from "@/utils";
 
 export const theme = createTheme({
   cursorType: "pointer",
-  defaultRadius: "sm",
+  defaultRadius: "md",
   primaryColor: "brand",
   primaryShade: { light: 5, dark: 7 },
   shadows: {
@@ -35,7 +35,6 @@ export const theme = createTheme({
       styles: {
         root: {
           backgroundColor: "var(--mantine-paper)",
-          borderRadius: "var(--mantine-default-radius)",
         },
       },
     }),
