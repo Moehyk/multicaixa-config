@@ -30,7 +30,6 @@ export default async function EmpresaToolbar() {
       <Button
         component={Link}
         href="/multicaixa/mcx"
-        radius="xl"
         rightSection={<IconDeviceDesktop size={20} />}
       >
         Multicaixa
