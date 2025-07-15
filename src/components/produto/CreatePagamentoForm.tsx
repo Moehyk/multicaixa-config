@@ -20,7 +20,7 @@ export default function CreatePagamentoForm({
 
   const handleSubmit = async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);
-    const response = await createProdutoPagamento(servicoId, values);
+    const response = await createProdutoPagamento({ ...values, servicoId });
     setIsFetching(false);
 
     if (!response.data) {

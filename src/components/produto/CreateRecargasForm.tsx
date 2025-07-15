@@ -27,7 +27,7 @@ export default function CreateRecargasForm({
 
   const handleSubmit = async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
-    const response = await createProdutoRecargas(servicoId, values);
+    const response = await createProdutoRecargas({ ...values, servicoId });
     setIsFetching(false);
 
     if (!response.data) {
