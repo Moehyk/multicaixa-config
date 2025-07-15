@@ -40,8 +40,22 @@ export default function CreateCarregamentoForm({
   const montantes = getValues().carregamento.montantes;
 
   const handleSubmit = async (values: ProdutoCarregamentoForm) => {
+    const input: ProdutoCarregamentoForm = {
+      ...values,
+      servicoId,
+    };
+
+    if (values.carregamento.montante_tipo === "montante_livre") {
+      input.carregamento.montantes = [];
+    }
+
+    if (values.carregamento.montante_tipo === "montante_pre_definido") {
+      input.carregamento.montante_maximo = undefined;
+      input.carregamento.montante_minimo = undefined;
+    }
+
     setIsFetching(true);
-    const response = await createProdutoCarregamento(servicoId, values);
+    const response = await createProdutoCarregamento({ ...values, servicoId });
     setIsFetching(false);
 
     if (!response.data) {

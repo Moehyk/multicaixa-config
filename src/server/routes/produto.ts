@@ -267,14 +267,26 @@ export const produto = {
             carregamento: {
               create: {
                 ...input.carregamento,
-                montantes: {
-                  createMany: {
-                    data: input.carregamento.montantes.map((m) => ({
-                      descricao: m.descricao,
-                      montante: m.montante,
-                    })),
-                  },
-                },
+                montante_maximo:
+                  input.carregamento.montante_tipo === "montante_pre_definido"
+                    ? undefined
+                    : input.carregamento.montante_maximo,
+                montante_minimo:
+                  input.carregamento.montante_tipo === "montante_pre_definido"
+                    ? undefined
+                    : input.carregamento.montante_minimo,
+                montantes:
+                  input.carregamento.montante_tipo === "montante_livre"
+                    ? undefined
+                    : {
+                        createMany: {
+                          data:
+                            input.carregamento.montantes.map((m) => ({
+                              montante: m.montante,
+                              descricao: m.descricao,
+                            })) || [],
+                        },
+                      },
               },
             },
           },
