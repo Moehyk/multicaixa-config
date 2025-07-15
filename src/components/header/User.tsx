@@ -8,22 +8,9 @@ import { IconLogin, IconLogout } from "@tabler/icons-react";
 
 function UserWrapper({ children }: React.PropsWithChildren) {
   return (
-    <div className="flex items-center gap-8 border border-border rounded-full p-2 ">
+    <div className="flex items-center gap-8  rounded-full p-2 text-white  bg-brand-800 ">
       {children}
     </div>
-  );
-}
-
-function LoginButton() {
-  return (
-    <Button
-      component={Link}
-      href="/multicaixa"
-      radius={999}
-      rightSection={<IconLogin size={20} />}
-    >
-      Entrar
-    </Button>
   );
 }
 
@@ -34,7 +21,7 @@ export default function User() {
   if (isLoading) {
     return (
       <UserWrapper>
-        <div className="flex items-center h-[36px]">
+        <div className="flex items-center h-[28px]">
           <Loader size="md" type="dots" w={200} />
         </div>
       </UserWrapper>
@@ -46,9 +33,11 @@ export default function User() {
       <Button
         component={LoginLink}
         radius={999}
+        size="lg"
+        color="brand.8"
         rightSection={<IconLogin size={20} />}
       >
-        Entrar
+        Login
       </Button>
     );
   }
@@ -56,22 +45,28 @@ export default function User() {
   return (
     <UserWrapper>
       <div className="flex items-center gap-2">
-        <Avatar
-          src={user?.picture}
-          alt="Avatar"
-          radius="xl"
-          className="border border-border"
-        />
-        <span>
+        <Avatar src={user?.picture} alt="Avatar" size="sm" radius="xl" />
+        <span className="text-sm">
           <span>Bem vindo&#44;&nbsp;</span>
           <span className="font-semibold">{`${user?.given_name} ${user?.family_name}`}</span>
         </span>
       </div>
-      {isHome && <LoginButton />}
+      {isHome && (
+        <Button
+          component={Link}
+          href="/multicaixa"
+          radius={999}
+          size="xs"
+          rightSection={<IconLogin size={20} />}
+        >
+          Entrar
+        </Button>
+      )}
       {!isHome && (
         <Button
           component={LogoutLink}
           color="red"
+          size="xs"
           radius={999}
           rightSection={<IconLogout size={20} />}
         >
