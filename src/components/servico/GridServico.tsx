@@ -1,6 +1,6 @@
 import { getServicos } from "@/server/services";
 
-import { Grid, GridError, GridItem } from "@/components";
+import { Grid, GridError } from "@/components";
 
 export default async function GridServico({ id }: { id: string }) {
   const { data } = await getServicos(id);
