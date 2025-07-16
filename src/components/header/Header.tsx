@@ -1,14 +1,9 @@
 "use client";
 
-import { useColorScheme } from "@mantine/hooks";
-
-import Link from "next/link";
 import User from "./User";
-import { Anchor } from "@mantine/core";
 
 import Image from "next/image";
 
-import logo_light from "@/assets/logo_light.svg";
 import logo_dark from "@/assets/logo_dark.svg";
 
 export default function Header() {
