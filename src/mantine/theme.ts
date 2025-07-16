@@ -32,9 +32,11 @@ export const theme = createTheme({
   fontFamilyMonospace: geistMono.style.fontFamily,
   components: {
     Card: Card.extend({
-      styles: {
-        root: {
-          backgroundColor: "var(--mantine-paper)",
+      defaultProps: {
+        styles: {
+          root: {
+            backgroundColor: "var(--mantine-color-body)",
+          },
         },
       },
     }),
@@ -57,15 +59,6 @@ export const theme = createTheme({
     }),
     Modal: Modal.extend({
       styles: {
-        root: {
-          border: "1px solid var(--mantine-paper-border)",
-        },
-        body: {
-          backgroundColor: "var(--mantine-modal)",
-        },
-        header: {
-          backgroundColor: "var(--mantine-modal)",
-        },
         title: {
           fontSize: "var(--mantine-font-size-xl)",
           fontWeight: 600,

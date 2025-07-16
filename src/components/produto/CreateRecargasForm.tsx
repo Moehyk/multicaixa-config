@@ -59,7 +59,7 @@ export default function CreateRecargasForm({
         />
       </div>
       <h2 className="text-lg font-semibold my-2">Configurar Recargas</h2>
-      <div className="p-6 bg-body border border-border">
+      <div className="p-6 bg-body-accent border border-border rounded-md">
         <div className="flex gap-4 items-center mb-4">
           <Button
             variant="default"

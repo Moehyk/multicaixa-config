@@ -119,7 +119,7 @@ export default function CreateCarregamentoForm({
           ]}
         />
       </div>
-      <div className="p-6 bg-body border border-border flex flex-col gap-4">
+      <div className="p-6 bg-body-accent border border-border rounded-md flex flex-col gap-4">
         {montanteTipo !== "montante_pre_definido" && (
           <div className="flex w-full  gap-4">
             <NumberInput
