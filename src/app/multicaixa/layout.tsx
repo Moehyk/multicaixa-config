@@ -15,7 +15,7 @@ export default function MulticaixaLayout({
           <EmpresaToolbar />
         </Suspense>
       </Toolbar>
-      <div className="mt-32">{children}</div>
+      <div className="mt-28">{children}</div>
       {mcxmodal}
     </>
   );
