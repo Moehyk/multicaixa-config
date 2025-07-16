@@ -96,7 +96,7 @@ function ServicoItemCollapse({
       animateOpacity={false}
       transitionTimingFunction="linear"
     >
-      <Card withBorder bg="var(--mantine-color-body)" className="gap-2 mt-8">
+      <Card withBorder bg="var(--mantine-color-body)" className="gap-4 mt-8">
         {children}
       </Card>
     </Collapse>
