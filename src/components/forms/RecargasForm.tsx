@@ -13,9 +13,9 @@ export default function RecargasForm({
   action: "Criar" | "Editar";
   isSubmitting: boolean;
 }) {
-  const { getInputProps, onSubmit, insertListItem, removeListItem, getValues } =
+  const { getInputProps, insertListItem, removeListItem, getValues } =
     useRecargasFormContext();
-  const montantes = getValues().recargas.montantes;
+  const montantes = getValues().recargas?.montantes;
 
   return (
     <>
@@ -43,7 +43,7 @@ export default function RecargasForm({
           <Button
             variant="default"
             size="md"
-            disabled={montantes.length === 8}
+            disabled={montantes?.length === 8}
             onClick={() =>
               insertListItem("recargas.montantes", {
                 quantidade: 0,
@@ -54,13 +54,13 @@ export default function RecargasForm({
           >
             Adicionar Recarga
           </Button>
-          {montantes.length === 8 && <MaxItemsAlert max={8} />}
+          {montantes?.length === 8 && <MaxItemsAlert max={8} />}
         </div>
         <div className="grid grid-cols-4 grid-rows-auto gap-4">
-          {montantes.map((m, i) => (
+          {montantes?.map((m, i) => (
             <Fieldset
               legend={`Recarga ${i + 1}`}
-              key={m.key}
+              key={m.id ? m.id : m.key}
               className="flex flex-col"
             >
               <NumberInput
