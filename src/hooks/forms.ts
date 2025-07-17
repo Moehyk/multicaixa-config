@@ -2,7 +2,7 @@ import { zodResolver } from "mantine-form-zod-resolver";
 
 import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form";
-import { usePagForm } from "@/context/forms";
+import { usePagForm, useCarrForm, useRecaForm } from "@/context/forms";
 
 import {
   empresaSchema,
@@ -105,41 +105,16 @@ export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) =>
     validate: zodResolver(produtoPagamentoSchema),
   });
 
-export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
-  const { setInitialValues, setValues, ...form } = useForm<ProdutoRecargasForm>(
-    {
-      mode: "uncontrolled",
-      initialValues: initialProdutoRecargasFormValues,
-      validate: zodResolver(produtoRecargasSchema),
-    }
-  );
+export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) =>
+  useRecaForm({
+    mode: "uncontrolled",
+    initialValues: values ?? initialProdutoRecargasFormValues,
+    validate: zodResolver(produtoRecargasSchema),
+  });
 
-  useEffect(() => {
-    if (values) {
-      setInitialValues(values);
-      setValues(values);
-    }
-  }, [values]);
-
-  return form;
-};
-
-export const useProdutoCarregamentoForm = (
-  values?: ProdutoCarregamentoForm
-) => {
-  const { setInitialValues, setValues, ...form } =
-    useForm<ProdutoCarregamentoForm>({
-      mode: "uncontrolled",
-      initialValues: initialProdutoCarregamentoFormValues,
-      validate: zodResolver(produtoCarregamentoSchema),
-    });
-
-  useEffect(() => {
-    if (values) {
-      setInitialValues(values);
-      setValues(values);
-    }
-  }, [values]);
-
-  return form;
-};
+export const useProdutoCarregamentoForm = (values?: ProdutoCarregamentoForm) =>
+  useCarrForm({
+    mode: "uncontrolled",
+    initialValues: values ?? initialProdutoCarregamentoFormValues,
+    validate: zodResolver(produtoCarregamentoSchema),
+  });
