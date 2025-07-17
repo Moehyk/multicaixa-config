@@ -117,7 +117,7 @@ export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
 export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
   const form = useRecaForm({
     mode: "controlled",
-    initialValues: values ?? initialProdutoRecargasFormValues,
+    initialValues: initialProdutoRecargasFormValues,
     validate: zodResolver(produtoRecargasSchema),
   });
 
