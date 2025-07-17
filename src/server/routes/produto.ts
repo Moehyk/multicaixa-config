@@ -136,6 +136,10 @@ export const produto = {
           throw idError("servico");
         }
 
+        if (!input.recargas) {
+          throw new Error("Não foi possível criar o produto.");
+        }
+
         const produtoRecargas = await db.produto.create({
           data: {
             ...input,
@@ -196,8 +200,12 @@ export const produto = {
       try {
         validateUser(user);
 
-        if (input.id) {
+        if (!input.id) {
           throw idError("produto");
+        }
+
+        if (!input.recargas) {
+          throw new Error("Não foi possível criar o produto.");
         }
 
         const produto = await db.produto.update({
@@ -205,21 +213,36 @@ export const produto = {
             id: input.id,
           },
           data: {
-            ...input,
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            type: "recargas",
             recargas: {
               update: {
                 data: {
-                  ...input.recargas,
+                  desig_unidade: input.recargas.desig_unidade,
                   montantes: {
-                    updateMany: {
-                      where: {
-                        id: {
-                          in: input.recargas.montantes.map((m) => m.id!),
-                        },
-                        recargaId: input.recargas.id,
+                    deleteMany: {
+                      id: {
+                        notIn: input.recargas.montantes
+                          .filter((m) => m.id) // Only consider montantes with IDs
+                          .map((m) => m.id!),
                       },
-                      data: input.recargas.montantes,
                     },
+                    updateMany: input.recargas.montantes
+                      .filter((m) => m.id) // Only update montantes with IDs
+                      .map((m) => ({
+                        where: { id: m.id },
+                        data: {
+                          montante: m.montante,
+                          quantidade: m.quantidade,
+                        },
+                      })),
+                    create: input.recargas.montantes
+                      .filter((m) => !m.id) // Only create montantes without IDs
+                      .map((m) => ({
+                        montante: m.montante,
+                        quantidade: m.quantidade,
+                      })),
                   },
                 },
               },
