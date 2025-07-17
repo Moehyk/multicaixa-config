@@ -3,9 +3,7 @@ import { updateProdutoPagamento } from "@/server/services";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 import { PagamentoFormProvider } from "@/context/forms";
 
-import { PagamentoForm } from "@/components/forms";
-import { CardTitle } from "@/components";
-import { Card } from "@mantine/core";
+import { PagamentoForm, FormCard } from "@/components/forms";
 
 import { useFormMutation, useProdutoPagamentoForm } from "@/hooks";
 
@@ -40,13 +38,12 @@ export default function UpdatePagamento({
   };
 
   return (
-    <Card withBorder p={32}>
-      <CardTitle title="Editar Produto Pagamento" />
+    <FormCard title="Editar Produto Pagamento">
       <PagamentoFormProvider form={form}>
         <form onSubmit={form.onSubmit(handleSubmit)}>
           <PagamentoForm action="Editar" isSubmitting={isMutating} />
         </form>
       </PagamentoFormProvider>
-    </Card>
+    </FormCard>
   );
 }
