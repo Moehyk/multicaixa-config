@@ -22,6 +22,10 @@ export const produto = {
           throw idError("servico");
         }
 
+        if (!input.pagamento) {
+          throw new Error("Não foi possível criar o produto.");
+        }
+
         const produtoPagamento = await db.produto.create({
           data: {
             ...input,
@@ -72,6 +76,10 @@ export const produto = {
 
         if (!input.id) {
           throw idError("produto");
+        }
+
+        if (!input.pagamento) {
+          throw new Error("Não foi possível criar o produto.");
         }
 
         const produto = await db.produto.update({
