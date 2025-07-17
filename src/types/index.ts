@@ -39,6 +39,17 @@ export type ProdutoForm = {
   desig_tecla_seleccao: string;
 };
 
+type Pagamento = {
+  id?: string;
+  produtoId?: string;
+  desig_referencia: string;
+  tamanho_referencia: number;
+  texto_ecra_referencia: string;
+  isNew: boolean;
+  montante_minimo: number;
+  montante_maximo: number;
+} | null;
+
 type Recargas = {
   id?: string;
   produtoId?: string;
@@ -53,16 +64,7 @@ type Recargas = {
 } | null;
 
 export type ProdutoPagamentoForm = ProdutoForm & {
-  pagamento: {
-    id?: string;
-    produtoId?: string;
-    desig_referencia: string;
-    tamanho_referencia: number;
-    texto_ecra_referencia: string;
-    isNew: boolean;
-    montante_minimo: number;
-    montante_maximo: number;
-  };
+  pagamento: Pagamento;
 };
 
 export type ProdutoRecargasForm = ProdutoForm & {
