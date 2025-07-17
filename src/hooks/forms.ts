@@ -98,19 +98,37 @@ export const useServicoForm = (values?: ServicoForm) => {
   return form;
 };
 
-export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) =>
-  usePagForm({
+export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
+  const form = useForm<ProdutoPagamentoForm>({
     mode: "uncontrolled",
-    initialValues: values ?? initialProdutoPagamentoFormValues,
+    initialValues: initialProdutoPagamentoFormValues,
     validate: zodResolver(produtoPagamentoSchema),
   });
 
-export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) =>
-  useRecaForm({
-    mode: "uncontrolled",
+  useEffect(() => {
+    if (values) {
+      form.initialize(values);
+    }
+  }, [values]);
+
+  return form;
+};
+
+export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
+  const form = useRecaForm({
+    mode: "controlled",
     initialValues: values ?? initialProdutoRecargasFormValues,
     validate: zodResolver(produtoRecargasSchema),
   });
+
+  useEffect(() => {
+    if (values) {
+      form.initialize(values);
+    }
+  }, [values]);
+
+  return form;
+};
 
 export const useProdutoCarregamentoForm = (values?: ProdutoCarregamentoForm) =>
   useCarrForm({
