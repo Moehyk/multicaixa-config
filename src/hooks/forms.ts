@@ -99,7 +99,7 @@ export const useServicoForm = (values?: ServicoForm) => {
 };
 
 export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
-  const form = useForm<ProdutoPagamentoForm>({
+  const form = usePagForm({
     mode: "uncontrolled",
     initialValues: initialProdutoPagamentoFormValues,
     validate: zodResolver(produtoPagamentoSchema),
