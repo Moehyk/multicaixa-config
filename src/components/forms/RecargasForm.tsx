@@ -1,45 +1,24 @@
-"use client";
-
-import { createProdutoRecargas } from "@/server/services";
+import { useRecargasFormContext } from "@/context/forms";
 import { randomId } from "@mantine/hooks";
-import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import Link from "next/link";
 import MaxItemsAlert from "./MaxItemsAlert";
 import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 
-import type { ProdutoRecargasForm } from "@/types";
-
-export default function CreateRecargasForm({
-  servicoId,
+export default function RecargasForm({
+  action,
+  isSubmitting,
 }: {
-  servicoId: string;
+  action: "Criar" | "Editar";
+  isSubmitting: boolean;
 }) {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
-
   const { getInputProps, onSubmit, insertListItem, removeListItem, getValues } =
-    useProdutoRecargasForm();
-
+    useRecargasFormContext();
   const montantes = getValues().recargas.montantes;
 
-  const handleSubmit = async (values: ProdutoRecargasForm) => {
-    setIsFetching(true);
-    const response = await createProdutoRecargas({ ...values, servicoId });
-    setIsFetching(false);
-
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
-    }
-  };
-
   return (
-    <form onSubmit={onSubmit(handleSubmit)} className="pt-12">
+    <>
       <div className="flex items-end w-full  gap-4">
         <TextInput
           {...getInputProps("desig_ecra")}
@@ -121,10 +100,10 @@ export default function CreateRecargasForm({
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
         </Button>
-        <Button size="md" type="submit" loading={isMutating}>
-          Criar
+        <Button size="md" type="submit" loading={isSubmitting}>
+          {action}
         </Button>
       </div>
-    </form>
+    </>
   );
 }

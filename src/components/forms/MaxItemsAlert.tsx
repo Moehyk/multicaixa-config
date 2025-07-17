@@ -1,5 +1,5 @@
 import { Alert } from "@mantine/core";
-import { IconTrash, IconForbidFilled } from "@tabler/icons-react";
+import { IconForbidFilled } from "@tabler/icons-react";
 
 export default function MaxItemsAlert({ max }: { max: number }) {
   const maxAlertIcon = <IconForbidFilled size={16} />;

@@ -4,7 +4,7 @@ import { Card, Tabs } from "@mantine/core";
 import { CardTitle } from "@/components";
 import CreatePagamento from "./CreatePagamento";
 import CreateCarregamentoForm from "./CreateCarregamentoForm";
-import CreateRecargasForm from "./CreateRecargasForm";
+import CreateRecargas from "./CreateRecargas";
 
 import styles from "./tabs.module.css";
 
@@ -31,7 +31,7 @@ export default function CriarProdutoForm({ id }: { id: string }) {
           <CreateCarregamentoForm servicoId={id} />
         </Tabs.Panel>
         <Tabs.Panel value="recargas">
-          <CreateRecargasForm servicoId={id} />
+          <CreateRecargas servicoId={id} />
         </Tabs.Panel>
       </Tabs>
     </Card>
