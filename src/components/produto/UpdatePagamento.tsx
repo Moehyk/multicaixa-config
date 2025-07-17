@@ -7,22 +7,12 @@ import { PagamentoForm, FormCard } from "@/components/forms";
 
 import { useFormMutation, useProdutoPagamentoForm } from "@/hooks";
 
-import type { Produto, Pagamento } from "@prisma/client";
 import type { ProdutoPagamentoForm } from "@/types";
 
-export default function UpdatePagamento({
-  produto,
-  pagamento,
-}: {
-  produto: Produto;
-  pagamento: Pagamento;
-}) {
+export default function UpdatePagamento(props: ProdutoPagamentoForm) {
   const { isMutating, setIsFetching, startTransition, push } =
     useFormMutation();
-  const form = useProdutoPagamentoForm({
-    ...produto,
-    pagamento,
-  });
+  const form = useProdutoPagamentoForm(props);
 
   const handleSubmit = async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);
