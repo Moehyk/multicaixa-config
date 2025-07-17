@@ -1,4 +1,4 @@
-import { CriarProdutoForm } from "@/components/produto";
+import { CriarProduto } from "@/components/produto";
 
 export default async function CriarProdutoPage({
   params,
@@ -7,5 +7,5 @@ export default async function CriarProdutoPage({
 }) {
   const { servicoId } = await params;
 
-  return <CriarProdutoForm id={servicoId} />;
+  return <CriarProduto id={servicoId} />;
 }

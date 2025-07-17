@@ -1,38 +1,19 @@
-"use client";
-
-import { createProdutoPagamento } from "@/server/services";
-import { useProdutoPagamentoForm, useFormMutation } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
+import { usePagamentoFormContext } from "@/context/forms";
 
 import Link from "next/link";
 import { TextInput, NumberInput, Button } from "@mantine/core";
 
-import type { ProdutoPagamentoForm } from "@/types";
-
-export default function CreatePagamentoForm({
-  servicoId,
+export default function PagamentoForm({
+  action,
+  isSubmitting,
 }: {
-  servicoId: string;
+  action: "Criar" | "Editar";
+  isSubmitting: boolean;
 }) {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
-  const { getInputProps, onSubmit } = useProdutoPagamentoForm();
-
-  const handleSubmit = async (values: ProdutoPagamentoForm) => {
-    setIsFetching(true);
-    const response = await createProdutoPagamento({ ...values, servicoId });
-    setIsFetching(false);
-
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
-    }
-  };
+  const { getInputProps } = usePagamentoFormContext();
 
   return (
-    <form onSubmit={onSubmit(handleSubmit)} className="pt-12">
+    <>
       <div className="flex w-full  gap-4">
         <TextInput
           {...getInputProps("desig_ecra")}
@@ -93,10 +74,10 @@ export default function CreatePagamentoForm({
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
         </Button>
-        <Button size="md" type="submit" loading={isMutating}>
-          Criar
+        <Button size="md" type="submit" loading={isSubmitting}>
+          {action}
         </Button>
       </div>
-    </form>
+    </>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 
-import { Card, TextInput, Button, Tabs } from "@mantine/core";
+import { Card, Tabs } from "@mantine/core";
 import { CardTitle } from "@/components";
-import CreatePagamentoForm from "./CreatePagamentoForm";
+import CreatePagamento from "./CreatePagamento";
 import CreateCarregamentoForm from "./CreateCarregamentoForm";
 import CreateRecargasForm from "./CreateRecargasForm";
 
@@ -25,7 +25,7 @@ export default function CriarProdutoForm({ id }: { id: string }) {
           </Tabs.Tab>
         </Tabs.List>
         <Tabs.Panel value="pagamento">
-          <CreatePagamentoForm servicoId={id} />
+          <CreatePagamento servicoId={id} />
         </Tabs.Panel>
         <Tabs.Panel value="carregamentos">
           <CreateCarregamentoForm servicoId={id} />

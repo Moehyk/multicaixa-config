@@ -2,6 +2,7 @@ import { zodResolver } from "mantine-form-zod-resolver";
 
 import { useState, useEffect } from "react";
 import { useForm } from "@mantine/form";
+import { usePagForm } from "@/context/forms";
 
 import {
   empresaSchema,
@@ -98,7 +99,7 @@ export const useServicoForm = (values?: ServicoForm) => {
 };
 
 export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) =>
-  useForm<ProdutoPagamentoForm>({
+  usePagForm({
     mode: "uncontrolled",
     initialValues: values ?? initialProdutoPagamentoFormValues,
     validate: zodResolver(produtoPagamentoSchema),
