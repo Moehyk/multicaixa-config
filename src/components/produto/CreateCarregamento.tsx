@@ -16,24 +16,9 @@ export default function CreateCarregamento({
 }) {
   const { isMutating, setIsFetching, startTransition, push } =
     useFormMutation();
-
   const form = useProdutoCarregamentoForm();
 
   const handleSubmit = async (values: ProdutoCarregamentoForm) => {
-    const input: ProdutoCarregamentoForm = {
-      ...values,
-      servicoId,
-    };
-
-    if (values.carregamento.montante_tipo === "montante_livre") {
-      input.carregamento.montantes = [];
-    }
-
-    if (values.carregamento.montante_tipo === "montante_pre_definido") {
-      input.carregamento.montante_maximo = undefined;
-      input.carregamento.montante_minimo = undefined;
-    }
-
     setIsFetching(true);
     const response = await createProdutoCarregamento({ ...values, servicoId });
     setIsFetching(false);
