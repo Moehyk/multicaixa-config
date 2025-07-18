@@ -101,7 +101,7 @@ export const useServicoForm = (values?: ServicoForm) => {
 export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
   const form = usePagForm({
     mode: "uncontrolled",
-    initialValues: initialProdutoPagamentoFormValues,
+    initialValues: values ?? initialProdutoPagamentoFormValues,
     validate: zodResolver(produtoPagamentoSchema),
   });
 
@@ -117,7 +117,7 @@ export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
 export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
   const form = useRecaForm({
     mode: "controlled",
-    initialValues: initialProdutoRecargasFormValues,
+    initialValues: values ?? initialProdutoRecargasFormValues,
     validate: zodResolver(produtoRecargasSchema),
   });
 
@@ -135,7 +135,7 @@ export const useProdutoCarregamentoForm = (
 ) => {
   const form = useCarrForm({
     mode: "uncontrolled",
-    initialValues: initialProdutoCarregamentoFormValues,
+    initialValues: values ?? initialProdutoCarregamentoFormValues,
     validate: zodResolver(produtoCarregamentoSchema),
   });
 
