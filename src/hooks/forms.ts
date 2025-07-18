@@ -130,9 +130,20 @@ export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
   return form;
 };
 
-export const useProdutoCarregamentoForm = (values?: ProdutoCarregamentoForm) =>
-  useCarrForm({
+export const useProdutoCarregamentoForm = (
+  values?: ProdutoCarregamentoForm
+) => {
+  const form = useCarrForm({
     mode: "uncontrolled",
-    initialValues: values ?? initialProdutoCarregamentoFormValues,
+    initialValues: initialProdutoCarregamentoFormValues,
     validate: zodResolver(produtoCarregamentoSchema),
   });
+
+  useEffect(() => {
+    if (values) {
+      form.initialize(values);
+    }
+  }, [values]);
+
+  return form;
+};

@@ -1,12 +1,8 @@
-"use client";
-
-import { createProdutoCarregamento } from "@/server/services";
 import { randomId } from "@mantine/hooks";
-import { useProdutoCarregamentoForm, useFormMutation } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
+import { useCarregamentoFormContext } from "@/context/forms";
 
 import Link from "next/link";
-import MaxItemsAlert from "./MaxItemsAlert";
+import MaxItemsAlert from "../forms/MaxItemsAlert";
 import {
   TextInput,
   NumberInput,
@@ -16,58 +12,25 @@ import {
 } from "@mantine/core";
 import { IconTrash, IconPlus } from "@tabler/icons-react";
 
-import type { ProdutoCarregamentoForm } from "@/types";
 import type { MontanteTipo } from "@prisma/client";
+import type { ProdutoFormProps } from "@/types";
 
-export default function CreateCarregamentoForm({
-  servicoId,
-}: {
-  servicoId: string;
-}) {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
-
+export default function CarregamentoForm({
+  action,
+  isSubmitting,
+}: ProdutoFormProps) {
   const {
-    getValues,
     getInputProps,
-    onSubmit,
     insertListItem,
     removeListItem,
+    getValues,
     setFieldValue,
-  } = useProdutoCarregamentoForm();
-
+  } = useCarregamentoFormContext();
   const montanteTipo = getValues().carregamento.montante_tipo;
   const montantes = getValues().carregamento.montantes;
 
-  const handleSubmit = async (values: ProdutoCarregamentoForm) => {
-    const input: ProdutoCarregamentoForm = {
-      ...values,
-      servicoId,
-    };
-
-    if (values.carregamento.montante_tipo === "montante_livre") {
-      input.carregamento.montantes = [];
-    }
-
-    if (values.carregamento.montante_tipo === "montante_pre_definido") {
-      input.carregamento.montante_maximo = undefined;
-      input.carregamento.montante_minimo = undefined;
-    }
-
-    setIsFetching(true);
-    const response = await createProdutoCarregamento({ ...values, servicoId });
-    setIsFetching(false);
-
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
-    }
-  };
-
   return (
-    <form onSubmit={onSubmit(handleSubmit)} className="pt-12">
+    <>
       <div className="w-full flex gap-4">
         <TextInput
           {...getInputProps("desig_ecra")}
@@ -173,7 +136,7 @@ export default function CreateCarregamentoForm({
               {montantes.map((m, i) => (
                 <Fieldset
                   legend={`Montante ${i + 1}`}
-                  key={m.key}
+                  key={m.id ? m.id : m.key}
                   className="flex flex-col"
                 >
                   <NumberInput
@@ -211,10 +174,10 @@ export default function CreateCarregamentoForm({
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
         </Button>
-        <Button size="md" type="submit" loading={isMutating}>
-          Criar
+        <Button size="md" type="submit" loading={isSubmitting}>
+          {action}
         </Button>
       </div>
-    </form>
+    </>
   );
 }
