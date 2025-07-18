@@ -26,8 +26,8 @@ export default function CarregamentoForm({
     getValues,
     setFieldValue,
   } = useCarregamentoFormContext();
-  const montanteTipo = getValues().carregamento.montante_tipo;
-  const montantes = getValues().carregamento.montantes;
+  const montanteTipo = getValues().carregamento?.montante_tipo;
+  const montantes = getValues().carregamento?.montantes;
 
   return (
     <>
@@ -66,21 +66,23 @@ export default function CarregamentoForm({
       </div>
       <div className="flex items-center gap-4 mb-2 mt-4">
         <h2 className="text-lg font-semibold my-2">Configurar Montantes</h2>
-        <Select
-          size="xs"
-          value={montanteTipo}
-          onChange={(e) =>
-            setFieldValue("carregamento.montante_tipo", e as MontanteTipo)
-          }
-          data={[
-            { value: "montante_livre", label: "Montante Livre" },
-            {
-              value: "montante_pre_definido",
-              label: "Montantes Pré-definidos",
-            },
-            { value: "ambos", label: "Ambos" },
-          ]}
-        />
+        {action === "Criar" && (
+          <Select
+            size="xs"
+            value={montanteTipo}
+            onChange={(e) =>
+              setFieldValue("carregamento.montante_tipo", e as MontanteTipo)
+            }
+            data={[
+              { value: "montante_livre", label: "Montante Livre" },
+              {
+                value: "montante_pre_definido",
+                label: "Montantes Pré-definidos",
+              },
+              { value: "ambos", label: "Ambos" },
+            ]}
+          />
+        )}
       </div>
       <div className="p-6 bg-body-accent border border-border rounded-md flex flex-col gap-4">
         {montanteTipo !== "montante_pre_definido" && (
@@ -118,7 +120,7 @@ export default function CarregamentoForm({
               <Button
                 variant="default"
                 size="md"
-                disabled={montantes.length >= 8}
+                disabled={montantes && montantes.length >= 8}
                 leftSection={<IconPlus size={16} />}
                 onClick={() =>
                   insertListItem("carregamento.montantes", {
@@ -130,10 +132,14 @@ export default function CarregamentoForm({
               >
                 Adicionar Montante
               </Button>
-              <>{montantes.length === 8 && <MaxItemsAlert max={8} />}</>
+              <>
+                {montantes && montantes.length === 8 && (
+                  <MaxItemsAlert max={8} />
+                )}
+              </>
             </div>
             <div className="grid grid-cols-4 grid-rows-auto gap-4">
-              {montantes.map((m, i) => (
+              {montantes?.map((m, i) => (
                 <Fieldset
                   legend={`Montante ${i + 1}`}
                   key={m.id ? m.id : m.key}
