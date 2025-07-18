@@ -6,13 +6,12 @@ import MaxItemsAlert from "./MaxItemsAlert";
 import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 
+import type { ProdutoFormProps } from "@/types";
+
 export default function RecargasForm({
   action,
   isSubmitting,
-}: {
-  action: "Criar" | "Editar";
-  isSubmitting: boolean;
-}) {
+}: ProdutoFormProps) {
   const { getInputProps, insertListItem, removeListItem, getValues } =
     useRecargasFormContext();
   const montantes = getValues().recargas?.montantes;

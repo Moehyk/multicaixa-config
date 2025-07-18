@@ -3,13 +3,12 @@ import { usePagamentoFormContext } from "@/context/forms";
 import Link from "next/link";
 import { TextInput, NumberInput, Button } from "@mantine/core";
 
+import type { ProdutoFormProps } from "@/types";
+
 export default function PagamentoForm({
   action,
   isSubmitting,
-}: {
-  action: "Criar" | "Editar";
-  isSubmitting: boolean;
-}) {
+}: ProdutoFormProps) {
   const { getInputProps } = usePagamentoFormContext();
 
   return (

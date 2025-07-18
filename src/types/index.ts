@@ -150,3 +150,8 @@ export type BaseApiResponse = {
 export type DeleteHandler<T extends BaseApiResponse = BaseApiResponse> = (
   id: string
 ) => Promise<T>;
+
+export type ProdutoFormProps = {
+  action: "Criar" | "Editar";
+  isSubmitting: boolean;
+};
