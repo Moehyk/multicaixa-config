@@ -1,7 +1,12 @@
 import { getProduto } from "@/server/services";
 import { notFound } from "next/navigation";
+import { sortDataArray } from "@/utils/sort-data-array";
 
-import { UpdatePagamento } from "@/components/produto";
+import {
+  UpdatePagamento,
+  UpdateRecargas,
+  UpdateCarregamento,
+} from "@/components/produto";
 
 export default async function DynamicProdutoPage({
   params,
@@ -17,8 +22,18 @@ export default async function DynamicProdutoPage({
   }
 
   if (data.type === "pagamento" && data.pagamento) {
-    const { pagamento } = data;
+    return <UpdatePagamento {...data} />;
+  }
 
-    return <UpdatePagamento produto={data} pagamento={pagamento} />;
+  if (data.type === "recargas" && data.recargas) {
+    data.recargas.montantes = sortDataArray(data.recargas.montantes);
+
+    return <UpdateRecargas {...data} />;
+  }
+
+  if (data.type === "carregamentos" && data.carregamento) {
+    data.carregamento.montantes = sortDataArray(data.carregamento.montantes);
+
+    return <UpdateCarregamento {...data} />;
   }
 }
