@@ -63,6 +63,24 @@ type Recargas = {
   }[];
 } | null;
 
+type Carregamento = {
+  id?: string;
+  produtoId?: string;
+  desig_referencia: string;
+  tamanho_referencia: number;
+  texto_ecra_referencia: string;
+  montante_tipo: MontanteTipo;
+  montante_maximo: number | null;
+  montante_minimo: number | null;
+  montantes: {
+    id?: string;
+    carregamentoId?: string;
+    montante: number;
+    descricao: string;
+    key?: string;
+  }[];
+} | null;
+
 export type ProdutoPagamentoForm = ProdutoForm & {
   pagamento: Pagamento;
 };
@@ -72,23 +90,7 @@ export type ProdutoRecargasForm = ProdutoForm & {
 };
 
 export type ProdutoCarregamentoForm = ProdutoForm & {
-  carregamento: {
-    id?: string;
-    produtoId?: string;
-    desig_referencia: string;
-    tamanho_referencia: number;
-    texto_ecra_referencia: string;
-    montante_tipo: MontanteTipo;
-    montante_maximo?: number;
-    montante_minimo?: number;
-    montantes: {
-      id?: string;
-      carregamentoId?: string;
-      montante: number;
-      descricao: string;
-      key: string;
-    }[];
-  };
+  carregamento: Carregamento;
 };
 
 export type GridButton = {
