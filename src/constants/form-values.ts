@@ -63,6 +63,6 @@ export const initialProdutoCarregamentoFormValues: ProdutoCarregamentoForm = {
     montante_tipo: "montante_livre",
     montante_maximo: 0.0,
     montante_minimo: 0.0,
-    montantes: [],
+    montantes: [{ montante: 0, descricao: "", key: randomId() }],
   },
 };
