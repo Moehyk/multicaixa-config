@@ -25,6 +25,7 @@ export default function CarregamentoForm({
     removeListItem,
     getValues,
     setFieldValue,
+    reset,
   } = useCarregamentoFormContext();
   const montanteTipo = getValues().carregamento?.montante_tipo;
   const montantes = getValues().carregamento?.montantes;
@@ -70,14 +71,15 @@ export default function CarregamentoForm({
           <Select
             size="xs"
             value={montanteTipo}
-            onChange={(e) =>
-              setFieldValue("carregamento.montante_tipo", e as MontanteTipo)
-            }
+            onChange={(e) => {
+              reset();
+              setFieldValue("carregamento.montante_tipo", e as MontanteTipo);
+            }}
             data={[
-              { value: "montante_livre", label: "Montante Livre" },
+              { value: "montante_livre", label: "Livre" },
               {
                 value: "montante_pre_definido",
-                label: "Montantes Pré-definidos",
+                label: "Pré-definidos",
               },
               { value: "ambos", label: "Ambos" },
             ]}
