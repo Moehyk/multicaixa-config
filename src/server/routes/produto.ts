@@ -105,6 +105,9 @@ export const produto = {
               },
             },
           },
+          include: {
+            pagamento: true,
+          },
         });
 
         revalidatePath("/multicaixa", "page");
@@ -256,6 +259,13 @@ export const produto = {
               },
             },
           },
+          include: {
+            recargas: {
+              include: {
+                montantes: true,
+              },
+            },
+          },
         });
 
         revalidatePath("/multicaixa", "page");
@@ -294,6 +304,10 @@ export const produto = {
 
         if (!input.servicoId) {
           throw idError("servico");
+        }
+
+        if (!input.carregamento) {
+          throw new Error("Não foi possível criar o produto.");
         }
 
         const produtoCarregamento = await db.produto.create({
@@ -368,8 +382,12 @@ export const produto = {
       try {
         validateUser(user);
 
-        if (input.id) {
+        if (!input.id) {
           throw idError("produto");
+        }
+
+        if (!input.carregamento) {
+          throw new Error("Não foi possível criar o produto.");
         }
 
         const produto = await db.produto.update({
@@ -377,23 +395,60 @@ export const produto = {
             id: input.id,
           },
           data: {
-            ...input,
+            desig_ecra: input.desig_ecra,
+            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            type: "carregamentos",
             carregamento: {
               update: {
                 data: {
-                  ...input.carregamento,
-                  montantes: {
-                    updateMany: {
-                      where: {
-                        id: {
-                          in: input.carregamento.montantes.map((m) => m.id!),
+                  desig_referencia: input.carregamento.desig_referencia,
+                  tamanho_referencia: input.carregamento.tamanho_referencia,
+                  texto_ecra_referencia:
+                    input.carregamento.texto_ecra_referencia,
+                  montante_tipo: input.carregamento.montante_tipo,
+                  montante_maximo:
+                    input.carregamento.montante_tipo === "montante_pre_definido"
+                      ? undefined
+                      : input.carregamento.montante_maximo,
+                  montante_minimo:
+                    input.carregamento.montante_tipo === "montante_pre_definido"
+                      ? undefined
+                      : input.carregamento.montante_minimo,
+                  montantes:
+                    input.carregamento.montante_tipo === "montante_livre"
+                      ? undefined
+                      : {
+                          deleteMany: {
+                            id: {
+                              notIn: input.carregamento.montantes
+                                .filter((m) => m.id) // Only consider montantes with IDs
+                                .map((m) => m.id!),
+                            },
+                          },
+                          updateMany: input.carregamento.montantes
+                            .filter((m) => m.id) // Only update montantes with IDs
+                            .map((m) => ({
+                              where: { id: m.id },
+                              data: {
+                                montante: m.montante,
+                                descricao: m.descricao,
+                              },
+                            })),
+                          create: input.carregamento.montantes
+                            .filter((m) => !m.id) // Only create montantes without IDs
+                            .map((m) => ({
+                              montante: m.montante,
+                              descricao: m.descricao,
+                            })),
                         },
-                        carregamentoId: input.carregamento.id,
-                      },
-                      data: input.carregamento.montantes,
-                    },
-                  },
                 },
+              },
+            },
+          },
+          include: {
+            carregamento: {
+              include: {
+                montantes: true,
               },
             },
           },
@@ -441,7 +496,11 @@ export const produto = {
           id: id,
         },
         include: {
-          carregamento: true,
+          carregamento: {
+            include: {
+              montantes: true,
+            },
+          },
           pagamento: true,
           recargas: {
             include: {
@@ -486,7 +545,11 @@ export const produto = {
           servicoId: id,
         },
         include: {
-          carregamento: true,
+          carregamento: {
+            include: {
+              montantes: true,
+            },
+          },
           pagamento: true,
           recargas: {
             include: {
