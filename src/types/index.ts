@@ -12,48 +12,48 @@ export type EmpresaForm = {
   utilizadorId: string;
   cae: string;
   nome: string;
-  numero_pessoa_colectiva: string;
+  numeroPessoaColectiva: string;
   sigla: string;
   morada: string;
   localidade: string;
   responsavel: string;
   telefone: string;
   email: string;
-  numero_entidade: string;
-  desig_ecra: string;
-  desig_tecla_seleccao: string;
+  numeroEntidade: string;
+  desigEcra: string;
+  desigTeclaSeleccao: string;
 };
 
 export type ServicoForm = {
   id?: string;
   empresaId?: string;
-  desig_ecra: string;
-  desig_tecla_seleccao: string;
-  desig_sistema: string;
+  desigEcra: string;
+  desigTeclaSeleccao: string;
+  desigSistema: string;
 };
 
 export type ProdutoForm = {
   id?: string;
   servicoId?: string;
-  desig_ecra: string;
-  desig_tecla_seleccao: string;
+  desigEcra: string;
+  desigTeclaSeleccao: string;
 };
 
 type Pagamento = {
   id?: string;
   produtoId?: string;
-  desig_referencia: string;
-  tamanho_referencia: number;
-  texto_ecra_referencia: string;
+  desigReferencia: string;
+  tamanhoReferencia: number;
+  textoEcraReferencia: string;
   isNew: boolean;
-  montante_minimo: number;
-  montante_maximo: number;
+  montanteMin: number;
+  montanteMax: number;
 } | null;
 
 type Recargas = {
   id?: string;
   produtoId?: string;
-  desig_unidade: string;
+  desigUnidade: string;
   montantes: {
     id?: string;
     recargaId?: string;
@@ -66,12 +66,12 @@ type Recargas = {
 type Carregamento = {
   id?: string;
   produtoId?: string;
-  desig_referencia: string;
-  tamanho_referencia: number;
-  texto_ecra_referencia: string;
-  montante_tipo: MontanteTipo;
-  montante_maximo: number | null;
-  montante_minimo: number | null;
+  desigReferencia: string;
+  tamanhoReferencia: number;
+  textoEcraReferencia: string;
+  montanteTipo: MontanteTipo;
+  montanteMin: number | null;
+  montanteMax: number | null;
   montantes: {
     id?: string;
     carregamentoId?: string;
