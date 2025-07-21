@@ -12,7 +12,6 @@ export const servico = {
 
     try {
       validateUser(user);
-      console.log("id", id);
       if (!id) {
         throw idError("empresa");
       }
@@ -51,12 +50,11 @@ export const servico = {
   },
   update: async (input: ServicoForm) => {
     const { data: user } = await getUser();
-    const { id, ...servicoInput } = input;
 
     try {
       validateUser(user);
 
-      if (!id) {
+      if (!input.id) {
         throw idError("servico");
       }
 
@@ -65,7 +63,9 @@ export const servico = {
           id: input.id,
         },
         data: {
-          ...servicoInput,
+          desigEcra: input.desigEcra,
+          desigTeclaSeleccao: input.desigTeclaSeleccao,
+          desigSistema: input.desigSistema,
         },
       });
 
@@ -79,7 +79,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          noId: !!id,
+          noId: !!input.id,
           user: user,
         });
 
