@@ -19,7 +19,9 @@ export const validateUser = (user: KindeUser<Record<string, any>>) => {
 export const processErrors = (
   error: Error,
   validation: {
-    id: boolean;
+    noId: boolean;
+    existentId?: boolean;
+    invalidInput?: boolean;
     user: KindeUser<Record<string, any>>;
   }
 ) => {
@@ -43,9 +45,25 @@ export const processErrors = (
     };
   }
 
-  if (!validation.id) {
+  if (!validation.noId) {
     return {
       status: 404,
+      message: error.message,
+      error,
+    };
+  }
+
+  if (validation.existentId) {
+    return {
+      status: 409,
+      message: error.message,
+      error,
+    };
+  }
+
+  if (validation.invalidInput) {
+    return {
+      status: 400,
       message: error.message,
       error,
     };
