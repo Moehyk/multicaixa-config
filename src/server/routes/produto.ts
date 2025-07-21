@@ -105,7 +105,7 @@ export const produto = {
             pagamento: {
               update: {
                 where: {
-                  id: input.pagamento?.id,
+                  id: input.pagamento.id,
                 },
                 data: {
                   desigReferencia: input.pagamento.desigReferencia,
