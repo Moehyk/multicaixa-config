@@ -7,25 +7,20 @@ import { idError, validateUser, processErrors } from "@/utils/errors";
 import { ServicoForm } from "@/types";
 
 export const servico = {
-  create: async (input: ServicoForm) => {
+  create: async (id: string, input: ServicoForm) => {
     const { data: user } = await getUser();
-    const { id, empresaId, ...servicoInput } = input;
 
     try {
       validateUser(user);
-
-      if (id) {
-        throw new Error("Erro ao criar empresa: empresa já existe.");
-      }
-
-      if (!empresaId) {
+      console.log("id", id);
+      if (!id) {
         throw idError("empresa");
       }
 
       const servico = await db.servico.create({
         data: {
-          ...servicoInput,
-          empresaId,
+          ...input,
+          empresaId: id,
         },
       });
 
@@ -39,8 +34,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          noId: !!empresaId,
-          existentId: !!id,
+          noId: !!id,
           user: user,
         });
 
