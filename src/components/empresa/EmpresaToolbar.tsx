@@ -1,7 +1,7 @@
 import { getEmpresa } from "@/server/services";
-import { notFound } from "next/navigation";
 
 import Link from "next/link";
+import { Toolbar } from "../header";
 import { ActionIcon, Tooltip, Button } from "@mantine/core";
 import { IconDeviceDesktop, IconEdit } from "@tabler/icons-react";
 
@@ -9,11 +9,11 @@ export default async function EmpresaToolbar() {
   const { data } = await getEmpresa();
 
   if (!data) {
-    notFound();
+    return null;
   }
 
   return (
-    <>
+    <Toolbar>
       <div className="flex items-center gap-2">
         <h2 className="text-lg text-white font-bold">{data.nome}</h2>
         <Tooltip label="Editar Empresa">
@@ -34,6 +34,6 @@ export default async function EmpresaToolbar() {
       >
         Multicaixa
       </Button>
-    </>
+    </Toolbar>
   );
 }

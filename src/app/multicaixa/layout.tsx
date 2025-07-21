@@ -10,11 +10,9 @@ export default function MulticaixaLayout({
 }) {
   return (
     <>
-      <Toolbar>
-        <Suspense fallback={<EmpresaLoading />}>
-          <EmpresaToolbar />
-        </Suspense>
-      </Toolbar>
+      <Suspense fallback={<EmpresaLoading />}>
+        <EmpresaToolbar />
+      </Suspense>
       <div className="mt-28">{children}</div>
       {mcxmodal}
     </>
