@@ -26,7 +26,6 @@ export type EmpresaForm = {
 
 export type ServicoForm = {
   id?: string;
-  empresaId?: string;
   desigEcra: string;
   desigTeclaSeleccao: string;
   desigSistema: string;
@@ -41,7 +40,6 @@ export type ProdutoForm = {
 
 type Pagamento = {
   id?: string;
-  produtoId?: string;
   desigReferencia: string;
   tamanhoReferencia: number;
   textoEcraReferencia: string;
@@ -52,7 +50,6 @@ type Pagamento = {
 
 type Recargas = {
   id?: string;
-  produtoId?: string;
   desigUnidade: string;
   montantes: {
     id?: string;
@@ -65,7 +62,6 @@ type Recargas = {
 
 type Carregamento = {
   id?: string;
-  produtoId?: string;
   desigReferencia: string;
   tamanhoReferencia: number;
   textoEcraReferencia: string;
