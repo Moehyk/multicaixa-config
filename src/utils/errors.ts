@@ -1,7 +1,7 @@
 import { errorIdMessage } from "@/config";
 
 import { DataModel } from "@/types";
-import { Prisma } from "@prisma/client";
+import { Prisma, Utilizador } from "@prisma/client";
 import type { KindeUser } from "@kinde-oss/kinde-auth-nextjs/types";
 
 export const idError = (data: DataModel) => {
@@ -10,7 +10,7 @@ export const idError = (data: DataModel) => {
   });
 };
 
-export const validateUser = (user: KindeUser<Record<string, any>>) => {
+export const validateUser = (user: Utilizador | undefined) => {
   if (!user) {
     throw new Error("Não autorizado", { cause: "erro de autenticação" });
   }
@@ -22,7 +22,7 @@ export const processErrors = (
     noId: boolean;
     existentId?: boolean;
     invalidInput?: boolean;
-    user: KindeUser<Record<string, any>>;
+    user: Utilizador | KindeUser<Record<string, any>> | undefined;
   }
 ) => {
   console.error("Error Stack:", error.stack);

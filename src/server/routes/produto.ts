@@ -1,6 +1,7 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db, getUser } from "..";
+import { db } from "..";
+import { getUser } from "../services";
 
 import { idError, validateUser, processErrors } from "@/utils/errors";
 
@@ -13,7 +14,7 @@ import {
 export const produto = {
   pagamento: {
     create: async (input: ProdutoPagamentoForm) => {
-      const user = await getUser();
+      const { data: user } = await getUser();
       const { id, servicoId, ...prodPagamentoInput } = input;
 
       try {
@@ -78,7 +79,7 @@ export const produto = {
       }
     },
     update: async (input: ProdutoPagamentoForm) => {
-      const user = await getUser();
+      const { data: user } = await getUser();
       const { id, ...prodPagamentoInput } = input;
 
       try {
@@ -146,7 +147,7 @@ export const produto = {
   },
   recargas: {
     create: async (input: ProdutoRecargasForm) => {
-      const user = await getUser();
+      const { data: user } = await getUser();
       const { id, servicoId, ...prodRecargasInput } = input;
 
       try {
@@ -222,7 +223,7 @@ export const produto = {
       }
     },
     update: async (input: ProdutoRecargasForm) => {
-      const user = await getUser();
+      const { data: user } = await getUser();
       const { id, ...prodRecargasInput } = input;
 
       try {
@@ -316,7 +317,7 @@ export const produto = {
 
   carregamento: {
     create: async (input: ProdutoCarregamentoForm) => {
-      const user = await getUser();
+      const { data: user } = await getUser();
       const { id, servicoId, ...prodCarregamentoInput } = input;
 
       try {
@@ -409,7 +410,7 @@ export const produto = {
     },
 
     update: async (input: ProdutoCarregamentoForm) => {
-      const user = await getUser();
+      const { data: user } = await getUser();
       const { id, ...prodCarregamentoInput } = input;
 
       try {
@@ -518,7 +519,7 @@ export const produto = {
   },
 
   get: cache(async (id: string) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);
@@ -567,7 +568,7 @@ export const produto = {
   }),
 
   getAll: cache(async (id: string) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);
@@ -616,7 +617,7 @@ export const produto = {
   }),
 
   delete: async (id: string) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);

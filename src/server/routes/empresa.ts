@@ -1,13 +1,14 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db, getUser } from "..";
+import { db } from "..";
+import { getUser } from "../services";
 import { validateUser, processErrors } from "@/utils/errors";
 
 import type { EmpresaForm } from "@/types";
 
 export const empresa = {
   create: async (input: EmpresaForm) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
     const { id, ...empresaInput } = input;
 
     try {
@@ -58,7 +59,7 @@ export const empresa = {
   },
 
   get: cache(async () => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);

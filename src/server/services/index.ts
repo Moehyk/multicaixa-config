@@ -1,5 +1,6 @@
 "use server";
-
+import { redirect } from "next/navigation";
+import { user } from "../routes/user";
 import { empresa } from "../routes/empresa";
 import { servico } from "../routes/servico";
 import { produto } from "../routes/produto";
@@ -11,6 +12,16 @@ import {
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
 } from "@/types";
+
+export const getUser = async () => {
+  const response = await user.get();
+
+  if (!response.data) {
+    redirect("/api/auth/login?post_login_redirect_url=/multicaixa");
+  }
+
+  return response;
+};
 
 export const upsertEmpresa = async (values: EmpresaForm) => {
   const response = await empresa.create(values);

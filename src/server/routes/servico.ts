@@ -1,13 +1,14 @@
 import { cache } from "react";
 import { revalidatePath } from "next/cache";
-import { db, getUser } from "..";
+import { db } from "..";
+import { getUser } from "../services";
 import { idError, validateUser, processErrors } from "@/utils/errors";
 
 import { ServicoForm } from "@/types";
 
 export const servico = {
   create: async (input: ServicoForm) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
     const { id, empresaId, ...servicoInput } = input;
 
     try {
@@ -55,7 +56,7 @@ export const servico = {
     }
   },
   update: async (input: ServicoForm) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
     const { id, ...servicoInput } = input;
 
     try {
@@ -101,7 +102,7 @@ export const servico = {
   },
 
   get: cache(async (id: string) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);
@@ -140,7 +141,7 @@ export const servico = {
   }),
 
   getAll: cache(async (id: string) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);
@@ -179,7 +180,7 @@ export const servico = {
   }),
 
   delete: async (id: string) => {
-    const user = await getUser();
+    const { data: user } = await getUser();
 
     try {
       validateUser(user);

@@ -32,6 +32,7 @@ export default function User() {
     return (
       <Button
         component={LoginLink}
+        postLoginRedirectURL="/multicaixa"
         radius={999}
         size="lg"
         color="brand.8"
