@@ -6,22 +6,25 @@ import { idError, validateUser, processErrors } from "@/utils/errors";
 import { ServicoForm } from "@/types";
 
 export const servico = {
-  create: async (id: string, input: ServicoForm) => {
+  create: async (input: ServicoForm) => {
     const user = await getUser();
+    const { id, empresaId, ...servicoInput } = input;
 
     try {
       validateUser(user);
 
-      if (!id) {
+      if (id) {
+        throw new Error("Erro ao criar empresa: empresa já existe.");
+      }
+
+      if (!empresaId) {
         throw idError("empresa");
       }
 
       const servico = await db.servico.create({
         data: {
-          empresaId: id,
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          desig_sistema: input.desig_sistema,
+          ...servicoInput,
+          empresaId,
         },
       });
 
@@ -35,7 +38,8 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!input.empresaId,
+          noId: !!empresaId,
+          existentId: !!id,
           user: user,
         });
 
@@ -52,11 +56,12 @@ export const servico = {
   },
   update: async (input: ServicoForm) => {
     const user = await getUser();
+    const { id, ...servicoInput } = input;
 
     try {
       validateUser(user);
 
-      if (!input.id) {
+      if (!id) {
         throw idError("servico");
       }
 
@@ -65,9 +70,7 @@ export const servico = {
           id: input.id,
         },
         data: {
-          desig_ecra: input.desig_ecra,
-          desig_tecla_seleccao: input.desig_tecla_seleccao,
-          desig_sistema: input.desig_sistema,
+          ...servicoInput,
         },
       });
 
@@ -81,7 +84,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!input.id,
+          noId: !!id,
           user: user,
         });
 
@@ -120,7 +123,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!id,
+          noId: !!id,
           user: user,
         });
 
@@ -159,7 +162,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!id,
+          noId: !!id,
           user: user,
         });
 
@@ -197,7 +200,7 @@ export const servico = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!id,
+          noId: !!id,
           user: user,
         });
 

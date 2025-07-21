@@ -14,22 +14,29 @@ export const produto = {
   pagamento: {
     create: async (input: ProdutoPagamentoForm) => {
       const user = await getUser();
+      const { id, servicoId, ...prodPagamentoInput } = input;
 
       try {
         validateUser(user);
 
-        if (!input.servicoId) {
+        if (!servicoId) {
           throw idError("servico");
         }
 
+        if (id) {
+          throw new Error("Erro ao criar produto: produto já existe.");
+        }
+
         if (!input.pagamento) {
-          throw new Error("Não foi possível criar o produto.");
+          throw new Error(
+            "Erro ao criar produto: dados do produto não equivalem ao tipo de produto pagamento."
+          );
         }
 
         const produtoPagamento = await db.produto.create({
           data: {
-            ...input,
-            servicoId: input.servicoId,
+            ...prodPagamentoInput,
+            servicoId: servicoId,
             type: "pagamento",
             pagamento: {
               create: {
@@ -53,7 +60,9 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            id: !!input.servicoId,
+            noId: !!servicoId,
+            existentId: !!id,
+            invalidInput: !!prodPagamentoInput.pagamento,
             user: user,
           });
 
@@ -70,37 +79,35 @@ export const produto = {
     },
     update: async (input: ProdutoPagamentoForm) => {
       const user = await getUser();
+      const { id, ...prodPagamentoInput } = input;
 
       try {
         validateUser(user);
 
-        if (!input.id) {
+        if (!id) {
           throw idError("produto");
         }
 
-        if (!input.pagamento) {
-          throw new Error("Não foi possível criar o produto.");
+        if (!prodPagamentoInput.pagamento) {
+          throw new Error(
+            "Erro ao actualizar produto: dados do produto não equivalem ao tipo de produto pagamento."
+          );
         }
 
         const produto = await db.produto.update({
           where: {
-            id: input.id,
+            id,
           },
           data: {
-            desig_ecra: input.desig_ecra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...prodPagamentoInput,
             type: "pagamento",
             pagamento: {
               update: {
                 where: {
-                  id: input.pagamento.id,
+                  id: prodPagamentoInput.pagamento.id,
                 },
                 data: {
-                  desig_referencia: input.pagamento.desig_referencia,
-                  tamanho_referencia: input.pagamento.tamanho_referencia,
-                  texto_ecra_referencia: input.pagamento.texto_ecra_referencia,
-                  montante_minimo: input.pagamento.montante_minimo,
-                  montante_maximo: input.pagamento.montante_maximo,
+                  ...prodPagamentoInput.pagamento,
                 },
               },
             },
@@ -120,7 +127,8 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            id: !!input.id,
+            noId: !!input.id,
+            invalidInput: !!prodPagamentoInput.pagamento,
             user: user,
           });
 
@@ -139,29 +147,36 @@ export const produto = {
   recargas: {
     create: async (input: ProdutoRecargasForm) => {
       const user = await getUser();
+      const { id, servicoId, ...prodRecargasInput } = input;
 
       try {
         validateUser(user);
 
-        if (!input.servicoId) {
+        if (!servicoId) {
           throw idError("servico");
         }
 
-        if (!input.recargas) {
-          throw new Error("Não foi possível criar o produto.");
+        if (id) {
+          throw new Error("Erro ao criar produto: produto já existe.");
+        }
+
+        if (!prodRecargasInput.recargas) {
+          throw new Error(
+            "Erro ao criar produto: dados do produto não equivalem ao tipo de produto recargas."
+          );
         }
 
         const produtoRecargas = await db.produto.create({
           data: {
-            ...input,
-            servicoId: input.servicoId,
+            ...prodRecargasInput,
+            servicoId: servicoId,
             type: "recargas",
             recargas: {
               create: {
-                ...input.recargas,
+                ...prodRecargasInput.recargas,
                 montantes: {
                   createMany: {
-                    data: input.recargas.montantes.map((m) => ({
+                    data: prodRecargasInput.recargas.montantes.map((m) => ({
                       montante: m.montante,
                       quantidade: m.quantidade,
                     })),
@@ -190,7 +205,8 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            id: !!input.servicoId,
+            noId: !!servicoId,
+            existentId: !!id,
             user: user,
           });
 
@@ -207,39 +223,41 @@ export const produto = {
     },
     update: async (input: ProdutoRecargasForm) => {
       const user = await getUser();
+      const { id, ...prodRecargasInput } = input;
 
       try {
         validateUser(user);
 
-        if (!input.id) {
+        if (!id) {
           throw idError("produto");
         }
 
-        if (!input.recargas) {
-          throw new Error("Não foi possível criar o produto.");
+        if (!prodRecargasInput.recargas) {
+          throw new Error(
+            "Erro ao actualizar produto: dados do produto não equivalem ao tipo de produto recargas."
+          );
         }
 
         const produto = await db.produto.update({
           where: {
-            id: input.id,
+            id: id,
           },
           data: {
-            desig_ecra: input.desig_ecra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...prodRecargasInput,
             type: "recargas",
             recargas: {
               update: {
                 data: {
-                  desig_unidade: input.recargas.desig_unidade,
+                  ...prodRecargasInput.recargas,
                   montantes: {
                     deleteMany: {
                       id: {
-                        notIn: input.recargas.montantes
+                        notIn: prodRecargasInput.recargas.montantes
                           .filter((m) => m.id) // Only consider montantes with IDs
                           .map((m) => m.id!),
                       },
                     },
-                    updateMany: input.recargas.montantes
+                    updateMany: prodRecargasInput.recargas.montantes
                       .filter((m) => m.id) // Only update montantes with IDs
                       .map((m) => ({
                         where: { id: m.id },
@@ -248,7 +266,7 @@ export const produto = {
                           quantidade: m.quantidade,
                         },
                       })),
-                    create: input.recargas.montantes
+                    create: prodRecargasInput.recargas.montantes
                       .filter((m) => !m.id) // Only create montantes without IDs
                       .map((m) => ({
                         montante: m.montante,
@@ -278,7 +296,8 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            id: !!input.id,
+            noId: !!input.id,
+            invalidInput: !!prodRecargasInput.recargas,
             user: user,
           });
 
@@ -298,44 +317,56 @@ export const produto = {
   carregamento: {
     create: async (input: ProdutoCarregamentoForm) => {
       const user = await getUser();
+      const { id, servicoId, ...prodCarregamentoInput } = input;
 
       try {
         validateUser(user);
 
-        if (!input.servicoId) {
+        if (!servicoId) {
           throw idError("servico");
         }
 
-        if (!input.carregamento) {
-          throw new Error("Não foi possível criar o produto.");
+        if (id) {
+          throw new Error("Erro ao criar produto: produto já existe.");
+        }
+
+        if (!prodCarregamentoInput.carregamento) {
+          throw new Error(
+            "Erro ao criar produto: dados do produto não equivalem ao tipo de produto carregamento."
+          );
         }
 
         const produtoCarregamento = await db.produto.create({
           data: {
-            ...input,
-            servicoId: input.servicoId,
+            ...prodCarregamentoInput,
+            servicoId: servicoId,
             type: "carregamentos",
             carregamento: {
               create: {
-                ...input.carregamento,
-                montante_maximo:
-                  input.carregamento.montante_tipo === "montante_pre_definido"
+                ...prodCarregamentoInput.carregamento,
+                montanteMin:
+                  prodCarregamentoInput.carregamento.montanteTipo ===
+                  "montante_pre_definido"
                     ? undefined
-                    : input.carregamento.montante_maximo,
-                montante_minimo:
-                  input.carregamento.montante_tipo === "montante_pre_definido"
+                    : prodCarregamentoInput.carregamento.montanteMin,
+                montanteMax:
+                  prodCarregamentoInput.carregamento.montanteTipo ===
+                  "montante_pre_definido"
                     ? undefined
-                    : input.carregamento.montante_minimo,
+                    : prodCarregamentoInput.carregamento.montanteMax,
                 montantes:
-                  input.carregamento.montante_tipo === "montante_livre"
+                  prodCarregamentoInput.carregamento.montanteTipo ===
+                  "montante_livre"
                     ? undefined
                     : {
                         createMany: {
                           data:
-                            input.carregamento.montantes.map((m) => ({
-                              montante: m.montante,
-                              descricao: m.descricao,
-                            })) || [],
+                            prodCarregamentoInput.carregamento.montantes.map(
+                              (m) => ({
+                                montante: m.montante,
+                                descricao: m.descricao,
+                              })
+                            ) || [],
                         },
                       },
               },
@@ -360,7 +391,8 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            id: !!input.servicoId,
+            noId: !!servicoId,
+            invalidInput: !!prodCarregamentoInput.carregamento,
             user: user,
           });
 
@@ -378,63 +410,66 @@ export const produto = {
 
     update: async (input: ProdutoCarregamentoForm) => {
       const user = await getUser();
+      const { id, ...prodCarregamentoInput } = input;
 
       try {
         validateUser(user);
 
-        if (!input.id) {
+        if (!id) {
           throw idError("produto");
         }
 
-        if (!input.carregamento) {
-          throw new Error("Não foi possível criar o produto.");
+        if (!prodCarregamentoInput.carregamento) {
+          throw new Error(
+            "Erro ao actualizar produto: dados do produto não equivalem ao tipo de produto carregamento."
+          );
         }
 
         const produto = await db.produto.update({
           where: {
-            id: input.id,
+            id,
           },
           data: {
-            desig_ecra: input.desig_ecra,
-            desig_tecla_seleccao: input.desig_tecla_seleccao,
+            ...prodCarregamentoInput,
             type: "carregamentos",
             carregamento: {
               update: {
                 data: {
-                  desig_referencia: input.carregamento.desig_referencia,
-                  tamanho_referencia: input.carregamento.tamanho_referencia,
-                  texto_ecra_referencia:
-                    input.carregamento.texto_ecra_referencia,
-                  montante_tipo: input.carregamento.montante_tipo,
-                  montante_maximo:
-                    input.carregamento.montante_tipo === "montante_pre_definido"
+                  ...prodCarregamentoInput.carregamento,
+                  montanteMin:
+                    prodCarregamentoInput.carregamento.montanteTipo ===
+                    "montante_pre_definido"
                       ? undefined
-                      : input.carregamento.montante_maximo,
-                  montante_minimo:
-                    input.carregamento.montante_tipo === "montante_pre_definido"
+                      : prodCarregamentoInput.carregamento.montanteMin,
+                  montanteMax:
+                    prodCarregamentoInput.carregamento.montanteTipo ===
+                    "montante_pre_definido"
                       ? undefined
-                      : input.carregamento.montante_minimo,
+                      : prodCarregamentoInput.carregamento.montanteMax,
                   montantes:
-                    input.carregamento.montante_tipo === "montante_livre"
+                    prodCarregamentoInput.carregamento.montanteTipo ===
+                    "montante_livre"
                       ? undefined
                       : {
                           deleteMany: {
                             id: {
-                              notIn: input.carregamento.montantes
-                                .filter((m) => m.id) // Only consider montantes with IDs
-                                .map((m) => m.id!),
+                              notIn:
+                                prodCarregamentoInput.carregamento.montantes
+                                  .filter((m) => m.id) // Only consider montantes with IDs
+                                  .map((m) => m.id!),
                             },
                           },
-                          updateMany: input.carregamento.montantes
-                            .filter((m) => m.id) // Only update montantes with IDs
-                            .map((m) => ({
-                              where: { id: m.id },
-                              data: {
-                                montante: m.montante,
-                                descricao: m.descricao,
-                              },
-                            })),
-                          create: input.carregamento.montantes
+                          updateMany:
+                            prodCarregamentoInput.carregamento.montantes
+                              .filter((m) => m.id) // Only update montantes with IDs
+                              .map((m) => ({
+                                where: { id: m.id },
+                                data: {
+                                  montante: m.montante,
+                                  descricao: m.descricao,
+                                },
+                              })),
+                          create: prodCarregamentoInput.carregamento.montantes
                             .filter((m) => !m.id) // Only create montantes without IDs
                             .map((m) => ({
                               montante: m.montante,
@@ -464,7 +499,8 @@ export const produto = {
       } catch (error) {
         if (error instanceof Error) {
           const response = processErrors(error, {
-            id: !!input.id,
+            noId: !!input.id,
+            invalidInput: !!prodCarregamentoInput.carregamento,
             user: user,
           });
 
@@ -514,7 +550,7 @@ export const produto = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!id,
+          noId: !!id,
           user: user,
         });
 
@@ -563,7 +599,7 @@ export const produto = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!id,
+          noId: !!id,
           user: user,
         });
 
@@ -601,7 +637,7 @@ export const produto = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          id: !!id,
+          noId: !!id,
           user: user,
         });
 
