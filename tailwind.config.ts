@@ -26,6 +26,8 @@ export default {
       spacing: {
         66: "16.5rem",
         88: "22rem",
+        100: "25rem",
+        104: "26rem",
       },
       flex: {
         1: "1",
