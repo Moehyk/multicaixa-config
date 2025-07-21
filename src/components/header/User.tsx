@@ -8,7 +8,7 @@ import { IconLogin, IconLogout } from "@tabler/icons-react";
 
 function UserWrapper({ children }: React.PropsWithChildren) {
   return (
-    <div className="flex items-center gap-8  rounded-full p-2 text-white  bg-brand-800 ">
+    <div className="flex items-center gap-8  rounded-full p-2 text-white  bg-user-accent">
       {children}
     </div>
   );

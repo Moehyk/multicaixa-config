@@ -10,11 +10,11 @@ export default function NoEmpresa() {
   return (
     <Card withBorder w={"40%"} p={48} className="mx-auto mt-10">
       <div className="flex items-center mb-8">
-        <div className="bg-brand-600 w-1 h-12 mr-4" />
+        <div className="bg-accent w-1 h-12 mr-4" />
         <span className="font-medium">
           <p>
             Bem vindo ao&nbsp;
-            <span className="font-bold text-brand-800">MCX Config</span>&#46;
+            <span className="font-bold text-brand-text">MCX Config</span>&#46;
           </p>
           <p>Para começar deve criar a sua empresa.</p>
         </span>

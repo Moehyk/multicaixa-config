@@ -8,6 +8,9 @@ export const resolver: CSSVariablesResolver = (theme) => ({
     "--border": "206 212 218",
     "--mantine-body-accent": theme.colors.gray[0],
     "--bg-accent": "248 250 252",
+    "--brand-accent": "43 104 236",
+    "--user-accent": "8 78 210",
+    "--brand-text": "43 104 236",
   },
   dark: {
     "--mantine-color-text": theme.colors.dark[0],
@@ -15,5 +18,8 @@ export const resolver: CSSVariablesResolver = (theme) => ({
     "--mantine-body-accent": theme.colors.dark[8],
     "--bg-accent": "31 31 31",
     "--border": "66 66 66",
+    "--brand-accent": "8 78 210",
+    "--user-accent": "0 59 168",
+    "--brand-text": "209 224 250",
   },
 });
