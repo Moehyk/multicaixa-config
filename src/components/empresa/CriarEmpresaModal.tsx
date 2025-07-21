@@ -9,9 +9,13 @@ import { Stepper, TextInput, Button, Modal } from "@mantine/core";
 
 import type { EmpresaForm } from "@/types";
 
+function StepperContentWrapper({ children }: { children: React.ReactNode }) {
+  return <div className="pt-4">{children}</div>;
+}
+
 function ConfirmSection({ values }: { values: EmpresaForm }) {
   return (
-    <div className="rounded-sm p-2 grid grid-cols-2 grid-flow-row gap-2">
+    <div className="px-2 grid grid-cols-2 grid-flow-row gap-2">
       <p className="font-medium">Nome</p>
       {values.nome}
       <p className="font-medium">Sigla</p>
@@ -41,7 +45,7 @@ export default function EmpresaModalForm() {
     active,
     nextStep,
     prevStep,
-    form: { getInputProps, values, key, errors },
+    form: { getInputProps, values, key },
   } = useEmpresaModalForm();
 
   const { isMutating, setIsFetching } = useFormMutation();
@@ -63,92 +67,100 @@ export default function EmpresaModalForm() {
   return (
     <>
       <div className="p-4">
-        <Stepper active={active} className="h-96">
+        <Stepper active={active} className="h-100">
           <Stepper.Step label="Dados da Empresa">
-            <div className="flex gap-2">
-              <TextInput
-                {...getInputProps("nome")}
-                key={key("nome")}
-                label="Nome"
-                className="flex-1"
-              />
-              <TextInput
-                {...getInputProps("sigla")}
-                key={key("sigla")}
-                label="Sigla"
-              />
-            </div>
-            <div className="flex gap-2">
-              <TextInput
-                {...getInputProps("morada")}
-                key={key("morada")}
-                label="Morada"
-                className="flex-1"
-              />
-              <TextInput
-                {...getInputProps("localidade")}
-                key={key("localidade")}
-                label="Localidade"
-              />
-            </div>
-            <div className="flex gap-2">
-              <TextInput
-                {...getInputProps("numeroPessoaColectiva")}
-                key={key("numeroPessoaColectiva")}
-                label="Número Pessoa Colectiva"
-                className="flex-1"
-              />
-              <TextInput
-                {...getInputProps("cae")}
-                key={key("cae")}
-                label="CAE"
-                className="flex-1"
-              />
-            </div>
+            <StepperContentWrapper>
+              <div className="flex gap-2">
+                <TextInput
+                  {...getInputProps("nome")}
+                  key={key("nome")}
+                  label="Nome"
+                  className="flex-1"
+                />
+                <TextInput
+                  {...getInputProps("sigla")}
+                  key={key("sigla")}
+                  label="Sigla"
+                />
+              </div>
+              <div className="flex gap-2">
+                <TextInput
+                  {...getInputProps("morada")}
+                  key={key("morada")}
+                  label="Morada"
+                  className="flex-1"
+                />
+                <TextInput
+                  {...getInputProps("localidade")}
+                  key={key("localidade")}
+                  label="Localidade"
+                />
+              </div>
+              <div className="flex gap-2">
+                <TextInput
+                  {...getInputProps("numeroPessoaColectiva")}
+                  key={key("numeroPessoaColectiva")}
+                  label="Número Pessoa Colectiva"
+                  className="flex-1"
+                />
+                <TextInput
+                  {...getInputProps("cae")}
+                  key={key("cae")}
+                  label="CAE"
+                  className="flex-1"
+                />
+              </div>
+            </StepperContentWrapper>
           </Stepper.Step>
           <Stepper.Step label="Contato da Empresa">
-            <TextInput
-              {...getInputProps("responsavel")}
-              key={key("responsavel")}
-              label="Responsável"
-            />
-            <div className="flex gap-2">
+            <StepperContentWrapper>
               <TextInput
-                {...getInputProps("telefone")}
-                key={key("telefone")}
-                label="Telefone"
-                className="flex-1"
+                {...getInputProps("responsavel")}
+                key={key("responsavel")}
+                label="Responsável"
               />
-              <TextInput
-                {...getInputProps("email")}
-                key={key("email")}
-                label="Email"
-                className="flex-1"
-              />
-            </div>
+              <div className="flex gap-2">
+                <TextInput
+                  {...getInputProps("telefone")}
+                  key={key("telefone")}
+                  label="Telefone"
+                  className="flex-1"
+                />
+                <TextInput
+                  {...getInputProps("email")}
+                  key={key("email")}
+                  label="Email"
+                  className="flex-1"
+                />
+              </div>
+            </StepperContentWrapper>
           </Stepper.Step>
           <Stepper.Step label="Desigação no Sistema">
-            <TextInput
-              {...getInputProps("numeroEntidade")}
-              key={key("numeroEntidade")}
-              label="Número Entidade"
-              placeholder="Número Entidade"
-            />
-            <TextInput
-              {...getInputProps("desigEcra")}
-              key={key("desigEcra")}
-              label="Designação p/ ecrã"
-              placeholder="Nome que irá aparecer no ecrã Multicaixa"
-            />
-            <TextInput
-              {...getInputProps("desigTeclaSeleccao")}
-              key={key("desigTeclaSeleccao")}
-              label="Designação p/ tecla de selecção"
-              placeholder="Nome para a tecla de selecção no Multicaixa"
-            />
+            <StepperContentWrapper>
+              <TextInput
+                {...getInputProps("numeroEntidade")}
+                key={key("numeroEntidade")}
+                label="Número Entidade"
+                placeholder="Número Entidade"
+              />
+              <TextInput
+                {...getInputProps("desigEcra")}
+                key={key("desigEcra")}
+                label="Designação p/ ecrã"
+                placeholder="Nome que irá aparecer no ecrã Multicaixa"
+              />
+              <TextInput
+                {...getInputProps("desigTeclaSeleccao")}
+                key={key("desigTeclaSeleccao")}
+                label="Designação p/ tecla de selecção"
+                placeholder="Nome para a tecla de selecção no Multicaixa"
+              />
+            </StepperContentWrapper>
           </Stepper.Step>
           <Stepper.Completed>
-            <ConfirmSection values={values} />
+            <StepperContentWrapper>
+              <ConfirmSection values={values} />
+            </StepperContentWrapper>
           </Stepper.Completed>
         </Stepper>
       </div>
@@ -159,13 +171,7 @@ export default function EmpresaModalForm() {
           </Button>
         )}
         {active !== 3 && (
-          <Button
-            onClick={() => {
-              console.log("errors", errors);
-              nextStep();
-            }}
-            className="ml-auto"
-          >
+          <Button onClick={nextStep} className="ml-auto">
             Próximo
           </Button>
         )}
