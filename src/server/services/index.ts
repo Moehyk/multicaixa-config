@@ -36,7 +36,7 @@ export const getEmpresa = async () => {
 };
 
 export const upsertServico = async (id: string, input: ServicoForm) => {
-  if (!id) {
+  if (input.id) {
     return await servico.update(input);
   } else {
     return await servico.create(id, input);
