@@ -24,11 +24,11 @@ export const getEmpresa = async () => {
   return response;
 };
 
-export const upsertServico = async (id: string, input: ServicoForm) => {
+export const upsertServico = async (input: ServicoForm) => {
   if (input.id) {
     return await servico.update(input);
   } else {
-    return await servico.create(id, input);
+    return await servico.create(input);
   }
 };
 
