@@ -14,96 +14,131 @@ model Utilizador {
   name                    String?
   surname                 String?
   empresa                 Empresa?
+
+  @@map("utilizador")
 }
 
 model Empresa {
-  id                      String        @id @default(cuid())
-  utilizadorId            String        @unique
-  utilizador              Utilizador    @relation(fields: [utilizadorId], references: [id], onDelete: Cascade)
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
   cae                     String
   nome                    String
-  numero_pessoa_colectiva String
+  numeroPessoaColectiva   String        @map("numero_pessoa_colectiva")
   sigla                   String
   morada                  String
   localidade              String
   responsavel             String
   telefone                String
   email                   String
-  numero_entidade         String
-  desig_ecra              String
-  desig_tecla_seleccao    String
+  numeroEntidade          String        @map("numero_entidade")
+  desigEcra               String        @map("desig_ecra")
+  desigTeclaSeleccao      String        @map("desig_tecla_seleccao")
   servicos                Servico[]
+  utilizadorId            String        @unique                           @map("utilizador_id")
+  utilizador              Utilizador    @relation(fields: [utilizadorId], references: [id], onDelete: Cascade)
+
+
+  @@map("empresa")
 }
 
 model Servico {
-  id                      String        @id @default(cuid())
-  empresaId               String
-  empresa                 Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
-  desig_sistema           String
-  desig_ecra              String
-  desig_tecla_seleccao    String
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
+  desigSistema            String        @map("desig_sistema")
+  desigEcra               String        @map("desig_ecra")
+  desigTeclaSeleccao      String        @map("desig_tecla_seleccao")
   produtos                Produto[]
+  empresaId               String        @map("empresa_id")
+  empresa                 Empresa       @relation(fields: [empresaId], references: [id], onDelete: Cascade)
+
+  @@map("servico")
 }
 
 model Produto {
-  id                      String        @id @default(cuid())
-  servicoId               String
-  servico                 Servico       @relation(fields: [servicoId], references: [id], onDelete: Cascade)
-  desig_ecra              String
-  desig_tecla_seleccao    String
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
+  desigEcra               String        @map("desig_ecra")
+  desigTeclaSeleccao      String        @map("desig_tecla_seleccao")
   type                    ProdutoTipo
   carregamento            Carregamento?
   pagamento               Pagamento?
   recargas                Recargas?
+  servicoId               String        @map("servico_id")
+  servico                 Servico       @relation(fields: [servicoId], references: [id], onDelete: Cascade)
+
+  @@map("produto")
 }
 
 model Carregamento {
-  id                      String        @id @default(cuid())
-  produtoId               String        @unique
-  produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
-  desig_referencia        String
-  tamanho_referencia      Int
-  texto_ecra_referencia   String
-  montante_tipo           MontanteTipo
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
+  desigReferencia         String        @map("desig_referencia")
+  tamanhoReferencia       Int           @map("tamanho_referencia")
+  textoEcraReferencia     String        @map("texto_ecra_referencia")
+  montanteTipo            MontanteTipo  @map("montante_tipo")
+  montanteMin             Float?        @map("montante_minimo")
+  montanteMax             Float?        @map("montante_maximo")
   montantes               CarrMontante[]
-  montante_maximo         Float?
-  montante_minimo         Float?
+  produtoId               String        @unique                           @map("produto_id")
+  produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+
+  @@map("carregamento")
 }
 
 model Pagamento {
-  id                      String        @id @default(cuid())
-  produtoId               String        @unique
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
+  desigReferencia         String        @map("desig_referencia")
+  tamanhoReferencia       Int           @map("tamanho_referencia")
+  textoEcraReferencia     String        @map("texto_ecra_referencia")
+  isNew                   Boolean       @default(true)                    @map("is_new")
+  montanteMin          Float         @map("montante_minimo")
+  montanteMax          Float         @map("montante_maximo")
+  produtoId               String        @unique                           @map("produto_id")
   Produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
-  desig_referencia        String
-  tamanho_referencia      Int
-  texto_ecra_referencia   String
-  isNew                   Boolean       @default(true)
-  montante_minimo         Float
-  montante_maximo         Float
+
+  @@map("pagamento")
 }
 
 model Recargas {
-  id                      String        @id @default(cuid())
-  produtoId               String        @unique
-  produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
-  desig_unidade           String
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
+  desigUnidade            String        @map("desig_unidade")
   montantes               RecaMontante[]
+  produtoId               String        @unique                           @map("produto_id")
+  produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
+
+  @@map("recargas")
 }
 
 model CarrMontante {
-  id                      String        @id @default(cuid())
-  carregamentoId          String
-  carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id], onDelete: Cascade)
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
   montante                Float
   descricao               String
+  carregamentoId          String        @map("carregamento_id")
+  carregamento            Carregamento  @relation(fields: [carregamentoId], references: [id], onDelete: Cascade)
+
+  @@map("carregamento_montante")
 }
 
 model RecaMontante {
-  id                      String        @id @default(cuid())
-  recargaId               String
-  recarga                 Recargas      @relation(fields: [recargaId], references: [id], onDelete: Cascade)
+  id                      String        @id                               @default(cuid())
+  createdAt               DateTime      @default(now())                   @map("created_at")
+  updatedAt               DateTime      @updatedAt                        @map("updated_at")
   montante                Float
   quantidade              Int
+  recargaId               String        @map("recarga_id")
+  recarga                 Recargas      @relation(fields: [recargaId], references: [id], onDelete: Cascade)
+
+  @@map("recarga_montante")
 }
 
 enum ProdutoTipo {
