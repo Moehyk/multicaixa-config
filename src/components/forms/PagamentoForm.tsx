@@ -15,37 +15,37 @@ export default function PagamentoForm({
     <>
       <div className="flex w-full  gap-4">
         <TextInput
-          {...getInputProps("desig_ecra")}
+          {...getInputProps("desigEcra")}
           label="Designação p/ ecrã"
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("desig_tecla_seleccao")}
+          {...getInputProps("desigTeclaSeleccao")}
           label="Designação p/ tecla de selecção"
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("pagamento.desig_referencia")}
+          {...getInputProps("pagamento.desigReferencia")}
           label="Designação p/ referência"
           maxLength={15}
           className="flex-1"
         />
       </div>
       <TextInput
-        {...getInputProps("pagamento.texto_ecra_referencia")}
+        {...getInputProps("pagamento.textoEcraReferencia")}
         label="Texto do ecrã de referência"
         className="flex-1"
         maxLength={30}
       />
       <div className="flex w-full  gap-4">
         <NumberInput
-          {...getInputProps("pagamento.tamanho_referencia")}
+          {...getInputProps("pagamento.tamanhoReferencia")}
           label="Tamanho da referência"
           min={9}
           max={15}
         />
         <NumberInput
-          {...getInputProps("pagamento.montante_minimo")}
+          {...getInputProps("pagamento.montanteMin")}
           label="Montante mínimo"
           className="flex-1"
           suffix=" Kzs"
@@ -57,7 +57,7 @@ export default function PagamentoForm({
           min={0}
         />
         <NumberInput
-          {...getInputProps("pagamento.montante_maximo")}
+          {...getInputProps("pagamento.montanteMax")}
           label="Montante máximo"
           className="flex-1"
           suffix=" Kzs"

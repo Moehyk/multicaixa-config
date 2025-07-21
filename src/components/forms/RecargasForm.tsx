@@ -20,17 +20,17 @@ export default function RecargasForm({
     <>
       <div className="flex items-end w-full  gap-4">
         <TextInput
-          {...getInputProps("desig_ecra")}
+          {...getInputProps("desigEcra")}
           label="Designação p/ ecrã"
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("desig_tecla_seleccao")}
+          {...getInputProps("desigTeclaSeleccao")}
           label="Designação p/ tecla de selecção"
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("recargas.desig_unidade")}
+          {...getInputProps("recargas.desigUnidade")}
           label="Designação p/ Unidades"
           className="flex-1"
           maxLength={15}

@@ -37,15 +37,12 @@ export default function ServicoModalForm({
     <form onSubmit={onSubmit(handleSubmit)}>
       <div className="flex flex-col">
         <TextInput
-          {...getInputProps("desig_sistema")}
+          {...getInputProps("desigSistema")}
           label="Designação p/ Sistema"
         />
+        <TextInput {...getInputProps("desigEcra")} label="Designação p/ Ecrã" />
         <TextInput
-          {...getInputProps("desig_ecra")}
-          label="Designação p/ Ecrã"
-        />
-        <TextInput
-          {...getInputProps("desig_tecla_seleccao")}
+          {...getInputProps("desigTeclaSeleccao")}
           label="Designação p/ Selecção"
         />
       </div>

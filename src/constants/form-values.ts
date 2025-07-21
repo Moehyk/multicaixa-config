@@ -19,50 +19,50 @@ export const initialEmpresaFormValues: EmpresaForm = {
   telefone: "",
   email: "",
   cae: "",
-  numero_pessoa_colectiva: "",
-  numero_entidade: "",
-  desig_ecra: "",
-  desig_tecla_seleccao: "",
+  numeroPessoaColectiva: "",
+  numeroEntidade: "",
+  desigEcra: "",
+  desigTeclaSeleccao: "",
 };
 
 export const initialServicoFormValues: ServicoForm = {
-  desig_ecra: "",
-  desig_tecla_seleccao: "",
-  desig_sistema: "",
+  desigEcra: "",
+  desigTeclaSeleccao: "",
+  desigSistema: "",
 };
 
 export const initialProdutoPagamentoFormValues: ProdutoPagamentoForm = {
-  desig_ecra: "",
-  desig_tecla_seleccao: "",
+  desigEcra: "",
+  desigTeclaSeleccao: "",
   pagamento: {
     isNew: true,
-    desig_referencia: "",
-    tamanho_referencia: 9,
-    texto_ecra_referencia: "",
-    montante_minimo: 0.0,
-    montante_maximo: 0.0,
+    desigReferencia: "",
+    tamanhoReferencia: 9,
+    textoEcraReferencia: "",
+    montanteMin: 0.0,
+    montanteMax: 0.0,
   },
 };
 
 export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
-  desig_ecra: "",
-  desig_tecla_seleccao: "",
+  desigEcra: "",
+  desigTeclaSeleccao: "",
   recargas: {
-    desig_unidade: "",
+    desigUnidade: "",
     montantes: [{ montante: 0.0, quantidade: 0, key: randomId() }],
   },
 };
 
 export const initialProdutoCarregamentoFormValues: ProdutoCarregamentoForm = {
-  desig_ecra: "",
-  desig_tecla_seleccao: "",
+  desigEcra: "",
+  desigTeclaSeleccao: "",
   carregamento: {
-    desig_referencia: "",
-    tamanho_referencia: 9,
-    texto_ecra_referencia: "",
-    montante_tipo: "montante_livre",
-    montante_maximo: 0.0,
-    montante_minimo: 0.0,
+    desigReferencia: "",
+    tamanhoReferencia: 9,
+    textoEcraReferencia: "",
+    montanteTipo: "montante_livre",
+    montanteMax: 0.0,
+    montanteMin: 0.0,
     montantes: [{ montante: 0, descricao: "", key: randomId() }],
   },
 };

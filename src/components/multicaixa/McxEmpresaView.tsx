@@ -21,15 +21,15 @@ export default async function McxEmpresaView({}) {
     buttons.push(
       ...servicos.map((servico) => ({
         id: servico.id,
-        selectText: servico.desig_tecla_seleccao,
-        screenText: servico.desig_ecra,
+        selectText: servico.desigTeclaSeleccao,
+        screenText: servico.desigEcra,
         subtitle: "Escolha um produto",
       }))
     );
   }
   return (
     <>
-      <McxHeader desigEcra={data.desig_ecra} ecraSecondary="escolher serviço" />
+      <McxHeader desigEcra={data.desigEcra} ecraSecondary="escolher serviço" />
       <McxContentWrapper>
         {(!buttons || buttons.length === 0) && (
           <NoMcxView dataModel="empresa" />

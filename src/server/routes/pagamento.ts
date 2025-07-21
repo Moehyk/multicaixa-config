@@ -36,18 +36,18 @@ export const pagamento = {
         where,
         create: {
           produtoId: produtoId,
-          montante_maximo: input.montante_maximo,
-          montante_minimo: input.montante_minimo,
-          desig_referencia: input.desig_referencia,
-          texto_ecra_referencia: input.texto_ecra_referencia,
-          tamanho_referencia: input.tamanho_referencia,
+          montanteMax: input.montanteMax,
+          montanteMin: input.montanteMin,
+          desigReferencia: input.desigReferencia,
+          textoEcraReferencia: input.textoEcraReferencia,
+          tamanhoReferencia: input.tamanhoReferencia,
         },
         update: {
-          montante_maximo: input.montante_maximo,
-          montante_minimo: input.montante_minimo,
-          desig_referencia: input.desig_referencia,
-          texto_ecra_referencia: input.texto_ecra_referencia,
-          tamanho_referencia: input.tamanho_referencia,
+          montanteMax: input.montanteMax,
+          montanteMin: input.montanteMin,
+          desigReferencia: input.desigReferencia,
+          textoEcraReferencia: input.textoEcraReferencia,
+          tamanhoReferencia: input.tamanhoReferencia,
         },
       });
 

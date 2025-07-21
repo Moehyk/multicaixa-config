@@ -40,7 +40,7 @@ export default function EmpresaForm(data: EmpresaForm) {
               className="flex-1"
             />
             <TextInput
-              {...getInputProps("numero_pessoa_colectiva")}
+              {...getInputProps("numeroPessoaColectiva")}
               label="Número Pessoa Colectiva"
               className="flex-1 h-24"
             />
@@ -82,17 +82,17 @@ export default function EmpresaForm(data: EmpresaForm) {
           </div>
           <div className="flex items-end gap-4">
             <TextInput
-              {...getInputProps("numero_entidade")}
+              {...getInputProps("numeroEntidade")}
               label="Número Entidade"
               className="w-1/4"
             />
             <TextInput
-              {...getInputProps("desig_ecra")}
+              {...getInputProps("desigEcra")}
               label="Designação p/ ecrã"
               className="flex-1"
             />
             <TextInput
-              {...getInputProps("desig_tecla_seleccao")}
+              {...getInputProps("desigTeclaSeleccao")}
               label="Designação p/ tecla de selecção"
               className="flex-1"
             />

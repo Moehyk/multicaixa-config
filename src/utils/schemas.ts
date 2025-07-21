@@ -5,7 +5,7 @@ const sigla = z.string().min(1, { message: "Campo obrigatório." });
 const morada = z.string().min(1, { message: "Campo obrigatório." });
 const localidade = z.string().min(1, { message: "Campo obrigatório." });
 const cae = z.string().min(5, { message: "Número CAE inválido." });
-const numero_pessoa_colectiva = z
+const numeroPessoaColectiva = z
   .string()
   .min(10, { message: "Número Pessoa Colectiva inválido." });
 
@@ -15,29 +15,29 @@ const telefone = z
   .startsWith("9")
   .length(9, { message: "Número de telemóvel inválido." });
 const email = z.string().email({ message: "Email inválido." });
-const numero_entidade = z.string().min(3);
-const desig_ecra = z
+const numeroEntidade = z.string().min(3);
+const desigEcra = z
   .string()
   .min(1, { message: "Campo obrigatório." })
   .max(15, { message: "Não pode ter mais de 15 caracteres." });
-const desig_tecla_seleccao = z
+const desigTeclaSeleccao = z
   .string()
   .min(1, { message: "Campo obrigatório." })
   .max(18, { message: "Não pode ter mais de 18 caracteres." });
-const desig_referencia = z
+const desigReferencia = z
   .string()
   .min(1, { message: "Campo obrigatório." })
   .max(15, { message: "Não pode ter mais de 15 caracteres." });
-const tamanho_referencia = z
+const tamanhoReferencia = z
   .number()
   .min(9, { message: "Campo obrigatório." })
   .max(15, { message: "Não pode ter mais de 15 dígitos." });
-const texto_ecra_referencia = z
+const textoEcraReferencia = z
   .string()
   .min(1, { message: "Campo obrigatório." })
   .max(60, { message: "Não pode ter mais de 60 caracteres." });
-const montante_minimo = z.number().min(1, { message: "Campo obrigatório." });
-const montante_maximo = z.number().min(1, { message: "Campo obrigatório." });
+const montanteMin = z.number().min(1, { message: "Campo obrigatório." });
+const montanteMax = z.number().min(1, { message: "Campo obrigatório." });
 const montantes = z.array(
   z.object({
     montante: z.number().min(1, { message: "Campo obrigatório." }),
@@ -54,7 +54,7 @@ export const empresaStepOneSchema = z.object({
   morada,
   localidade,
   cae,
-  numero_pessoa_colectiva,
+  numeroPessoaColectiva,
 });
 
 export const empresaStepTwoSchema = z.object({
@@ -64,9 +64,9 @@ export const empresaStepTwoSchema = z.object({
 });
 
 export const empresaStepThreeSchema = z.object({
-  numero_entidade,
-  desig_ecra,
-  desig_tecla_seleccao,
+  numeroEntidade,
+  desigEcra,
+  desigTeclaSeleccao,
 });
 
 export const empresaSchema = z.object({
@@ -75,34 +75,34 @@ export const empresaSchema = z.object({
   morada,
   localidade,
   cae,
-  numero_pessoa_colectiva,
+  numeroPessoaColectiva,
   responsavel,
   telefone,
   email,
-  numero_entidade,
-  desig_ecra,
-  desig_tecla_seleccao,
+  numeroEntidade,
+  desigEcra,
+  desigTeclaSeleccao,
 });
 
 export const servicoSchema = z.object({
-  desig_ecra,
-  desig_tecla_seleccao,
-  desig_sistema: z
+  desigEcra,
+  desigTeclaSeleccao,
+  desigSistema: z
     .string()
     .min(1, { message: "Campo obrigatório." })
     .max(40, { message: "Não pode ter mais de 40 caracteres." }),
 });
 
 const pagamentoSchema = z.object({
-  desig_referencia,
-  tamanho_referencia,
-  texto_ecra_referencia,
-  montante_minimo,
-  montante_maximo,
+  desigReferencia,
+  tamanhoReferencia,
+  textoEcraReferencia,
+  montanteMin,
+  montanteMax,
 });
 
 const recargaSchema = z.object({
-  desig_unidade: z.string().min(1, { message: "Campo obrigatório." }),
+  desigUnidade: z.string().min(1, { message: "Campo obrigatório." }),
   montantes: z.array(
     z.object({
       montante: z.number().min(1, { message: "Campo obrigatório." }),
@@ -117,47 +117,47 @@ const montanteTipoEnum = z.enum([
   "ambos",
 ]);
 
-const carregamentoSchema = z.discriminatedUnion("montante_tipo", [
+const carregamentoSchema = z.discriminatedUnion("montanteTipo", [
   z.object({
-    montante_tipo: montanteTipoEnum.extract(["montante_livre"]),
-    desig_referencia,
-    tamanho_referencia,
-    texto_ecra_referencia,
-    montante_minimo,
-    montante_maximo,
+    montanteTipo: montanteTipoEnum.extract(["montante_livre"]),
+    desigReferencia,
+    tamanhoReferencia,
+    textoEcraReferencia,
+    montanteMin,
+    montanteMax,
   }),
   z.object({
-    desig_referencia,
-    tamanho_referencia,
-    texto_ecra_referencia,
-    montante_tipo: montanteTipoEnum.extract(["montante_pre_definido"]),
+    desigReferencia,
+    tamanhoReferencia,
+    textoEcraReferencia,
+    montanteTipo: montanteTipoEnum.extract(["montante_pre_definido"]),
     montantes,
   }),
   z.object({
-    montante_tipo: montanteTipoEnum.extract(["ambos"]),
-    desig_referencia,
-    tamanho_referencia,
-    texto_ecra_referencia,
-    montante_minimo,
-    montante_maximo,
+    montanteTipo: montanteTipoEnum.extract(["ambos"]),
+    desigReferencia,
+    tamanhoReferencia,
+    textoEcraReferencia,
+    montanteMin,
+    montanteMax,
     montantes,
   }),
 ]);
 
 export const produtoPagamentoSchema = z.object({
-  desig_ecra,
-  desig_tecla_seleccao,
+  desigEcra,
+  desigTeclaSeleccao,
   pagamento: pagamentoSchema,
 });
 
 export const produtoRecargasSchema = z.object({
-  desig_ecra,
-  desig_tecla_seleccao,
+  desigEcra,
+  desigTeclaSeleccao,
   recargas: recargaSchema,
 });
 
 export const produtoCarregamentoSchema = z.object({
-  desig_ecra,
-  desig_tecla_seleccao,
+  desigEcra,
+  desigTeclaSeleccao,
   carregamento: carregamentoSchema,
 });

@@ -124,7 +124,7 @@ export default function ServicoItem({
     <GridItem
       titleSection={
         <ServicoItemTitle
-          title={servico.desig_sistema}
+          title={servico.desigSistema}
           motion={{
             MotionIcon,
             openedIcon,

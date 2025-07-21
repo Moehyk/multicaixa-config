@@ -62,10 +62,10 @@ function ProdutoItemActions({ id }: { id: string }) {
   );
 }
 
-export default function ProdutoItem({ id, desig_ecra, type }: Produto) {
+export default function ProdutoItem({ id, desigEcra, type }: Produto) {
   return (
     <GridItem
-      titleSection={<ProdutoItemTitle title={desig_ecra} type={type} />}
+      titleSection={<ProdutoItemTitle title={desigEcra} type={type} />}
       actionsSection={<ProdutoItemActions id={id} />}
     />
   );

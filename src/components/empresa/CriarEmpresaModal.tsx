@@ -27,11 +27,11 @@ function ConfirmSection({ values }: { values: EmpresaForm }) {
       <p className="font-medium">Email</p>
       {values.email}
       <p className="font-medium">Número Entidade</p>
-      {values.numero_entidade}
+      {values.numeroEntidade}
       <p className="font-medium">Designação p/ ecrã</p>
-      {values.desig_ecra}
+      {values.desigEcra}
       <p className="font-medium">Designação p/ tecla de selecção</p>
-      {values.desig_tecla_seleccao}
+      {values.desigTeclaSeleccao}
     </div>
   );
 }
@@ -41,7 +41,7 @@ export default function EmpresaModalForm() {
     active,
     nextStep,
     prevStep,
-    form: { getInputProps, values, key },
+    form: { getInputProps, values, key, errors },
   } = useEmpresaModalForm();
 
   const { isMutating, setIsFetching } = useFormMutation();
@@ -93,8 +93,8 @@ export default function EmpresaModalForm() {
             </div>
             <div className="flex gap-2">
               <TextInput
-                {...getInputProps("numero_pessoa_colectiva")}
-                key={key("numero_pessoa_colectiva")}
+                {...getInputProps("numeroPessoaColectiva")}
+                key={key("numeroPessoaColectiva")}
                 label="Número Pessoa Colectiva"
                 className="flex-1"
               />
@@ -129,20 +129,20 @@ export default function EmpresaModalForm() {
           </Stepper.Step>
           <Stepper.Step label="Desigação no Sistema">
             <TextInput
-              {...getInputProps("numero_entidade")}
-              key={key("numero_entidade")}
+              {...getInputProps("numeroEntidade")}
+              key={key("numeroEntidade")}
               label="Número Entidade"
               placeholder="Número Entidade"
             />
             <TextInput
-              {...getInputProps("desig_ecra")}
-              key={key("desig_ecra")}
+              {...getInputProps("desigEcra")}
+              key={key("desigEcra")}
               label="Designação p/ ecrã"
               placeholder="Nome que irá aparecer no ecrã Multicaixa"
             />
             <TextInput
-              {...getInputProps("desig_tecla_seleccao")}
-              key={key("desig_tecla_seleccao")}
+              {...getInputProps("desigTeclaSeleccao")}
+              key={key("desigTeclaSeleccao")}
               label="Designação p/ tecla de selecção"
               placeholder="Nome para a tecla de selecção no Multicaixa"
             />
@@ -159,7 +159,13 @@ export default function EmpresaModalForm() {
           </Button>
         )}
         {active !== 3 && (
-          <Button onClick={nextStep} className="ml-auto">
+          <Button
+            onClick={() => {
+              console.log("errors", errors);
+              nextStep();
+            }}
+            className="ml-auto"
+          >
             Próximo
           </Button>
         )}

@@ -27,24 +27,24 @@ export default function CarregamentoForm({
     setFieldValue,
     reset,
   } = useCarregamentoFormContext();
-  const montanteTipo = getValues().carregamento?.montante_tipo;
+  const montanteTipo = getValues().carregamento?.montanteTipo;
   const montantes = getValues().carregamento?.montantes;
 
   return (
     <>
       <div className="w-full flex gap-4">
         <TextInput
-          {...getInputProps("desig_ecra")}
+          {...getInputProps("desigEcra")}
           label="Designação p/ ecrã"
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("desig_tecla_seleccao")}
+          {...getInputProps("desigTeclaSeleccao")}
           label="Designação p/ tecla de selecção"
           className="flex-1"
         />
         <TextInput
-          {...getInputProps("carregamento.desig_referencia")}
+          {...getInputProps("carregamento.desigReferencia")}
           label="Designação p/ referência"
           maxLength={15}
           className="flex-1"
@@ -52,14 +52,14 @@ export default function CarregamentoForm({
       </div>
       <div className="flex gap-4">
         <NumberInput
-          {...getInputProps("carregamento.tamanho_referencia")}
+          {...getInputProps("carregamento.tamanhoReferencia")}
           label="Tamanho da referência"
           min={9}
           max={15}
           className="w-1/6"
         />
         <TextInput
-          {...getInputProps("carregamento.texto_ecra_referencia")}
+          {...getInputProps("carregamento.textoEcraReferencia")}
           label="Texto do ecrã de referência"
           className="flex-1"
           maxLength={60}
@@ -73,7 +73,7 @@ export default function CarregamentoForm({
             value={montanteTipo}
             onChange={(e) => {
               reset();
-              setFieldValue("carregamento.montante_tipo", e as MontanteTipo);
+              setFieldValue("carregamento.montanteTipo", e as MontanteTipo);
             }}
             data={[
               { value: "montante_livre", label: "Livre" },
@@ -90,7 +90,7 @@ export default function CarregamentoForm({
         {montanteTipo !== "montante_pre_definido" && (
           <div className="flex w-full  gap-4">
             <NumberInput
-              {...getInputProps("carregamento.montante_minimo")}
+              {...getInputProps("carregamento.montanteMin")}
               label="Montante mínimo"
               className="flex-1"
               suffix=" Kzs"
@@ -102,7 +102,7 @@ export default function CarregamentoForm({
               min={0}
             />
             <NumberInput
-              {...getInputProps("carregamento.montante_maximo")}
+              {...getInputProps("carregamento.montanteMax")}
               label="Montante máximo"
               className="flex-1"
               suffix=" Kzs"
