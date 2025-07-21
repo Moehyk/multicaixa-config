@@ -80,35 +80,39 @@ export const produto = {
     },
     update: async (input: ProdutoPagamentoForm) => {
       const { data: user } = await getUser();
-      const { id, ...prodPagamentoInput } = input;
 
       try {
         validateUser(user);
 
-        if (!id) {
+        if (!input.id) {
           throw idError("produto");
         }
 
-        if (!prodPagamentoInput.pagamento) {
+        if (!input.pagamento) {
           throw new Error(
-            "Erro ao actualizar produto: dados do produto não equivalem ao tipo de produto pagamento."
+            "Erro ao criar produto: dados do produto não equivalem ao tipo de produto pagamento."
           );
         }
 
         const produto = await db.produto.update({
           where: {
-            id,
+            id: input.id,
           },
           data: {
-            ...prodPagamentoInput,
+            desigEcra: input.desigEcra,
+            desigTeclaSeleccao: input.desigTeclaSeleccao,
             type: "pagamento",
             pagamento: {
               update: {
                 where: {
-                  id: prodPagamentoInput.pagamento.id,
+                  id: input.pagamento?.id,
                 },
                 data: {
-                  ...prodPagamentoInput.pagamento,
+                  desigReferencia: input.pagamento.desigReferencia,
+                  montanteMax: input.pagamento.montanteMax,
+                  montanteMin: input.pagamento.montanteMin,
+                  tamanhoReferencia: input.pagamento.tamanhoReferencia,
+                  textoEcraReferencia: input.pagamento.textoEcraReferencia,
                 },
               },
             },
@@ -129,7 +133,7 @@ export const produto = {
         if (error instanceof Error) {
           const response = processErrors(error, {
             noId: !!input.id,
-            invalidInput: !!prodPagamentoInput.pagamento,
+            invalidInput: !!input.pagamento,
             user: user,
           });
 
@@ -224,16 +228,15 @@ export const produto = {
     },
     update: async (input: ProdutoRecargasForm) => {
       const { data: user } = await getUser();
-      const { id, ...prodRecargasInput } = input;
 
       try {
         validateUser(user);
 
-        if (!id) {
+        if (!input.id) {
           throw idError("produto");
         }
 
-        if (!prodRecargasInput.recargas) {
+        if (!input.recargas) {
           throw new Error(
             "Erro ao actualizar produto: dados do produto não equivalem ao tipo de produto recargas."
           );
@@ -241,24 +244,25 @@ export const produto = {
 
         const produto = await db.produto.update({
           where: {
-            id: id,
+            id: input.id,
           },
           data: {
-            ...prodRecargasInput,
+            desigEcra: input.desigEcra,
+            desigTeclaSeleccao: input.desigTeclaSeleccao,
             type: "recargas",
             recargas: {
               update: {
                 data: {
-                  ...prodRecargasInput.recargas,
+                  desigUnidade: input.recargas.desigUnidade,
                   montantes: {
                     deleteMany: {
                       id: {
-                        notIn: prodRecargasInput.recargas.montantes
+                        notIn: input.recargas.montantes
                           .filter((m) => m.id) // Only consider montantes with IDs
                           .map((m) => m.id!),
                       },
                     },
-                    updateMany: prodRecargasInput.recargas.montantes
+                    updateMany: input.recargas.montantes
                       .filter((m) => m.id) // Only update montantes with IDs
                       .map((m) => ({
                         where: { id: m.id },
@@ -267,7 +271,7 @@ export const produto = {
                           quantidade: m.quantidade,
                         },
                       })),
-                    create: prodRecargasInput.recargas.montantes
+                    create: input.recargas.montantes
                       .filter((m) => !m.id) // Only create montantes without IDs
                       .map((m) => ({
                         montante: m.montante,
@@ -298,7 +302,7 @@ export const produto = {
         if (error instanceof Error) {
           const response = processErrors(error, {
             noId: !!input.id,
-            invalidInput: !!prodRecargasInput.recargas,
+            invalidInput: !!input.recargas,
             user: user,
           });
 
@@ -411,16 +415,15 @@ export const produto = {
 
     update: async (input: ProdutoCarregamentoForm) => {
       const { data: user } = await getUser();
-      const { id, ...prodCarregamentoInput } = input;
 
       try {
         validateUser(user);
 
-        if (!id) {
+        if (!input.id) {
           throw idError("produto");
         }
 
-        if (!prodCarregamentoInput.carregamento) {
+        if (!input.carregamento) {
           throw new Error(
             "Erro ao actualizar produto: dados do produto não equivalem ao tipo de produto carregamento."
           );
@@ -428,49 +431,48 @@ export const produto = {
 
         const produto = await db.produto.update({
           where: {
-            id,
+            id: input.id,
           },
           data: {
-            ...prodCarregamentoInput,
+            desigEcra: input.desigEcra,
+            desigTeclaSeleccao: input.desigTeclaSeleccao,
             type: "carregamentos",
             carregamento: {
               update: {
                 data: {
-                  ...prodCarregamentoInput.carregamento,
+                  desigReferencia: input.carregamento.desigReferencia,
+                  tamanhoReferencia: input.carregamento.tamanhoReferencia,
+                  textoEcraReferencia: input.carregamento.textoEcraReferencia,
+                  montanteTipo: input.carregamento.montanteTipo,
                   montanteMin:
-                    prodCarregamentoInput.carregamento.montanteTipo ===
-                    "montante_pre_definido"
+                    input.carregamento.montanteTipo === "montante_pre_definido"
                       ? undefined
-                      : prodCarregamentoInput.carregamento.montanteMin,
+                      : input.carregamento.montanteMin,
                   montanteMax:
-                    prodCarregamentoInput.carregamento.montanteTipo ===
-                    "montante_pre_definido"
+                    input.carregamento.montanteTipo === "montante_pre_definido"
                       ? undefined
-                      : prodCarregamentoInput.carregamento.montanteMax,
+                      : input.carregamento.montanteMax,
                   montantes:
-                    prodCarregamentoInput.carregamento.montanteTipo ===
-                    "montante_livre"
+                    input.carregamento.montanteTipo === "montante_livre"
                       ? undefined
                       : {
                           deleteMany: {
                             id: {
-                              notIn:
-                                prodCarregamentoInput.carregamento.montantes
-                                  .filter((m) => m.id) // Only consider montantes with IDs
-                                  .map((m) => m.id!),
+                              notIn: input.carregamento.montantes
+                                .filter((m) => m.id) // Only consider montantes with IDs
+                                .map((m) => m.id!),
                             },
                           },
-                          updateMany:
-                            prodCarregamentoInput.carregamento.montantes
-                              .filter((m) => m.id) // Only update montantes with IDs
-                              .map((m) => ({
-                                where: { id: m.id },
-                                data: {
-                                  montante: m.montante,
-                                  descricao: m.descricao,
-                                },
-                              })),
-                          create: prodCarregamentoInput.carregamento.montantes
+                          updateMany: input.carregamento.montantes
+                            .filter((m) => m.id) // Only update montantes with IDs
+                            .map((m) => ({
+                              where: { id: m.id },
+                              data: {
+                                montante: m.montante,
+                                descricao: m.descricao,
+                              },
+                            })),
+                          create: input.carregamento.montantes
                             .filter((m) => !m.id) // Only create montantes without IDs
                             .map((m) => ({
                               montante: m.montante,
@@ -501,7 +503,7 @@ export const produto = {
         if (error instanceof Error) {
           const response = processErrors(error, {
             noId: !!input.id,
-            invalidInput: !!prodCarregamentoInput.carregamento,
+            invalidInput: !!input.carregamento,
             user: user,
           });
 
