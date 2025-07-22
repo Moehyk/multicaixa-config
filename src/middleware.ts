@@ -6,5 +6,5 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/multicaixa/:path*"],
+  matcher: ["/multicaixa/:path*", "/mcx/:path*"],
 };
