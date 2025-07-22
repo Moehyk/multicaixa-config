@@ -18,7 +18,8 @@ export default async function EmpresaToolbar() {
       <EmpresaName name={data.nome} />
       <Button
         component={Link}
-        href="/mcx"
+        href="/multicaixa/mcx"
+        scroll={false}
         rightSection={<IconDeviceDesktop size={20} />}
       >
         Multicaixa
