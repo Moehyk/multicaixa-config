@@ -21,8 +21,8 @@ export default function User() {
   if (isLoading) {
     return (
       <UserWrapper>
-        <div className="flex items-center h-[28px]">
-          <Loader size="md" type="dots" w={200} />
+        <div className="flex items-center h-[28px] w-48 justify-center">
+          <Loader size="sm" type="bars" />
         </div>
       </UserWrapper>
     );
