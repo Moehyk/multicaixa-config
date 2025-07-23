@@ -1,5 +1,7 @@
 "use client";
 
+import { Loading } from "@/components";
+
 export default function McxLoading() {
-  return <div>mcx loading...</div>;
+  return <Loading origin="MODAL" />;
 }

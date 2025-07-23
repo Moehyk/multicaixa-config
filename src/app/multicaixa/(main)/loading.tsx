@@ -1,23 +1,7 @@
 "use client";
 
-import { LoadingOverlay, Portal, Loader } from "@mantine/core";
+import { Loading } from "@/components";
 
 export default function MulticaixaPageLoading() {
-  return (
-    <Portal>
-      <LoadingOverlay
-        visible
-        overlayProps={{
-          blur: 2,
-        }}
-        loaderProps={{
-          children: (
-            <div className="bg-body rounded-md p-4 drop-shadow-xl border border-border/50">
-              <Loader size="lg" type="bars" />
-            </div>
-          ),
-        }}
-      />
-    </Portal>
-  );
+  return <Loading origin="GLOBAL" />;
 }

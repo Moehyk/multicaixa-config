@@ -6,6 +6,7 @@ export { default as GridItem } from "./GridItem";
 export { default as GridError } from "./GridError";
 export { default as ErrorWidget } from "./ErrorWidget";
 export { default as GridLoading } from "./GridLoading";
+export { default as Loading } from "./Loading";
 
 export { Toolbar } from "./header";
 export { GridServico } from "./servico";
