@@ -69,7 +69,25 @@ export const empresa = {
           utilizadorId: user.id,
         },
         include: {
-          servicos: true,
+          servicos: {
+            include: {
+              produtos: {
+                include: {
+                  pagamento: true,
+                  recargas: {
+                    include: {
+                      montantes: true,
+                    },
+                  },
+                  carregamento: {
+                    include: {
+                      montantes: true,
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
       });
       return { data, status: 200 };
