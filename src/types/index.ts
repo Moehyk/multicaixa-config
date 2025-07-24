@@ -153,3 +153,7 @@ export type ProdutoFormProps = {
   action: "Criar" | "Editar";
   isSubmitting: boolean;
 };
+
+export type EmpresaMcxStore = Pick<Empresa, "desigEcra"> & {
+  servicos: Servico[];
+};
