@@ -1,9 +1,8 @@
 import { getEmpresa } from "@/server/services";
 
 import EmpresaName from "./EmpresaName";
-import Link from "next/link";
 import { Toolbar } from "../header";
-import { McxTrigger } from "../multicaixa";
+import { McxTrigger, McxHidrationBoundary } from "../multicaixa";
 
 export default async function EmpresaToolbar() {
   const { data } = await getEmpresa();
@@ -14,8 +13,10 @@ export default async function EmpresaToolbar() {
 
   return (
     <Toolbar>
-      <EmpresaName name={data.nome} />
-      <McxTrigger />
+      <McxHidrationBoundary empresa={data}>
+        <EmpresaName name={data.nome} />
+        <McxTrigger />
+      </McxHidrationBoundary>
     </Toolbar>
   );
 }
