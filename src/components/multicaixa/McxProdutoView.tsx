@@ -6,7 +6,7 @@ import McxRecargas from "./McxRecargas";
 
 import type { ProdutoData } from "@/types";
 
-const renderProdutoUnion = (produto: ProdutoData) => {
+const renderProdutoView = (produto: ProdutoData) => {
   switch (produto.type) {
     case "pagamento":
       return <div>Pagamento</div>;
@@ -35,7 +35,7 @@ export default function McxProdutoView() {
   return (
     <>
       <McxScreenText subtext={produto.desigEcra} />
-      {renderProdutoUnion(produto)}
+      {renderProdutoView(produto)}
     </>
   );
 }
