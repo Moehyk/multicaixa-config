@@ -11,8 +11,6 @@ export default function McxServicosView() {
   const { id } = useViewStore();
   const { getServico } = useEmpresaStore();
 
-  console.log("id", id);
-
   const servico = getServico(id);
 
   if (!servico) {
