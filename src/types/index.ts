@@ -130,18 +130,20 @@ export type UrlParams = {
   sid: string;
 };
 
+type ProdutoType = ["pagamento", "recargas", "carregamentos"];
+
 export type ProdutoData = Omit<Produto, "type"> &
   (
     | {
-        type: "pagamento";
+        type: ProdutoType[0];
         pagamento: NonNullable<Pagamento>;
       }
     | {
-        type: "recargas";
+        type: ProdutoType[1];
         recargas: NonNullable<Recargas>;
       }
     | {
-        type: "carregamento";
+        type: ProdutoType[2];
         carregamento: NonNullable<Carregamento>;
       }
   );

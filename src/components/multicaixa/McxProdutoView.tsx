@@ -17,7 +17,7 @@ const renderProdutoUnion = (produto: ProdutoData) => {
           designacao={produto.recargas.desigUnidade}
         />
       );
-    case "carregamento":
+    case "carregamentos":
       return <div>Carregamento</div>;
     default:
       const _exhaustiveCheck: never = produto;
