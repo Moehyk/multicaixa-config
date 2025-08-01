@@ -89,8 +89,17 @@ export type ProdutoCarregamentoForm = ProdutoForm & {
   carregamento: Carregamento;
 };
 
+type BaseMontante = {
+  id?: string;
+  montante: number;
+  key?: string;
+};
+
+export type Montante<T extends "descricao" | "quantidade"> = BaseMontante &
+  (T extends "descricao" ? { descricao: string } : { quantidade: number });
+
 export type GridButton = {
-  id: string;
+  id?: string;
   subtitle?: string;
   selectText: string;
   selectSecondarytext?: string;
