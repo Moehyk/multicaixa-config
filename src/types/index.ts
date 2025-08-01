@@ -159,7 +159,7 @@ export type ProdutoFormProps = {
   isSubmitting: boolean;
 };
 
-export type McxDataStore = Pick<Empresa, "desigEcra"> & {
+export type McxDataStore = Pick<DataStore, "desigEcra"> & {
   servicos: ServicoData[];
   produtos: ProdutoData[];
   getServico: (id?: string) => ServicoData | undefined;

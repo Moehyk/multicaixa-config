@@ -1,14 +1,14 @@
 "use client";
 
 import { useMcxDataStore } from "@/context/mcx";
-import type { McxDataStore } from "@/types";
+import type { DataStore } from "@/types";
 
 export default function McxHidrationBoundary({
   children,
   empresa,
 }: {
   children: React.ReactNode;
-  empresa: McxDataStore;
+  empresa: DataStore;
 }) {
   useMcxDataStore().servicos = empresa.servicos;
   useMcxDataStore().produtos = empresa.servicos.flatMap((s) => s.produtos);
