@@ -1,18 +1,18 @@
 "use client";
 
-import { useEmpresaStore, useServicoStore } from "@/context/mcx";
-import type { Entidade, EmpresaMcxStore } from "@/types";
-import type { Empresa } from "@prisma/client";
+import { useMcxDataStore } from "@/context/mcx";
+import type { McxDataStore } from "@/types";
 
 export default function McxHidrationBoundary({
   children,
   empresa,
 }: {
   children: React.ReactNode;
-  empresa: Entidade;
+  empresa: McxDataStore;
 }) {
-  useEmpresaStore().servicos = empresa.servicos;
-  useEmpresaStore().desigEcra = empresa.desigEcra;
+  useMcxDataStore().servicos = empresa.servicos;
+  useMcxDataStore().produtos = empresa.servicos.flatMap((s) => s.produtos);
+  useMcxDataStore().desigEcra = empresa.desigEcra;
 
   return <>{children}</>;
 }
