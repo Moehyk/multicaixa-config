@@ -1,3 +1,5 @@
+import { sortDataArray } from "@/utils/sort-data-array";
+
 import McxContentWrapper from "./McxContentWrapper";
 import McxSelectionView from "./McxSelectionView";
 
@@ -10,12 +12,14 @@ export default function McxRecargas({
   montantes: Montante<"quantidade">[];
   designacao: string;
 }) {
-  const buttons: GridButton[] = montantes.map<GridButton>((montante) => ({
-    id: montante.id,
-    produtoTipo: "recargas",
-    selectText: `${montante.quantidade.toString()} ${designacao}`,
-    selectSecondarytext: `${montante.montante.toString()} Kzs`,
-  }));
+  const buttons: GridButton[] = sortDataArray(montantes).map<GridButton>(
+    (montante) => ({
+      id: montante.id,
+      produtoTipo: "recargas",
+      selectText: `${montante.quantidade.toString()} ${designacao}`,
+      selectSecondarytext: `${montante.montante.toString()} Kzs`,
+    })
+  );
 
   return (
     <McxContentWrapper>
