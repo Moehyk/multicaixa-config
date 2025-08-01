@@ -7,6 +7,24 @@ import {
   UpdateRecargas,
   UpdateCarregamento,
 } from "@/components/produto";
+import type { ProdutoTipo } from "@prisma/client";
+
+const renderProduto = (type: ProdutoTipo, data: any) => {
+  switch (type) {
+    case "pagamento":
+      return <UpdatePagamento {...data} />;
+    case "recargas": {
+      data.recargas.montantes = sortDataArray(data.recargas.montantes);
+      return <UpdateRecargas {...data} />;
+    }
+    case "carregamentos": {
+      data.carregamento.montantes = sortDataArray(data.carregamento.montantes);
+      return <UpdateCarregamento {...data} />;
+    }
+    default:
+      return null;
+  }
+};
 
 export default async function DynamicProdutoPage({
   params,
@@ -21,19 +39,5 @@ export default async function DynamicProdutoPage({
     notFound();
   }
 
-  if (data.type === "pagamento" && data.pagamento) {
-    return <UpdatePagamento {...data} />;
-  }
-
-  if (data.type === "recargas" && data.recargas) {
-    data.recargas.montantes = sortDataArray(data.recargas.montantes);
-
-    return <UpdateRecargas {...data} />;
-  }
-
-  if (data.type === "carregamentos" && data.carregamento) {
-    data.carregamento.montantes = sortDataArray(data.carregamento.montantes);
-
-    return <UpdateCarregamento {...data} />;
-  }
+  return <>{renderProduto(data.type, data)}</>;
 }
