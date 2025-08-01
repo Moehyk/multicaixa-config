@@ -13,9 +13,7 @@ export default function McxServicosView() {
 
   const servico = getServico(id);
 
-  if (!servico) {
-    return <NoMcxView text="Serviço não encontrado." />;
-  }
+  if (!servico) return <NoMcxView text="Serviço não encontrado." />;
 
   const buttons: GridButton[] = servico.produtos.map((p) => ({
     id: p.id,
@@ -25,7 +23,7 @@ export default function McxServicosView() {
 
   return (
     <>
-      <McxScreenText subtext={servico?.desigEcra} />
+      <McxScreenText subtext={servico.desigEcra} />
       <McxContentWrapper>
         {buttons.length === 0 && <NoMcxView text="Sem produtos disponíveis." />}
         {buttons && buttons.length > 0 && (
