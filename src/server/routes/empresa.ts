@@ -9,25 +9,46 @@ import type { EmpresaForm } from "@/types";
 export const empresa = {
   create: async (input: EmpresaForm) => {
     const { data: user } = await getUser();
-    const { id, ...empresaInput } = input;
 
     try {
       validateUser(user);
 
       // 1. Prepare the where clause
-      const where = id
-        ? { id } // For updates
+      const where = input.id
+        ? { id: input.id } // For updates
         : { utilizadorId: user.id }; // For creations
 
       // 2. Perform the upsert
       const empresa = await db.empresa.upsert({
         where,
         create: {
-          ...empresaInput,
           utilizadorId: user.id,
+          cae: input.cae,
+          desigEcra: input.desigEcra,
+          desigTeclaSeleccao: input.desigTeclaSeleccao,
+          nome: input.nome,
+          numeroEntidade: input.numeroEntidade,
+          numeroPessoaColectiva: input.numeroPessoaColectiva,
+          sigla: input.sigla,
+          responsavel: input.responsavel,
+          telefone: input.telefone,
+          email: input.email,
+          morada: input.morada,
+          localidade: input.localidade,
         },
         update: {
-          ...empresaInput,
+          cae: input.cae,
+          desigEcra: input.desigEcra,
+          desigTeclaSeleccao: input.desigTeclaSeleccao,
+          nome: input.nome,
+          numeroEntidade: input.numeroEntidade,
+          numeroPessoaColectiva: input.numeroPessoaColectiva,
+          sigla: input.sigla,
+          responsavel: input.responsavel,
+          telefone: input.telefone,
+          email: input.email,
+          morada: input.morada,
+          localidade: input.localidade,
         },
       });
 
@@ -36,13 +57,13 @@ export const empresa = {
       // 3. Return minimal serializable data
       return {
         status: 200,
-        message: id ? "Empresa atualizada" : "Empresa criada",
+        message: input.id ? "Empresa atualizada" : "Empresa criada",
         data: empresa, // Return only essential data
       };
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          noId: !!id,
+          noId: !!input.id,
           user: user,
         });
 
