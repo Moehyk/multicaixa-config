@@ -1,39 +1,28 @@
-import { getEmpresa } from "@/server/services";
+import { useEmpresaStore, useViewStore } from "@/context/mcx";
 
-import McxHeader from "./McxHeader";
+import McxScreenText from "./McxScreenText";
 import McxContentWrapper from "./McxContentWrapper";
 import McxSelectionView from "./McxSelectionView";
 import NoMcxView from "./NoMcxView";
 
 import type { GridButton } from "@/types";
 
-export default async function McxEmpresaView({}) {
-  const { data } = await getEmpresa();
+export default function McxEmpresaView() {
+  const { desigEcra, servicos } = useEmpresaStore();
 
-  if (!data) {
-    return <NoMcxView dataModel="empresa" />;
-  }
+  console.log("desigEcra", desigEcra);
 
-  const buttons: GridButton[] = [];
+  const buttons: GridButton[] = servicos.map((servico) => ({
+    id: servico.id,
+    selectText: servico.desigTeclaSeleccao,
+    screenText: servico.desigEcra,
+  }));
 
-  if (data) {
-    const { servicos } = data;
-    buttons.push(
-      ...servicos.map((servico) => ({
-        id: servico.id,
-        selectText: servico.desigTeclaSeleccao,
-        screenText: servico.desigEcra,
-        subtitle: "Escolha um produto",
-      }))
-    );
-  }
   return (
     <>
-      <McxHeader desigEcra={data.desigEcra} ecraSecondary="escolher serviço" />
+      <McxScreenText />
       <McxContentWrapper>
-        {(!buttons || buttons.length === 0) && (
-          <NoMcxView dataModel="empresa" />
-        )}
+        {buttons.length === 0 && <NoMcxView text="Sem serviços disponíveis." />}
         {buttons && buttons.length > 0 && (
           <McxSelectionView buttons={buttons} target="servico" isDefault />
         )}

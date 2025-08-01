@@ -91,7 +91,6 @@ export type ProdutoCarregamentoForm = ProdutoForm & {
 
 export type GridButton = {
   id: string;
-  screenText: string;
   subtitle?: string;
   selectText: string;
   selectSecondarytext?: string;
@@ -113,7 +112,7 @@ export type GroupButtons = {
   currentPage: number;
   dispatch: Dispatch<SetStateAction<number>>;
   lastPage?: number;
-  to: (id: string, targetView?: ProdutoTipo) => void;
+  to: (id?: string) => void;
 };
 
 export type UrlParams = {
@@ -155,5 +154,11 @@ export type ProdutoFormProps = {
 };
 
 export type EmpresaMcxStore = Pick<Empresa, "desigEcra"> & {
-  servicos: Servico[];
+  servicos: ServicoWithProdutos[];
+  getServico: (id?: string) => ServicoWithProdutos | undefined;
+};
+
+export type ServicoStore = Pick<Servico, "desigEcra" | "id"> & {
+  produtos: ServicoWithProdutos[];
+  setId: (id?: string) => void;
 };

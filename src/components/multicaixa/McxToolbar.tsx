@@ -1,11 +1,13 @@
 "use client";
 
-import { useRouter, useParams } from "next/navigation";
+import { useViewStore } from "@/context/mcx";
 
 import { Button } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 
 export default function McxToolbar({ close }: { close?: () => void }) {
+  const { setView } = useViewStore();
+
   return (
     <div className="flex justify-end p-2">
       <div className="flex gap-2">
@@ -13,6 +15,7 @@ export default function McxToolbar({ close }: { close?: () => void }) {
           size="compact-sm"
           color="cyan"
           leftSection={<IconX size={16} />}
+          onClick={() => setView("empresa")}
         >
           Reset
         </Button>

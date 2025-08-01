@@ -1,7 +1,7 @@
 "use client";
 
-import { empresaStore } from "@/context/mcx";
-import type { EmpresaMcxStore } from "@/types";
+import { useEmpresaStore, useServicoStore } from "@/context/mcx";
+import type { Entidade, EmpresaMcxStore } from "@/types";
 import type { Empresa } from "@prisma/client";
 
 export default function McxHidrationBoundary({
@@ -9,12 +9,10 @@ export default function McxHidrationBoundary({
   empresa,
 }: {
   children: React.ReactNode;
-  empresa: EmpresaMcxStore;
+  empresa: Entidade;
 }) {
-  console.log("empresa", empresa);
-
-  empresaStore().servicos = empresa.servicos;
-  empresaStore().desigEcra = empresa.desigEcra;
+  useEmpresaStore().servicos = empresa.servicos;
+  useEmpresaStore().desigEcra = empresa.desigEcra;
 
   return <>{children}</>;
 }

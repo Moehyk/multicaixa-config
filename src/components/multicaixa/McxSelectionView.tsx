@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useParams } from "next/navigation";
+import { useViewStore } from "@/context/mcx";
 import { splitArray } from "@/utils/split-array";
 
 import McxSelectBtn from "./McxSelectBtn";
@@ -18,7 +19,7 @@ function OnlyOneGroup({ buttons, to }: GroupButtons) {
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
-          clickHandler={() => to(btn.id, btn.produtoTipo)}
+          clickHandler={() => to(btn.id)}
         />
       ))}
     </>
@@ -41,7 +42,7 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
-              clickHandler={() => to(btn.id, btn.produtoTipo)}
+              clickHandler={() => to(btn.id)}
             />
           ))}
           <McxSelectBtn
@@ -64,7 +65,7 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
-              clickHandler={() => to(btn.id, btn.produtoTipo)}
+              clickHandler={() => to(btn.id)}
             />
           ))}
         </>
@@ -93,7 +94,7 @@ function MultiGroupBetweenPage({
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
-          clickHandler={() => to(btn.id, btn.produtoTipo)}
+          clickHandler={() => to(btn.id)}
         />
       ))}
       {currentPage !== lastPage && (
@@ -116,23 +117,17 @@ export default function McxSelectionView({
   isDefault?: boolean;
   target: Views;
 }) {
+  const { setView } = useViewStore();
+
   const splitButtons = splitArray(buttons, 7, 6);
-  const { push } = useRouter();
   const [currentPage, setCurrentPage] = useState(1);
   const [pageBtns, setPageBtns] = useState<GridButton[]>(
     splitButtons[currentPage - 1]
   );
 
-  const goTo = (id: string, targetView?: ProdutoTipo) => {
-    if (isDefault) {
-      push(`/multicaixa/mcx/${target}/${id}`);
-    } else if (targetView) {
-      console.log(targetView);
-      push(`/multicaixa/mcx/${targetView}/${id}`);
-    } else {
-      console.log("targetView", targetView);
-      console.log(isDefault);
-    }
+  const goTo = (id?: string) => {
+    console.log("id", id);
+    setView(target, id);
   };
 
   useEffect(() => {
