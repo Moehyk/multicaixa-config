@@ -121,10 +121,16 @@ export type UrlParams = {
   sid: string;
 };
 
-export type ServicoWithProdutos = Servico & { produtos: Produto[] };
+export type ProdutoData = Produto & {
+  pagamento: Pagamento;
+  recargas: Recargas;
+  carregamento: Carregamento;
+};
 
-export type Entidade = Empresa & {
-  servicos: ServicoWithProdutos[];
+export type ServicoData = Servico & { produtos: ProdutoData[] };
+
+export type DataStore = Empresa & {
+  servicos: ServicoData[];
 };
 
 export type DataModel =
@@ -153,12 +159,9 @@ export type ProdutoFormProps = {
   isSubmitting: boolean;
 };
 
-export type EmpresaMcxStore = Pick<Empresa, "desigEcra"> & {
-  servicos: ServicoWithProdutos[];
-  getServico: (id?: string) => ServicoWithProdutos | undefined;
-};
-
-export type ServicoStore = Pick<Servico, "desigEcra" | "id"> & {
-  produtos: ServicoWithProdutos[];
-  setId: (id?: string) => void;
+export type McxDataStore = Pick<Empresa, "desigEcra"> & {
+  servicos: ServicoData[];
+  produtos: ProdutoData[];
+  getServico: (id?: string) => ServicoData | undefined;
+  getProduto: (id?: string) => ProdutoData | undefined;
 };
