@@ -4,3 +4,4 @@ export { default as McxToolbar } from "./McxToolbar";
 export { default as McxHidrationBoundary } from "./McxHidrationBoundary";
 export { default as McxEmpresaView } from "./McxEmpresaView";
 export { default as McxServicosView } from "./McxServicosView";
+export { default as McxProdutoView } from "./McxProdutoView";
