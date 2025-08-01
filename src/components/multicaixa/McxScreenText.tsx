@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useEmpresaStore } from "@/context/mcx";
+import { useMcxDataStore } from "@/context/mcx";
 
 export default function McxScreenText({ subtext }: { subtext?: string }) {
-  const { desigEcra } = useEmpresaStore();
+  const { desigEcra } = useMcxDataStore();
 
   return (
     <div className="text-center uppercase text-white flex-1 pt-8">

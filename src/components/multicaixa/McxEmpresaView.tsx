@@ -1,4 +1,4 @@
-import { useEmpresaStore, useViewStore } from "@/context/mcx";
+import { useMcxDataStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import McxContentWrapper from "./McxContentWrapper";
@@ -8,9 +8,7 @@ import NoMcxView from "./NoMcxView";
 import type { GridButton } from "@/types";
 
 export default function McxEmpresaView() {
-  const { desigEcra, servicos } = useEmpresaStore();
-
-  console.log("desigEcra", desigEcra);
+  const { servicos } = useMcxDataStore();
 
   const buttons: GridButton[] = servicos.map((servico) => ({
     id: servico.id,
