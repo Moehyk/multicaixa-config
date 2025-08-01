@@ -130,11 +130,21 @@ export type UrlParams = {
   sid: string;
 };
 
-export type ProdutoData = Produto & {
-  pagamento: Pagamento;
-  recargas: Recargas;
-  carregamento: Carregamento;
-};
+export type ProdutoData = Omit<Produto, "type"> &
+  (
+    | {
+        type: "pagamento";
+        pagamento: NonNullable<Pagamento>;
+      }
+    | {
+        type: "recargas";
+        recargas: NonNullable<Recargas>;
+      }
+    | {
+        type: "carregamento";
+        carregamento: NonNullable<Carregamento>;
+      }
+  );
 
 export type ServicoData = Servico & { produtos: ProdutoData[] };
 
