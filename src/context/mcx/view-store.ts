@@ -1,7 +1,10 @@
 import { create } from "zustand";
-import { useServicoStore } from "./data-store";
 
-import { McxEmpresaView, McxServicosView } from "@/components/multicaixa";
+import {
+  McxEmpresaView,
+  McxServicosView,
+  McxProdutoView,
+} from "@/components/multicaixa";
 
 import type { JSXElementConstructor } from "react";
 import type { Views } from "@/types";
@@ -22,6 +25,9 @@ export const useViewStore = create<ViewStore>((set) => ({
       }
       case "servico": {
         return set({ McxView: McxServicosView, id: id });
+      }
+      case "produto": {
+        return set({ McxView: McxProdutoView, id: id });
       }
       default:
         return set({ McxView: McxEmpresaView });
