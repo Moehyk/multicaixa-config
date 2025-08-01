@@ -19,5 +19,9 @@ export const useServicoStore = create<ServicoStore>((set, get) => ({
     const produtos = get().produtos;
     set({ produtos: produtos.filter((p) => p.id === id) });
   },
+  getProduto: (id?: string) => {
+    const produto = get().produtos.find((p) => p.id === id);
+    return produto;
+  },
   setId: (id?: string) => set({ id }),
 }));
