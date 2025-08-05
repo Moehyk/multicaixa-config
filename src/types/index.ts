@@ -4,89 +4,103 @@ import type {
   Servico,
   Produto,
   ProdutoTipo,
-  MontanteTipo,
+  Pagamento,
+  Recargas,
+  RecaMontante,
+  Carregamento,
+  CarrMontante,
 } from "@prisma/client";
 
-export type EmpresaForm = {
-  id?: string;
-  utilizadorId: string;
-  cae: string;
-  nome: string;
-  numeroPessoaColectiva: string;
-  sigla: string;
-  morada: string;
-  localidade: string;
-  responsavel: string;
-  telefone: string;
-  email: string;
-  numeroEntidade: string;
-  desigEcra: string;
-  desigTeclaSeleccao: string;
-};
+export type EmpresaForm = Pick<
+  Empresa,
+  | "cae"
+  | "nome"
+  | "numeroPessoaColectiva"
+  | "sigla"
+  | "morada"
+  | "localidade"
+  | "responsavel"
+  | "telefone"
+  | "email"
+  | "numeroEntidade"
+  | "desigEcra"
+  | "desigTeclaSeleccao"
+  | "utilizadorId"
+  | "id"
+> &
+  Partial<Pick<Empresa, "id">>;
 
-export type ServicoForm = {
-  id?: string;
-  desigEcra: string;
-  desigTeclaSeleccao: string;
-  desigSistema: string;
-};
+export type ServicoForm = Pick<
+  Servico,
+  "desigEcra" | "desigTeclaSeleccao" | "desigSistema" | "id"
+> &
+  Partial<Pick<Servico, "id">>;
 
-export type ProdutoForm = {
-  id?: string;
-  servicoId?: string;
-  desigEcra: string;
-  desigTeclaSeleccao: string;
-};
+export type ProdutoForm = Pick<
+  Produto,
+  "desigEcra" | "desigTeclaSeleccao" | "servicoId" | "id"
+> &
+  Partial<Pick<Produto, "id" | "servicoId">>;
 
-export type Pagamento = {
-  id?: string;
-  desigReferencia: string;
-  tamanhoReferencia: number;
-  textoEcraReferencia: string;
-  isNew: boolean;
-  montanteMin: number;
-  montanteMax: number;
-} | null;
+export type PagamentoData =
+  | (Pick<
+      Pagamento,
+      | "id"
+      | "montanteMin"
+      | "montanteMax"
+      | "isNew"
+      | "desigReferencia"
+      | "tamanhoReferencia"
+      | "textoEcraReferencia"
+    > &
+      Partial<Pick<Pagamento, "id">>)
+  | null;
 
-export type Recargas = {
-  id?: string;
-  desigUnidade: string;
-  montantes: {
-    id?: string;
-    recargaId?: string;
-    montante: number;
-    quantidade: number;
-    key?: string;
-  }[];
-} | null;
+type RecargasMontante = Pick<
+  RecaMontante,
+  "id" | "montante" | "quantidade" | "recargaId"
+> &
+  Partial<Pick<RecaMontante, "id" | "recargaId">> & { key?: string };
 
-export type Carregamento = {
-  id?: string;
-  desigReferencia: string;
-  tamanhoReferencia: number;
-  textoEcraReferencia: string;
-  montanteTipo: MontanteTipo;
-  montanteMin: number | null;
-  montanteMax: number | null;
-  montantes: {
-    id?: string;
-    carregamentoId?: string;
-    montante: number;
-    descricao: string;
-    key?: string;
-  }[];
-} | null;
+export type RecargasData =
+  | (Pick<Recargas, "desigUnidade" | "id"> &
+      Partial<Pick<Recargas, "id">> & {
+        montantes: RecargasMontante[];
+      })
+  | null;
+
+type CarregamentoMontante = Pick<
+  CarrMontante,
+  "id" | "montante" | "descricao" | "carregamentoId"
+> &
+  Partial<Pick<CarrMontante, "id" | "carregamentoId">> & { key?: string };
+
+export type CarregamentoData =
+  | (Pick<
+      Carregamento,
+      | "desigReferencia"
+      | "tamanhoReferencia"
+      | "textoEcraReferencia"
+      | "montanteTipo"
+      | "id"
+      | "montanteMax"
+      | "montanteMin"
+    > &
+      Partial<Pick<Carregamento, "id">> & {
+        montantes: CarregamentoMontante[];
+      })
+  | null;
 
 export type ProdutoPagamentoForm = ProdutoForm & {
-  pagamento: Pagamento;
+  pagamento: PagamentoData;
 };
 
 export type ProdutoRecargasForm = ProdutoForm & {
-  recargas: Recargas;
+  recargas: RecargasData;
 };
 
 export type ProdutoCarregamentoForm = ProdutoForm & {
-  carregamento: Carregamento;
+  carregamento: CarregamentoData;
 };
 
 type BaseMontante = {
@@ -136,15 +150,15 @@ export type ProdutoData = Omit<Produto, "type"> &
   (
     | {
         type: ProdutoType[0];
-        pagamento: NonNullable<Pagamento>;
+        pagamento: NonNullable<PagamentoData>;
       }
     | {
         type: ProdutoType[1];
-        recargas: NonNullable<Recargas>;
+        recargas: NonNullable<RecargasData>;
       }
     | {
         type: ProdutoType[2];
-        carregamento: NonNullable<Carregamento>;
+        carregamento: NonNullable<CarregamentoData>;
       }
   );
 
