@@ -97,8 +97,8 @@ model Pagamento {
   tamanhoReferencia       Int           @map("tamanho_referencia")
   textoEcraReferencia     String        @map("texto_ecra_referencia")
   isNew                   Boolean       @default(true)                    @map("is_new")
-  montanteMin          Float         @map("montante_minimo")
-  montanteMax          Float         @map("montante_maximo")
+  montanteMin             Float         @map("montante_minimo")
+  montanteMax             Float         @map("montante_maximo")
   produtoId               String        @unique                           @map("produto_id")
   Produto                 Produto       @relation(fields: [produtoId], references: [id], onDelete: Cascade)
 
