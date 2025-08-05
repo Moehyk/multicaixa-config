@@ -10,7 +10,6 @@ import {
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
-  ProdutoData,
 } from "@/types";
 
 export const produto = {
