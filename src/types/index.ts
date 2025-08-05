@@ -38,7 +38,7 @@ export type ProdutoForm = {
   desigTeclaSeleccao: string;
 };
 
-type Pagamento = {
+export type Pagamento = {
   id?: string;
   desigReferencia: string;
   tamanhoReferencia: number;
@@ -48,7 +48,7 @@ type Pagamento = {
   montanteMax: number;
 } | null;
 
-type Recargas = {
+export type Recargas = {
   id?: string;
   desigUnidade: string;
   montantes: {
@@ -60,7 +60,7 @@ type Recargas = {
   }[];
 } | null;
 
-type Carregamento = {
+export type Carregamento = {
   id?: string;
   desigReferencia: string;
   tamanhoReferencia: number;

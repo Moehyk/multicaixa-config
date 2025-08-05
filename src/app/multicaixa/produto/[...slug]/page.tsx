@@ -7,10 +7,11 @@ import {
   UpdateRecargas,
   UpdateCarregamento,
 } from "@/components/produto";
-import type { ProdutoTipo } from "@prisma/client";
 
-const renderProduto = (type: ProdutoTipo, data: any) => {
-  switch (type) {
+import type { ProdutoData } from "@/types";
+
+const renderProduto = (data: ProdutoData) => {
+  switch (data.type) {
     case "pagamento":
       return <UpdatePagamento {...data} />;
     case "recargas": {
@@ -39,5 +40,5 @@ export default async function DynamicProdutoPage({
     notFound();
   }
 
-  return <>{renderProduto(data.type, data)}</>;
+  return <>{renderProduto(data)}</>;
 }

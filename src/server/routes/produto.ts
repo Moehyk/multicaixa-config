@@ -4,11 +4,13 @@ import { db } from "..";
 import { getUser } from "../services";
 
 import { idError, validateUser, processErrors } from "@/utils/errors";
+import { transformProdutoData } from "@/utils/produto-data";
 
 import {
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
+  ProdutoData,
 } from "@/types";
 
 export const produto = {
@@ -549,7 +551,7 @@ export const produto = {
         },
       });
 
-      return { data: produto, status: 200 };
+      return { data: transformProdutoData(produto), status: 200 };
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
