@@ -1,9 +1,9 @@
 import { notFound } from "next/navigation";
-import { getEmpresa } from "@/server/services";
+import { getOnlyEmpresa } from "@/server/services";
 import { EmpresaForm } from "@/components/empresa";
 
 export default async function CriarEmpresaPage() {
-  const { data } = await getEmpresa();
+  const { data } = await getOnlyEmpresa();
 
   if (!data) {
     notFound();

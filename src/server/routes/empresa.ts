@@ -131,4 +131,36 @@ export const empresa = {
       };
     }
   }),
+
+  getOnly: cache(async () => {
+    const { data: user } = await getUser();
+
+    try {
+      validateUser(user);
+
+      const data = await db.empresa.findUnique({
+        where: {
+          utilizadorId: user.id,
+        },
+      });
+
+      return { data, status: 200 };
+    } catch (error) {
+      if (error instanceof Error) {
+        const response = processErrors(error, {
+          noId: !!user.id,
+          user: user,
+        });
+
+        return response!;
+      } else {
+        console.error("Unknown Error Type:", error);
+      }
+      return {
+        status: 500,
+        message: "Ocorreu um erro ao processar sua solicitação",
+        error,
+      };
+    }
+  }),
 };

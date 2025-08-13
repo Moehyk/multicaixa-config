@@ -35,6 +35,12 @@ export const getEmpresa = async () => {
   return response;
 };
 
+export const getOnlyEmpresa = async () => {
+  const response = await empresa.getOnly();
+
+  return response;
+};
+
 export const upsertServico = async (id: string, input: ServicoForm) => {
   if (input.id) {
     return await servico.update(input);
