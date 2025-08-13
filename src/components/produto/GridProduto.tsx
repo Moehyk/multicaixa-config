@@ -1,8 +1,8 @@
 import ProdutoItem from "./ProdutoItem";
 
-import type { Produto } from "@prisma/client";
+import type { ProdutoData } from "@/types";
 
-export default function GridProduto({ produtos }: { produtos: Produto[] }) {
+export default function GridProduto({ produtos }: { produtos: ProdutoData[] }) {
   return (
     <>
       {produtos.map((produto) => (
