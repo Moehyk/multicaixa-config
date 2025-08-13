@@ -8,7 +8,7 @@ import { GridItem } from "@/components";
 import { Badge, ActionIcon, Tooltip } from "@mantine/core";
 import { IconTrash, IconEdit } from "@tabler/icons-react";
 
-import { gridProdutoBadgeColor } from "@/config";
+import { GridProdutosBadgeColor } from "@/config";
 
 import type { Produto, ProdutoTipo } from "@prisma/client";
 
@@ -22,7 +22,7 @@ function ProdutoItemTitle({
   return (
     <>
       <h2 className="font-semibold">{title}</h2>
-      <Badge variant="light" size="sm" color={gridProdutoBadgeColor[type]}>
+      <Badge variant="light" size="sm" color={GridProdutosBadgeColor[type]}>
         {type}
       </Badge>
     </>

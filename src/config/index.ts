@@ -1,4 +1,4 @@
-export const gridProdutoBadgeColor: { [key: string]: string } = {
+export const GridProdutosBadgeColor: { [key: string]: string } = {
   pagamento: "grape",
   carregamentos: "indigo",
   recargas: "teal",

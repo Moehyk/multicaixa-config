@@ -9,5 +9,5 @@ export { default as GridLoading } from "./GridLoading";
 export { default as Loading } from "./Loading";
 
 export { Toolbar } from "./header";
-export { GridServico } from "./servico";
+export { GridServicos } from "./servico";
 export { EmpresaToolbar, EmpresaLoading } from "./empresa";

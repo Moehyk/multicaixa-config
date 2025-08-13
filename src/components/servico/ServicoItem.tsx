@@ -10,8 +10,7 @@ import ServicoModalForm from "./ServicoModalForm";
 import { Card, Collapse, Tooltip, ActionIcon } from "@mantine/core";
 import { IconTrash, IconEdit, IconPlus } from "@tabler/icons-react";
 
-import type { Servico } from "@prisma/client";
-import type { ServicoWithProdutos } from "@/types";
+import type { ServicoData } from "@/types";
 
 function ServicoItemTitle({
   title,
@@ -39,7 +38,13 @@ function ServicoItemTitle({
   );
 }
 
-function ServicoItemActions({ id, servico }: { id: string; servico: Servico }) {
+function ServicoItemActions({
+  id,
+  servico,
+}: {
+  id: string;
+  servico: ServicoData;
+}) {
   const handleEditServico = () =>
     modals.open({
       title: "Editar Serviço",
@@ -116,7 +121,7 @@ export default function ServicoItem({
   servico,
 }: {
   children?: React.ReactNode;
-  servico: ServicoWithProdutos;
+  servico: ServicoData;
 }) {
   const { MotionIcon, openedIcon, opened, motionIcon } = useMotionIcon();
 
