@@ -9,7 +9,7 @@ export default async function MulticaixaPage() {
     return <NoEmpresa />;
   }
 
-  return <Empresa {...empresa} />;
+  return <Empresa id={empresa.id} />;
 }
 
 export const dynamic = "force-dynamic";

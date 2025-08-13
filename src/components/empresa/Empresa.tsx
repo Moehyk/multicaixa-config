@@ -1,9 +1,6 @@
-import { Suspense } from "react";
 import { Grid, GridHeader, GridServico } from "@/components";
 
-import type { Empresa } from "@prisma/client";
-
-export default function Empresa({ id }: Empresa) {
+export default function Empresa({ id }: { id: string }) {
   return (
     <>
       <GridHeader empresaId={id} />
