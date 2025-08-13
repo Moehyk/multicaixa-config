@@ -3,13 +3,14 @@ import { useMcxDataStore, useViewStore } from "@/context/mcx";
 import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
 import McxRecargas from "./McxRecargas";
+import McxPagamento from "./McxPagamento";
 
 import type { ProdutoData } from "@/types";
 
 const renderProdutoView = (produto: ProdutoData) => {
   switch (produto.type) {
     case "pagamento":
-      return <div>Pagamento</div>;
+      return <McxPagamento />;
     case "recargas":
       return (
         <McxRecargas
