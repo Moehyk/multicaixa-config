@@ -4,7 +4,7 @@ import { modals } from "@mantine/modals";
 import { Button } from "@mantine/core";
 import { ServicoModalForm } from "@/components/servico";
 
-export default function GridHeader({ empresaId }: { empresaId: string }) {
+export default function GridHeader({ id }: { id: string }) {
   return (
     <div className="flex justify-between items-center mb-4">
       <div className="flex items-stretch gap-2">
@@ -15,7 +15,7 @@ export default function GridHeader({ empresaId }: { empresaId: string }) {
         onClick={() =>
           modals.open({
             title: "Criar Novo Serviço",
-            children: <ServicoModalForm empresaId={empresaId} />,
+            children: <ServicoModalForm empresaId={id} />,
           })
         }
       >
