@@ -10,7 +10,7 @@ import type { ProdutoData } from "@/types";
 const renderProdutoView = (produto: ProdutoData) => {
   switch (produto.type) {
     case "pagamento":
-      return <McxPagamento />;
+      return <McxPagamento {...produto.pagamento} />;
     case "recargas":
       return (
         <McxRecargas
