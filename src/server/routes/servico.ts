@@ -4,7 +4,7 @@ import { db } from "..";
 import { getUser } from "../services";
 import { idError, validateUser, processErrors } from "@/utils/errors";
 
-import { ServicoForm } from "@/types";
+import { ServicoForm, ServicoData } from "@/types";
 
 export const servico = {
   create: async (id: string, input: ServicoForm) => {
@@ -105,16 +105,16 @@ export const servico = {
         throw idError("servico");
       }
 
-      const servico = await db.servico.findUnique({
+      const data = (await db.servico.findUnique({
         where: {
           id: id,
         },
         include: {
           produtos: true,
         },
-      });
+      })) as ServicoData;
 
-      return { data: servico, status: 200 };
+      return { data, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
@@ -144,16 +144,16 @@ export const servico = {
         throw idError("empresa");
       }
 
-      const servicos = await db.servico.findMany({
+      const data = (await db.servico.findMany({
         where: {
           empresaId: id,
         },
         include: {
           produtos: true,
         },
-      });
+      })) as ServicoData[];
 
-      return { data: servicos, status: 200 };
+      return { data, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {

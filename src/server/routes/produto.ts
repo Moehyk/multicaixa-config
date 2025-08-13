@@ -10,6 +10,7 @@ import {
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
+  ProdutoData,
 } from "@/types";
 
 export const produto = {
@@ -531,7 +532,7 @@ export const produto = {
         throw idError("produto");
       }
 
-      const produto = await db.produto.findUnique({
+      const data = (await db.produto.findUnique({
         where: {
           id: id,
         },
@@ -548,9 +549,9 @@ export const produto = {
             },
           },
         },
-      });
+      })) as ProdutoData;
 
-      return { data: transformProdutoData(produto), status: 200 };
+      return { data, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
@@ -580,7 +581,7 @@ export const produto = {
         throw idError("servico");
       }
 
-      const produtos = await db.produto.findMany({
+      const data = (await db.produto.findMany({
         where: {
           servicoId: id,
         },
@@ -597,9 +598,9 @@ export const produto = {
             },
           },
         },
-      });
+      })) as ProdutoData[];
 
-      return { status: 200, data: produtos };
+      return { status: 200, data };
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {

@@ -4,7 +4,7 @@ import { db } from "..";
 import { getUser } from "../services";
 import { validateUser, processErrors } from "@/utils/errors";
 
-import type { EmpresaForm } from "@/types";
+import type { EmpresaForm, DataStore } from "@/types";
 
 export const empresa = {
   create: async (input: EmpresaForm) => {
@@ -85,7 +85,7 @@ export const empresa = {
     try {
       validateUser(user);
 
-      const data = await db.empresa.findUnique({
+      const data = (await db.empresa.findUnique({
         where: {
           utilizadorId: user.id,
         },
@@ -110,7 +110,8 @@ export const empresa = {
             },
           },
         },
-      });
+      })) as DataStore;
+
       return { data, status: 200 };
     } catch (error) {
       if (error instanceof Error) {
