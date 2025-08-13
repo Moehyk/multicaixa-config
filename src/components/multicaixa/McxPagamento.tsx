@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 
+import McxPagamentoInput from "./McxPagamentoInput";
 import { PinInput, Button } from "@mantine/core";
 
 import type { PagamentoData } from "@/types";
@@ -12,6 +13,7 @@ export default function McxPagamento({
   textoEcraReferencia,
 }: NonNullable<PagamentoData>) {
   const [screen, setScreen] = useState<1 | 2>(1);
+  const [montanteValue, setMontanteValue] = useState<string>("");
 
   return (
     <div className="flex flex-col w-4/5 h-full justify-between mx-auto pb-8">
@@ -19,15 +21,24 @@ export default function McxPagamento({
         <div className="bg-brand-900 w-full mt-20 mb-4 py-16 rounded flex flex-col items-center">
           {screen === 1 && (
             <div className="flex flex-col items-stretch">
-              <label className="text-white font-bold mb-1">
-                {desigReferencia}
-              </label>
+              <p className="text-white font-bold mb-1">{desigReferencia}</p>
               <PinInput
                 length={tamanhoReferencia}
                 inputType="number"
                 placeholder=""
                 gap={4}
                 size="lg"
+                autoFocus
+              />
+            </div>
+          )}
+          {screen === 2 && (
+            <div className="flex flex-col">
+              <p className="text-white font-bold mb-1 text-left">Montante</p>
+              <McxPagamentoInput
+                value={montanteValue}
+                valueLength={8}
+                onChange={setMontanteValue}
               />
             </div>
           )}
