@@ -1,4 +1,5 @@
-import { useMemo, useRef } from "react";
+import { useMemo, useRef, useEffect } from "react";
+import { RE_DIGIT } from "@/constants";
 
 export const useMcxCustomInput = (value: string, valueLength: number) => {
   const inputRefs = useRef<HTMLInputElement[]>([]);
@@ -9,15 +10,18 @@ export const useMcxCustomInput = (value: string, valueLength: number) => {
 
     for (let i = 0; i < valueLength; i++) {
       const char = valueArray[i];
-      if (char.length > 0) {
-        items.push(char);
-      } else {
-        items.push("");
-      }
+      if (RE_DIGIT.test(char)) items.push(char);
+      if (!RE_DIGIT.test(char)) items.push("");
     }
 
     return items;
   }, [value, valueLength]);
+
+  useEffect(() => {
+    if (inputRefs.current[0]) {
+      inputRefs.current[0].focus();
+    }
+  }, []);
 
   return {
     valueItems,
