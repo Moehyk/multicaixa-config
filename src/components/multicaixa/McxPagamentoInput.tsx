@@ -1,17 +1,44 @@
 import { ChangeEvent, FocusEvent, KeyboardEvent, Fragment } from "react";
-import { useMcxCustomInput } from "@/hooks/useMcxCustomInput";
+import { useMcxCustomInput, useInputSeparators } from "@/hooks";
+
 import { RE_DIGIT } from "@/constants";
 
 import { Input } from "@mantine/core";
+
+import { CustomInputValueType } from "@/types";
 import classes from "./PagamentoInput.module.css";
+
+function Separators({
+  index,
+  valueLength,
+  valueType,
+}: {
+  index: number;
+  valueLength: number;
+  valueType: CustomInputValueType;
+}) {
+  const separators = useInputSeparators(valueLength, valueType);
+
+  if (separators[index]) {
+    return (
+      <span className="text-white text-4xl px-2 self-center">
+        {separators[index]}
+      </span>
+    );
+  }
+
+  return null;
+}
 
 export default function McxPagamentoInput({
   onChange,
   value,
   valueLength,
+  valueType,
 }: {
   value: string;
   valueLength: number;
+  valueType: CustomInputValueType;
   onChange: (combinedOtp: string) => void;
 }) {
   const { valueItems, inputRefs } = useMcxCustomInput(value, valueLength);
@@ -85,12 +112,11 @@ export default function McxPagamentoInput({
               wrapper: classes.wrapper,
             }}
           />
-          {i === 1 && (
-            <span className="text-white text-4xl px-2 self-center">,</span>
-          )}
-          {i === 4 && (
-            <span className="text-white text-4xl px-2 self-center">,</span>
-          )}
+          <Separators
+            index={i}
+            valueLength={valueLength}
+            valueType={valueType}
+          />
         </Fragment>
       ))}
     </div>
