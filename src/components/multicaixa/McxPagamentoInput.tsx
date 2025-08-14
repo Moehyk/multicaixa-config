@@ -72,22 +72,17 @@ export default function McxPagamentoInput({
   ) => {
     if (e.key === "Backspace") {
       if (e.currentTarget.value) {
-        const newValue =
-          value.substring(0, index) + " " + value.substring(index + 1);
-        onChange(newValue);
-      } else if (index > 0) {
-        const newValue =
-          value.substring(0, index - 1) + " " + value.substring(index);
-        onChange(newValue);
-        setTimeout(() => inputRefs.current[index - 1]?.focus(), 0);
+        const newValue = [...valueItems];
+        newValue[index] = "";
+        onChange(newValue.join(""));
+      } else if (index < valueLength - 1) {
+        setTimeout(() => inputRefs.current[index + 1]?.focus(), 0);
       }
     }
   };
 
-  const inputOnFocus = (e: FocusEvent<HTMLInputElement>) => {
-    const { target } = e;
-    target.setSelectionRange(0, target.value.length);
-  };
+  const inputOnFocus = (e: FocusEvent<HTMLInputElement>) =>
+    e.target.setSelectionRange(0, e.target.value.length);
 
   return (
     <div className="flex gap-1 items-end">

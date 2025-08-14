@@ -6,22 +6,28 @@ export const useMcxCustomInput = (value: string, valueLength: number) => {
 
   const valueItems = useMemo(() => {
     const valueArray = value.split("");
-    const items: Array<string> = [];
+    console.log("valueArray", valueArray);
+    const items: string[] = Array(valueLength).fill("");
 
-    for (let i = 0; i < valueLength; i++) {
-      const char = valueArray[i];
-      if (RE_DIGIT.test(char)) items.push(char);
-      if (!RE_DIGIT.test(char)) items.push("");
+    for (
+      let i = valueLength - 1, j = valueArray.length - 1;
+      i >= 0 && j >= 0;
+      i--, j--
+    ) {
+      const char = valueArray[j];
+      if (RE_DIGIT.test(char)) {
+        items[i] = char;
+      }
     }
 
     return items;
   }, [value, valueLength]);
 
   useEffect(() => {
-    if (inputRefs.current[0]) {
-      inputRefs.current[0].focus();
-    }
-  }, []);
+    setTimeout(() => {
+      inputRefs.current[valueLength - 1]?.focus();
+    }, 0);
+  }, [valueLength]);
 
   return {
     valueItems,
