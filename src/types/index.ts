@@ -200,3 +200,5 @@ export type McxDataStore = Pick<DataStore, "desigEcra"> & {
   getServico: (id?: string) => ServicoData | undefined;
   getProduto: (id?: string) => ProdutoData | undefined;
 };
+
+export type CustomInputValueType = "REFERENCIA" | "MONTANTE";
