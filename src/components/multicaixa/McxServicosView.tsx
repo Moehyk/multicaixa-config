@@ -15,7 +15,7 @@ export default function McxServicosView() {
 
   if (!servico) return <NoMcxView text="Serviço não encontrado." />;
 
-  const buttons: GridButton[] = servico.produtos.map((p) => ({
+  const buttons: GridButton[] = servico.produtos.map<GridButton>((p) => ({
     id: p.id,
     selectText: p.desigTeclaSeleccao,
     screenText: p.desigEcra,
