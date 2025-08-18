@@ -4,6 +4,7 @@ import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
 import McxRecargas from "./McxRecargas";
 import McxPagamento from "./McxPagamento";
+import McxCarregamentos from "./McxCarregamentos";
 
 import type { ProdutoData } from "@/types";
 
@@ -19,7 +20,7 @@ const renderProdutoView = (produto: ProdutoData) => {
         />
       );
     case "carregamentos":
-      return <div>Carregamento</div>;
+      return <McxCarregamentos {...produto.carregamento} />;
     default:
       const _exhaustiveCheck: never = produto;
       return null;
