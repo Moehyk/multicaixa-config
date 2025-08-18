@@ -1,7 +1,6 @@
 import { useMcxDataStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
-import McxContentWrapper from "./McxContentWrapper";
 import McxSelectionView from "./McxSelectionView";
 import NoMcxView from "./NoMcxView";
 
@@ -19,12 +18,10 @@ export default function McxEmpresaView() {
   return (
     <>
       <McxScreenText />
-      <McxContentWrapper>
-        {buttons.length === 0 && <NoMcxView text="Sem serviços disponíveis." />}
-        {buttons && buttons.length > 0 && (
-          <McxSelectionView buttons={buttons} target="servico" isDefault />
-        )}
-      </McxContentWrapper>
+      {buttons.length === 0 && <NoMcxView text="Sem serviços disponíveis." />}
+      {buttons && buttons.length > 0 && (
+        <McxSelectionView buttons={buttons} target="servico" isDefault />
+      )}
     </>
   );
 }

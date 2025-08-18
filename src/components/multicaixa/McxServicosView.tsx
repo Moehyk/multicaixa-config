@@ -2,7 +2,6 @@ import { useMcxDataStore, useViewStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
-import McxContentWrapper from "./McxContentWrapper";
 import McxSelectionView from "./McxSelectionView";
 
 import type { GridButton } from "@/types";
@@ -24,12 +23,10 @@ export default function McxServicosView() {
   return (
     <>
       <McxScreenText subtext={servico.desigEcra} />
-      <McxContentWrapper>
-        {buttons.length === 0 && <NoMcxView text="Sem produtos disponíveis." />}
-        {buttons && buttons.length > 0 && (
-          <McxSelectionView buttons={buttons} target="produto" isDefault />
-        )}
-      </McxContentWrapper>
+      {buttons.length === 0 && <NoMcxView text="Sem produtos disponíveis." />}
+      {buttons && buttons.length > 0 && (
+        <McxSelectionView buttons={buttons} target="produto" isDefault />
+      )}
     </>
   );
 }

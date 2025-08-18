@@ -21,9 +21,5 @@ export default function McxRecargas({
     })
   );
 
-  return (
-    <McxContentWrapper>
-      <McxSelectionView buttons={buttons} target="end" isDefault />
-    </McxContentWrapper>
-  );
+  return <McxSelectionView buttons={buttons} target="end" isDefault />;
 }
