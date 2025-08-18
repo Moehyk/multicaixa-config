@@ -168,6 +168,16 @@ export type DataStore = Empresa & {
   servicos: ServicoData[];
 };
 
+export type Referencia = Pick<
+  Pagamento,
+  | "desigReferencia"
+  | "tamanhoReferencia"
+  | "textoEcraReferencia"
+  | "montanteMax"
+  | "montanteMin"
+  | "id"
+>;
+
 export type DataModel =
   | "utilizador"
   | "empresa"
