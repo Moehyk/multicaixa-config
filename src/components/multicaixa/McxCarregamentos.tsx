@@ -1,15 +1,22 @@
-import React from "react";
+import { sortDataArray } from "@/utils/sort-data-array";
 
 import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
+import McxSelectionView from "./McxSelectionView";
 
-import type { CarregamentoData, RenderCarregamento } from "@/types";
-import type { MontanteTipo } from "@prisma/client";
-import { m } from "motion/react";
+import type { CarregamentoData, RenderCarregamento, GridButton } from "@/types";
 
 const renderCarregamento = (c: RenderCarregamento) => {
   switch (c.montanteTipo) {
     case "montante_pre_definido": {
-      return <div>Carregamento Multi</div>;
+      const buttons: GridButton[] = sortDataArray(c.montantes).map<GridButton>(
+        (m) => ({
+          id: m.id,
+          produtoTipo: "carregamentos",
+          selectText: `${m.montante.toString()} KZS`,
+          selectSecondarytext: `${m.descricao}`,
+        })
+      );
+      return <McxSelectionView buttons={buttons} target="end" isDefault />;
     }
     case "montante_livre": {
       return (
