@@ -1,14 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter, useParams } from "next/navigation";
 import { useViewStore } from "@/context/mcx";
 import { splitArray } from "@/utils/split-array";
 
+import McxContentWrapper from "./McxContentWrapper";
 import McxSelectBtn from "./McxSelectBtn";
 
 import type { GridButton, GroupButtons, Views } from "@/types";
-import { ProdutoTipo } from "@prisma/client";
 
 function OnlyOneGroup({ buttons, to }: GroupButtons) {
   return (
@@ -135,36 +134,38 @@ export default function McxSelectionView({
   }, [currentPage]);
 
   return (
-    <div className="w-full grid grid-cols-2 gap-8">
-      {buttons.length < 9 && pageBtns.length <= 8 && (
-        <OnlyOneGroup
-          buttons={pageBtns}
-          currentPage={currentPage}
-          dispatch={setCurrentPage}
-          to={goTo}
-        />
-      )}
-      {buttons.length >= 9 && (
-        <>
-          {pageBtns.length > 6 && (
-            <MultiGroupFirstOrLastPage
-              buttons={pageBtns}
-              currentPage={currentPage}
-              dispatch={setCurrentPage}
-              to={goTo}
-            />
-          )}
-          {pageBtns.length <= 6 && (
-            <MultiGroupBetweenPage
-              buttons={pageBtns}
-              currentPage={currentPage}
-              dispatch={setCurrentPage}
-              lastPage={splitButtons.length}
-              to={goTo}
-            />
-          )}
-        </>
-      )}
-    </div>
+    <McxContentWrapper>
+      <div className="w-full grid grid-cols-2 gap-8">
+        {buttons.length < 9 && pageBtns.length <= 8 && (
+          <OnlyOneGroup
+            buttons={pageBtns}
+            currentPage={currentPage}
+            dispatch={setCurrentPage}
+            to={goTo}
+          />
+        )}
+        {buttons.length >= 9 && (
+          <>
+            {pageBtns.length > 6 && (
+              <MultiGroupFirstOrLastPage
+                buttons={pageBtns}
+                currentPage={currentPage}
+                dispatch={setCurrentPage}
+                to={goTo}
+              />
+            )}
+            {pageBtns.length <= 6 && (
+              <MultiGroupBetweenPage
+                buttons={pageBtns}
+                currentPage={currentPage}
+                dispatch={setCurrentPage}
+                lastPage={splitButtons.length}
+                to={goTo}
+              />
+            )}
+          </>
+        )}
+      </div>
+    </McxContentWrapper>
   );
 }
