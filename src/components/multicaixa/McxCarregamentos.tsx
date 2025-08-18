@@ -1,28 +1,37 @@
 import React from "react";
 
-import type { CarregamentoData } from "@/types";
-import type { MontanteTipo } from "@prisma/client";
+import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
 
-const renderCarregamento = (montanteTipo: MontanteTipo) => {
-  switch (montanteTipo) {
+import type { CarregamentoData, RenderCarregamento } from "@/types";
+import type { MontanteTipo } from "@prisma/client";
+import { m } from "motion/react";
+
+const renderCarregamento = (c: RenderCarregamento) => {
+  switch (c.montanteTipo) {
     case "montante_pre_definido": {
       return <div>Carregamento Multi</div>;
     }
     case "montante_livre": {
-      return <div>Carregamento Livre</div>;
+      return (
+        <McxReferenciaMontanteView
+          desigReferencia={c.desigReferencia}
+          tamanhoReferencia={c.tamanhoReferencia}
+          textoEcraReferencia={c.textoEcraReferencia}
+          montanteMax={c.montanteMax}
+          montanteMin={c.montanteMin}
+          id={c.id}
+        />
+      );
     }
     case "ambos": {
       return <div>Carregamento Ambos</div>;
     }
     default:
-      const _exhaustiveCheck: never = montanteTipo;
+      const _exhaustiveCheck: never = c;
       return null;
   }
 };
 
-export default function McxCarregamentos({
-  desigReferencia,
-  montanteTipo,
-}: NonNullable<CarregamentoData>) {
-  return <div>{renderCarregamento(montanteTipo)}</div>;
+export default function McxCarregamentos(props: NonNullable<CarregamentoData>) {
+  return <>{renderCarregamento(props as RenderCarregamento)}</>;
 }
