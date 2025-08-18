@@ -169,7 +169,7 @@ export type DataStore = Empresa & {
 };
 
 export type Referencia = Pick<
-  Pagamento,
+  Carregamento,
   | "desigReferencia"
   | "tamanhoReferencia"
   | "textoEcraReferencia"
@@ -177,6 +177,19 @@ export type Referencia = Pick<
   | "montanteMin"
   | "id"
 >;
+
+export type RenderCarregamento =
+  | ({
+      montanteTipo: "montante_livre";
+    } & Referencia)
+  | {
+      montanteTipo: "montante_pre_definido";
+      montantes: CarrMontante[];
+    }
+  | ({
+      montanteTipo: "ambos";
+      montantes: Omit<CarrMontante, "createdAt" | "updatedAt">[];
+    } & Referencia);
 
 export type DataModel =
   | "utilizador"
