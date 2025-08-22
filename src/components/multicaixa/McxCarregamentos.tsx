@@ -3,6 +3,7 @@ import { sortDataArray } from "@/utils/sort-data-array";
 import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
 import McxSelectionView from "./McxSelectionView";
 import McxCarregamentoPre from "./McxCarregamentoPre";
+import McxCarregamentoFree from "./McxCarregamentoFree";
 
 import type { CarregamentoData, RenderCarregamento, GridButton } from "@/types";
 
@@ -12,16 +13,7 @@ const renderCarregamento = (c: RenderCarregamento) => {
       return <McxCarregamentoPre montantes={c.montantes} />;
     }
     case "montante_livre": {
-      return (
-        <McxReferenciaMontanteView
-          desigReferencia={c.desigReferencia}
-          tamanhoReferencia={c.tamanhoReferencia}
-          textoEcraReferencia={c.textoEcraReferencia}
-          montanteMax={c.montanteMax}
-          montanteMin={c.montanteMin}
-          id={c.id}
-        />
-      );
+      return <McxCarregamentoFree {...c} />;
     }
     case "ambos": {
       const buttons: GridButton[] = sortDataArray(c.montantes).map<GridButton>(
