@@ -2,14 +2,10 @@ import { sortDataArray } from "@/utils/sort-data-array";
 
 import McxSelectionView from "./McxSelectionView";
 
-import type { GridButton, Montante } from "@/types";
+import type { GridButton, CarregamentoPre } from "@/types";
 
-export default function McxCarregamentoPre({
-  montantes,
-}: {
-  montantes: Montante<"descricao">[];
-}) {
-  const buttons: GridButton[] = sortDataArray(montantes).map<GridButton>(
+export default function McxCarregamentoPre(props: CarregamentoPre) {
+  const buttons: GridButton[] = sortDataArray(props.montantes).map<GridButton>(
     (m) => ({
       id: m.id,
       produtoTipo: "carregamentos",

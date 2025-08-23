@@ -1,7 +1,7 @@
 import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
 
-import type { Referencia } from "@/types";
+import type { CarregamentoFree } from "@/types";
 
-export default function McxCarregamentoFree(props: Referencia) {
+export default function McxCarregamentoFree(props: CarregamentoFree) {
   return <McxReferenciaMontanteView {...props} />;
 }
