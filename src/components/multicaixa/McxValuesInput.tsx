@@ -6,7 +6,7 @@ import { RE_DIGIT } from "@/constants";
 import { Input } from "@mantine/core";
 
 import { CustomInputValueType } from "@/types";
-import classes from "./PagamentoInput.module.css";
+import classes from "./ValuesInput.module.css";
 
 function Separators({
   index,
@@ -30,7 +30,7 @@ function Separators({
   return null;
 }
 
-export default function McxPagamentoInput({
+export default function McxValuesInput({
   onChange,
   value,
   valueLength,
@@ -85,35 +85,39 @@ export default function McxPagamentoInput({
     e.target.setSelectionRange(0, e.target.value.length);
 
   return (
-    <div className="flex gap-1 items-end">
-      {valueItems.map((value, i) => (
-        <Fragment key={`keyOfIndex-${i}`}>
-          <Input
-            type="text"
-            size="lg"
-            pattern="\d{1}"
-            maxLength={valueLength}
-            inputMode="numeric"
-            autoComplete="one-time-code"
-            value={value}
-            ref={(el) => {
-              if (el) inputRefs.current[i] = el;
-            }}
-            onChange={(e) => inputOnChange(e, i)}
-            onKeyDown={(e) => inputOnKeyDown(e, i)}
-            onFocus={inputOnFocus}
-            classNames={{
-              input: classes.input,
-              wrapper: classes.wrapper,
-            }}
-          />
-          <Separators
-            index={i}
-            valueLength={valueLength}
-            valueType={valueType}
-          />
-        </Fragment>
-      ))}
+    <div className="bg-brand-900 w-full  mb-4 py-12 rounded flex flex-col items-center">
+      <div className="flex flex-col items-stretch">
+        <div className="flex gap-1 items-end">
+          {valueItems.map((value, i) => (
+            <Fragment key={`keyOfIndex-${i}`}>
+              <Input
+                type="text"
+                size="lg"
+                pattern="\d{1}"
+                maxLength={valueLength}
+                inputMode="numeric"
+                autoComplete="one-time-code"
+                value={value}
+                ref={(el) => {
+                  if (el) inputRefs.current[i] = el;
+                }}
+                onChange={(e) => inputOnChange(e, i)}
+                onKeyDown={(e) => inputOnKeyDown(e, i)}
+                onFocus={inputOnFocus}
+                classNames={{
+                  input: classes.input,
+                  wrapper: classes.wrapper,
+                }}
+              />
+              <Separators
+                index={i}
+                valueLength={valueLength}
+                valueType={valueType}
+              />
+            </Fragment>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

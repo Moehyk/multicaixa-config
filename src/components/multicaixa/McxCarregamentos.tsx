@@ -1,30 +1,22 @@
 import { sortDataArray } from "@/utils/sort-data-array";
 
-import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
 import McxSelectionView from "./McxSelectionView";
 import McxCarregamentoPre from "./McxCarregamentoPre";
 import McxCarregamentoFree from "./McxCarregamentoFree";
+import McxCarregamentoBoth from "./McxCarregamentoBoth";
 
 import type { CarregamentoData, RenderCarregamento, GridButton } from "@/types";
 
 const renderCarregamento = (c: RenderCarregamento) => {
   switch (c.montanteTipo) {
     case "montante_pre_definido": {
-      return <McxCarregamentoPre montantes={c.montantes} />;
+      return <McxCarregamentoPre {...c} />;
     }
     case "montante_livre": {
       return <McxCarregamentoFree {...c} />;
     }
     case "ambos": {
-      const buttons: GridButton[] = sortDataArray(c.montantes).map<GridButton>(
-        (m) => ({
-          id: m.id,
-          produtoTipo: "carregamentos",
-          selectText: `${m.montante.toString()} KZS`,
-          selectSecondarytext: `${m.descricao}`,
-        })
-      );
-      return <McxSelectionView buttons={buttons} target="end" />;
+      return <McxCarregamentoBoth {...c} />;
     }
     default:
       const _exhaustiveCheck: never = c;
