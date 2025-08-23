@@ -1,6 +1,5 @@
 import { sortDataArray } from "@/utils/sort-data-array";
 
-import McxContentWrapper from "./McxContentWrapper";
 import McxSelectionView from "./McxSelectionView";
 
 import type { GridButton, Montante } from "@/types";

@@ -1,5 +1,3 @@
-import React from "react";
-
 import { useMcxDataStore } from "@/context/mcx";
 
 export default function McxScreenText({ subtext }: { subtext?: string }) {

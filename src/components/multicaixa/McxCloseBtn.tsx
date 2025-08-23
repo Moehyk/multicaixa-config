@@ -1,6 +1,6 @@
 import { modals } from "@mantine/modals";
 
-import { Button, ActionIcon } from "@mantine/core";
+import { ActionIcon } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 
 export default function McxCloseBtn() {

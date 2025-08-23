@@ -1,9 +1,9 @@
 "use client";
+
 import { useDisclosure } from "@mantine/hooks";
 import { useViewStore } from "@/context/mcx";
 
 import McxToolbar from "./McxToolbar";
-import McxEmpresaView from "./McxEmpresaView";
 import { Modal, Button } from "@mantine/core";
 import { IconDeviceDesktop } from "@tabler/icons-react";
 

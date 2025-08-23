@@ -1,4 +1,3 @@
-import React from "react";
 import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
 
 import type { PagamentoData } from "@/types";
