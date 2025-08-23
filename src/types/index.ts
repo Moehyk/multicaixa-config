@@ -178,18 +178,24 @@ export type Referencia = Pick<
   | "id"
 >;
 
+export type CarregamentoFree = {
+  montanteTipo: "montante_livre";
+} & Referencia;
+
+export type CarregamentoPre = {
+  montanteTipo: "montante_pre_definido";
+  montantes: CarrMontante[];
+};
+
+export type CarregamentoBoth = {
+  montanteTipo: "ambos";
+  montantes: Omit<CarrMontante, "createdAt" | "updatedAt">[];
+} & Referencia;
+
 export type RenderCarregamento =
-  | ({
-      montanteTipo: "montante_livre";
-    } & Referencia)
-  | {
-      montanteTipo: "montante_pre_definido";
-      montantes: CarrMontante[];
-    }
-  | ({
-      montanteTipo: "ambos";
-      montantes: Omit<CarrMontante, "createdAt" | "updatedAt">[];
-    } & Referencia);
+  | CarregamentoPre
+  | CarregamentoFree
+  | CarregamentoBoth;
 
 export type DataModel =
   | "utilizador"
