@@ -1,17 +1,7 @@
 "use client";
 
-import { useContext, createContext } from "react";
-
 import McxInputs from "./McxInputs";
 import { Button } from "@mantine/core";
-
-const McxInputContext = createContext<{
-  onContinue: () => void;
-  onCancel: () => void;
-}>({
-  onContinue: () => {},
-  onCancel: () => {},
-});
 
 function Title({ title }: { title: string }) {
   return (
