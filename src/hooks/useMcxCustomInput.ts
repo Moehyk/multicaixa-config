@@ -6,7 +6,6 @@ export const useMcxCustomInput = (value: string, valueLength: number) => {
 
   const valueItems = useMemo(() => {
     const valueArray = value.split("");
-    console.log("valueArray", valueArray);
     const items: string[] = Array(valueLength).fill("");
 
     for (
