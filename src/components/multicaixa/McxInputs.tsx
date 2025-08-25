@@ -6,7 +6,7 @@ import { RE_DIGIT } from "@/constants";
 import { Input } from "@mantine/core";
 
 import { CustomInputValueType } from "@/types";
-import classes from "./ValuesInput.module.css";
+import classes from "./Inputs.module.css";
 
 function Separators({
   index,
@@ -30,7 +30,7 @@ function Separators({
   return null;
 }
 
-export default function McxValuesInput({
+export default function McxInputs({
   onChange,
   value,
   valueLength,

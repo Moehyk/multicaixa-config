@@ -2,8 +2,7 @@
 
 import { useState } from "react";
 
-import McxInputWrapper from "./McxInputWrapper";
-import McxInput from "./McxInput";
+import McxInputsView from "./McxInputsView";
 
 import type { PagamentoData } from "@/types";
 
@@ -17,35 +16,28 @@ export default function McxReferenciaMontanteView({
   const [montanteValue, setMontanteValue] = useState("");
 
   return (
-    <McxInputWrapper
+    <McxInputsView
       onCancel={() => setScreen(1)}
       onContinue={() => setScreen(2)}
     >
-      <McxInput>
-        {screen === 1 && (
-          <>
-            <McxInput.Title title={desigReferencia} />
-            <McxInput.Input
-              value={referenciaValue}
-              valueLength={tamanhoReferencia}
-              valueType="REFERENCIA"
-              onChange={setReferenciaValue}
-            />
-          </>
-        )}
-        {screen === 2 && (
-          <>
-            <McxInput.Title title="Introduza o Montante Pretendido" />
-            <McxInput.Input
-              value={montanteValue}
-              valueLength={10}
-              valueType="MONTANTE"
-              onChange={setMontanteValue}
-            />
-          </>
-        )}
-        <McxInput.Text text={textoEcraReferencia} />
-      </McxInput>
-    </McxInputWrapper>
+      <McxInputsView.Title title={desigReferencia} />
+      {screen === 1 && (
+        <McxInputsView.Inputs
+          value={referenciaValue}
+          valueLength={tamanhoReferencia}
+          valueType="REFERENCIA"
+          onChange={setReferenciaValue}
+        />
+      )}
+      {screen === 2 && (
+        <McxInputsView.Inputs
+          value={montanteValue}
+          valueLength={10}
+          valueType="MONTANTE"
+          onChange={setMontanteValue}
+        />
+      )}
+      <McxInputsView.Text text={textoEcraReferencia} />
+    </McxInputsView>
   );
 }
