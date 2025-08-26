@@ -9,3 +9,5 @@ export const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+export { renderMontanteText } from "./render-montante-text";
