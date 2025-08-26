@@ -5,7 +5,7 @@ import { RE_DIGIT } from "@/constants";
 
 import { Input } from "@mantine/core";
 
-import { CustomInputValueType } from "@/types";
+import { CustomInputValueType, McxInputsProps } from "@/types";
 import classes from "./Inputs.module.css";
 
 function Separators({
@@ -35,12 +35,7 @@ export default function McxInputs({
   value,
   valueLength,
   valueType,
-}: {
-  value: string;
-  valueLength: number;
-  valueType: CustomInputValueType;
-  onChange: (combinedOtp: string) => void;
-}) {
+}: McxInputsProps) {
   const { valueItems, inputRefs } = useMcxCustomInput(value, valueLength);
 
   const inputOnChange = (e: ChangeEvent<HTMLInputElement>, idx: number) => {

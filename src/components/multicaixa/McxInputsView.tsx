@@ -17,7 +17,7 @@ function Text({ text }: { text: string }) {
   );
 }
 
-export default function McxInput({
+export default function McxInputsView({
   children,
   onCancel,
   onContinue,
@@ -41,6 +41,6 @@ export default function McxInput({
   );
 }
 
-McxInput.Title = Title;
-McxInput.Text = Text;
-McxInput.Inputs = McxInputs;
+McxInputsView.Title = Title;
+McxInputsView.Text = Text;
+McxInputsView.Inputs = McxInputs;

@@ -3,41 +3,35 @@
 import { useState } from "react";
 
 import McxInputsView from "./McxInputsView";
+import McxInput from "./McxInput";
 
-import type { PagamentoData } from "@/types";
+import type { PagamentoData, Referencia } from "@/types";
 
 export default function McxReferenciaMontanteView({
   desigReferencia,
   tamanhoReferencia,
   textoEcraReferencia,
-}: NonNullable<PagamentoData>) {
+  montanteMin,
+  montanteMax,
+}: Referencia) {
   const [screen, setScreen] = useState<1 | 2>(1);
-  const [referenciaValue, setReferenciaValue] = useState("");
-  const [montanteValue, setMontanteValue] = useState("");
 
   return (
     <McxInputsView
       onCancel={() => setScreen(1)}
       onContinue={() => setScreen(2)}
     >
-      <McxInputsView.Title title={desigReferencia} />
       {screen === 1 && (
-        <McxInputsView.Inputs
-          value={referenciaValue}
-          valueLength={tamanhoReferencia}
+        <McxInput
           valueType="REFERENCIA"
-          onChange={setReferenciaValue}
+          tamanhoReferencia={tamanhoReferencia}
+          desigReferencia={desigReferencia}
+          textoEcraReferencia={textoEcraReferencia}
         />
       )}
       {screen === 2 && (
-        <McxInputsView.Inputs
-          value={montanteValue}
-          valueLength={10}
-          valueType="MONTANTE"
-          onChange={setMontanteValue}
-        />
+        <McxInput valueType="MONTANTE" min={montanteMin!} max={montanteMax!} />
       )}
-      <McxInputsView.Text text={textoEcraReferencia} />
     </McxInputsView>
   );
 }

@@ -231,3 +231,25 @@ export type McxDataStore = Pick<DataStore, "desigEcra"> & {
 };
 
 export type CustomInputValueType = "REFERENCIA" | "MONTANTE";
+
+export type McxInputsProps = {
+  value: string;
+  valueLength: number;
+  valueType: CustomInputValueType;
+  onChange: (combinedOtp: string) => void;
+};
+
+export type MontanteInputProps = {
+  valueType: "MONTANTE";
+  min: number;
+  max: number;
+};
+
+export type ReferenciaInputProps = {
+  valueType: "REFERENCIA";
+  tamanhoReferencia: number;
+  textoEcraReferencia: string;
+  desigReferencia: string;
+};
+
+export type McxInputProps = MontanteInputProps | ReferenciaInputProps;
