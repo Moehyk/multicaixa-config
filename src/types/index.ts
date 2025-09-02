@@ -31,6 +31,7 @@ export type {
   DataStore,
   McxDataStore,
   ViewsStore,
+  ViewEndStoreData,
   ViewEndStore,
 } from "./stores";
 

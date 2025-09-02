@@ -20,9 +20,16 @@ export type ViewsStore = {
   setView: (view: Views, id?: string) => void;
 };
 
-export type ViewEndStore = {
+export type ViewEndStoreData = {
   ecraTexto: string;
   montante: number;
   unidades?: string;
   referencia?: string;
+};
+
+export type ViewEndStore = ViewEndStoreData & {
+  setMontante: (montante: number) => void;
+  setEcraTexto: (ecraTexto: string) => void;
+  setUnidades: (unidades: string) => void;
+  setReferencia: (referencia: string) => void;
 };
