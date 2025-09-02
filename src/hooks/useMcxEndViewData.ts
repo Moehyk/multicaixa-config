@@ -16,7 +16,7 @@ export const useMcxEndViewReferenciaData = () => {
   };
 };
 
-export const usemcxEndViewMontanteData = () => {
+export const useMcxEndViewMontanteData = () => {
   const { setMontante } = useEndStore();
   const [montanteValue, setMontanteValue] = useState("");
 

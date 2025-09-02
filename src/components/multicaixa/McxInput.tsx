@@ -2,7 +2,7 @@
 
 import {
   useMcxEndViewReferenciaData,
-  usemcxEndViewMontanteData,
+  useMcxEndViewMontanteData,
 } from "@/hooks/useMcxEndViewData";
 import { renderMontanteText } from "@/utils";
 
@@ -37,7 +37,7 @@ function ReferenciaInput({
 }
 
 function MontanteInput({ min, max }: MontanteInputProps) {
-  const { montanteValue, onMontanteValueChange } = usemcxEndViewMontanteData();
+  const { montanteValue, onMontanteValueChange } = useMcxEndViewMontanteData();
 
   return (
     <>
