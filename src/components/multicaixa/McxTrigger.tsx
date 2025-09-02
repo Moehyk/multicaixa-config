@@ -1,7 +1,7 @@
 "use client";
 
 import { useDisclosure } from "@mantine/hooks";
-import { useViewStore } from "@/context/mcx";
+import { useViewsStore } from "@/context/mcx";
 
 import McxToolbar from "./McxToolbar";
 import { Modal, Button } from "@mantine/core";
@@ -9,7 +9,7 @@ import { IconDeviceDesktop } from "@tabler/icons-react";
 
 export default function McxTrigger() {
   const [opened, { open, close }] = useDisclosure(false);
-  const { McxView } = useViewStore();
+  const { McxView } = useViewsStore();
 
   return (
     <>

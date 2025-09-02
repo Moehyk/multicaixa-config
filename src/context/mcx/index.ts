@@ -1,2 +1,2 @@
 export { useMcxDataStore } from "./data-store";
-export { useViewStore } from "./view-store";
+export { useViewsStore } from "./view-store";

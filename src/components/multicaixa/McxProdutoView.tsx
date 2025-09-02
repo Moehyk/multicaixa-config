@@ -1,4 +1,4 @@
-import { useMcxDataStore, useViewStore } from "@/context/mcx";
+import { useMcxDataStore, useViewsStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
@@ -28,7 +28,7 @@ const renderProdutoView = (produto: ProdutoData) => {
 };
 
 export default function McxProdutoView() {
-  const { id } = useViewStore();
+  const { id } = useViewsStore();
   const { getProduto } = useMcxDataStore();
   const produto = getProduto(id);
 

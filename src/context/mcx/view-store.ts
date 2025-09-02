@@ -7,15 +7,9 @@ import {
 } from "@/components/multicaixa";
 
 import type { JSXElementConstructor } from "react";
-import type { Views } from "@/types";
+import type { Views, ViewsStore } from "@/types";
 
-type ViewStore = {
-  id?: string;
-  McxView: JSXElementConstructor<any>;
-  setView: (view: Views, id?: string) => void;
-};
-
-export const useViewStore = create<ViewStore>((set) => ({
+export const useViewsStore = create<ViewsStore>((set) => ({
   id: "",
   McxView: McxEmpresaView,
   setView: (view: Views, id?: string) => {

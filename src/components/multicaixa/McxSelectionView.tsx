@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useViewStore } from "@/context/mcx";
+import { useViewsStore } from "@/context/mcx";
 import { splitArray } from "@/utils/split-array";
 
 import McxContentWrapper from "./McxContentWrapper";
@@ -132,7 +132,7 @@ export default function McxSelectionView({
   hasFreeAmount?: boolean;
   toFreeAmount?: () => void;
 }) {
-  const { setView } = useViewStore();
+  const { setView } = useViewsStore();
 
   const splitButtons = splitArray(buttons, 7, 6);
   const [currentPage, setCurrentPage] = useState(1);

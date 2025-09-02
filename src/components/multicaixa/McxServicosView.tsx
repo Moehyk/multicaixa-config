@@ -1,4 +1,4 @@
-import { useMcxDataStore, useViewStore } from "@/context/mcx";
+import { useMcxDataStore, useViewsStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
@@ -7,7 +7,7 @@ import McxSelectionView from "./McxSelectionView";
 import type { GridButton } from "@/types";
 
 export default function McxServicosView() {
-  const { id } = useViewStore();
+  const { id } = useViewsStore();
   const { getServico } = useMcxDataStore();
 
   const servico = getServico(id);
