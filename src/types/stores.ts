@@ -22,13 +22,13 @@ export type ViewsStore = {
 
 export type ViewEndStoreData = {
   ecraTexto: string;
-  montante: number;
+  montante: string;
   unidades?: string;
   referencia?: string;
 };
 
 export type ViewEndStore = ViewEndStoreData & {
-  setMontante: (montante: number) => void;
+  setMontante: (montante: string) => void;
   setEcraTexto: (ecraTexto: string) => void;
   setUnidades: (unidades: string) => void;
   setReferencia: (referencia: string) => void;
