@@ -22,7 +22,7 @@ export const useMcxEndViewMontanteData = () => {
 
   const onMontanteValueChange = (value: string) => {
     setMontanteValue(value);
-    setMontante(value);
+    setMontante(`${value} Kzs`);
   };
 
   return {
