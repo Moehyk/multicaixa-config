@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useViewsStore } from "@/context/mcx";
 import { createGridButtons } from "@/utils/create-grid-buttons";
 
 import McxInputsView from "./McxInputsView";
@@ -15,6 +16,7 @@ function CarregamentoMontantes({
   montantes,
   ...props
 }: NonNullable<CarregamentoData>) {
+  const { setView } = useViewsStore();
   const [screen, setScreen] = useState<McxScreensType>(1);
 
   const buttons: GridButton[] = createGridButtons(montantes);
@@ -54,7 +56,7 @@ function CarregamentoMontantes({
       {screen === 3 && (
         <McxInputsView
           onCancel={() => setScreen(1)}
-          onContinue={() => setScreen(nextScreen)}
+          onContinue={() => setView("end")}
         >
           <McxInput
             valueType="MONTANTE"

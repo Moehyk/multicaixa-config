@@ -4,9 +4,9 @@ import {
   McxEmpresaView,
   McxServicosView,
   McxProdutoView,
+  McxEndView,
 } from "@/components/multicaixa";
 
-import type { JSXElementConstructor } from "react";
 import type { Views, ViewsStore } from "@/types";
 
 export const useViewsStore = create<ViewsStore>((set) => ({
@@ -22,6 +22,9 @@ export const useViewsStore = create<ViewsStore>((set) => ({
       }
       case "produto": {
         return set({ McxView: McxProdutoView, id: id });
+      }
+      case "end": {
+        return set({ McxView: McxEndView });
       }
       default:
         return set({ McxView: McxEmpresaView });
