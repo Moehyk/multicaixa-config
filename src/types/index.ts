@@ -114,10 +114,8 @@ export type Montante<T extends "descricao" | "quantidade"> = BaseMontante &
 
 export type GridButton = {
   id?: string;
-  subtitle?: string;
   selectText: string;
   selectSecondarytext?: string;
-  produtoTipo?: ProdutoTipo;
 };
 
 export type Views =
@@ -136,6 +134,8 @@ export type GroupButtons = {
   dispatch: Dispatch<SetStateAction<number>>;
   lastPage?: number;
   to: (id?: string) => void;
+  isFreeAmount?: boolean;
+  toFreeAmount: () => void;
 };
 
 export type UrlParams = {
@@ -253,3 +253,5 @@ export type ReferenciaInputProps = {
 };
 
 export type McxInputProps = MontanteInputProps | ReferenciaInputProps;
+
+export type McxScreensType = 1 | 2 | 3;
