@@ -1,12 +1,13 @@
 "use client";
 
-import { useViewsStore } from "@/context/mcx";
+import { useViewsStore, useEndStore } from "@/context/mcx";
 
 import { Button } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 
 export default function McxToolbar({ close }: { close?: () => void }) {
   const { setView } = useViewsStore();
+  const { resetEndStore } = useEndStore();
 
   return (
     <div className="flex justify-end p-2">
@@ -15,7 +16,10 @@ export default function McxToolbar({ close }: { close?: () => void }) {
           size="compact-sm"
           color="cyan"
           leftSection={<IconX size={16} />}
-          onClick={() => setView("empresa")}
+          onClick={() => {
+            resetEndStore();
+            setView("empresa");
+          }}
         >
           Reset
         </Button>
