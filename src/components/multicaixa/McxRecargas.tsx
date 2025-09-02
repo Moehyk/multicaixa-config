@@ -13,5 +13,5 @@ export default function McxRecargas({
 }) {
   const buttons: GridButton[] = createGridButtons(montantes, designacao);
 
-  return <McxSelectionView buttons={buttons} target="end" isDefault />;
+  return <McxSelectionView buttons={buttons} target="end" />;
 }

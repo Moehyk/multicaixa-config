@@ -121,13 +121,11 @@ function MultiGroupBetweenPage({
 
 export default function McxSelectionView({
   buttons,
-  isDefault,
   target,
   hasFreeAmount,
   toFreeAmount = () => {},
 }: {
   buttons: GridButton[];
-  isDefault?: boolean;
   target: Views;
   hasFreeAmount?: boolean;
   toFreeAmount?: () => void;

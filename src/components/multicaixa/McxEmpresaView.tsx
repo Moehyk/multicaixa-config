@@ -20,7 +20,7 @@ export default function McxEmpresaView() {
       <McxScreenText />
       {buttons.length === 0 && <NoMcxView text="Sem serviços disponíveis." />}
       {buttons && buttons.length > 0 && (
-        <McxSelectionView buttons={buttons} target="servico" isDefault />
+        <McxSelectionView buttons={buttons} target="servico" />
       )}
     </>
   );

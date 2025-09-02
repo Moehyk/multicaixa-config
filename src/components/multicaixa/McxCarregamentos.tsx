@@ -48,7 +48,6 @@ function CarregamentoMontantes({
         <McxSelectionView
           buttons={buttons}
           target="end"
-          isDefault
           hasFreeAmount={montanteTipo === "ambos"}
           toFreeAmount={() => setScreen(3)}
         />

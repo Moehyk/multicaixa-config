@@ -25,7 +25,7 @@ export default function McxServicosView() {
       <McxScreenText subtext={servico.desigEcra} />
       {buttons.length === 0 && <NoMcxView text="Sem produtos disponíveis." />}
       {buttons && buttons.length > 0 && (
-        <McxSelectionView buttons={buttons} target="produto" isDefault />
+        <McxSelectionView buttons={buttons} target="produto" />
       )}
     </>
   );
