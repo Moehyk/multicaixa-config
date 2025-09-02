@@ -9,7 +9,12 @@ import McxSelectBtn from "./McxSelectBtn";
 
 import type { GridButton, GroupButtons, Views } from "@/types";
 
-function OnlyOneGroup({ buttons, to }: GroupButtons) {
+function OnlyOneGroup({
+  buttons,
+  to,
+  isFreeAmount,
+  toFreeAmount,
+}: GroupButtons) {
   return (
     <>
       {buttons.map((btn, i) => (
@@ -21,6 +26,13 @@ function OnlyOneGroup({ buttons, to }: GroupButtons) {
           clickHandler={() => to(btn.id)}
         />
       ))}
+      {isFreeAmount && (
+        <McxSelectBtn
+          selectText="Outro Montante"
+          selectKey={`${buttons.length + 1}`}
+          clickHandler={toFreeAmount}
+        />
+      )}
     </>
   );
 }
@@ -111,10 +123,14 @@ export default function McxSelectionView({
   buttons,
   isDefault,
   target,
+  hasFreeAmount,
+  toFreeAmount = () => {},
 }: {
   buttons: GridButton[];
   isDefault?: boolean;
   target: Views;
+  hasFreeAmount?: boolean;
+  toFreeAmount?: () => void;
 }) {
   const { setView } = useViewStore();
 
@@ -142,6 +158,8 @@ export default function McxSelectionView({
             currentPage={currentPage}
             dispatch={setCurrentPage}
             to={goTo}
+            isFreeAmount={hasFreeAmount}
+            toFreeAmount={toFreeAmount}
           />
         )}
         {buttons.length >= 9 && (
@@ -152,6 +170,7 @@ export default function McxSelectionView({
                 currentPage={currentPage}
                 dispatch={setCurrentPage}
                 to={goTo}
+                toFreeAmount={toFreeAmount}
               />
             )}
             {pageBtns.length <= 6 && (
@@ -161,6 +180,7 @@ export default function McxSelectionView({
                 dispatch={setCurrentPage}
                 lastPage={splitButtons.length}
                 to={goTo}
+                toFreeAmount={toFreeAmount}
               />
             )}
           </>
