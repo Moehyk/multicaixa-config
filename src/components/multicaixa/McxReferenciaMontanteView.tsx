@@ -6,7 +6,7 @@ import { useViewsStore } from "@/context/mcx";
 import McxInputsView from "./McxInputsView";
 import McxInput from "./McxInput";
 
-import type { PagamentoData, Referencia } from "@/types";
+import type { Referencia } from "@/types";
 
 export default function McxReferenciaMontanteView({
   desigReferencia,
