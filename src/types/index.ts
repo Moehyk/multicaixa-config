@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction, JSXElementConstructor } from "react";
 import type {
   Empresa,
   Servico,
@@ -118,16 +118,6 @@ export type GridButton = {
   selectSecondarytext?: string;
 };
 
-export type Views =
-  | "empresa"
-  | "servico"
-  | "recargas"
-  | "produto"
-  | "carregamento"
-  | "pagamento"
-  | "montante"
-  | "end";
-
 export type GroupButtons = {
   buttons: GridButton[];
   currentPage: number;
@@ -136,6 +126,14 @@ export type GroupButtons = {
   to: (id?: string) => void;
   isFreeAmount?: boolean;
   toFreeAmount: () => void;
+};
+
+export type Views = "empresa" | "servico" | "produto" | "end";
+
+export type ViewsStore = {
+  id?: string;
+  McxView: JSXElementConstructor<any>;
+  setView: (view: Views, id?: string) => void;
 };
 
 export type UrlParams = {
