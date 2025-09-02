@@ -25,6 +25,7 @@ export type {
   MontanteInputProps,
   ReferenciaInputProps,
   ProdutoFormProps,
+  GroupButtonsProps,
 } from "./props";
 
 export type {
@@ -41,7 +42,6 @@ export type {
   DeleteHandler,
   Montante,
   GridButton,
-  GroupButtons,
   McxScreensType,
   CustomInputValueType,
   Views,

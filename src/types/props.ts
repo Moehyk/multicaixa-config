@@ -1,4 +1,5 @@
-import type { CustomInputValueType } from "./misc";
+import type { Dispatch, SetStateAction } from "react";
+import type { CustomInputValueType, GridButton } from "./misc";
 
 export type ProdutoFormProps = {
   action: "Criar" | "Editar";
@@ -11,6 +12,8 @@ export type McxInputsProps = {
   valueType: CustomInputValueType;
   onChange: (combinedOtp: string) => void;
 };
+
+export type McxInputProps = MontanteInputProps | ReferenciaInputProps;
 
 export type MontanteInputProps = {
   valueType: "MONTANTE";
@@ -25,4 +28,12 @@ export type ReferenciaInputProps = {
   desigReferencia: string;
 };
 
-export type McxInputProps = MontanteInputProps | ReferenciaInputProps;
+export type GroupButtonsProps = {
+  buttons: GridButton[];
+  currentPage: number;
+  dispatch: Dispatch<SetStateAction<number>>;
+  lastPage?: number;
+  to: (id?: string) => void;
+  isFreeAmount?: boolean;
+  toFreeAmount: () => void;
+};

@@ -36,16 +36,6 @@ export type GridButton = {
   selectSecondarytext?: string;
 };
 
-export type GroupButtons = {
-  buttons: GridButton[];
-  currentPage: number;
-  dispatch: Dispatch<SetStateAction<number>>;
-  lastPage?: number;
-  to: (id?: string) => void;
-  isFreeAmount?: boolean;
-  toFreeAmount: () => void;
-};
-
 export type McxScreensType = 1 | 2 | 3;
 
 export type CustomInputValueType = "REFERENCIA" | "MONTANTE";
