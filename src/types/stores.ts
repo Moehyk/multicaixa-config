@@ -30,6 +30,7 @@ export type ViewEndStoreData = {
 export type ViewEndStore = ViewEndStoreData & {
   setMontante: (montante: string) => void;
   setEcraTexto: (ecraTexto: string) => void;
-  setUnidades: (unidades: string) => void;
+  setUnidades: (unidades: string | undefined) => void;
   setReferencia: (referencia: string) => void;
+  resetEndStore: () => void;
 };

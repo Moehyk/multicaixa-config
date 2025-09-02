@@ -13,8 +13,7 @@ export const useEndStore = create<ViewEndStore>((set) => ({
   ...endStoreInitialState,
   setMontante: (montante: string) => set({ montante }),
   setEcraTexto: (ecraTexto: string) => set({ ecraTexto }),
-  setUnidades: (unidades: string) => set({ unidades }),
+  setUnidades: (unidades: string | undefined) => set({ unidades }),
   setReferencia: (referencia: string) => set({ referencia }),
+  resetEndStore: () => set(endStoreInitialState),
 }));
-
-export const resetEndStore = useEndStore.setState(endStoreInitialState);
