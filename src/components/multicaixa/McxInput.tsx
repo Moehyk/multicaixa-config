@@ -1,6 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import {
+  useMcxEndViewReferenciaData,
+  usemcxEndViewMontanteData,
+} from "@/hooks/useMcxEndViewData";
 import { renderMontanteText } from "@/utils";
 
 import McxInputsView from "./McxInputsView";
@@ -16,13 +19,14 @@ function ReferenciaInput({
   tamanhoReferencia,
   textoEcraReferencia,
 }: ReferenciaInputProps) {
-  const [referenciaValue, setReferenciaValue] = useState("");
-  console.log("referencia", referenciaValue);
+  const { referenciaValue, onReferenciaValueChange } =
+    useMcxEndViewReferenciaData();
+
   return (
     <>
       <McxInputsView.Title title={desigReferencia} />
       <McxInputsView.Inputs
-        onChange={setReferenciaValue}
+        onChange={onReferenciaValueChange}
         value={referenciaValue}
         valueLength={tamanhoReferencia}
         valueType="REFERENCIA"
@@ -33,13 +37,13 @@ function ReferenciaInput({
 }
 
 function MontanteInput({ min, max }: MontanteInputProps) {
-  const [montanteValue, setMontanteValue] = useState("");
-  console.log("montante", montanteValue);
+  const { montanteValue, onMontanteValueChange } = usemcxEndViewMontanteData();
+
   return (
     <>
       <McxInputsView.Title title="Indique o Montante Pretendido" />
       <McxInputsView.Inputs
-        onChange={setMontanteValue}
+        onChange={onMontanteValueChange}
         value={montanteValue}
         valueLength={10}
         valueType="MONTANTE"
