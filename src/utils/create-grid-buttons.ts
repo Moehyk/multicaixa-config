@@ -31,8 +31,8 @@ export function createGridButtons(
       // TypeScript now knows this is Montante<"descricao">
       return {
         id: montante.id,
-        selectText: `${montante.montante.toString()} KZS`,
-        selectSecondarytext: montante.descricao,
+        selectText: montante.descricao,
+        selectSecondarytext: `${montante.montante.toString()} KZS`,
       };
     } else {
       // TypeScript now knows this is Montante<"quantidade">
