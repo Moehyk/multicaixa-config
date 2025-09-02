@@ -15,7 +15,7 @@ export default function McxSelectBtn({
 }) {
   return (
     <UnstyledButton
-      className="flex items-center justify-between bg-white h-28 px-4 rounded border-[6px] border-solid border-blue-950 text-2xl font-bold"
+      className="flex items-center justify-between bg-white h-28 px-4 rounded border-[6px] border-solid border-blue-950 text-2xl font-bold flex-1"
       onClick={clickHandler}
     >
       {Number(selectKey) % 2 == 0 && (
