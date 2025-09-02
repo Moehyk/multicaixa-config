@@ -9,7 +9,7 @@ export const endStoreInitialState: ViewEndStoreData = {
   referencia: undefined,
 };
 
-export const useEndStore = create<ViewEndStore>((set) => ({
+export const useEndViewStore = create<ViewEndStore>((set) => ({
   ...endStoreInitialState,
   setMontante: (montante: string) => set({ montante }),
   setEcraTexto: (ecraTexto: string) => set({ ecraTexto }),

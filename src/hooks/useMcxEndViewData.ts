@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useEndStore } from "@/context/mcx";
+import { useEndViewStore } from "@/context/mcx";
 
 export const useMcxEndViewReferenciaData = () => {
-  const { setReferencia } = useEndStore();
+  const { setReferencia } = useEndViewStore();
   const [referenciaValue, setReferenciaValue] = useState("");
 
   const onReferenciaValueChange = (value: string) => {
@@ -17,7 +17,7 @@ export const useMcxEndViewReferenciaData = () => {
 };
 
 export const useMcxEndViewMontanteData = () => {
-  const { setMontante } = useEndStore();
+  const { setMontante } = useEndViewStore();
   const [montanteValue, setMontanteValue] = useState("");
 
   const onMontanteValueChange = (value: string) => {
@@ -32,7 +32,7 @@ export const useMcxEndViewMontanteData = () => {
 };
 
 export const useMcxEndViewUnidadesData = () => {
-  const { setUnidades, setMontante } = useEndStore();
+  const { setUnidades, setMontante } = useEndViewStore();
 
   const setRecargasValues = (
     unidades: string | undefined,

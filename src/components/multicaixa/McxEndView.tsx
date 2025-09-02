@@ -1,5 +1,5 @@
 import { useMcxData } from "@/hooks/useMcxData";
-import { useEndStore } from "@/context/mcx";
+import { useEndViewStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import McxSelectBtn from "./McxSelectBtn";
@@ -21,7 +21,7 @@ function DadosConfirmados({
 
 export default function McxEndView() {
   const { produto } = useMcxData();
-  const { montante, referencia, unidades } = useEndStore();
+  const { montante, referencia, unidades } = useEndViewStore();
 
   return (
     <>

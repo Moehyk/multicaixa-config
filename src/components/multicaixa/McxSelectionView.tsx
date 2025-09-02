@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useViewsStore, useEndStore } from "@/context/mcx";
+import { useViewsStore, useEndViewStore } from "@/context/mcx";
 import { useMcxEndViewUnidadesData } from "@/hooks/useMcxEndViewData";
 import { splitArray } from "@/utils/split-array";
 
