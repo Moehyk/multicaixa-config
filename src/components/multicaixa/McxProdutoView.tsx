@@ -1,4 +1,4 @@
-import { useMcxDataStore, useViewsStore } from "@/context/mcx";
+import { useMcxData } from "@/hooks/useMcxData";
 
 import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
@@ -28,9 +28,7 @@ const renderProdutoView = (produto: ProdutoData) => {
 };
 
 export default function McxProdutoView() {
-  const { id } = useViewsStore();
-  const { getProduto } = useMcxDataStore();
-  const produto = getProduto(id);
+  const { produto } = useMcxData();
 
   if (!produto) return <NoMcxView text="Produto não encontrado." />;
 

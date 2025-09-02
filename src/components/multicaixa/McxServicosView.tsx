@@ -1,4 +1,4 @@
-import { useMcxDataStore, useViewsStore } from "@/context/mcx";
+import { useMcxData } from "@/hooks/useMcxData";
 import { createDataGridButtons } from "@/utils/create-grid-buttons";
 
 import McxScreenText from "./McxScreenText";
@@ -6,10 +6,7 @@ import NoMcxView from "./NoMcxView";
 import McxSelectionView from "./McxSelectionView";
 
 export default function McxServicosView() {
-  const { id } = useViewsStore();
-  const { getServico } = useMcxDataStore();
-
-  const servico = getServico(id);
+  const { servico } = useMcxData();
 
   if (!servico) return <NoMcxView text="Serviço não encontrado." />;
 

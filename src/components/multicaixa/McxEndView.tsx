@@ -1,4 +1,4 @@
-import React from "react";
+import { useMcxData } from "@/hooks/useMcxData";
 
 import McxScreenText from "./McxScreenText";
 import McxSelectBtn from "./McxSelectBtn";
@@ -13,9 +13,11 @@ function DadosConfirmaos({ data, title }: { data: string; title: string }) {
 }
 
 export default function McxEndView() {
+  const { produto } = useMcxData();
+
   return (
     <>
-      <McxScreenText subtext="O nome do produto" />
+      <McxScreenText subtext={produto?.desigEcra} />
       <div className="flex flex-col w-full h-full items-center justify-between px-16 pb-8 pt-16">
         <div className="bg-brand-900 rounded-lg p-16 flex gap-4 flex-col text-white text-center">
           <p className="text-xl font-semibold mb-4">
