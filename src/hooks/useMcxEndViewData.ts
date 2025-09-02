@@ -30,3 +30,17 @@ export const useMcxEndViewMontanteData = () => {
     onMontanteValueChange,
   };
 };
+
+export const useMcxEndViewUnidadesData = () => {
+  const { setUnidades, setMontante } = useEndStore();
+
+  const setRecargasValues = (
+    unidades: string | undefined,
+    montante: string
+  ) => {
+    setUnidades(unidades);
+    setMontante(montante);
+  };
+
+  return { setRecargasValues };
+};

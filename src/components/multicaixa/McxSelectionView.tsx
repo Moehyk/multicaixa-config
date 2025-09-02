@@ -1,20 +1,23 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useViewsStore } from "@/context/mcx";
+import { useViewsStore, useEndStore } from "@/context/mcx";
+import { useMcxEndViewUnidadesData } from "@/hooks/useMcxEndViewData";
 import { splitArray } from "@/utils/split-array";
 
 import McxContentWrapper from "./McxContentWrapper";
 import McxSelectBtn from "./McxSelectBtn";
 
-import type { GridButton, GroupButtons, Views } from "@/types";
+import type { GridButton, GroupButtonsProps, Views } from "@/types";
 
 function OnlyOneGroup({
   buttons,
   to,
   isFreeAmount,
   toFreeAmount,
-}: GroupButtons) {
+}: GroupButtonsProps) {
+  const { setRecargasValues } = useMcxEndViewUnidadesData();
+
   return (
     <>
       {buttons.map((btn, i) => (
@@ -23,7 +26,10 @@ function OnlyOneGroup({
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
-          clickHandler={() => to(btn.id)}
+          clickHandler={() => {
+            setRecargasValues(btn.selectText, btn.selectSecondarytext!);
+            to(btn.id);
+          }}
         />
       ))}
       {isFreeAmount && (
@@ -42,7 +48,9 @@ function MultiGroupFirstOrLastPage({
   currentPage,
   dispatch,
   to,
-}: GroupButtons) {
+}: GroupButtonsProps) {
+  const { setRecargasValues } = useMcxEndViewUnidadesData();
+
   return (
     <>
       {currentPage === 1 && (
@@ -53,7 +61,10 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
-              clickHandler={() => to(btn.id)}
+              clickHandler={() => {
+                setRecargasValues(btn.selectSecondarytext, btn.selectText);
+                to(btn.id);
+              }}
             />
           ))}
           <McxSelectBtn
@@ -76,7 +87,10 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
-              clickHandler={() => to(btn.id)}
+              clickHandler={() => {
+                setRecargasValues(btn.selectSecondarytext, btn.selectText);
+                to(btn.id);
+              }}
             />
           ))}
         </>
@@ -91,7 +105,9 @@ function MultiGroupBetweenPage({
   dispatch,
   lastPage,
   to,
-}: GroupButtons) {
+}: GroupButtonsProps) {
+  const { setRecargasValues } = useMcxEndViewUnidadesData();
+
   return (
     <>
       <McxSelectBtn
@@ -105,7 +121,10 @@ function MultiGroupBetweenPage({
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
-          clickHandler={() => to(btn.id)}
+          clickHandler={() => {
+            setRecargasValues(btn.selectSecondarytext, btn.selectText);
+            to(btn.id);
+          }}
         />
       ))}
       {currentPage !== lastPage && (
