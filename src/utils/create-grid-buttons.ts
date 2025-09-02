@@ -1,6 +1,6 @@
 import { sortDataArray } from "./sort-data-array";
 
-import type { GridButton, Montante } from "@/types";
+import type { GridButton, Montante, ServicoData, ProdutoData } from "@/types";
 
 // Guard function to check if a Montante is a Montante<"descricao">
 function isMontanteComDescricao(
@@ -44,3 +44,12 @@ export function createGridButtons(
     }
   });
 }
+
+export const createDataGridButtons = (
+  data: ServicoData[] | ProdutoData[]
+): GridButton[] =>
+  data.map<GridButton>((d) => ({
+    id: d.id,
+    selectText: d.desigTeclaSeleccao,
+    screenText: d.desigEcra,
+  }));

@@ -1,19 +1,14 @@
 import { useMcxDataStore } from "@/context/mcx";
+import { createDataGridButtons } from "@/utils/create-grid-buttons";
 
 import McxScreenText from "./McxScreenText";
 import McxSelectionView from "./McxSelectionView";
 import NoMcxView from "./NoMcxView";
 
-import type { GridButton } from "@/types";
-
 export default function McxEmpresaView() {
   const { servicos } = useMcxDataStore();
 
-  const buttons: GridButton[] = servicos.map((servico) => ({
-    id: servico.id,
-    selectText: servico.desigTeclaSeleccao,
-    screenText: servico.desigEcra,
-  }));
+  const buttons = createDataGridButtons(servicos);
 
   return (
     <>
