@@ -1,9 +1,16 @@
 import { useMcxData } from "@/hooks/useMcxData";
+import { useEndStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import McxSelectBtn from "./McxSelectBtn";
 
-function DadosConfirmaos({ data, title }: { data: string; title: string }) {
+function DadosConfirmados({
+  data,
+  title,
+}: {
+  data: string | undefined;
+  title: string;
+}) {
   return (
     <p className="flex justify-between font-medium">
       <span>{`${title}:`}</span>
@@ -14,6 +21,7 @@ function DadosConfirmaos({ data, title }: { data: string; title: string }) {
 
 export default function McxEndView() {
   const { produto } = useMcxData();
+  const { montante, referencia, unidades } = useEndStore();
 
   return (
     <>
@@ -23,8 +31,11 @@ export default function McxEndView() {
           <p className="text-xl font-semibold mb-4">
             Confirme os dados do Serviço:
           </p>
-          <DadosConfirmaos data="123456789012345" title="Referência" />
-          <DadosConfirmaos data="9,999,999.99" title="Montante" />
+          <DadosConfirmados
+            data={referencia ?? unidades}
+            title={referencia ? "Referência" : "Unidades"}
+          />
+          <DadosConfirmados data={montante} title="Montante" />
         </div>
         <div className="w-full flex gap-8 justify-between">
           <McxSelectBtn
