@@ -27,7 +27,12 @@ export type {
   ProdutoFormProps,
 } from "./props";
 
-export type { DataStore, McxDataStore, ViewsStore } from "./stores";
+export type {
+  DataStore,
+  McxDataStore,
+  ViewsStore,
+  ViewEndStore,
+} from "./stores";
 
 export type {
   DataModel,

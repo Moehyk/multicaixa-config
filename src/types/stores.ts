@@ -19,3 +19,10 @@ export type ViewsStore = {
   McxView: JSXElementConstructor<any>;
   setView: (view: Views, id?: string) => void;
 };
+
+export type ViewEndStore = {
+  ecraTexto: string;
+  montante: number;
+  unidades?: string;
+  referencia?: string;
+};
