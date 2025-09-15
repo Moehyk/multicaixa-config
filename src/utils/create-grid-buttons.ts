@@ -32,14 +32,14 @@ export function createGridButtons(
       return {
         id: montante.id,
         selectText: montante.descricao,
-        selectSecondarytext: `${montante.montante.toString()} Kzs`,
+        selectSecondarytext: montante.montante.toString(),
       };
     } else {
       // TypeScript now knows this is Montante<"quantidade">
       return {
         id: montante.id,
         selectText: `${montante.quantidade.toString()} ${designacao}`,
-        selectSecondarytext: `${montante.montante.toString()} Kzs`,
+        selectSecondarytext: montante.montante.toString(),
       };
     }
   });
