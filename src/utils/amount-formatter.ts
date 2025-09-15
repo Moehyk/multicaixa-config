@@ -1,6 +1,12 @@
 export const amountFormatter = (amount: number) => {
+  const formatter = new Intl.NumberFormat("pt-BR");
+
+  return `${formatter.format(amount)} KZS`;
+};
+
+export const amountFractionFormatter = (amount: number) => {
   const amountAsDecimal = amount / 100;
-  const formatter = new Intl.NumberFormat("en-US", {
+  const formatter = new Intl.NumberFormat("pt-BR", {
     maximumFractionDigits: 2,
     minimumFractionDigits: 2,
   });
