@@ -12,7 +12,7 @@ function DadosConfirmados({
   title: string;
 }) {
   return (
-    <p className="flex justify-between font-medium">
+    <p className="flex justify-between font-medium text-xl">
       <span>{`${title}:`}</span>
       <span>{data}</span>
     </p>
@@ -27,8 +27,8 @@ export default function McxEndView() {
     <>
       <McxScreenText subtext={produto?.desigEcra} />
       <div className="flex flex-col w-full h-full items-center justify-between px-16 pb-8 pt-16">
-        <div className="bg-brand-900 rounded-lg p-16 flex gap-4 flex-col text-white text-center">
-          <p className="text-xl font-semibold mb-4">
+        <div className="bg-brand-900 rounded-lg p-14 flex gap-4 flex-col text-white text-center">
+          <p className="text-2xl font-semibold mb-4">
             Confirme os dados do Serviço:
           </p>
           <DadosConfirmados
