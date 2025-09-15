@@ -1,5 +1,6 @@
 import { useMcxData } from "@/hooks/useMcxData";
 import { useEndViewStore } from "@/context/mcx";
+import { amountFractionFormatter } from "@/utils/amount-formatter";
 
 import McxScreenText from "./McxScreenText";
 import McxSelectBtn from "./McxSelectBtn";
@@ -35,7 +36,10 @@ export default function McxEndView() {
             data={referencia ?? unidades}
             title={referencia ? "Referência" : "Unidades"}
           />
-          <DadosConfirmados data={montante} title="Montante" />
+          <DadosConfirmados
+            data={amountFractionFormatter(Number(montante))}
+            title="Montante"
+          />
         </div>
         <div className="w-full flex gap-8 justify-between">
           <McxSelectBtn

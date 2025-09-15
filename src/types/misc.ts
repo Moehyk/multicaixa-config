@@ -34,6 +34,7 @@ export type GridButton = {
   id?: string;
   selectText: string;
   selectSecondarytext?: string;
+  value?: string;
 };
 
 export type McxScreensType = 1 | 2 | 3;

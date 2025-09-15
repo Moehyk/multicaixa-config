@@ -27,7 +27,7 @@ function OnlyOneGroup({
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
           clickHandler={() => {
-            setRecargasValues(btn.selectText, btn.selectSecondarytext!);
+            setRecargasValues(btn.selectText, btn.value ?? "");
             to(btn.id);
           }}
         />

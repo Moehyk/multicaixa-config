@@ -1,4 +1,5 @@
 import { sortDataArray } from "./sort-data-array";
+import { amountFormatter } from "./amount-formatter";
 
 import type { GridButton, Montante, ServicoData, ProdutoData } from "@/types";
 
@@ -32,14 +33,18 @@ export function createGridButtons(
       return {
         id: montante.id,
         selectText: montante.descricao,
-        selectSecondarytext: montante.montante.toString(),
+        selectSecondarytext: amountFormatter(montante.montante),
+        value: `${montante.montante}00`,
       };
     } else {
       // TypeScript now knows this is Montante<"quantidade">
       return {
         id: montante.id,
-        selectText: `${montante.quantidade.toString()} ${designacao}`,
-        selectSecondarytext: montante.montante.toString(),
+        selectText: `${new Intl.NumberFormat("pt-BR").format(
+          montante.quantidade
+        )} ${designacao}`,
+        selectSecondarytext: amountFormatter(montante.montante),
+        value: `${montante.montante}00`,
       };
     }
   });
