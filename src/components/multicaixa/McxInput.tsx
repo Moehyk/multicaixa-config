@@ -1,9 +1,7 @@
 "use client";
 
-import {
-  useMcxEndViewReferenciaData,
-  useMcxEndViewMontanteData,
-} from "@/hooks/useMcxEndViewData";
+import { useEndViewStore } from "@/context/mcx";
+
 import { renderMontanteText } from "@/utils";
 
 import McxInputsView from "./McxInputsView";
@@ -19,15 +17,14 @@ function ReferenciaInput({
   tamanhoReferencia,
   textoEcraReferencia,
 }: ReferenciaInputProps) {
-  const { referenciaValue, onReferenciaValueChange } =
-    useMcxEndViewReferenciaData();
+  const { setReferencia, referencia } = useEndViewStore();
 
   return (
     <>
       <McxInputsView.Title title={desigReferencia} />
       <McxInputsView.Inputs
-        onChange={onReferenciaValueChange}
-        value={referenciaValue}
+        onChange={setReferencia}
+        value={referencia ?? ""}
         valueLength={tamanhoReferencia}
         valueType="REFERENCIA"
       />
@@ -37,14 +34,14 @@ function ReferenciaInput({
 }
 
 function MontanteInput({ min, max }: MontanteInputProps) {
-  const { montanteValue, onMontanteValueChange } = useMcxEndViewMontanteData();
+  const { montante, setMontante } = useEndViewStore();
 
   return (
     <>
       <McxInputsView.Title title="Indique o Montante Pretendido" />
       <McxInputsView.Inputs
-        onChange={onMontanteValueChange}
-        value={montanteValue}
+        onChange={setMontante}
+        value={montante ?? ""}
         valueLength={10}
         valueType="MONTANTE"
       />

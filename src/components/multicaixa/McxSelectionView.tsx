@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useViewsStore, useEndViewStore } from "@/context/mcx";
-import { useMcxEndViewUnidadesData } from "@/hooks/useMcxEndViewData";
+import { useViewsStore } from "@/context/mcx";
+import { useMcxEndViewUnidadesData } from "@/hooks/useMcxEndViewUnidadesData";
 import { splitArray } from "@/utils/split-array";
 
 import McxContentWrapper from "./McxContentWrapper";
