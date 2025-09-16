@@ -8,9 +8,9 @@ export const useInputSeparators = (
   useMemo(() => {
     if (valueType === "MONTANTE") {
       return {
-        1: ",",
-        4: ",",
-        7: ".",
+        1: ".",
+        4: ".",
+        7: ",",
       };
     }
 
