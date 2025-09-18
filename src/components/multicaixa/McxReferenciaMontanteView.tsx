@@ -14,10 +14,11 @@ export default function McxReferenciaMontanteView({
   montanteMin,
   montanteMax,
 }: Referencia) {
-  const { screen, nextScreen, clearField } = useReferenciaMontanteViewActions();
+  const { screen, clearHandler, continueHandler } =
+    useReferenciaMontanteViewActions();
 
   return (
-    <McxInputsView onClear={clearField} onContinue={nextScreen}>
+    <McxInputsView onClear={clearHandler} onContinue={continueHandler}>
       {screen === 1 && (
         <McxInput
           valueType="REFERENCIA"
