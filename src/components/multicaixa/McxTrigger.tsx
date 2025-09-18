@@ -1,15 +1,13 @@
 "use client";
 
-import { useDisclosure } from "@mantine/hooks";
-import { useViewsStore } from "@/context/mcx";
+import { useMcxTrigger } from "@/hooks/useMcxTrigger";
 
 import McxToolbar from "./McxToolbar";
 import { Modal, Button } from "@mantine/core";
 import { IconDeviceDesktop } from "@tabler/icons-react";
 
 export default function McxTrigger() {
-  const [opened, { open, close }] = useDisclosure(false);
-  const { McxView } = useViewsStore();
+  const { open, closeHandler, opened, McxView } = useMcxTrigger();
 
   return (
     <>
@@ -21,11 +19,11 @@ export default function McxTrigger() {
         centered
         withCloseButton={false}
         size={1200}
-        onClose={() => {}}
+        onClose={closeHandler}
       >
         <div className="bg-brand-500 h-[820px]">
           <div className="h-full flex flex-col">
-            <McxToolbar close={close} />
+            <McxToolbar onClose={closeHandler} />
             <McxView />
           </div>
         </div>

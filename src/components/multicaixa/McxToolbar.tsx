@@ -5,7 +5,7 @@ import { useResetMcx } from "@/hooks/useResetMcx";
 import { Button } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 
-export default function McxToolbar({ close }: { close?: () => void }) {
+export default function McxToolbar({ onClose }: { onClose: () => void }) {
   const reset = useResetMcx();
 
   return (
@@ -23,7 +23,7 @@ export default function McxToolbar({ close }: { close?: () => void }) {
           size="compact-sm"
           color="orange"
           leftSection={<IconX size={16} />}
-          onClick={close}
+          onClick={onClose}
         >
           Sair
         </Button>
