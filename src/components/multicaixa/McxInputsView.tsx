@@ -1,4 +1,5 @@
 "use client";
+import { useResetMcx } from "@/hooks/useResetMcx";
 
 import McxInputs from "./McxInputs";
 import { Button } from "@mantine/core";
@@ -19,19 +20,24 @@ function Text({ text }: { text: string }) {
 
 export default function McxInputsView({
   children,
-  onCancel,
+  onClear,
   onContinue,
 }: {
   children: React.ReactNode;
   onContinue: () => void;
-  onCancel: () => void;
+  onClear: () => void;
 }) {
+  const reset = useResetMcx();
+
   return (
     <div className="flex flex-col w-4/5 h-full justify-between mx-auto pb-8">
       <div className="flex flex-col items-center">{children}</div>
       <div className="flex gap-2 justify-end">
-        <Button size="xl" color="red" onClick={onCancel}>
-          Cancelar
+        <Button size="xl" color="red" onClick={reset}>
+          Anular
+        </Button>
+        <Button size="xl" color="yellow" onClick={onClear}>
+          Corrigir
         </Button>
         <Button size="xl" color="green" onClick={onContinue}>
           Continuar
