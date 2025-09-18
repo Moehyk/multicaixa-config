@@ -3,12 +3,12 @@ import React from "react";
 import { UnstyledButton } from "@mantine/core";
 
 export default function McxSelectBtn({
-  clickHandler,
+  onClick,
   selectKey,
   selectText,
   selectSecondarytext,
 }: {
-  clickHandler: () => void;
+  onClick: () => void;
   selectKey: string;
   selectText: string;
   selectSecondarytext?: string;
@@ -16,7 +16,7 @@ export default function McxSelectBtn({
   return (
     <UnstyledButton
       className="flex items-center justify-between bg-white h-28 px-4 rounded border-[6px] border-solid border-blue-950 text-2xl font-bold flex-1"
-      onClick={clickHandler}
+      onClick={onClick}
     >
       {Number(selectKey) % 2 == 0 && (
         <>

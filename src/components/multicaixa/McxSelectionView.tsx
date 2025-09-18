@@ -26,7 +26,7 @@ function OnlyOneGroup({
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
-          clickHandler={() => {
+          onClick={() => {
             setRecargasValues(btn.selectText, btn.value ?? "");
             to(btn.id);
           }}
@@ -36,7 +36,7 @@ function OnlyOneGroup({
         <McxSelectBtn
           selectText="Outro Montante"
           selectKey={`${buttons.length + 1}`}
-          clickHandler={toFreeAmount}
+          onClick={toFreeAmount}
         />
       )}
     </>
@@ -61,7 +61,7 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
-              clickHandler={() => {
+              onClick={() => {
                 setRecargasValues(btn.selectSecondarytext, btn.selectText);
                 to(btn.id);
               }}
@@ -70,7 +70,7 @@ function MultiGroupFirstOrLastPage({
           <McxSelectBtn
             selectText="Ecrã Seguinte"
             selectKey="8"
-            clickHandler={() => dispatch(currentPage + 1)}
+            onClick={() => dispatch(currentPage + 1)}
           />
         </>
       )}
@@ -79,7 +79,7 @@ function MultiGroupFirstOrLastPage({
           <McxSelectBtn
             selectText="Ecrã Anterior"
             selectKey="1"
-            clickHandler={() => dispatch(currentPage - 1)}
+            onClick={() => dispatch(currentPage - 1)}
           />
           {buttons.map((btn, i) => (
             <McxSelectBtn
@@ -87,7 +87,7 @@ function MultiGroupFirstOrLastPage({
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
-              clickHandler={() => {
+              onClick={() => {
                 setRecargasValues(btn.selectSecondarytext, btn.selectText);
                 to(btn.id);
               }}
@@ -113,7 +113,7 @@ function MultiGroupBetweenPage({
       <McxSelectBtn
         selectText="Ecrã Anterior"
         selectKey="1"
-        clickHandler={() => dispatch(currentPage - 1)}
+        onClick={() => dispatch(currentPage - 1)}
       />
       {buttons.map((btn, i) => (
         <McxSelectBtn
@@ -121,7 +121,7 @@ function MultiGroupBetweenPage({
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
-          clickHandler={() => {
+          onClick={() => {
             setRecargasValues(btn.selectSecondarytext, btn.selectText);
             to(btn.id);
           }}
@@ -131,7 +131,7 @@ function MultiGroupBetweenPage({
         <McxSelectBtn
           selectText="Ecrã Seguinte"
           selectKey="8"
-          clickHandler={() => dispatch(currentPage + 1)}
+          onClick={() => dispatch(currentPage + 1)}
         />
       )}
     </>
