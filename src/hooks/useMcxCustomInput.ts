@@ -23,10 +23,12 @@ export const useMcxCustomInput = (value: string, valueLength: number) => {
   }, [value, valueLength]);
 
   useEffect(() => {
-    setTimeout(() => {
-      inputRefs.current[valueLength - 1]?.focus();
-    }, 0);
-  }, [valueLength]);
+    if (value === "") {
+      setTimeout(() => {
+        inputRefs.current[valueLength - 1]?.focus();
+      }, 0);
+    }
+  }, [valueLength, value]);
 
   return {
     valueItems,
