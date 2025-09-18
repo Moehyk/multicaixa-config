@@ -1,4 +1,7 @@
+import { modals } from "@mantine/modals";
 import { useMcxData } from "@/hooks/useMcxData";
+import { useResetMcx } from "@/hooks/useResetMcx";
+import { useMcxTrigger } from "@/hooks/useMcxTrigger";
 import { useEndViewStore } from "@/context/mcx";
 import { amountFractionFormatter } from "@/utils/amount-formatter";
 
@@ -23,6 +26,7 @@ function DadosConfirmados({
 export default function McxEndView() {
   const { produto } = useMcxData();
   const { montante, referencia, unidades } = useEndViewStore();
+  const reset = useResetMcx();
 
   return (
     <>
@@ -33,25 +37,17 @@ export default function McxEndView() {
             Confirme os dados do Serviço:
           </p>
           <DadosConfirmados
-            data={referencia ?? unidades}
             title={referencia ? "Referência" : "Unidades"}
+            data={referencia ?? unidades}
           />
           <DadosConfirmados
-            data={amountFractionFormatter(Number(montante))}
             title="Montante"
+            data={amountFractionFormatter(Number(montante))}
           />
         </div>
         <div className="w-full flex gap-8 justify-between">
-          <McxSelectBtn
-            clickHandler={() => {}}
-            selectText="Cancelar"
-            selectKey="1"
-          />
-          <McxSelectBtn
-            clickHandler={() => {}}
-            selectText="Confirmar"
-            selectKey="2"
-          />
+          <McxSelectBtn onClick={reset} selectText="Cancelar" selectKey="1" />
+          <McxSelectBtn onClick={reset} selectText="Confirmar" selectKey="2" />
         </div>
       </div>
     </>
