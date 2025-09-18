@@ -3,17 +3,34 @@
 import { useState } from "react";
 import { useViewsStore, useEndViewStore } from "@/context/mcx";
 
-import type { CarregamentoData, McxScreensType, GridButton } from "@/types";
+import type { McxScreensType } from "@/types";
+
+const useClearMcxInputs = (screen: McxScreensType) => {
+  const { setMontante, setReferencia } = useEndViewStore();
+
+  return () => (screen === 1 ? setReferencia("") : setMontante(""));
+};
 
 export const useReferenciaMontanteViewActions = () => {
   const { setView } = useViewsStore();
-  const { setMontante, setReferencia } = useEndViewStore();
+  const [screen, setScreen] = useState<McxScreensType>(1);
 
-  const [screen, setScreen] = useState<1 | 2>(1);
-
+  const clearHandler = useClearMcxInputs(screen);
   const continueHandler = () => (screen === 1 ? setScreen(2) : setView("end"));
-  const clearHandler = () =>
-    screen === 1 ? setReferencia("") : setMontante("");
 
   return { screen, continueHandler, clearHandler };
+};
+
+export const useCarregamentoMontanteViewActions = () => {
+  const { setView } = useViewsStore();
+  const [screen, setScreen] = useState<McxScreensType>(1);
+
+  const clearHandler = useClearMcxInputs(screen);
+
+  return {
+    screen,
+    setScreen,
+    setView,
+    clearHandler,
+  };
 };

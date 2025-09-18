@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useViewsStore } from "@/context/mcx";
+import { useCarregamentoMontanteViewActions } from "@/hooks/mcx-inputs-view-actions";
 import { createGridButtons } from "@/utils/create-grid-buttons";
 
 import McxInputsView from "./McxInputsView";
@@ -9,33 +8,22 @@ import McxSelectionView from "./McxSelectionView";
 import McxInput from "./McxInput";
 import McxReferenciaMontanteView from "./McxReferenciaMontanteView";
 
-import type { CarregamentoData, McxScreensType, GridButton } from "@/types";
+import type { CarregamentoData, GridButton } from "@/types";
 
 function CarregamentoMontantes({
   montanteTipo,
   montantes,
   ...props
 }: NonNullable<CarregamentoData>) {
-  const { setView } = useViewsStore();
-  const [screen, setScreen] = useState<McxScreensType>(1);
+  const { screen, setScreen, setView, clearHandler } =
+    useCarregamentoMontanteViewActions();
 
   const buttons: GridButton[] = createGridButtons(montantes);
-
-  const nextScreen = (screen: McxScreensType): McxScreensType => {
-    if (screen < 3) {
-      return (screen + 1) as McxScreensType;
-    } else {
-      return 3;
-    }
-  };
 
   return (
     <>
       {screen === 1 && (
-        <McxInputsView
-          onCancel={() => setScreen(1)}
-          onContinue={() => setScreen(nextScreen)}
-        >
+        <McxInputsView onClear={clearHandler} onContinue={() => setScreen(2)}>
           <McxInput
             valueType="REFERENCIA"
             tamanhoReferencia={props.tamanhoReferencia}
@@ -53,10 +41,7 @@ function CarregamentoMontantes({
         />
       )}
       {screen === 3 && (
-        <McxInputsView
-          onCancel={() => setScreen(1)}
-          onContinue={() => setView("end")}
-        >
+        <McxInputsView onClear={clearHandler} onContinue={() => setView("end")}>
           <McxInput
             valueType="MONTANTE"
             min={props.montanteMin!}
