@@ -1,12 +1,13 @@
 "use client";
 
-import { useResetMcx } from "@/hooks/useResetMcx";
+import { useResetMcx, useCloseMcxModal } from "@/hooks/reset-mcx";
 
 import { Button } from "@mantine/core";
 import { IconX } from "@tabler/icons-react";
 
-export default function McxToolbar({ onClose }: { onClose: () => void }) {
+export default function McxToolbar() {
   const reset = useResetMcx();
+  const closeModal = useCloseMcxModal();
 
   return (
     <div className="flex justify-end p-2">
@@ -23,7 +24,7 @@ export default function McxToolbar({ onClose }: { onClose: () => void }) {
           size="compact-sm"
           color="orange"
           leftSection={<IconX size={16} />}
-          onClick={onClose}
+          onClick={closeModal}
         >
           Sair
         </Button>

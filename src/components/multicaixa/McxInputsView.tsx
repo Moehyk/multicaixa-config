@@ -1,5 +1,5 @@
 "use client";
-import { useResetMcx } from "@/hooks/useResetMcx";
+import { useResetMcx } from "@/hooks/reset-mcx";
 
 import McxInputs from "./McxInputs";
 import { Button } from "@mantine/core";

@@ -1,3 +1,4 @@
+import { modals } from "@mantine/modals";
 import { useViewsStore, useEndViewStore } from "@/context/mcx";
 
 export const useResetMcx = () => {
@@ -7,5 +8,14 @@ export const useResetMcx = () => {
   return () => {
     resetEndStore();
     setView("empresa");
+  };
+};
+
+export const useCloseMcxModal = () => {
+  const reset = useResetMcx();
+
+  return () => {
+    reset();
+    modals.closeAll();
   };
 };
