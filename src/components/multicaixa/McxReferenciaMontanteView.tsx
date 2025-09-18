@@ -1,7 +1,6 @@
 "use client";
 
-import { useState } from "react";
-import { useViewsStore } from "@/context/mcx";
+import { useReferenciaMontanteViewActions } from "@/hooks/mcx-inputs-view-actions";
 
 import McxInputsView from "./McxInputsView";
 import McxInput from "./McxInput";
@@ -15,14 +14,10 @@ export default function McxReferenciaMontanteView({
   montanteMin,
   montanteMax,
 }: Referencia) {
-  const { setView } = useViewsStore();
-  const [screen, setScreen] = useState<1 | 2>(1);
+  const { screen, nextScreen, clearField } = useReferenciaMontanteViewActions();
 
   return (
-    <McxInputsView
-      onCancel={() => setScreen(1)}
-      onContinue={() => (screen === 1 ? setScreen(2) : setView("end"))}
-    >
+    <McxInputsView onClear={clearField} onContinue={nextScreen}>
       {screen === 1 && (
         <McxInput
           valueType="REFERENCIA"
