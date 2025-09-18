@@ -10,4 +10,7 @@ export const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export { renderMontanteText } from "./render-montante-text";
+export {
+  renderMontanteText,
+  renderReferenciaText,
+} from "./render-mcxinputs-text";

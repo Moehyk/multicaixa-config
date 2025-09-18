@@ -1,7 +1,7 @@
 "use client";
 
 import { useEndViewStore } from "@/context/mcx";
-import { renderMontanteText } from "@/utils";
+import { renderMontanteText, renderReferenciaText } from "@/utils";
 
 import McxInputsView from "./McxInputsView";
 
@@ -20,7 +20,7 @@ function ReferenciaInput({
 
   return (
     <>
-      <McxInputsView.Title title={desigReferencia} />
+      <McxInputsView.Title title={renderReferenciaText(desigReferencia)} />
       <McxInputsView.Inputs
         onChange={setReferencia}
         value={referencia ?? ""}
