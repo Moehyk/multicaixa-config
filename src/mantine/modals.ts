@@ -1,9 +1,11 @@
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
+import McxModal from "@/components/multicaixa/McxModal";
 
 import type { ModalsProviderProps } from "@mantine/modals";
 
 const modals = {
   "confirm-delete": ConfirmDeleteModal,
+  "mcx-modal": McxModal,
 };
 
 declare module "@mantine/modals" {
