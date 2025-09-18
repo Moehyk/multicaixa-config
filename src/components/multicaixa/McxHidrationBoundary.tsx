@@ -13,6 +13,7 @@ export default function McxHidrationBoundary({
   useMcxDataStore().servicos = empresa.servicos;
   useMcxDataStore().produtos = empresa.servicos.flatMap((s) => s.produtos);
   useMcxDataStore().desigEcra = empresa.desigEcra;
+  useMcxDataStore().nome = empresa.nome;
 
   return <>{children}</>;
 }

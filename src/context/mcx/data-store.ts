@@ -2,7 +2,8 @@ import { create } from "zustand";
 
 import type { McxDataStore } from "@/types";
 
-export const useMcxDataStore = create<McxDataStore>((set, get) => ({
+export const useMcxDataStore = create<McxDataStore>((_, get) => ({
+  nome: "",
   desigEcra: "",
   servicos: [],
   produtos: [],

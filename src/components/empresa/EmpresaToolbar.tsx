@@ -14,7 +14,7 @@ export default async function EmpresaToolbar() {
   return (
     <Toolbar>
       <McxHidrationBoundary empresa={data}>
-        <EmpresaName name={data.nome} />
+        <EmpresaName />
         <McxTrigger />
       </McxHidrationBoundary>
     </Toolbar>
