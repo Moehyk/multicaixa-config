@@ -1,4 +1,5 @@
 import { useMemo, useRef, useEffect } from "react";
+import { setInputRefs } from "@/context/mcx/input-errors";
 import { RE_DIGIT } from "@/constants";
 
 export const useMcxCustomInput = (value: string, valueLength: number) => {
@@ -28,7 +29,8 @@ export const useMcxCustomInput = (value: string, valueLength: number) => {
         inputRefs.current[valueLength - 1]?.focus();
       }, 0);
     }
-  }, [valueLength, value]);
+    setInputRefs(inputRefs);
+  }, [valueLength, value, inputRefs]);
 
   return {
     valueItems,
