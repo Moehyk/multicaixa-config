@@ -1,7 +1,10 @@
 "use client";
 
 import { useEndViewStore } from "@/context/mcx";
-import { renderMontanteText, renderReferenciaText } from "@/utils";
+import {
+  renderMontanteText,
+  renderReferenciaText,
+} from "@/utils/mcxinputs-helpers";
 
 import McxInputsView from "./McxInputsView";
 
