@@ -46,10 +46,10 @@ export type McxScreensType = 1 | 2 | 3;
 export type McxInputActions = (
   length: number,
   mmin: number,
-  mmax: number
+  mmax: number,
+  screens: number[]
 ) => {
   screen: McxScreensType;
   continueHandler: () => void;
   clearHandler: () => void;
-  setScreen: Dispatch<SetStateAction<McxScreensType>>;
 };
