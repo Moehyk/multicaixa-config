@@ -29,10 +29,10 @@ const useMontanteError = (mmin: number, mmax: number) => {
   const [error, setError] = useState(false);
   const { montante } = useEndViewStore();
 
-  const monatanteNum = Number(montante.slice(0, -2));
+  const montanteNum = Number(montante.slice(0, -2));
 
   useEffect(() => {
-    if (monatanteNum < mmin || monatanteNum > mmax) {
+    if (montanteNum < mmin || montanteNum > mmax) {
       setError(true);
     } else {
       setError(false);
