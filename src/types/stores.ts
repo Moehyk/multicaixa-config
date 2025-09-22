@@ -1,4 +1,4 @@
-import type { JSXElementConstructor } from "react";
+import type { JSXElementConstructor, RefObject } from "react";
 import type { Empresa } from "@prisma/client";
 import type { ServicoData, ProdutoData } from "./data";
 import type { Views } from "./misc";
@@ -33,4 +33,16 @@ export type ViewEndStore = ViewEndStoreData & {
   setUnidades: (unidades: string | undefined) => void;
   setReferencia: (referencia: string) => void;
   resetEndStore: () => void;
+};
+
+export type InputErrorsStore = {
+  referenciaError: boolean;
+  montanteError: boolean;
+  setRefError: (value: boolean) => void;
+  setMontError: (value: boolean) => void;
+};
+
+export type InputRefsStore = {
+  inputRefs: RefObject<HTMLInputElement[]> | null;
+  setInputRefs: (value: RefObject<HTMLInputElement[]>) => void;
 };

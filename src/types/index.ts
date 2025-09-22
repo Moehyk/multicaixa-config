@@ -34,6 +34,8 @@ export type {
   ViewsStore,
   ViewEndStoreData,
   ViewEndStore,
+  InputErrorsStore,
+  InputRefsStore,
 } from "./stores";
 
 export type {
