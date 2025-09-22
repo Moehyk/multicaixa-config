@@ -45,4 +45,5 @@ export type {
   McxScreensType,
   CustomInputValueType,
   Views,
+  McxInputActions,
 } from "./misc";

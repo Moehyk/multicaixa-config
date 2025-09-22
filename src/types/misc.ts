@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction, JSXElementConstructor } from "react";
+import type { Dispatch, SetStateAction } from "react";
 
 export type DataModel =
   | "utilizador"
@@ -37,8 +37,19 @@ export type GridButton = {
   value?: string;
 };
 
-export type McxScreensType = 1 | 2 | 3;
-
 export type CustomInputValueType = "REFERENCIA" | "MONTANTE";
 
 export type Views = "empresa" | "servico" | "produto" | "end";
+
+export type McxScreensType = 1 | 2 | 3;
+
+export type McxInputActions = (
+  length: number,
+  mmin: number,
+  mmax: number
+) => {
+  screen: McxScreensType;
+  continueHandler: () => void;
+  clearHandler: () => void;
+  setScreen: Dispatch<SetStateAction<McxScreensType>>;
+};
