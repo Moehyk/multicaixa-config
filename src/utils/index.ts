@@ -11,6 +11,9 @@ export const geistMono = Geist_Mono({
 });
 
 export {
+  generateMcxScreens,
   renderMontanteText,
   renderReferenciaText,
-} from "./render-mcxinputs-text";
+} from "./mcxinputs-helpers";
+
+export { createGridButtons } from "./create-grid-buttons";
