@@ -1,12 +1,39 @@
 "use client";
+
 import { useResetMcx } from "@/hooks/reset-mcx";
+import { useInputErrorsStore } from "@/context/mcx/input-errors";
 
 import McxInputs from "./McxInputs";
 import { Button } from "@mantine/core";
 
+const renderTitleText = (
+  text: string,
+  refError: boolean,
+  montError: boolean
+) => {
+  if (refError) {
+    return (
+      <>
+        <p className="mb-2">Dados Incorrectos</p>
+        <p>{text}</p>
+      </>
+    );
+  }
+
+  if (montError) {
+    return <p>O montante introduzido está incorreto</p>;
+  }
+
+  return <p>{text}</p>;
+};
+
 function Title({ title }: { title: string }) {
+  const { referenciaError, montanteError } = useInputErrorsStore();
+
   return (
-    <div className="text-white font-bold mt-20 mb-5 text-2xl">{title}</div>
+    <div className="text-white font-bold mt-16 mb-5 text-2xl text-center h-20 flex flex-col items-center justify-center">
+      {renderTitleText(title, referenciaError, montanteError)}
+    </div>
   );
 }
 
