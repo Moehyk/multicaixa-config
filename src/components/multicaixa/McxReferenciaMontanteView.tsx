@@ -1,6 +1,7 @@
 "use client";
 
 import { useMcxInputActions } from "@/hooks/mcx-inputs-view-actions";
+import { generateMcxScreens } from "@/utils/mcxinputs-helpers";
 
 import McxInputsView from "./McxInputsView";
 import McxInput from "./McxInput";
@@ -17,7 +18,8 @@ export default function McxReferenciaMontanteView({
   const { screen, clearHandler, continueHandler } = useMcxInputActions(
     tamanhoReferencia,
     montanteMin ?? 0,
-    montanteMax ?? 0
+    montanteMax ?? 0,
+    generateMcxScreens(2)
   );
 
   return (

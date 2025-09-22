@@ -1,7 +1,7 @@
 "use client";
 
 import { useMcxInputActions } from "@/hooks/mcx-inputs-view-actions";
-import { createGridButtons } from "@/utils/create-grid-buttons";
+import { createGridButtons, generateMcxScreens } from "@/utils";
 
 import McxInputsView from "./McxInputsView";
 import McxSelectionView from "./McxSelectionView";
@@ -18,8 +18,12 @@ function CarregamentoMontantes({
   montanteMin,
   ...props
 }: NonNullable<CarregamentoData>) {
-  const { screen, setScreen, continueHandler, clearHandler } =
-    useMcxInputActions(tamanhoReferencia, montanteMin ?? 0, montanteMax ?? 0);
+  const { screen, continueHandler, clearHandler } = useMcxInputActions(
+    tamanhoReferencia,
+    montanteMin ?? 0,
+    montanteMax ?? 0,
+    generateMcxScreens(3)
+  );
 
   const buttons: GridButton[] = createGridButtons(montantes);
 
@@ -40,7 +44,7 @@ function CarregamentoMontantes({
           buttons={buttons}
           target="end"
           hasFreeAmount={montanteTipo === "ambos"}
-          toFreeAmount={() => setScreen(3)}
+          toFreeAmount={continueHandler}
         />
       )}
       {screen === 3 && (
