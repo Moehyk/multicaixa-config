@@ -1,6 +1,6 @@
 "use client";
 
-import { useCarregamentoMontanteViewActions } from "@/hooks/mcx-inputs-view-actions";
+import { useMcxInputActions } from "@/hooks/mcx-inputs-view-actions";
 import { createGridButtons } from "@/utils/create-grid-buttons";
 
 import McxInputsView from "./McxInputsView";
@@ -13,20 +13,23 @@ import type { CarregamentoData, GridButton } from "@/types";
 function CarregamentoMontantes({
   montanteTipo,
   montantes,
+  tamanhoReferencia,
+  montanteMax,
+  montanteMin,
   ...props
 }: NonNullable<CarregamentoData>) {
-  const { screen, setScreen, setView, clearHandler } =
-    useCarregamentoMontanteViewActions();
+  const { screen, setScreen, continueHandler, clearHandler } =
+    useMcxInputActions(tamanhoReferencia, montanteMin ?? 0, montanteMax ?? 0);
 
   const buttons: GridButton[] = createGridButtons(montantes);
 
   return (
     <>
       {screen === 1 && (
-        <McxInputsView onClear={clearHandler} onContinue={() => setScreen(2)}>
+        <McxInputsView onClear={clearHandler} onContinue={continueHandler}>
           <McxInput
             valueType="REFERENCIA"
-            tamanhoReferencia={props.tamanhoReferencia}
+            tamanhoReferencia={tamanhoReferencia}
             desigReferencia={props.desigReferencia}
             textoEcraReferencia={props.textoEcraReferencia}
           />
@@ -41,11 +44,11 @@ function CarregamentoMontantes({
         />
       )}
       {screen === 3 && (
-        <McxInputsView onClear={clearHandler} onContinue={() => setView("end")}>
+        <McxInputsView onClear={clearHandler} onContinue={continueHandler}>
           <McxInput
             valueType="MONTANTE"
-            min={props.montanteMin!}
-            max={props.montanteMax!}
+            min={montanteMin ?? 0}
+            max={montanteMax ?? 0}
           />
         </McxInputsView>
       )}
