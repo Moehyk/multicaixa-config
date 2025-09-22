@@ -11,7 +11,7 @@ import {
 import type { McxScreensType, McxInputActions } from "@/types";
 
 const useReferenciaError = (length: number) => {
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState(false);
   const { referencia } = useEndViewStore();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const useReferenciaError = (length: number) => {
 };
 
 const useMontanteError = (mmin: number, mmax: number) => {
-  const [error, setError] = useState<boolean>(false);
+  const [error, setError] = useState(false);
   const { montante } = useEndViewStore();
 
   const monatanteNum = Number(montante.slice(0, -2));
@@ -48,48 +48,73 @@ const useClearMcxInputs = (screen: McxScreensType) => {
   return () => (screen === 1 ? setReferencia("") : setMontante(""));
 };
 
-const useContinueWithValidation = (refErr: boolean, montErr: boolean) => {
+export const useMcxInputActions: McxInputActions = (
+  length: number,
+  mmin: number,
+  mmax: number,
+  screens: number[]
+) => {
   const { setView } = useViewsStore();
   const { inputRefs } = useInputRefsStore();
-  const [screen, setScreen] = useState<McxScreensType>(1);
+  const refErr = useReferenciaError(length);
+  const montErr = useMontanteError(mmin, mmax);
+  const [screen, setScreen] = useState<McxScreensType>(
+    screens[0] as McxScreensType
+  );
 
-  const onContinue = () => {
-    if (screen === 1) {
-      if (refErr) {
-        setInputReferenciaError(true);
-        setTimeout(() => {
-          inputRefs?.current[length - 1]?.focus();
-        }, 0);
-        return;
-      } else {
-        setInputReferenciaError(false);
-      }
-      setScreen(2);
+  const validateRef = () => {
+    setInputReferenciaError(refErr);
+
+    if (refErr) {
+      setTimeout(() => {
+        inputRefs?.current[length - 1]?.focus();
+      }, 0);
     } else {
-      if (montErr) {
-        setInputMontanteError(true);
-        setTimeout(() => {
-          inputRefs?.current[9]?.focus();
-        }, 0);
-        return;
-      } else {
-        setInputMontanteError(false);
-      }
+      setScreen(2);
+    }
+  };
+
+  const validateMont = () => {
+    setInputMontanteError(montErr);
+
+    if (montErr) {
+      setTimeout(() => {
+        inputRefs?.current[9]?.focus();
+      }, 0);
+    } else {
       setView("end");
     }
   };
 
-  return [[screen, setScreen], onContinue] as const;
-};
-
-export const useMcxInputActions: McxInputActions = (l, min, max) => {
-  const referenciaError = useReferenciaError(l);
-  const montanteError = useMontanteError(min, max);
-
-  const [[screen, setScreen], continueHandler] = useContinueWithValidation(
-    referenciaError,
-    montanteError
-  );
+  const continueHandler = () => {
+    if (screens.length === 2) {
+      switch (screen) {
+        case 1: {
+          validateRef();
+          break;
+        }
+        case 2: {
+          validateMont();
+          break;
+        }
+      }
+    } else {
+      switch (screen) {
+        case 1: {
+          validateRef();
+          break;
+        }
+        case 2: {
+          setScreen(3);
+          break;
+        }
+        case 3: {
+          validateMont();
+          break;
+        }
+      }
+    }
+  };
 
   const clearHandler = useClearMcxInputs(screen);
 
@@ -97,6 +122,5 @@ export const useMcxInputActions: McxInputActions = (l, min, max) => {
     screen,
     continueHandler,
     clearHandler,
-    setScreen,
   };
 };
