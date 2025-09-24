@@ -14,17 +14,19 @@ export default function McxToolbar() {
       <div className="flex gap-2">
         <Button
           size="compact-sm"
-          color="cyan"
+          color="orange"
           leftSection={<IconX size={16} />}
           onClick={reset}
+          className="focus:outline-orange-500"
         >
           Reset
         </Button>
         <Button
           size="compact-sm"
-          color="orange"
+          color="red"
           leftSection={<IconX size={16} />}
           onClick={closeModal}
+          className="focus:outline-red-500"
         >
           Sair
         </Button>

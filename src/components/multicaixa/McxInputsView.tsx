@@ -60,13 +60,28 @@ export default function McxInputsView({
     <div className="flex flex-col w-4/5 h-full justify-between mx-auto pb-8">
       <div className="flex flex-col items-center">{children}</div>
       <div className="flex gap-2 justify-end">
-        <Button size="xl" color="red" onClick={reset}>
+        <Button
+          size="xl"
+          color="red"
+          onClick={reset}
+          className="focus:outline-red-500"
+        >
           Anular
         </Button>
-        <Button size="xl" color="yellow" onClick={onClear}>
+        <Button
+          size="xl"
+          color="yellow"
+          onClick={onClear}
+          className="focus:outline-yellow-500"
+        >
           Corrigir
         </Button>
-        <Button size="xl" color="green" onClick={onContinue}>
+        <Button
+          size="xl"
+          color="green"
+          onClick={onContinue}
+          className="focus:outline-green-500"
+        >
           Continuar
         </Button>
       </div>
