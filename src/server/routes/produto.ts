@@ -537,6 +537,11 @@ export const produto = {
           id: id,
         },
         include: {
+          servico: {
+            select: {
+              desigSistema: true,
+            },
+          },
           carregamento: {
             include: {
               montantes: true,
@@ -586,6 +591,11 @@ export const produto = {
           servicoId: id,
         },
         include: {
+          servico: {
+            select: {
+              desigSistema: true,
+            },
+          },
           carregamento: {
             include: {
               montantes: true,

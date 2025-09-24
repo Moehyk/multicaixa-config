@@ -8,8 +8,6 @@ import type {
   CarrMontante,
 } from "@prisma/client";
 
-import type { EmpresaForm, ServicoForm, ProdutoForm } from "./forms";
-
 export type PagamentoData =
   | (Pick<
       Pagamento,
@@ -61,8 +59,9 @@ export type CarregamentoData =
 
 type ProdutoType = ["pagamento", "recargas", "carregamentos"];
 
-export type ProdutoData = Omit<Produto, "type"> &
-  (
+export type ProdutoData = Omit<Produto, "type"> & {
+  servico: Pick<Servico, "desigSistema">;
+} & (
     | {
         type: ProdutoType[0];
         pagamento: NonNullable<PagamentoData>;
