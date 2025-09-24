@@ -1,15 +1,21 @@
-import { Card } from "@mantine/core";
+import { Card, Divider } from "@mantine/core";
 
 export default function FormCard({
   children,
-  title,
+  header,
+  subheader,
 }: {
   children: React.ReactNode;
-  title: string;
+  header: string;
+  subheader: string;
 }) {
   return (
     <Card withBorder p={32}>
-      <h2 className="text-xl font-semibold mb-8">{title}</h2>
+      <div className="mb-10 flex items-center gap-4">
+        <span className="text-2xl font-semibold">{header}</span>
+        <Divider orientation="vertical" />
+        <span className="text-lg font-medium">{subheader}</span>
+      </div>
       {children}
     </Card>
   );
