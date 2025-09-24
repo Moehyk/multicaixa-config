@@ -5,9 +5,8 @@ import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import { RecargasFormProvider } from "@/context/forms";
-import { RecargasForm, FormCard } from "@/components/forms";
+import { RecargasForm } from "@/components/forms";
 
-import type { Produto, Recargas, RecaMontante } from "@prisma/client";
 import type { ProdutoRecargasForm } from "@/types";
 
 export default function UpdateRecargas(props: ProdutoRecargasForm) {
@@ -29,12 +28,10 @@ export default function UpdateRecargas(props: ProdutoRecargasForm) {
     }
   };
   return (
-    <FormCard title="Editar Produto Recargas">
-      <RecargasFormProvider form={form}>
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <RecargasForm action="Editar" isSubmitting={isMutating} />
-        </form>
-      </RecargasFormProvider>
-    </FormCard>
+    <RecargasFormProvider form={form}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <RecargasForm action="Editar" isSubmitting={isMutating} />
+      </form>
+    </RecargasFormProvider>
   );
 }

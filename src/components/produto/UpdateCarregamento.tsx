@@ -5,7 +5,7 @@ import { useFormMutation, useProdutoCarregamentoForm } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import { CarregamentoFormProvider } from "@/context/forms";
-import { CarregamentoForm, FormCard } from "@/components/forms";
+import { CarregamentoForm } from "@/components/forms";
 
 import type { ProdutoCarregamentoForm } from "@/types";
 
@@ -28,12 +28,10 @@ export default function UpdateCarregamento(props: ProdutoCarregamentoForm) {
   };
 
   return (
-    <FormCard title="Editar Carregamento">
-      <CarregamentoFormProvider form={form}>
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <CarregamentoForm action="Editar" isSubmitting={isMutating} />
-        </form>
-      </CarregamentoFormProvider>
-    </FormCard>
+    <CarregamentoFormProvider form={form}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <CarregamentoForm action="Editar" isSubmitting={isMutating} />
+      </form>
+    </CarregamentoFormProvider>
   );
 }

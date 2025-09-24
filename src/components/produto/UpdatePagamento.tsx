@@ -4,7 +4,7 @@ import { updateProdutoPagamento } from "@/server/services";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 import { PagamentoFormProvider } from "@/context/forms";
 
-import { PagamentoForm, FormCard } from "@/components/forms";
+import { PagamentoForm } from "@/components/forms";
 
 import { useFormMutation, useProdutoPagamentoForm } from "@/hooks";
 
@@ -29,12 +29,10 @@ export default function UpdatePagamento(props: ProdutoPagamentoForm) {
   };
 
   return (
-    <FormCard title="Editar Produto Pagamento">
-      <PagamentoFormProvider form={form}>
-        <form onSubmit={form.onSubmit(handleSubmit)}>
-          <PagamentoForm action="Editar" isSubmitting={isMutating} />
-        </form>
-      </PagamentoFormProvider>
-    </FormCard>
+    <PagamentoFormProvider form={form}>
+      <form onSubmit={form.onSubmit(handleSubmit)}>
+        <PagamentoForm action="Editar" isSubmitting={isMutating} />
+      </form>
+    </PagamentoFormProvider>
   );
 }
