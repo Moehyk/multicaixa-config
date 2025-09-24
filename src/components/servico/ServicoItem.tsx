@@ -28,7 +28,7 @@ function ServicoItemTitle({
       <ActionIcon variant="default" onClick={motion.motionIcon} size="lg">
         <motion.MotionIcon
           size={16}
-          variants={{ open: { rotate: -180 }, closed: { rotate: 0 } }}
+          variants={{ open: { rotate: -135 }, closed: { rotate: 0 } }}
           animate={motion.openedIcon ? "open" : "closed"}
           transition={{ duration: 0.2, ease: "easeInOut" }}
         />
