@@ -8,7 +8,7 @@ export default function McxModal() {
   const { McxView } = useViewsStore();
 
   return (
-    <div className="bg-brand-500 h-[820px]">
+    <div className="bg-brand-700 h-[820px]">
       <div className="h-full flex flex-col">
         <McxToolbar />
         <McxView />
