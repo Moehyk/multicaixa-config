@@ -40,7 +40,7 @@ export default function McxEndView() {
             data={amountFractionFormatter(Number(montante))}
           />
         </div>
-        <div className="w-full flex gap-8 justify-between">
+        <div className="w-full grid grid-cols-2 gap-8">
           <McxSelectBtn onClick={reset} selectText="Cancelar" selectKey="1" />
           <McxSelectBtn
             onClick={closeModal}
