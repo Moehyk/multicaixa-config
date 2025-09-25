@@ -25,6 +25,7 @@ export type {
   MontanteInputProps,
   ReferenciaInputProps,
   ProdutoFormProps,
+  GroupButtonsSize,
   GroupButtonsProps,
   McxSelectBtnProps,
 } from "./props";

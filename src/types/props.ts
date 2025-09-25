@@ -28,6 +28,12 @@ export type ReferenciaInputProps = {
   desigReferencia: string;
 };
 
+export type GroupButtonsSize = {
+  hasOnlyOneGroup?: boolean;
+  isMultiGroupFirstOrLastPage?: boolean;
+  isMultiGroupBetweenPage?: boolean;
+};
+
 export type GroupButtonsProps = {
   buttons: GridButton[];
   currentPage: number;
@@ -36,6 +42,7 @@ export type GroupButtonsProps = {
   isFreeAmount?: boolean;
   toFreeAmount: () => void;
   target: Views;
+  size: GroupButtonsSize;
 };
 
 export type McxSelectBtnProps = {
