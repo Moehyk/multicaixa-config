@@ -1,7 +1,22 @@
-import { useEffect, useCallback } from "react";
+import { useEffect, useCallback, useState } from "react";
 import { useEndViewStore, useViewsStore } from "@/context/mcx";
+import { splitArray } from "@/utils/split-array";
 
-import type { GroupButtonsProps } from "@/types";
+import type { GroupButtonsProps, GridButton } from "@/types";
+
+export const useMcxSelectionButtons = (buttons: GridButton[]) => {
+  const splitButtons = splitArray(buttons, 7, 6);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [pageBtns, setPageBtns] = useState<GridButton[]>(
+    splitButtons[currentPage - 1]
+  );
+
+  useEffect(() => {
+    setPageBtns(splitButtons[currentPage - 1]);
+  }, [currentPage]);
+
+  return { currentPage, setCurrentPage, pageBtns, setPageBtns, splitButtons };
+};
 
 export const useMcxNavigation = ({
   buttons,
