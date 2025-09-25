@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import type { Dispatch, SetStateAction, KeyboardEvent } from "react";
 import type { CustomInputValueType, GridButton } from "./misc";
 
 export type ProdutoFormProps = {
@@ -36,4 +36,12 @@ export type GroupButtonsProps = {
   to: (id?: string) => void;
   isFreeAmount?: boolean;
   toFreeAmount: () => void;
+};
+
+export type McxSelectBtnProps = {
+  onClick: () => void;
+  onKeyDown?: (e: KeyboardEvent<HTMLButtonElement>) => void;
+  selectKey: string;
+  selectText: string;
+  selectSecondarytext?: string;
 };

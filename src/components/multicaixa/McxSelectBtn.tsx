@@ -4,17 +4,15 @@ import { motion } from "motion/react";
 
 import { UnstyledButton } from "@mantine/core";
 
+import type { McxSelectBtnProps } from "@/types";
+
 export default function McxSelectBtn({
   onClick,
+  onKeyDown,
   selectKey,
   selectText,
   selectSecondarytext,
-}: {
-  onClick: () => void;
-  selectKey: string;
-  selectText: string;
-  selectSecondarytext?: string;
-}) {
+}: McxSelectBtnProps) {
   const isOdd = Number(selectKey) % 2 != 0;
 
   return (
@@ -26,6 +24,7 @@ export default function McxSelectBtn({
       <UnstyledButton
         className="flex items-center justify-between bg-white h-28 px-4 rounded border-[6px] border-solid border-blue-950 text-2xl font-bold w-full focus:bg-yellow-100 focus:outline-none"
         onClick={onClick}
+        onKeyDown={onKeyDown}
       >
         {!isOdd && (
           <>
