@@ -1,7 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useMcxNavigation } from "@/hooks/useMcxNavigation";
+import { randomId } from "@mantine/hooks";
+import {
+  useMcxNavigation,
+  useMcxSelectionButtons,
+} from "@/hooks/mcx-selection-view";
 import { splitArray } from "@/utils/split-array";
 
 import McxContentWrapper from "./McxContentWrapper";
@@ -51,6 +55,7 @@ function MultiGroupFirstOrLastPage(props: GroupButtonsProps) {
             />
           ))}
           <McxSelectBtn
+            key={randomId("mcx-select-btn")}
             selectText="Ecrã Seguinte"
             selectKey="8"
             onClick={() => props.dispatch(props.currentPage + 1)}
@@ -60,6 +65,7 @@ function MultiGroupFirstOrLastPage(props: GroupButtonsProps) {
       {props.currentPage !== 1 && (
         <>
           <McxSelectBtn
+            key={randomId("mcx-select-btn")}
             selectText="Ecrã Anterior"
             selectKey="1"
             onClick={() => props.dispatch(props.currentPage - 1)}
@@ -85,6 +91,7 @@ function MultiGroupBetweenPage(props: GroupButtonsProps) {
   return (
     <>
       <McxSelectBtn
+        key={randomId("mcx-select-btn")}
         selectText="Ecrã Anterior"
         selectKey="1"
         onClick={() => props.dispatch(props.currentPage - 1)}
@@ -100,6 +107,7 @@ function MultiGroupBetweenPage(props: GroupButtonsProps) {
       ))}
       {props.currentPage !== props.lastPage && (
         <McxSelectBtn
+          key={randomId("mcx-select-btn")}
           selectText="Ecrã Seguinte"
           selectKey="8"
           onClick={() => props.dispatch(props.currentPage + 1)}
@@ -120,15 +128,8 @@ export default function McxSelectionView({
   hasFreeAmount?: boolean;
   toFreeAmount?: () => void;
 }) {
-  const splitButtons = splitArray(buttons, 7, 6);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageBtns, setPageBtns] = useState<GridButton[]>(
-    splitButtons[currentPage - 1]
-  );
-
-  useEffect(() => {
-    setPageBtns(splitButtons[currentPage - 1]);
-  }, [currentPage]);
+  const { pageBtns, setPageBtns, currentPage, setCurrentPage, splitButtons } =
+    useMcxSelectionButtons(buttons);
 
   return (
     <McxContentWrapper>
