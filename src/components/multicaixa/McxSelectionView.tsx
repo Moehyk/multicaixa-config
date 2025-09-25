@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useViewsStore } from "@/context/mcx";
-import { useMcxEndViewUnidadesData } from "@/hooks/useMcxEndViewUnidadesData";
+import { useMcxNavigation } from "@/hooks/useMcxNavigation";
 import { splitArray } from "@/utils/split-array";
 
 import McxContentWrapper from "./McxContentWrapper";
@@ -10,87 +9,68 @@ import McxSelectBtn from "./McxSelectBtn";
 
 import type { GridButton, GroupButtonsProps, Views } from "@/types";
 
-function OnlyOneGroup({
-  buttons,
-  to,
-  isFreeAmount,
-  toFreeAmount,
-}: GroupButtonsProps) {
-  const { setRecargasValues } = useMcxEndViewUnidadesData();
+function OnlyOneGroup(props: GroupButtonsProps) {
+  const onClick = useMcxNavigation(props);
 
   return (
     <>
-      {buttons.map((btn, i) => (
+      {props.buttons.map((btn, i) => (
         <McxSelectBtn
           key={`${btn.id}-${btn.selectText}`}
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 1}`}
-          onClick={() => {
-            setRecargasValues(btn.selectText, btn.value ?? "");
-            to(btn.id);
-          }}
+          onClick={() => onClick(btn.selectText, btn.value, btn.id)}
         />
       ))}
-      {isFreeAmount && (
+      {props.isFreeAmount && (
         <McxSelectBtn
           selectText="Outro Montante"
-          selectKey={`${buttons.length + 1}`}
-          onClick={toFreeAmount}
+          selectKey={`${props.buttons.length + 1}`}
+          onClick={props.toFreeAmount}
         />
       )}
     </>
   );
 }
 
-function MultiGroupFirstOrLastPage({
-  buttons,
-  currentPage,
-  dispatch,
-  to,
-}: GroupButtonsProps) {
-  const { setRecargasValues } = useMcxEndViewUnidadesData();
+function MultiGroupFirstOrLastPage(props: GroupButtonsProps) {
+  const onClick = useMcxNavigation(props);
 
   return (
     <>
-      {currentPage === 1 && (
+      {props.currentPage === 1 && (
         <>
-          {buttons.map((btn, i) => (
+          {props.buttons.map((btn, i) => (
             <McxSelectBtn
               key={`${btn.id}-${btn.selectText}`}
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 1}`}
-              onClick={() => {
-                setRecargasValues(btn.selectSecondarytext, btn.selectText);
-                to(btn.id);
-              }}
+              onClick={() => onClick(btn.selectText, btn.value, btn.id)}
             />
           ))}
           <McxSelectBtn
             selectText="Ecrã Seguinte"
             selectKey="8"
-            onClick={() => dispatch(currentPage + 1)}
+            onClick={() => props.dispatch(props.currentPage + 1)}
           />
         </>
       )}
-      {currentPage !== 1 && (
+      {props.currentPage !== 1 && (
         <>
           <McxSelectBtn
             selectText="Ecrã Anterior"
             selectKey="1"
-            onClick={() => dispatch(currentPage - 1)}
+            onClick={() => props.dispatch(props.currentPage - 1)}
           />
-          {buttons.map((btn, i) => (
+          {props.buttons.map((btn, i) => (
             <McxSelectBtn
               key={`${btn.id}-${btn.selectText}`}
               selectText={btn.selectText}
               selectSecondarytext={btn.selectSecondarytext}
               selectKey={`${i + 2}`}
-              onClick={() => {
-                setRecargasValues(btn.selectSecondarytext, btn.selectText);
-                to(btn.id);
-              }}
+              onClick={() => onClick(btn.selectText, btn.value, btn.id)}
             />
           ))}
         </>
@@ -99,39 +79,30 @@ function MultiGroupFirstOrLastPage({
   );
 }
 
-function MultiGroupBetweenPage({
-  buttons,
-  currentPage,
-  dispatch,
-  lastPage,
-  to,
-}: GroupButtonsProps) {
-  const { setRecargasValues } = useMcxEndViewUnidadesData();
+function MultiGroupBetweenPage(props: GroupButtonsProps) {
+  const onClick = useMcxNavigation(props);
 
   return (
     <>
       <McxSelectBtn
         selectText="Ecrã Anterior"
         selectKey="1"
-        onClick={() => dispatch(currentPage - 1)}
+        onClick={() => props.dispatch(props.currentPage - 1)}
       />
-      {buttons.map((btn, i) => (
+      {props.buttons.map((btn, i) => (
         <McxSelectBtn
           key={`${btn.id}-${btn.selectText}`}
           selectText={btn.selectText}
           selectSecondarytext={btn.selectSecondarytext}
           selectKey={`${i + 2}`}
-          onClick={() => {
-            setRecargasValues(btn.selectSecondarytext, btn.selectText);
-            to(btn.id);
-          }}
+          onClick={() => onClick(btn.selectText, btn.value, btn.id)}
         />
       ))}
-      {currentPage !== lastPage && (
+      {props.currentPage !== props.lastPage && (
         <McxSelectBtn
           selectText="Ecrã Seguinte"
           selectKey="8"
-          onClick={() => dispatch(currentPage + 1)}
+          onClick={() => props.dispatch(props.currentPage + 1)}
         />
       )}
     </>
@@ -149,18 +120,11 @@ export default function McxSelectionView({
   hasFreeAmount?: boolean;
   toFreeAmount?: () => void;
 }) {
-  const { setView } = useViewsStore();
-
   const splitButtons = splitArray(buttons, 7, 6);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageBtns, setPageBtns] = useState<GridButton[]>(
     splitButtons[currentPage - 1]
   );
-
-  const goTo = (id?: string) => {
-    console.log("id", id);
-    setView(target, id);
-  };
 
   useEffect(() => {
     setPageBtns(splitButtons[currentPage - 1]);
@@ -174,9 +138,9 @@ export default function McxSelectionView({
             buttons={pageBtns}
             currentPage={currentPage}
             dispatch={setCurrentPage}
-            to={goTo}
             isFreeAmount={hasFreeAmount}
             toFreeAmount={toFreeAmount}
+            target={target}
           />
         )}
         {buttons.length >= 9 && (
@@ -186,8 +150,8 @@ export default function McxSelectionView({
                 buttons={pageBtns}
                 currentPage={currentPage}
                 dispatch={setCurrentPage}
-                to={goTo}
                 toFreeAmount={toFreeAmount}
+                target={target}
               />
             )}
             {pageBtns.length <= 6 && (
@@ -196,8 +160,8 @@ export default function McxSelectionView({
                 currentPage={currentPage}
                 dispatch={setCurrentPage}
                 lastPage={splitButtons.length}
-                to={goTo}
                 toFreeAmount={toFreeAmount}
+                target={target}
               />
             )}
           </>
