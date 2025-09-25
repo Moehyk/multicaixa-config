@@ -8,7 +8,6 @@ import type { McxSelectBtnProps } from "@/types";
 
 export default function McxSelectBtn({
   onClick,
-  onKeyDown,
   selectKey,
   selectText,
   selectSecondarytext,
@@ -24,7 +23,6 @@ export default function McxSelectBtn({
       <UnstyledButton
         className="flex items-center justify-between bg-white h-28 px-4 rounded border-[6px] border-solid border-blue-950 text-2xl font-bold w-full focus:bg-yellow-100 focus:outline-none"
         onClick={onClick}
-        onKeyDown={onKeyDown}
       >
         {!isOdd && (
           <>
