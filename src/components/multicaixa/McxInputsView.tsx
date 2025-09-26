@@ -1,6 +1,6 @@
 "use client";
 
-import { useResetMcx } from "@/hooks/reset-mcx";
+import { useMcxInputsView } from "@/hooks/mcx-inputs-view";
 import { useInputErrorsStore } from "@/context/mcx/input-errors";
 
 import McxInputs from "./McxInputs";
@@ -54,7 +54,7 @@ export default function McxInputsView({
   onContinue: () => void;
   onClear: () => void;
 }) {
-  const reset = useResetMcx();
+  const reset = useMcxInputsView(onContinue, onClear);
 
   return (
     <div className="flex flex-col w-4/5 h-full justify-between mx-auto pb-8">
