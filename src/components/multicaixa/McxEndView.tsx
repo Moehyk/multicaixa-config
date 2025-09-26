@@ -1,5 +1,5 @@
 import { amountFractionFormatter } from "@/utils/amount-formatter";
-import { useMcxEndView } from "@/hooks/useMcxEndView";
+import { useMcxEndView } from "@/hooks/mcx-end-view";
 
 import McxScreenText from "./McxScreenText";
 import McxSelectBtn from "./McxSelectBtn";
