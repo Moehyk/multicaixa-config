@@ -1,36 +1,43 @@
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useMemo } from "react";
 import { useEndViewStore, useViewsStore } from "@/context/mcx";
 import { splitArray } from "@/utils/split-array";
 
-import type { GroupButtonsProps, GridButton } from "@/types";
+import type { McxSelectionViewProps } from "@/types";
 
-export const useMcxSelectionButtons = (buttons: GridButton[]) => {
-  const splitButtons = splitArray(buttons, 7, 6);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageBtns, setPageBtns] = useState<GridButton[]>(
-    splitButtons[currentPage - 1]
-  );
-
-  useEffect(() => {
-    setPageBtns(splitButtons[currentPage - 1]);
-  }, [currentPage]);
-
-  return { currentPage, setCurrentPage, pageBtns, setPageBtns, splitButtons };
-};
-
-export const useMcxNavigation = ({
+export const useMcxSelectionButtons = ({
   buttons,
-  isFreeAmount,
   target,
+  hasFreeAmount,
   toFreeAmount,
-}: GroupButtonsProps) => {
+}: McxSelectionViewProps) => {
+  ///////////////////////////////////////////////////
+  // MANAGING THE BUTTONS GROUPS AND BUTTONS STATE
+  ///////////////////////////////////////////////////
+  const [currentGroup, setCurrentGroup] = useState(1);
+  const buttonsGroups = splitArray(buttons, 7, 6);
+  const currentButtons = buttonsGroups[currentGroup - 1];
+  const isLastPage = currentGroup === buttonsGroups.length;
+
+  const hasPreviousPageBtn = currentGroup > 1;
+  const hasNextPageBtn = currentGroup < buttonsGroups.length;
+  const maxRegularButtons =
+    8 - (hasPreviousPageBtn ? 1 : 0) - (hasNextPageBtn ? 1 : 0);
+  const showFreeAmount = useMemo(() => {
+    return (
+      hasFreeAmount && isLastPage && currentButtons.length <= maxRegularButtons
+    );
+  }, [hasFreeAmount, isLastPage, currentButtons.length, maxRegularButtons]);
+
+  ///////////////////////////////////////////////////
+  // MANAGING VIEW NAVIGATION AND DATA STORING
+  ///////////////////////////////////////////////////
+  const freeAmountHandler = toFreeAmount ?? (() => {});
   const { setView } = useViewsStore();
   const { setUnidades, setMontante } = useEndViewStore();
 
   const toNextView = (id?: string) => {
     setView(target, id);
   };
-
   const setRecargasValues = (
     unidades: string | undefined,
     montante: string
@@ -38,7 +45,6 @@ export const useMcxNavigation = ({
     setUnidades(unidades);
     setMontante(montante);
   };
-
   const navigate = useCallback(
     (selectText: string, value?: string, id?: string) => {
       setRecargasValues(selectText, value ?? "");
@@ -47,28 +53,70 @@ export const useMcxNavigation = ({
     [target, setRecargasValues, toNextView]
   );
 
-  // Handle keyboard navigation
-  useEffect(() => {
-    const handleKeyPress = (event: globalThis.KeyboardEvent) => {
+  ///////////////////////////////////////////////////
+  // HANDLE KEYBOARD NAVIGATION
+  ///////////////////////////////////////////////////
+  const handleKeyPress = useCallback(
+    (event: globalThis.KeyboardEvent) => {
       const keyNumber = parseInt(event.key);
-      if (keyNumber >= 1 && keyNumber <= 8) {
-        const buttonIndex = keyNumber - 1;
 
-        if (buttonIndex < buttons.length) {
-          const btn = buttons[buttonIndex];
-          navigate(btn.selectText, btn.value, btn.id);
-        } else if (isFreeAmount && buttonIndex === buttons.length) {
-          toFreeAmount();
+      if (keyNumber >= 1 && keyNumber <= 8) {
+        const freeAmountKey =
+          currentButtons.length + (hasPreviousPageBtn ? 2 : 1);
+
+        if (keyNumber === 1) {
+          if (hasPreviousPageBtn) {
+            setCurrentGroup((prev) => prev - 1);
+          } else if (currentButtons.length >= 1) {
+            const btn = currentButtons[0];
+            navigate(btn.selectText, btn.value, btn.id);
+          }
+        } else if (keyNumber === 8) {
+          if (hasNextPageBtn) {
+            setCurrentGroup((prev) => prev + 1);
+          } else if (showFreeAmount && keyNumber === freeAmountKey) {
+            freeAmountHandler();
+          } else if (currentButtons.length >= 8) {
+            const btnIndex = 8 - (hasPreviousPageBtn ? 2 : 1);
+            const btn = currentButtons[btnIndex];
+            navigate(btn.selectText, btn.value, btn.id);
+          }
+        } else if (showFreeAmount && keyNumber === freeAmountKey) {
+          freeAmountHandler();
+        } else {
+          let buttonIndex = keyNumber - 1;
+          if (hasPreviousPageBtn) buttonIndex -= 1;
+
+          if (buttonIndex >= 0 && buttonIndex < currentButtons.length) {
+            const btn = currentButtons[buttonIndex];
+            navigate(btn.selectText, btn.value, btn.id);
+          }
         }
       }
-    };
+    },
+    [
+      buttonsGroups,
+      currentGroup,
+      hasFreeAmount,
+      navigate,
+      setCurrentGroup,
+      freeAmountHandler,
+    ]
+  );
 
+  useEffect(() => {
     document.addEventListener("keydown", handleKeyPress);
-
     return () => {
       document.removeEventListener("keydown", handleKeyPress);
     };
-  }, [buttons, isFreeAmount, navigate, toFreeAmount]);
+  }, [handleKeyPress]);
 
-  return navigate;
+  return {
+    setCurrentGroup,
+    currentButtons,
+    hasPreviousPageBtn,
+    hasNextPageBtn,
+    showFreeAmount,
+    navigate,
+  };
 };
