@@ -13,13 +13,13 @@ export const useMcxInputsView = (
     const keyPressHandler = (e: globalThis.KeyboardEvent) => {
       const key = e.key;
 
-      if (key === "i") {
+      if (key === "z") {
         reset();
       }
-      if (key === "o") {
+      if (key === "x") {
         onClear();
       }
-      if (key === "p") {
+      if (key === "c") {
         onContinue();
       }
     };
