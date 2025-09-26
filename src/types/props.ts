@@ -42,7 +42,14 @@ export type GroupButtonsProps = {
   isFreeAmount?: boolean;
   toFreeAmount: () => void;
   target: Views;
-  size: GroupButtonsSize;
+  buttonsGroups: GridButton[][];
+};
+
+export type McxSelectionViewProps = {
+  buttons: GridButton[];
+  target: Views;
+  hasFreeAmount?: boolean;
+  toFreeAmount?: () => void;
 };
 
 export type McxSelectBtnProps = {
