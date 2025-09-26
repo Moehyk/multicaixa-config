@@ -8,14 +8,21 @@ import McxSelectionView from "./McxSelectionView";
 export default function McxServicosView() {
   const { servico } = useMcxData();
 
-  if (!servico) return <NoMcxView text="Serviço não encontrado." />;
+  if (!servico) {
+    return (
+      <>
+        <McxScreenText subtext="Serviço não encontrado." />
+        <NoMcxView view="end" />;
+      </>
+    );
+  }
 
   const buttons = createDataGridButtons(servico.produtos);
 
   return (
     <>
       <McxScreenText subtext={servico.desigEcra} />
-      {buttons.length === 0 && <NoMcxView text="Sem produtos disponíveis." />}
+      {buttons.length === 0 && <NoMcxView view="servico" />}
       {buttons && buttons.length > 0 && (
         <McxSelectionView buttons={buttons} target="produto" />
       )}

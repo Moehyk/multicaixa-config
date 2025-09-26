@@ -30,7 +30,7 @@ const renderProdutoView = (produto: ProdutoData) => {
 export default function McxProdutoView() {
   const { produto } = useMcxData();
 
-  if (!produto) return <NoMcxView text="Produto não encontrado." />;
+  if (!produto) return <NoMcxView view="produto" />;
 
   return (
     <>
