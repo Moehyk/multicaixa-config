@@ -66,7 +66,7 @@ export default function McxInputsView({
           onClick={reset}
           className="focus:outline-red-500"
         >
-          Anular
+          {`Anular (Z)`}
         </Button>
         <Button
           size="xl"
@@ -74,7 +74,7 @@ export default function McxInputsView({
           onClick={onClear}
           className="focus:outline-yellow-500"
         >
-          Corrigir
+          {`Corrigir (X)`}
         </Button>
         <Button
           size="xl"
@@ -82,7 +82,7 @@ export default function McxInputsView({
           onClick={onContinue}
           className="focus:outline-green-500"
         >
-          Continuar
+          {`Continuar (C)`}
         </Button>
       </div>
     </div>
