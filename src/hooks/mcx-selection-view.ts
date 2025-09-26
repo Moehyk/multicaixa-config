@@ -56,8 +56,8 @@ export const useMcxSelectionButtons = ({
   ///////////////////////////////////////////////////
   // HANDLE KEYBOARD NAVIGATION
   ///////////////////////////////////////////////////
-  const keyPressHandler = useCallback(
-    (e: globalThis.KeyboardEvent) => {
+  useEffect(() => {
+    const keyPressHandler = (e: globalThis.KeyboardEvent) => {
       const keyNumber = parseInt(e.key);
 
       if (keyNumber >= 1 && keyNumber <= 8) {
@@ -93,23 +93,20 @@ export const useMcxSelectionButtons = ({
           }
         }
       }
-    },
-    [
-      buttonsGroups,
-      currentGroup,
-      hasFreeAmount,
-      navigate,
-      setCurrentGroup,
-      freeAmountHandler,
-    ]
-  );
+    };
 
-  useEffect(() => {
     document.addEventListener("keydown", keyPressHandler);
     return () => {
       document.removeEventListener("keydown", keyPressHandler);
     };
-  }, [keyPressHandler]);
+  }, [
+    buttonsGroups,
+    currentGroup,
+    hasFreeAmount,
+    navigate,
+    setCurrentGroup,
+    freeAmountHandler,
+  ]);
 
   return {
     setCurrentGroup,
