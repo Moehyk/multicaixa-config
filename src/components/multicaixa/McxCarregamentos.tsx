@@ -1,6 +1,6 @@
 "use client";
 
-import { useMcxInputActions } from "@/hooks/mcx-inputs-view-actions";
+import { useMcxInputActions } from "@/hooks/mcx-inputs-view";
 import { createGridButtons, generateMcxScreens } from "@/utils";
 
 import McxInputsView from "./McxInputsView";
