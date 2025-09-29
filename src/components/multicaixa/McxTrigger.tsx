@@ -13,7 +13,9 @@ export default function McxTrigger() {
           openContextModal({
             modal: "mcx-modal",
             size: 1200,
-            innerProps: {},
+            innerProps: {
+              type: "APP",
+            },
           })
         }
         rightSection={<IconDeviceDesktop size={20} />}
