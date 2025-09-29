@@ -57,7 +57,7 @@ export type CarregamentoData =
       })
   | null;
 
-type ProdutoType = ["pagamento", "recargas", "carregamentos"];
+export type ProdutoType = ["pagamento", "recargas", "carregamentos"];
 
 export type ProdutoData = Omit<Produto, "type"> & {
   servico: Pick<Servico, "desigSistema">;

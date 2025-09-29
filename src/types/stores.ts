@@ -1,6 +1,13 @@
 import type { JSXElementConstructor, RefObject } from "react";
-import type { Empresa } from "@prisma/client";
-import type { ServicoData, ProdutoData } from "./data";
+import type { Empresa, Produto } from "@prisma/client";
+import type {
+  ServicoData,
+  ProdutoData,
+  ProdutoType,
+  PagamentoData,
+  RecargasData,
+  CarregamentoData,
+} from "./data";
 import type { Views } from "./misc";
 
 export type DataStore = Empresa & {
@@ -18,6 +25,28 @@ export type ViewsStore = {
   id?: string;
   McxView: JSXElementConstructor<any>;
   setView: (view: Views, id?: string) => void;
+};
+
+export type AppPreviewStore = Pick<Produto, "desigEcra"> &
+  (
+    | {
+        type: ProdutoType[0];
+        pagamento: PagamentoData;
+      }
+    | {
+        type: ProdutoType[1];
+        recargas: RecargasData;
+      }
+    | {
+        type: ProdutoType[2];
+        carregamento: CarregamentoData;
+      }
+  );
+
+export type AppPreviewStoreActions = {
+  setPagamento: (pagamento: PagamentoData) => void;
+  setRecargas: (recargas: RecargasData) => void;
+  setCarregamento: (carregamento: CarregamentoData) => void;
 };
 
 export type ViewEndStoreData = {
