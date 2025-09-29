@@ -1,8 +1,8 @@
 import { getServico } from "@/server/services";
 import { notFound } from "next/navigation";
 
+import { FormCard } from "@/components/forms";
 import { CriarProduto } from "@/components/produto";
-import { Card } from "@mantine/core";
 
 export default async function CriarProdutoPage({
   params,
@@ -18,12 +18,8 @@ export default async function CriarProdutoPage({
   }
 
   return (
-    <Card p={32} withBorder>
-      <CriarProduto
-        id={servicoId}
-        header={data.desigSistema}
-        subheader="Criar Produto"
-      />
-    </Card>
+    <FormCard header={data.desigSistema} subheader="Criar Produto">
+      <CriarProduto id={servicoId} />
+    </FormCard>
   );
 }
