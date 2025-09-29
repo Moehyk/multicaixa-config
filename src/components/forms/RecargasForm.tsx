@@ -1,10 +1,12 @@
 import { useRecargasFormContext } from "@/context/forms";
+import { useAppRecargasPreview } from "@/context/mcx/app-preview-store";
+import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
 
 import Link from "next/link";
 import MaxItemsAlert from "./MaxItemsAlert";
 import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
-import { IconTrash } from "@tabler/icons-react";
+import { IconTrash, IconDeviceDesktop } from "@tabler/icons-react";
 
 import type { ProdutoFormProps } from "@/types";
 
@@ -12,9 +14,22 @@ export default function RecargasForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
+  const setAppPreview = useAppRecargasPreview();
   const { getInputProps, insertListItem, removeListItem, getValues } =
     useRecargasFormContext();
   const montantes = getValues().recargas?.montantes;
+
+  const handleOpenPreviewModal = () => {
+    setAppPreview();
+
+    openContextModal({
+      modal: "mcx-modal",
+      size: 1200,
+      innerProps: {
+        type: "PREVIEW",
+      },
+    });
+  };
 
   return (
     <>
@@ -98,6 +113,14 @@ export default function RecargasForm({
       <div className="flex gap-2 pt-8">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
+        </Button>
+        <Button
+          variant="outline"
+          size="md"
+          rightSection={<IconDeviceDesktop size={20} />}
+          onClick={handleOpenPreviewModal}
+        >
+          Visualizar
         </Button>
         <Button size="md" type="submit" loading={isSubmitting}>
           {action}

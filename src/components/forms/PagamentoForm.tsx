@@ -1,7 +1,10 @@
 import { usePagamentoFormContext } from "@/context/forms";
+import { useAppPagamentoPreview } from "@/context/mcx/app-preview-store";
+import { openContextModal } from "@mantine/modals";
 
 import Link from "next/link";
 import { TextInput, NumberInput, Button } from "@mantine/core";
+import { IconDeviceDesktop } from "@tabler/icons-react";
 
 import type { ProdutoFormProps } from "@/types";
 
@@ -9,7 +12,20 @@ export default function PagamentoForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
+  const setAppPreview = useAppPagamentoPreview();
   const { getInputProps } = usePagamentoFormContext();
+
+  const handleOpenPreviewModal = () => {
+    setAppPreview();
+
+    openContextModal({
+      modal: "mcx-modal",
+      size: 1200,
+      innerProps: {
+        type: "PREVIEW",
+      },
+    });
+  };
 
   return (
     <>
@@ -72,6 +88,14 @@ export default function PagamentoForm({
       <div className="flex gap-2 pt-4">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
+        </Button>
+        <Button
+          variant="outline"
+          size="md"
+          rightSection={<IconDeviceDesktop size={20} />}
+          onClick={handleOpenPreviewModal}
+        >
+          Visualizar
         </Button>
         <Button size="md" type="submit" loading={isSubmitting}>
           {action}

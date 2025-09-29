@@ -1,5 +1,7 @@
-import { randomId } from "@mantine/hooks";
 import { useCarregamentoFormContext } from "@/context/forms";
+import { useAppCarregamentoPreview } from "@/context/mcx/app-preview-store";
+import { openContextModal } from "@mantine/modals";
+import { randomId } from "@mantine/hooks";
 
 import Link from "next/link";
 import MaxItemsAlert from "../forms/MaxItemsAlert";
@@ -10,7 +12,7 @@ import {
   Select,
   Fieldset,
 } from "@mantine/core";
-import { IconTrash, IconPlus } from "@tabler/icons-react";
+import { IconTrash, IconPlus, IconDeviceDesktop } from "@tabler/icons-react";
 
 import type { MontanteTipo } from "@prisma/client";
 import type { ProdutoFormProps } from "@/types";
@@ -19,6 +21,7 @@ export default function CarregamentoForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
+  const setAppPreview = useAppCarregamentoPreview();
   const {
     getInputProps,
     insertListItem,
@@ -29,6 +32,18 @@ export default function CarregamentoForm({
   } = useCarregamentoFormContext();
   const montanteTipo = getValues().carregamento?.montanteTipo;
   const montantes = getValues().carregamento?.montantes;
+
+  const handleOpenPreviewModal = () => {
+    setAppPreview();
+
+    openContextModal({
+      modal: "mcx-modal",
+      size: 1200,
+      innerProps: {
+        type: "PREVIEW",
+      },
+    });
+  };
 
   return (
     <>
@@ -181,6 +196,14 @@ export default function CarregamentoForm({
       <div className="flex gap-2 pt-8">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar
+        </Button>
+        <Button
+          variant="outline"
+          size="md"
+          rightSection={<IconDeviceDesktop size={20} />}
+          onClick={handleOpenPreviewModal}
+        >
+          Visualizar
         </Button>
         <Button size="md" type="submit" loading={isSubmitting}>
           {action}
