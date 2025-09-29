@@ -2,7 +2,8 @@ import { getProduto } from "@/server/services";
 import { notFound } from "next/navigation";
 import { sortDataArray } from "@/utils/sort-data-array";
 
-import { ProdutoFormCard } from "@/components/forms";
+import { Card } from "@mantine/core";
+import { ProdutoFormCardHeader } from "@/components/forms";
 import {
   UpdatePagamento,
   UpdateRecargas,
@@ -42,11 +43,12 @@ export default async function DynamicProdutoPage({
   }
 
   return (
-    <ProdutoFormCard
-      header={data.servico.desigSistema}
-      subheader={`Editar ${data.desigEcra}`}
-    >
+    <Card p={32} withBorder>
+      <ProdutoFormCardHeader
+        header={data.servico.desigSistema}
+        subheader={`Editar ${data.desigEcra}`}
+      />
       {renderProduto(data)}
-    </ProdutoFormCard>
+    </Card>
   );
 }
