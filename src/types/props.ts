@@ -58,3 +58,5 @@ export type McxSelectBtnProps = {
   selectText: string;
   selectSecondarytext?: string;
 };
+
+export type McxAppType = "APP" | "PREVIEW";

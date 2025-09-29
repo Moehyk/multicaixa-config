@@ -29,6 +29,7 @@ export type {
   GroupButtonsProps,
   McxSelectionViewProps,
   McxSelectBtnProps,
+  McxAppType,
 } from "./props";
 
 export type {
