@@ -2,13 +2,13 @@
 
 import { openContextModal } from "@mantine/modals";
 
+import FormHeaderTitle from "./FormHeaderTitle";
 import { Card, Divider, Button } from "@mantine/core";
 import { IconDeviceDesktop } from "@tabler/icons-react";
 
 export default function FormCard({
   children,
-  header,
-  subheader,
+  ...props
 }: {
   children: React.ReactNode;
   header: string;
@@ -17,11 +17,7 @@ export default function FormCard({
   return (
     <Card withBorder p={32}>
       <div className="mb-16 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <span className="text-2xl font-semibold">{header}</span>
-          <Divider orientation="vertical" />
-          <span className="text-lg font-medium">{subheader}</span>
-        </div>
+        <FormHeaderTitle {...props} />
         <Button
           variant="outline"
           rightSection={<IconDeviceDesktop size={20} />}
