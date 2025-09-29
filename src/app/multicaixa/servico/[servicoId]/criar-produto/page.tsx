@@ -1,7 +1,7 @@
 import { getServico } from "@/server/services";
 import { notFound } from "next/navigation";
 
-import { FormCard } from "@/components/forms";
+import { ProdutoFormCard } from "@/components/forms";
 import { CriarProduto } from "@/components/produto";
 
 export default async function CriarProdutoPage({
@@ -18,8 +18,8 @@ export default async function CriarProdutoPage({
   }
 
   return (
-    <FormCard header={data.desigSistema} subheader="Criar Produto">
+    <ProdutoFormCard header={data.desigSistema} subheader="Criar Produto">
       <CriarProduto id={servicoId} />
-    </FormCard>
+    </ProdutoFormCard>
   );
 }

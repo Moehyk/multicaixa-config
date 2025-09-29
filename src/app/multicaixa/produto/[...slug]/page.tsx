@@ -2,7 +2,7 @@ import { getProduto } from "@/server/services";
 import { notFound } from "next/navigation";
 import { sortDataArray } from "@/utils/sort-data-array";
 
-import { FormCard } from "@/components/forms";
+import { ProdutoFormCard } from "@/components/forms";
 import {
   UpdatePagamento,
   UpdateRecargas,
@@ -42,11 +42,11 @@ export default async function DynamicProdutoPage({
   }
 
   return (
-    <FormCard
+    <ProdutoFormCard
       header={data.servico.desigSistema}
       subheader={`Editar ${data.desigEcra}`}
     >
       {renderProduto(data)}
-    </FormCard>
+    </ProdutoFormCard>
   );
 }
