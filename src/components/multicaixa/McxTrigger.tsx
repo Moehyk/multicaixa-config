@@ -2,7 +2,7 @@
 
 import { openContextModal } from "@mantine/modals";
 
-import { Modal, Button } from "@mantine/core";
+import { Button } from "@mantine/core";
 import { IconDeviceDesktop } from "@tabler/icons-react";
 
 export default function McxTrigger() {
