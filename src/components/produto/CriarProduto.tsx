@@ -1,10 +1,14 @@
 "use client";
 
+import { useState } from "react";
+
 import { ProdutoFormCardHeader } from "@/components/forms";
 import CreatePagamento from "./CreatePagamento";
 import CreateCarregamento from "./CreateCarregamento";
 import CreateRecargas from "./CreateRecargas";
 import { Tabs } from "@mantine/core";
+
+import type { ProdutoTipo } from "@prisma/client";
 
 import styles from "./tabs.module.css";
 
@@ -16,10 +20,16 @@ export default function CriarProdutoForm({
   header: string;
   subheader: string;
 }) {
+  const [produtoTipo, setProdutoTipo] = useState<ProdutoTipo>("pagamento");
+
   return (
     <>
-      <ProdutoFormCardHeader {...props} />
-      <Tabs defaultValue="pagamento" variant="pills">
+      <ProdutoFormCardHeader {...props} type={produtoTipo} />
+      <Tabs
+        value={produtoTipo}
+        onChange={(v) => setProdutoTipo(v as ProdutoTipo)}
+        variant="pills"
+      >
         <Tabs.List grow>
           <Tabs.Tab value="pagamento" className={styles.tabs}>
             Pagamento
