@@ -41,6 +41,8 @@ export type CustomInputValueType = "REFERENCIA" | "MONTANTE";
 
 export type Views = "empresa" | "servico" | "produto" | "end";
 
+export type PreviewViews = "servico" | "produto" | "end";
+
 export type McxScreensType = 1 | 2 | 3;
 
 export type McxInputActions = (

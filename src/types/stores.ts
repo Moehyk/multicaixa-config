@@ -1,5 +1,5 @@
 import type { JSXElementConstructor, RefObject } from "react";
-import type { Empresa, Produto } from "@prisma/client";
+import type { Empresa, Produto, ProdutoTipo } from "@prisma/client";
 import type {
   ServicoData,
   ProdutoData,
@@ -8,7 +8,7 @@ import type {
   RecargasData,
   CarregamentoData,
 } from "./data";
-import type { Views } from "./misc";
+import type { Views, PreviewViews } from "./misc";
 
 export type DataStore = Empresa & {
   servicos: ServicoData[];
@@ -21,13 +21,48 @@ export type McxDataStore = Pick<DataStore, "desigEcra" | "nome"> & {
   getProduto: (id?: string) => ProdutoData | undefined;
 };
 
+export type McxProdutoPreview = Pick<
+  Produto,
+  "desigEcra" | "desigTeclaSeleccao"
+> &
+  (
+    | {
+        type: ProdutoType[0];
+        pagamento: NonNullable<PagamentoData>;
+      }
+    | {
+        type: ProdutoType[1];
+        recargas: NonNullable<RecargasData>;
+      }
+    | {
+        type: ProdutoType[2];
+        carregamento: NonNullable<CarregamentoData>;
+      }
+  );
+
+export type McxPreviewStore = {
+  produto: McxProdutoPreview;
+};
+
+export type McxPreviewStoreActions = {
+  setProduto: (pagamento: ProdutoData) => void;
+};
+
 export type ViewsStore = {
   id?: string;
   McxView: JSXElementConstructor<any>;
   setView: (view: Views, id?: string) => void;
 };
 
-export type AppPreviewStore = Pick<Produto, "desigEcra"> &
+export type PreviewViewsStore = {
+  McxPreviewView: JSXElementConstructor<any>;
+  setPreviewViews: (type: PreviewViews) => void;
+};
+
+export type AppPreviewStore = Pick<
+  Produto,
+  "desigEcra" | "desigTeclaSeleccao"
+> &
   (
     | {
         type: ProdutoType[0];
@@ -42,12 +77,6 @@ export type AppPreviewStore = Pick<Produto, "desigEcra"> &
         carregamento: CarregamentoData;
       }
   );
-
-export type AppPreviewStoreActions = {
-  setPagamento: (pagamento: PagamentoData) => void;
-  setRecargas: (recargas: RecargasData) => void;
-  setCarregamento: (carregamento: CarregamentoData) => void;
-};
 
 export type ViewEndStoreData = {
   ecraTexto: string;

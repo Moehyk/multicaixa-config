@@ -40,8 +40,9 @@ export type {
   ViewEndStore,
   InputErrorsStore,
   InputRefsStore,
-  AppPreviewStore,
-  AppPreviewStoreActions,
+  PreviewViewsStore,
+  McxPreviewStore,
+  McxProdutoPreview,
 } from "./stores";
 
 export type {
