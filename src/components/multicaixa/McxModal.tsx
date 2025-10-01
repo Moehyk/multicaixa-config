@@ -1,6 +1,6 @@
 "use client";
 
-import { useViewsStore } from "@/context/mcx";
+import { useViewsStore, usePreViewStore } from "@/context/mcx";
 
 import McxToolbar from "./McxToolbar";
 
@@ -13,7 +13,8 @@ function McxApp() {
 }
 
 function McxAppPreview() {
-  return <div>Preview</div>;
+  const { McxPreviewView } = usePreViewStore();
+  return <McxPreviewView />;
 }
 
 const renderApp = (type: McxAppType) => {
