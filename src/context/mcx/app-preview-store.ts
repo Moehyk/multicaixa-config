@@ -1,26 +1,35 @@
 import { create } from "zustand";
 
 import type {
-  AppPreviewStore,
-  AppPreviewStoreActions,
+  ProdutoData,
+  McxPreviewStore,
   PagamentoData,
   RecargasData,
   CarregamentoData,
 } from "@/types";
 
-export const initialState: AppPreviewStore = {
+export const initialState: ProdutoData = {
+  id: "",
+  createdAt: new Date(),
+  updatedAt: new Date(),
   desigEcra: "",
+  desigTeclaSeleccao: "",
   type: "pagamento",
-  pagamento: null,
+  pagamento: {
+    montanteMin: 0,
+    montanteMax: 0,
+    desigReferencia: "",
+    textoEcraReferencia: "",
+    id: "",
+    isNew: true,
+    tamanhoReferencia: 0,
+  },
+  servico: {
+    desigSistema: "",
+  },
+  servicoId: "",
 };
 
-export const useAppPreviewStore = create<
-  AppPreviewStore & AppPreviewStoreActions
->((set) => ({
-  ...initialState,
-  setPagamento: (pagamento: PagamentoData) =>
-    set({ pagamento, type: "pagamento" }),
-  setRecargas: (recargas: RecargasData) => set({ recargas, type: "recargas" }),
-  setCarregamento: (carregamento: CarregamentoData) =>
-    set({ carregamento, type: "carregamentos" }),
+export const useAppPreviewStore = create<McxPreviewStore>((set) => ({
+  produto: initialState,
 }));
