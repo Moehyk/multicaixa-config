@@ -1,5 +1,5 @@
 import { useRecargasFormContext } from "@/context/forms";
-import { useAppRecargasPreview } from "@/context/mcx/app-preview-store";
+import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
 import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
 
@@ -14,13 +14,18 @@ export default function RecargasForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
-  const setAppPreview = useAppRecargasPreview();
   const { getInputProps, insertListItem, removeListItem, getValues } =
     useRecargasFormContext();
   const montantes = getValues().recargas?.montantes;
 
   const handleOpenPreviewModal = () => {
-    setAppPreview();
+    const values = getValues();
+
+    useAppPreviewStore.setState({
+      desigEcra: values.desigEcra,
+      type: "recargas",
+      recargas: values.recargas,
+    });
 
     openContextModal({
       modal: "mcx-modal",

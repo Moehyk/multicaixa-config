@@ -1,5 +1,5 @@
 import { useCarregamentoFormContext } from "@/context/forms";
-import { useAppCarregamentoPreview } from "@/context/mcx/app-preview-store";
+import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
 import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
 
@@ -21,7 +21,6 @@ export default function CarregamentoForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
-  const setAppPreview = useAppCarregamentoPreview();
   const {
     getInputProps,
     insertListItem,
@@ -34,7 +33,13 @@ export default function CarregamentoForm({
   const montantes = getValues().carregamento?.montantes;
 
   const handleOpenPreviewModal = () => {
-    setAppPreview();
+    const values = getValues();
+
+    useAppPreviewStore.setState({
+      desigEcra: values.desigEcra,
+      type: "carregamentos",
+      carregamento: values.carregamento,
+    });
 
     openContextModal({
       modal: "mcx-modal",
