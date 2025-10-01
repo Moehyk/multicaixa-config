@@ -22,9 +22,12 @@ export default function RecargasForm({
     const values = getValues();
 
     useAppPreviewStore.setState({
-      desigEcra: values.desigEcra,
-      type: "recargas",
-      recargas: values.recargas,
+      produto: {
+        desigEcra: values.desigEcra,
+        desigTeclaSeleccao: values.desigTeclaSeleccao,
+        type: "recargas",
+        recargas: values.recargas!,
+      },
     });
 
     openContextModal({

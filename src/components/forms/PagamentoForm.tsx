@@ -18,9 +18,12 @@ export default function PagamentoForm({
     const values = getValues();
 
     useAppPreviewStore.setState({
-      desigEcra: values.desigEcra,
-      type: "pagamento",
-      pagamento: values.pagamento,
+      produto: {
+        desigEcra: values.desigEcra,
+        desigTeclaSeleccao: values.desigTeclaSeleccao,
+        type: "pagamento",
+        pagamento: values.pagamento!,
+      },
     });
 
     openContextModal({

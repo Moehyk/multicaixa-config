@@ -35,10 +35,15 @@ export default function CarregamentoForm({
   const handleOpenPreviewModal = () => {
     const values = getValues();
 
+    console.log("values :>> ", values);
+
     useAppPreviewStore.setState({
-      desigEcra: values.desigEcra,
-      type: "carregamentos",
-      carregamento: values.carregamento,
+      produto: {
+        desigEcra: values.desigEcra,
+        desigTeclaSeleccao: values.desigTeclaSeleccao,
+        type: "carregamentos",
+        carregamento: values.carregamento!,
+      },
     });
 
     openContextModal({
