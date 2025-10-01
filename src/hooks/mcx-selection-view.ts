@@ -1,5 +1,5 @@
 import { useEffect, useCallback, useState, useMemo } from "react";
-import { useEndViewStore, useViewsStore } from "@/context/mcx";
+import { useEndViewStore, useViewsStore, usePreViewStore } from "@/context/mcx";
 import { splitArray } from "@/utils/split-array";
 
 import type { McxSelectionViewProps } from "@/types";
@@ -33,11 +33,14 @@ export const useMcxSelectionButtons = ({
   ///////////////////////////////////////////////////
   const freeAmountHandler = toFreeAmount ?? (() => {});
   const { setView } = useViewsStore();
+  const { setPreviewViews } = usePreViewStore();
   const { setUnidades, setMontante } = useEndViewStore();
 
   const toNextView = (id?: string) => {
     setView(target, id);
+    setPreviewViews("end");
   };
+
   const setRecargasValues = (
     unidades: string | undefined,
     montante: string
@@ -45,6 +48,7 @@ export const useMcxSelectionButtons = ({
     setUnidades(unidades);
     setMontante(montante);
   };
+
   const navigate = useCallback(
     (selectText: string, value?: string, id?: string) => {
       setRecargasValues(selectText, value ?? "");

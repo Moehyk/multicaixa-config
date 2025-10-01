@@ -1,5 +1,5 @@
 import { modals } from "@mantine/modals";
-import { useViewsStore, useEndViewStore } from "@/context/mcx";
+import { useViewsStore, useEndViewStore, usePreViewStore } from "@/context/mcx";
 import {
   setInputMontanteError,
   setInputReferenciaError,
@@ -7,6 +7,7 @@ import {
 
 export const useResetMcx = () => {
   const { setView } = useViewsStore();
+  const { setPreviewViews } = usePreViewStore();
   const { resetEndStore } = useEndViewStore();
 
   return () => {
@@ -14,6 +15,7 @@ export const useResetMcx = () => {
     setInputReferenciaError(false);
     resetEndStore();
     setView("empresa");
+    setPreviewViews("servico");
   };
 };
 

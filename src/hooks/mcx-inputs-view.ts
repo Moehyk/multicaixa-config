@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useResetMcx } from "./reset-mcx";
-import { useViewsStore, useEndViewStore } from "@/context/mcx";
+import { useViewsStore, useEndViewStore, usePreViewStore } from "@/context/mcx";
 import {
   setInputMontanteError,
   setInputReferenciaError,
@@ -56,6 +56,7 @@ export const useMcxInputActions: McxInputActions = (
   screens: number[]
 ) => {
   const { setView } = useViewsStore();
+  const { setPreviewViews } = usePreViewStore();
   const { inputRefs } = useInputRefsStore();
   const refErr = useReferenciaError(length);
   const montErr = useMontanteError(mmin, mmax);
@@ -84,6 +85,7 @@ export const useMcxInputActions: McxInputActions = (
       }, 0);
     } else {
       setView("end");
+      setPreviewViews("end");
     }
   };
 
