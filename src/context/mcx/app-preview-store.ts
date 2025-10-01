@@ -1,9 +1,4 @@
 import { create } from "zustand";
-import {
-  usePagamentoFormContext,
-  useCarregamentoFormContext,
-  useRecargasFormContext,
-} from "@/context/forms";
 
 import type {
   AppPreviewStore,
@@ -29,31 +24,3 @@ export const useAppPreviewStore = create<
   setCarregamento: (carregamento: CarregamentoData) =>
     set({ carregamento, type: "carregamentos" }),
 }));
-
-const setAppPreviewPagamento = useAppPreviewStore.getState().setPagamento;
-const setAppPreviewRecargas = useAppPreviewStore.getState().setRecargas;
-const setAppPreviewCarregamento = useAppPreviewStore.getState().setCarregamento;
-
-export const useAppPagamentoPreview = () => {
-  const pagamentoContext = usePagamentoFormContext();
-  const { desigEcra, pagamento } = pagamentoContext.getValues();
-  useAppPreviewStore.setState({ desigEcra });
-
-  return () => setAppPreviewPagamento(pagamento!);
-};
-
-export const useAppRecargasPreview = () => {
-  const recargasContext = useRecargasFormContext();
-  const { desigEcra, recargas } = recargasContext.getValues();
-  useAppPreviewStore.setState({ desigEcra });
-
-  return () => setAppPreviewRecargas(recargas!);
-};
-
-export const useAppCarregamentoPreview = () => {
-  const carregamentoContext = useCarregamentoFormContext();
-  const { desigEcra, carregamento } = carregamentoContext.getValues();
-  useAppPreviewStore.setState({ desigEcra });
-
-  return () => setAppPreviewCarregamento(carregamento!);
-};
