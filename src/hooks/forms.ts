@@ -113,11 +113,28 @@ export const useEmpresaModalForm = () => {
   };
 };
 
-export const useServicoForm = (values?: ServicoForm) => {
-  const { setInitialValues, setValues, ...form } = useForm<ServicoForm>({
-    mode: "uncontrolled",
-    initialValues: initialServicoFormValues,
-    validate: zodResolver(servicoSchema),
+export const useServicoForm = (id: string, values?: ServicoForm) => {
+  const { isMutating, setIsFetching } = useFormMutation();
+
+  const { setInitialValues, setValues, onSubmit, getInputProps } =
+    useForm<ServicoForm>({
+      mode: "uncontrolled",
+      initialValues: initialServicoFormValues,
+      validate: zodResolver(servicoSchema),
+    });
+
+  const handleSubmit = onSubmit(async (values: ServicoForm) => {
+    setIsFetching(true);
+
+    const response = await upsertServico(id, values);
+
+    setIsFetching(false);
+    if (!response.data) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      modals.closeAll();
+    }
   });
 
   useEffect(() => {
@@ -127,7 +144,7 @@ export const useServicoForm = (values?: ServicoForm) => {
     }
   }, [values]);
 
-  return form;
+  return { isMutating, handleSubmit, getInputProps };
 };
 
 export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
@@ -178,25 +195,4 @@ export const useProdutoCarregamentoForm = (
   }, [values]);
 
   return form;
-};
-
-export const useServicoModalForm = (id: string, servico?: ServicoForm) => {
-  const { isMutating, setIsFetching } = useFormMutation();
-  const { getInputProps, onSubmit } = useServicoForm(servico);
-
-  const handleSubmit = onSubmit(async (values: ServicoForm) => {
-    setIsFetching(true);
-
-    const response = await upsertServico(id, values);
-
-    setIsFetching(false);
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      modals.closeAll();
-    }
-  });
-
-  return { isMutating, handleSubmit, getInputProps };
 };

@@ -1,7 +1,7 @@
 "use client";
 
 import { modals } from "@mantine/modals";
-import { useServicoModalForm } from "@/hooks/forms";
+import { useServicoForm } from "@/hooks/forms";
 
 import { Button, TextInput } from "@mantine/core";
 
@@ -14,7 +14,7 @@ export default function ServicoModalForm({
   empresaId: string;
   servico?: ServicoForm;
 }) {
-  const { handleSubmit, getInputProps, isMutating } = useServicoModalForm(
+  const { handleSubmit, getInputProps, isMutating } = useServicoForm(
     empresaId,
     servico
   );
