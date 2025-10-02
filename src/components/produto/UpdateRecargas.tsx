@@ -1,7 +1,7 @@
 "use client";
 
 import { updateProdutoRecargas } from "@/server/services";
-import { useFormMutation, useProdutoRecargasForm } from "@/hooks";
+import { useProdutoRecargasForm } from "@/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import { RecargasFormProvider } from "@/context/forms";
@@ -10,12 +10,10 @@ import { RecargasForm } from "@/components/forms";
 import type { ProdutoRecargasForm } from "@/types";
 
 export default function UpdateRecargas(props: ProdutoRecargasForm) {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
+  const { back, form, isMutating, setIsFetching } =
+    useProdutoRecargasForm(props);
 
-  const form = useProdutoRecargasForm(props);
-
-  const handleSubmit = async (values: ProdutoRecargasForm) => {
+  const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
     const response = await updateProdutoRecargas(values);
     setIsFetching(false);
@@ -24,12 +22,13 @@ export default function UpdateRecargas(props: ProdutoRecargasForm) {
       errorNotification(response);
     } else {
       sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
+      back();
     }
-  };
+  });
+
   return (
     <RecargasFormProvider form={form}>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={handleSubmit}>
         <RecargasForm action="Editar" isSubmitting={isMutating} />
       </form>
     </RecargasFormProvider>

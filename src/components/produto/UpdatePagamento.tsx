@@ -6,16 +6,15 @@ import { PagamentoFormProvider } from "@/context/forms";
 
 import { PagamentoForm } from "@/components/forms";
 
-import { useFormMutation, useProdutoPagamentoForm } from "@/hooks";
+import { useProdutoPagamentoForm } from "@/hooks/forms";
 
 import type { ProdutoPagamentoForm } from "@/types";
 
 export default function UpdatePagamento(props: ProdutoPagamentoForm) {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
-  const form = useProdutoPagamentoForm(props);
+  const { form, isMutating, setIsFetching, back } =
+    useProdutoPagamentoForm(props);
 
-  const handleSubmit = async (values: ProdutoPagamentoForm) => {
+  const handleSubmit = form.onSubmit(async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);
     const response = await updateProdutoPagamento(values);
     setIsFetching(false);
@@ -24,13 +23,13 @@ export default function UpdatePagamento(props: ProdutoPagamentoForm) {
       errorNotification(response);
     } else {
       sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
+      back();
     }
-  };
+  });
 
   return (
     <PagamentoFormProvider form={form}>
-      <form onSubmit={form.onSubmit(handleSubmit)}>
+      <form onSubmit={handleSubmit}>
         <PagamentoForm action="Editar" isSubmitting={isMutating} />
       </form>
     </PagamentoFormProvider>
