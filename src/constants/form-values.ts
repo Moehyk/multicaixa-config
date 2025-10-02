@@ -1,3 +1,5 @@
+"use client";
+
 import { randomId } from "@mantine/hooks";
 
 import type {
@@ -6,6 +8,8 @@ import type {
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
+  CarregamentoMontante,
+  RecargasMontante,
 } from "@/types";
 
 export const initialEmpresaFormValues: EmpresaForm = {
@@ -44,12 +48,20 @@ export const initialProdutoPagamentoFormValues: ProdutoPagamentoForm = {
   },
 };
 
+export const initialRecargasMontante: RecargasMontante[] = [
+  { montante: 0.0, quantidade: 0, key: randomId() },
+];
+
+export const initialCarregamentoMontante: CarregamentoMontante[] = [
+  { montante: 0, descricao: "", key: randomId() },
+];
+
 export const initialProdutoRecargasFormValues: ProdutoRecargasForm = {
   desigEcra: "",
   desigTeclaSeleccao: "",
   recargas: {
     desigUnidade: "",
-    montantes: [{ montante: 0.0, quantidade: 0, key: randomId() }],
+    montantes: initialRecargasMontante,
   },
 };
 
@@ -63,6 +75,6 @@ export const initialProdutoCarregamentoFormValues: ProdutoCarregamentoForm = {
     montanteTipo: "montante_livre",
     montanteMax: 0.0,
     montanteMin: 0.0,
-    montantes: [{ montante: 0, descricao: "", key: randomId() }],
+    montantes: initialCarregamentoMontante,
   },
 };
