@@ -1,8 +1,6 @@
 "use client";
 
-import { usePagamentoFormContext } from "@/context/forms";
-import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
-import { openContextModal } from "@mantine/modals";
+import { usePagamentoForm } from "@/hooks/forms";
 
 import Link from "next/link";
 import { TextInput, NumberInput, Button } from "@mantine/core";
@@ -14,28 +12,7 @@ export default function PagamentoForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
-  const { getInputProps, getValues } = usePagamentoFormContext();
-
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    useAppPreviewStore.setState({
-      produto: {
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "pagamento",
-        pagamento: values.pagamento!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        type: "PREVIEW",
-      },
-    });
-  };
+  const { getInputProps, handleOpenPreviewModal } = usePagamentoForm();
 
   return (
     <>

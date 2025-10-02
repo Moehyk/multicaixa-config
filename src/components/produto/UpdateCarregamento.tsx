@@ -1,8 +1,6 @@
 "use client";
 
-import { updateProdutoCarregamento } from "@/server/services";
-import { useProdutoCarregamentoForm } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
+import { useUpdateCarregamentoForm } from "@/hooks/forms";
 
 import { CarregamentoFormProvider } from "@/context/forms";
 import { CarregamentoForm } from "@/components/forms";
@@ -10,23 +8,7 @@ import { CarregamentoForm } from "@/components/forms";
 import type { ProdutoCarregamentoForm } from "@/types";
 
 export default function UpdateCarregamento(props: ProdutoCarregamentoForm) {
-  const { isMutating, back, setIsFetching, form } =
-    useProdutoCarregamentoForm(props);
-
-  const handleSubmit = form.onSubmit(
-    async (values: ProdutoCarregamentoForm) => {
-      setIsFetching(true);
-      const response = await updateProdutoCarregamento(values);
-      setIsFetching(false);
-
-      if (!response.data) {
-        errorNotification(response);
-      } else {
-        sucessNotification(response);
-        back();
-      }
-    }
-  );
+  const { isMutating, handleSubmit, form } = useUpdateCarregamentoForm(props);
 
   return (
     <CarregamentoFormProvider form={form}>

@@ -1,9 +1,6 @@
 "use client";
 
-import { upsertEmpresa } from "@/server/services";
-import { useEmpresaModalForm, useFormMutation } from "@/hooks";
-import { modals } from "@mantine/modals";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
+import { useEmpresaModalForm } from "@/hooks/forms";
 
 import { Stepper, TextInput, Button, Modal } from "@mantine/core";
 
@@ -45,24 +42,12 @@ export default function EmpresaModalForm() {
     active,
     nextStep,
     prevStep,
-    form: { getInputProps, values, key },
+    getInputProps,
+    key,
+    handleSubmit,
+    isMutating,
+    values,
   } = useEmpresaModalForm();
-
-  const { isMutating, setIsFetching } = useFormMutation();
-
-  const handleSubmit = async () => {
-    setIsFetching(true);
-
-    const response = await upsertEmpresa(values);
-
-    setIsFetching(false);
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      modals.closeAll();
-    }
-  };
 
   return (
     <>

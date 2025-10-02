@@ -1,9 +1,6 @@
 "use client";
 
-import { useRecargasFormContext } from "@/context/forms";
-import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
-import { openContextModal } from "@mantine/modals";
-import { randomId } from "@mantine/hooks";
+import { useRecargasForm } from "@/hooks/forms";
 
 import Link from "next/link";
 import MaxItemsAlert from "./MaxItemsAlert";
@@ -16,30 +13,13 @@ export default function RecargasForm({
   action,
   isSubmitting,
 }: ProdutoFormProps) {
-  const { getInputProps, insertListItem, removeListItem, getValues } =
-    useRecargasFormContext();
-  const montantes = getValues().recargas?.montantes;
-
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    useAppPreviewStore.setState({
-      produto: {
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "recargas",
-        recargas: values.recargas!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        type: "PREVIEW",
-      },
-    });
-  };
+  const {
+    getInputProps,
+    montantes,
+    handleInsertItem,
+    handleRemoveItem,
+    handleOpenPreviewModal,
+  } = useRecargasForm();
 
   return (
     <>
@@ -68,13 +48,7 @@ export default function RecargasForm({
             variant="default"
             size="md"
             disabled={montantes?.length === 8}
-            onClick={() =>
-              insertListItem("recargas.montantes", {
-                quantidade: 0,
-                montante: 0.0,
-                key: randomId(),
-              })
-            }
+            onClick={handleInsertItem}
           >
             Adicionar Recarga
           </Button>
@@ -111,7 +85,7 @@ export default function RecargasForm({
                 color="red"
                 leftSection={<IconTrash size={16} />}
                 disabled={montantes.length === 1}
-                onClick={() => removeListItem(`recargas.montantes`, i)}
+                onClick={() => handleRemoveItem(i)}
               >
                 Remover
               </Button>

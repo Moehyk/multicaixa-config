@@ -1,10 +1,6 @@
 "use client";
 
-import { useCarregamentoFormContext } from "@/context/forms";
-import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
-import { openContextModal } from "@mantine/modals";
-import { randomId } from "@mantine/hooks";
-import { initialCarregamentoMontante } from "@/constants/form-values";
+import { useCarregamentoForm } from "@/hooks/forms";
 
 import Link from "next/link";
 import MaxItemsAlert from "../forms/MaxItemsAlert";
@@ -26,52 +22,13 @@ export default function CarregamentoForm({
 }: ProdutoFormProps) {
   const {
     getInputProps,
-    insertListItem,
-    removeListItem,
-    getValues,
-    setFieldValue,
-  } = useCarregamentoFormContext();
-  const montanteTipo = getValues().carregamento?.montanteTipo;
-  const montantes = getValues().carregamento?.montantes;
-
-  const handleMontanteTipoChange = (e: MontanteTipo) => {
-    switch (e) {
-      case "montante_livre": {
-        setFieldValue("carregamento.montantes", initialCarregamentoMontante);
-        break;
-      }
-      case "montante_pre_definido": {
-        setFieldValue("carregamento.montanteMin", 0);
-        setFieldValue("carregamento.montanteMax", 0);
-        break;
-      }
-      default:
-        break;
-    }
-  };
-
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    console.log("values :>> ", values);
-
-    useAppPreviewStore.setState({
-      produto: {
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "carregamentos",
-        carregamento: values.carregamento!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        type: "PREVIEW",
-      },
-    });
-  };
+    montanteTipo,
+    montantes,
+    handleMontanteTipoChange,
+    handleOpenPreviewModal,
+    handleInsertItem,
+    handleRemoveItem,
+  } = useCarregamentoForm();
 
   return (
     <>
@@ -114,10 +71,7 @@ export default function CarregamentoForm({
           <Select
             size="xs"
             value={montanteTipo}
-            onChange={(e) => {
-              handleMontanteTipoChange(e as MontanteTipo);
-              setFieldValue("carregamento.montanteTipo", e as MontanteTipo);
-            }}
+            onChange={(e) => handleMontanteTipoChange(e as MontanteTipo)}
             data={[
               { value: "montante_livre", label: "Livre" },
               {
@@ -167,13 +121,7 @@ export default function CarregamentoForm({
                 size="md"
                 disabled={montantes && montantes.length >= 8}
                 leftSection={<IconPlus size={16} />}
-                onClick={() =>
-                  insertListItem("carregamento.montantes", {
-                    descricao: "",
-                    montante: 0.0,
-                    key: randomId(),
-                  })
-                }
+                onClick={handleInsertItem}
               >
                 Adicionar Montante
               </Button>
@@ -211,7 +159,7 @@ export default function CarregamentoForm({
                     color="red"
                     leftSection={<IconTrash size={16} />}
                     disabled={montantes.length === 1}
-                    onClick={() => removeListItem(`carregamento.montantes`, i)}
+                    onClick={() => handleRemoveItem(i)}
                   >
                     Remover
                   </Button>
