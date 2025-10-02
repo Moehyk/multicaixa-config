@@ -17,6 +17,8 @@ export type {
   CarregamentoBoth,
   CarregamentoFree,
   CarregamentoPre,
+  CarregamentoMontante,
+  RecargasMontante,
 } from "./data";
 
 export type {

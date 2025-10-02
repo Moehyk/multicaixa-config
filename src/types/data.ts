@@ -21,7 +21,7 @@ export type PagamentoData =
       Partial<Pick<Pagamento, "id">>)
   | null;
 
-type RecargasMontante = Pick<RecaMontante, "montante" | "quantidade"> &
+export type RecargasMontante = Pick<RecaMontante, "montante" | "quantidade"> &
   Partial<Pick<RecaMontante, "id" | "recargaId">> & { key?: string };
 
 export type RecargasData =
@@ -31,7 +31,10 @@ export type RecargasData =
       })
   | null;
 
-type CarregamentoMontante = Pick<CarrMontante, "montante" | "descricao"> &
+export type CarregamentoMontante = Pick<
+  CarrMontante,
+  "montante" | "descricao"
+> &
   Partial<Pick<CarrMontante, "id" | "carregamentoId">> & { key?: string };
 
 export type CarregamentoData =
