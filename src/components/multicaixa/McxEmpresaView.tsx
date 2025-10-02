@@ -1,4 +1,4 @@
-import { useMcxDataStore } from "@/context/mcx";
+import { mcxDataStore } from "@/context/mcx";
 import { createDataGridButtons } from "@/utils/create-grid-buttons";
 
 import McxScreenText from "./McxScreenText";
@@ -6,7 +6,7 @@ import McxSelectionView from "./McxSelectionView";
 import NoMcxView from "./NoMcxView";
 
 export default function McxEmpresaView() {
-  const { servicos } = useMcxDataStore();
+  const { servicos } = mcxDataStore();
 
   const buttons = createDataGridButtons(servicos);
 

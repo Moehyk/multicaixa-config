@@ -1,12 +1,13 @@
 "use client";
-import { useMcxDataStore } from "@/context/mcx";
+
+import { mcxDataStore } from "@/context/mcx";
 
 import Link from "next/link";
 import { ActionIcon, Tooltip } from "@mantine/core";
 import { IconEdit } from "@tabler/icons-react";
 
 export default function EmpresaName() {
-  const { nome } = useMcxDataStore();
+  const { nome } = mcxDataStore();
 
   return (
     <div className="flex items-center gap-2">

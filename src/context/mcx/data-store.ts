@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 import type { McxDataStore, DataStore } from "@/types";
 
-export const useMcxDataStore = create<McxDataStore>((_, get) => ({
+export const mcxDataStore = create<McxDataStore>((_, get) => ({
   nome: "",
   desigEcra: "",
   servicos: [],
@@ -18,8 +18,8 @@ export const useMcxDataStore = create<McxDataStore>((_, get) => ({
 }));
 
 export const initiateDataStore = (data: DataStore) => {
-  useMcxDataStore().servicos = data.servicos;
-  useMcxDataStore().produtos = data.servicos.flatMap((s) => s.produtos);
-  useMcxDataStore().desigEcra = data.desigEcra;
-  useMcxDataStore().nome = data.nome;
+  mcxDataStore().servicos = data.servicos;
+  mcxDataStore().produtos = data.servicos.flatMap((s) => s.produtos);
+  mcxDataStore().desigEcra = data.desigEcra;
+  mcxDataStore().nome = data.nome;
 };
