@@ -1,12 +1,29 @@
 "use client";
 
+import { createProdutoRecargas } from "@/server/services";
 import { useProdutoRecargasForm } from "@/hooks";
+import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import { RecargasFormProvider } from "@/context/forms";
 import { RecargasForm } from "@/components/forms";
 
+import type { ProdutoRecargasForm } from "@/types";
+
 export default function CreateRecargas({ servicoId }: { servicoId: string }) {
-  const { form, handleSubmit, isMutating } = useProdutoRecargasForm(servicoId);
+  const { form, setIsFetching, back, isMutating } = useProdutoRecargasForm();
+
+  const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
+    setIsFetching(true);
+    const response = await createProdutoRecargas({ ...values, servicoId });
+    setIsFetching(false);
+
+    if (!response.data) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      back();
+    }
+  });
 
   return (
     <RecargasFormProvider form={form}>

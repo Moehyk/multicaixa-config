@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  upsertEmpresa,
-  upsertServico,
-  createProdutoPagamento,
-  createProdutoCarregamento,
-  createProdutoRecargas,
-} from "@/server/services";
+import { upsertEmpresa, upsertServico } from "@/server/services";
 
 import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
@@ -47,7 +41,9 @@ const useFormMutation = () => {
   const [isPending, startTransition] = useTransition();
   const [isFetching, setIsFetching] = useState(false);
   const isMutating = isPending || isFetching;
-  const { push, back } = useRouter();
+  const { push } = useRouter();
+
+  const back = () => startTransition(() => push("/multicaixa"));
 
   return { isMutating, setIsFetching, startTransition, push, back };
 };
@@ -120,7 +116,7 @@ export const useEmpresaModalForm = () => {
 };
 
 export const useServicoForm = (id: string, values?: ServicoForm) => {
-  const { isMutating, setIsFetching } = useFormMutation();
+  const { isMutating, setIsFetching, back } = useFormMutation();
 
   const { setInitialValues, setValues, onSubmit, getInputProps } =
     useForm<ServicoForm>({
@@ -153,12 +149,8 @@ export const useServicoForm = (id: string, values?: ServicoForm) => {
   return { isMutating, handleSubmit, getInputProps };
 };
 
-export const useProdutoPagamentoForm = (
-  id: string,
-  values?: ProdutoPagamentoForm
-) => {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
+export const useProdutoPagamentoForm = (values?: ProdutoPagamentoForm) => {
+  const { isMutating, setIsFetching, back } = useFormMutation();
 
   const form = usePagForm({
     mode: "uncontrolled",
@@ -166,34 +158,19 @@ export const useProdutoPagamentoForm = (
     validate: zodResolver(produtoPagamentoSchema),
   });
 
-  const handleSubmit = form.onSubmit(async (values: ProdutoPagamentoForm) => {
-    setIsFetching(true);
-    const response = await createProdutoPagamento({ ...values, id });
-    setIsFetching(false);
-
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
-    }
-  });
-
   useEffect(() => {
     if (values) {
       form.initialize(values);
     }
   }, [values]);
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, form, setIsFetching, back };
 };
 
 export const useProdutoCarregamentoForm = (
-  id: string,
   values?: ProdutoCarregamentoForm
 ) => {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
+  const { isMutating, setIsFetching, back } = useFormMutation();
 
   const form = useCarrForm({
     mode: "uncontrolled",
@@ -201,39 +178,17 @@ export const useProdutoCarregamentoForm = (
     validate: zodResolver(produtoCarregamentoSchema),
   });
 
-  const handleSubmit = form.onSubmit(
-    async (values: ProdutoCarregamentoForm) => {
-      setIsFetching(true);
-      const response = await createProdutoCarregamento({
-        ...values,
-        id,
-      });
-      setIsFetching(false);
-
-      if (!response.data) {
-        errorNotification(response);
-      } else {
-        sucessNotification(response);
-        startTransition(() => push("/multicaixa"));
-      }
-    }
-  );
-
   useEffect(() => {
     if (values) {
       form.initialize(values);
     }
   }, [values]);
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, form, setIsFetching, back };
 };
 
-export const useProdutoRecargasForm = (
-  id: string,
-  values?: ProdutoRecargasForm
-) => {
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
+export const useProdutoRecargasForm = (values?: ProdutoRecargasForm) => {
+  const { isMutating, setIsFetching, back } = useFormMutation();
 
   const form = useRecaForm({
     mode: "controlled",
@@ -241,24 +196,11 @@ export const useProdutoRecargasForm = (
     validate: zodResolver(produtoRecargasSchema),
   });
 
-  const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
-    setIsFetching(true);
-    const response = await createProdutoRecargas({ ...values, id });
-    setIsFetching(false);
-
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
-    }
-  });
-
   useEffect(() => {
     if (values) {
       form.initialize(values);
     }
   }, [values]);
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, setIsFetching, back, form };
 };
