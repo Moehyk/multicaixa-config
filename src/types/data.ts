@@ -80,8 +80,8 @@ export type Referencia = Pick<
   | "textoEcraReferencia"
   | "montanteMax"
   | "montanteMin"
-  | "id"
->;
+> &
+  Partial<Pick<Carregamento, "id">>;
 
 export type CarregamentoFree = {
   montanteTipo: "montante_livre";
