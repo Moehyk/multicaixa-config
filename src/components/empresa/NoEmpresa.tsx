@@ -3,7 +3,7 @@
 import { modals } from "@mantine/modals";
 
 import CriarEmpresaModal from "./CriarEmpresaModal";
-import { Card, Button, ThemeIcon } from "@mantine/core";
+import { Card, Button } from "@mantine/core";
 import { IconHomePlus } from "@tabler/icons-react";
 
 export default function NoEmpresa() {
