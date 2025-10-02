@@ -1,13 +1,7 @@
-"use client";
-
-import { useState } from "react";
-
 import CreatePagamento from "./CreatePagamento";
 import CreateCarregamento from "./CreateCarregamento";
 import CreateRecargas from "./CreateRecargas";
 import { Tabs } from "@mantine/core";
-
-import type { ProdutoTipo } from "@prisma/client";
 
 import styles from "./tabs.module.css";
 
