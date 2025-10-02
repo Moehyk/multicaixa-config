@@ -1,6 +1,6 @@
 "use client";
 
-import { upsertServico } from "@/server/services";
+import { upsertEmpresa, upsertServico } from "@/server/services";
 
 import { useState, useEffect, useTransition } from "react";
 import { useRouter } from "next/navigation";
@@ -47,10 +47,27 @@ const useFormMutation = () => {
 };
 
 export const useEmpresaForm = (values: EmpresaForm) => {
-  const { setInitialValues, setValues, ...form } = useForm<EmpresaForm>({
-    mode: "uncontrolled",
-    initialValues: initialEmpresaFormValues,
-    validate: zodResolver(empresaSchema),
+  const { isMutating, setIsFetching, startTransition, push } =
+    useFormMutation();
+
+  const { setInitialValues, setValues, getInputProps, onSubmit } =
+    useForm<EmpresaForm>({
+      mode: "uncontrolled",
+      initialValues: initialEmpresaFormValues,
+      validate: zodResolver(empresaSchema),
+    });
+
+  const handleSubmit = onSubmit(async (values: EmpresaForm) => {
+    setIsFetching(true);
+    const response = await upsertEmpresa(values);
+    setIsFetching(false);
+
+    if (response.status !== 200) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      startTransition(() => push("/multicaixa"));
+    }
   });
 
   useEffect(() => {
@@ -58,7 +75,7 @@ export const useEmpresaForm = (values: EmpresaForm) => {
     setValues(values);
   }, [values]);
 
-  return form;
+  return { getInputProps, handleSubmit, isMutating };
 };
 
 export const useEmpresaModalForm = () => {

@@ -1,8 +1,6 @@
 "use client";
 
-import { upsertEmpresa } from "@/server/services";
-import { useFormMutation, useEmpresaForm } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
+import { useEmpresaForm } from "@/hooks/forms";
 
 import Link from "next/link";
 import { Button, TextInput, Card } from "@mantine/core";
@@ -11,27 +9,12 @@ import { CardTitle } from "@/components";
 import type { EmpresaForm } from "@/types";
 
 export default function EmpresaForm(data: EmpresaForm) {
-  const { getInputProps, onSubmit } = useEmpresaForm(data);
-  const { isMutating, setIsFetching, startTransition, push } =
-    useFormMutation();
-
-  const handleSubmit = async (values: EmpresaForm) => {
-    setIsFetching(true);
-    const response = await upsertEmpresa(values);
-    setIsFetching(false);
-
-    if (response.status !== 200) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      startTransition(() => push("/multicaixa"));
-    }
-  };
+  const { getInputProps, handleSubmit, isMutating } = useEmpresaForm(data);
 
   return (
     <>
       <Card withBorder p={32}>
-        <form onSubmit={onSubmit(handleSubmit)}>
+        <form onSubmit={handleSubmit}>
           <CardTitle title="Dados da Empresa" />
           <div className="flex gap-4">
             <TextInput
