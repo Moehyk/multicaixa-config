@@ -9,11 +9,7 @@ export default async function CriarEmpresaPage() {
     notFound();
   }
 
-  return (
-    <>
-      <EmpresaForm {...data} />
-    </>
-  );
+  return <EmpresaForm {...data} />;
 }
 
 export const dynamic = "force-dynamic";
