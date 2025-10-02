@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useErrorWidget } from "@/hooks/error-widget";
 
 import { Card, Button, ThemeIcon } from "@mantine/core";
 import { IconExclamationCircle } from "@tabler/icons-react";
@@ -11,11 +10,7 @@ export default function ErroWidget({
 }: {
   error: Error & { digest?: string };
 }) {
-  const { push } = useRouter();
-
-  useEffect(() => {
-    console.error(error);
-  }, [error]);
+  const back = useErrorWidget(error);
 
   return (
     <Card w="50%" p={32} withBorder className="mb-32 items-center self-center">
@@ -23,11 +18,7 @@ export default function ErroWidget({
         <IconExclamationCircle size={64} />
       </ThemeIcon>
       <h2 className="font-semibold text-lg">Aconteceu algo de errado!</h2>
-      <Button
-        variant="default"
-        className="w-max mt-8"
-        onClick={() => push("/multicaixa")}
-      >
+      <Button variant="default" className="w-max mt-8" onClick={back}>
         Voltar
       </Button>
     </Card>
