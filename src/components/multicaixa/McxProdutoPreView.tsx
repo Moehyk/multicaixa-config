@@ -26,7 +26,7 @@ export const renderProdutoView = (produto: McxProdutoPreview) => {
   }
 };
 
-export default function McxPreviewProdutoView() {
+export default function McxProdutoPreView() {
   const { produto } = useAppPreviewStore();
   return (
     <>

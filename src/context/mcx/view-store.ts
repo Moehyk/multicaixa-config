@@ -5,8 +5,8 @@ import {
   McxServicosView,
   McxProdutoView,
   McxEndView,
-  McxPreviewServicoView,
-  McxPreviewProdutoView,
+  McxServicoPreView,
+  McxProdutoPreView,
 } from "@/components/multicaixa";
 
 import type { Views, ViewsStore, PreviewViewsStore } from "@/types";
@@ -35,14 +35,14 @@ export const useViewsStore = create<ViewsStore>((set) => ({
 }));
 
 export const usePreViewStore = create<PreviewViewsStore>((set) => ({
-  McxPreviewView: McxPreviewServicoView,
+  McxPreviewView: McxServicoPreView,
   setPreviewViews: (type) => {
     switch (type) {
       case "servico": {
-        return set({ McxPreviewView: McxPreviewServicoView });
+        return set({ McxPreviewView: McxServicoPreView });
       }
       case "produto": {
-        return set({ McxPreviewView: McxPreviewProdutoView });
+        return set({ McxPreviewView: McxProdutoPreView });
       }
 
       case "end": {
@@ -50,7 +50,7 @@ export const usePreViewStore = create<PreviewViewsStore>((set) => ({
       }
 
       default: {
-        return set({ McxPreviewView: McxPreviewServicoView });
+        return set({ McxPreviewView: McxServicoPreView });
       }
     }
   },
