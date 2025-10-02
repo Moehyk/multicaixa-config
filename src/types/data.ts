@@ -11,7 +11,6 @@ import type {
 export type PagamentoData =
   | (Pick<
       Pagamento,
-      | "id"
       | "montanteMin"
       | "montanteMax"
       | "isNew"
@@ -22,23 +21,17 @@ export type PagamentoData =
       Partial<Pick<Pagamento, "id">>)
   | null;
 
-type RecargasMontante = Pick<
-  RecaMontante,
-  "id" | "montante" | "quantidade" | "recargaId"
-> &
+type RecargasMontante = Pick<RecaMontante, "montante" | "quantidade"> &
   Partial<Pick<RecaMontante, "id" | "recargaId">> & { key?: string };
 
 export type RecargasData =
-  | (Pick<Recargas, "desigUnidade" | "id"> &
+  | (Pick<Recargas, "desigUnidade"> &
       Partial<Pick<Recargas, "id">> & {
         montantes: RecargasMontante[];
       })
   | null;
 
-type CarregamentoMontante = Pick<
-  CarrMontante,
-  "id" | "montante" | "descricao" | "carregamentoId"
-> &
+type CarregamentoMontante = Pick<CarrMontante, "montante" | "descricao"> &
   Partial<Pick<CarrMontante, "id" | "carregamentoId">> & { key?: string };
 
 export type CarregamentoData =
@@ -48,7 +41,6 @@ export type CarregamentoData =
       | "tamanhoReferencia"
       | "textoEcraReferencia"
       | "montanteTipo"
-      | "id"
       | "montanteMax"
       | "montanteMin"
     > &

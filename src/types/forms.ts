@@ -22,14 +22,11 @@ export type EmpresaForm = Pick<
 
 export type ServicoForm = Pick<
   Servico,
-  "desigEcra" | "desigTeclaSeleccao" | "desigSistema" | "id"
+  "desigEcra" | "desigTeclaSeleccao" | "desigSistema"
 > &
   Partial<Pick<Servico, "id">>;
 
-export type ProdutoForm = Pick<
-  Produto,
-  "desigEcra" | "desigTeclaSeleccao" | "servicoId" | "id"
-> &
+export type ProdutoForm = Pick<Produto, "desigEcra" | "desigTeclaSeleccao"> &
   Partial<Pick<Produto, "id" | "servicoId">>;
 
 export type ProdutoPagamentoForm = ProdutoForm & {
