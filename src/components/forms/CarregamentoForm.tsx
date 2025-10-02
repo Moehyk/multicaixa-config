@@ -2,6 +2,7 @@ import { useCarregamentoFormContext } from "@/context/forms";
 import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
 import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
+import { initialCarregamentoMontante } from "@/constants/form-values";
 
 import Link from "next/link";
 import MaxItemsAlert from "../forms/MaxItemsAlert";
@@ -27,10 +28,25 @@ export default function CarregamentoForm({
     removeListItem,
     getValues,
     setFieldValue,
-    reset,
   } = useCarregamentoFormContext();
   const montanteTipo = getValues().carregamento?.montanteTipo;
   const montantes = getValues().carregamento?.montantes;
+
+  const handleMontanteTipoChange = (e: MontanteTipo) => {
+    switch (e) {
+      case "montante_livre": {
+        setFieldValue("carregamento.montantes", initialCarregamentoMontante);
+        break;
+      }
+      case "montante_pre_definido": {
+        setFieldValue("carregamento.montanteMin", 0);
+        setFieldValue("carregamento.montanteMax", 0);
+        break;
+      }
+      default:
+        break;
+    }
+  };
 
   const handleOpenPreviewModal = () => {
     const values = getValues();
@@ -97,7 +113,7 @@ export default function CarregamentoForm({
             size="xs"
             value={montanteTipo}
             onChange={(e) => {
-              reset();
+              handleMontanteTipoChange(e as MontanteTipo);
               setFieldValue("carregamento.montanteTipo", e as MontanteTipo);
             }}
             data={[
