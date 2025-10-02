@@ -1,4 +1,4 @@
-import { Grid, GridHeader, GridServicos } from "@/components";
+import { Grid, GridHeader } from "@/components";
 import { ServicoLoader } from "../servico";
 
 export default function Empresa({ id }: { id: string }) {
