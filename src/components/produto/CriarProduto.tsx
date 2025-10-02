@@ -1,3 +1,5 @@
+"use client";
+
 import CreatePagamento from "./CreatePagamento";
 import CreateCarregamento from "./CreateCarregamento";
 import CreateRecargas from "./CreateRecargas";
