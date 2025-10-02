@@ -1,9 +1,7 @@
 "use client";
 
-import { upsertServico } from "@/server/services";
 import { modals } from "@mantine/modals";
-import { useServicoForm, useFormMutation } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
+import { useServicoModalForm } from "@/hooks/forms";
 
 import { Button, TextInput } from "@mantine/core";
 
@@ -16,25 +14,13 @@ export default function ServicoModalForm({
   empresaId: string;
   servico?: ServicoForm;
 }) {
-  const { isMutating, setIsFetching } = useFormMutation();
-  const { getInputProps, onSubmit } = useServicoForm(servico);
-
-  const handleSubmit = async (values: ServicoForm) => {
-    setIsFetching(true);
-
-    const response = await upsertServico(empresaId, values);
-
-    setIsFetching(false);
-    if (!response.data) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      modals.closeAll();
-    }
-  };
+  const { handleSubmit, getInputProps, isMutating } = useServicoModalForm(
+    empresaId,
+    servico
+  );
 
   return (
-    <form onSubmit={onSubmit(handleSubmit)}>
+    <form onSubmit={handleSubmit}>
       <div className="flex flex-col">
         <TextInput
           {...getInputProps("desigSistema")}

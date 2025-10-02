@@ -1,8 +1,14 @@
-import { zodResolver } from "mantine-form-zod-resolver";
+"use client";
 
-import { useState, useEffect } from "react";
+import { upsertServico } from "@/server/services";
+
+import { useState, useEffect, useTransition } from "react";
+import { useRouter } from "next/navigation";
 import { useForm } from "@mantine/form";
 import { usePagForm, useCarrForm, useRecaForm } from "@/context/forms";
+import { zodResolver } from "mantine-form-zod-resolver";
+import { modals } from "@mantine/modals";
+import { errorNotification, sucessNotification } from "@/utils/notifications";
 
 import {
   empresaSchema,
@@ -30,6 +36,15 @@ import {
   ProdutoRecargasForm,
   ProdutoCarregamentoForm,
 } from "@/types";
+
+const useFormMutation = () => {
+  const [isPending, startTransition] = useTransition();
+  const [isFetching, setIsFetching] = useState(false);
+  const isMutating = isPending || isFetching;
+  const { push, back } = useRouter();
+
+  return { isMutating, setIsFetching, startTransition, push, back };
+};
 
 export const useEmpresaForm = (values: EmpresaForm) => {
   const { setInitialValues, setValues, ...form } = useForm<EmpresaForm>({
@@ -146,4 +161,25 @@ export const useProdutoCarregamentoForm = (
   }, [values]);
 
   return form;
+};
+
+export const useServicoModalForm = (id: string, servico?: ServicoForm) => {
+  const { isMutating, setIsFetching } = useFormMutation();
+  const { getInputProps, onSubmit } = useServicoForm(servico);
+
+  const handleSubmit = onSubmit(async (values: ServicoForm) => {
+    setIsFetching(true);
+
+    const response = await upsertServico(id, values);
+
+    setIsFetching(false);
+    if (!response.data) {
+      errorNotification(response);
+    } else {
+      sucessNotification(response);
+      modals.closeAll();
+    }
+  });
+
+  return { isMutating, handleSubmit, getInputProps };
 };
