@@ -1,5 +1,3 @@
-"use client";
-
 import { randomId } from "@mantine/hooks";
 
 import type {

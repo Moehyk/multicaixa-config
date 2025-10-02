@@ -1,3 +1,5 @@
+"use client";
+
 import { useCarregamentoFormContext } from "@/context/forms";
 import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
 import { openContextModal } from "@mantine/modals";

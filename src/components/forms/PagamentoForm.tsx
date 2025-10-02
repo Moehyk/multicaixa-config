@@ -1,3 +1,5 @@
+"use client";
+
 import { usePagamentoFormContext } from "@/context/forms";
 import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
 import { openContextModal } from "@mantine/modals";
