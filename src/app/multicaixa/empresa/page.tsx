@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { getOnlyEmpresa } from "@/server/services";
 
-import { EmpresaForm } from "@/components/forms";
+import { EmpresaForm, FormCard } from "@/components/forms";
 
 export default async function CriarEmpresaPage() {
   const { data } = await getOnlyEmpresa();
@@ -10,7 +10,11 @@ export default async function CriarEmpresaPage() {
     notFound();
   }
 
-  return <EmpresaForm {...data} />;
+  return (
+    <FormCard header={data.nome} subheader="Dados da Empresa">
+      <EmpresaForm {...data} />
+    </FormCard>
+  );
 }
 
 export const dynamic = "force-dynamic";
