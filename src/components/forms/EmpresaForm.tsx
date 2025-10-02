@@ -3,7 +3,7 @@
 import { useEmpresaForm } from "@/hooks/forms";
 
 import Link from "next/link";
-import { Button, TextInput, Card } from "@mantine/core";
+import { Button, TextInput } from "@mantine/core";
 
 import type { EmpresaForm } from "@/types";
 
