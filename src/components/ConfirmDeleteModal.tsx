@@ -1,43 +1,23 @@
-import { useFormMutation } from "@/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
-import { confirmDeleteConfig } from "@/config";
+"use client";
+
+import { useConfirmDelete } from "@/hooks/confirm-delete";
 
 import { Button } from "@mantine/core";
 
 import type { ContextModalProps } from "@mantine/modals";
-import type { DataModel, DeleteHandler, BaseApiResponse } from "@/types";
+import type { ConfirmDeleteProps } from "@/types";
 
-interface InnerProps<T extends BaseApiResponse = BaseApiResponse> {
-  onDelete: DeleteHandler<T>;
-  dataId: string;
-  model: DataModel;
-}
-
-export default function ConfirmDeleteModal({
-  id,
-  context,
-  innerProps: { dataId, model, onDelete },
-}: ContextModalProps<InnerProps>) {
-  const { isMutating, setIsFetching } = useFormMutation();
-
-  const handleDelete = async () => {
-    setIsFetching(true);
-    const response = await onDelete(dataId);
-    setIsFetching(false);
-
-    if (response.status !== 200) {
-      errorNotification(response);
-    } else {
-      sucessNotification(response);
-      context.closeModal(id);
-    }
-  };
+export default function ConfirmDeleteModal(
+  props: ContextModalProps<ConfirmDeleteProps>
+) {
+  const { isMutating, modalHeaderText, handleDelete, closeModal } =
+    useConfirmDelete(props);
 
   return (
     <>
-      <p className="font-medium">{confirmDeleteConfig[model]}</p>
+      <p className="font-medium">{modalHeaderText}</p>
       <div className="flex gap-4 justify-end mt-8">
-        <Button variant="default" onClick={() => context.closeModal(id)}>
+        <Button variant="default" onClick={closeModal}>
           Cancelar
         </Button>
         <Button color="red" loading={isMutating} onClick={handleDelete}>
