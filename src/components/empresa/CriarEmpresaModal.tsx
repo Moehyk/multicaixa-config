@@ -2,7 +2,7 @@
 
 import { useEmpresaModalForm } from "@/hooks/forms";
 
-import { Stepper, TextInput, Button, Modal } from "@mantine/core";
+import { Stepper, TextInput, Button } from "@mantine/core";
 
 import type { EmpresaForm } from "@/types";
 
