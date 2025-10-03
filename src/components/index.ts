@@ -1,5 +1,4 @@
 export { default as PageDisplayer } from "./PageDisplayer";
-export { default as CardTitle } from "./CardTitle";
 export { default as Grid } from "./Grid";
 export { default as GridHeader } from "./GridHeader";
 export { default as GridItem } from "./GridItem";
