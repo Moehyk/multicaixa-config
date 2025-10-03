@@ -1,4 +1,4 @@
-import { sortDataArray } from "./sort-data-array";
+import { sortDataArray } from "./arrays";
 import { amountFormatter } from "./amount-formatter";
 
 import type { GridButton, Montante, ServicoData, ProdutoData } from "@/types";
