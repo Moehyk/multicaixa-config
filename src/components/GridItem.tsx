@@ -1,7 +1,6 @@
 "use client";
 
 import { Card, ActionIcon } from "@mantine/core";
-import React from "react";
 
 export default function GridItem({
   actionsSection,
