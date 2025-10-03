@@ -1,6 +1,6 @@
 import { useEffect, useCallback, useState, useMemo } from "react";
 import { useEndViewStore, useViewsStore, usePreViewStore } from "@/context/mcx";
-import { splitArray } from "@/utils/split-array";
+import { splitArray } from "@/utils/arrays";
 
 import type { McxSelectionViewProps } from "@/types";
 

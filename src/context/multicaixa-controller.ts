@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 import type { ProdutoTipo } from "@prisma/client";
-import type { DataModel, Views } from "@/types";
+import type { Views } from "@/types";
 
 type State = {
   view: Views;

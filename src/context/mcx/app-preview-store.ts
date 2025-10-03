@@ -1,12 +1,6 @@
 import { create } from "zustand";
 
-import type {
-  ProdutoData,
-  McxPreviewStore,
-  PagamentoData,
-  RecargasData,
-  CarregamentoData,
-} from "@/types";
+import type { ProdutoData, McxPreviewStore } from "@/types";
 
 export const initialState: ProdutoData = {
   id: "",

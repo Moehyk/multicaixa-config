@@ -1,6 +1,6 @@
 import { getProduto } from "@/server/services";
 import { notFound } from "next/navigation";
-import { sortDataArray } from "@/utils/sort-data-array";
+import { sortDataArray } from "@/utils/arrays";
 
 import { FormCard } from "@/components/forms";
 import {
