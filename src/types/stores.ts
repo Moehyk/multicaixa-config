@@ -14,7 +14,7 @@ export type DataStore = Empresa & {
   servicos: ServicoData[];
 };
 
-export type McxDataStore = Pick<DataStore, "desigEcra" | "nome"> & {
+export type McxDataStore = Pick<DataStore, "desigEcra" | "nome" | "id"> & {
   servicos: ServicoData[];
   produtos: ProdutoData[];
   getServico: (id?: string) => ServicoData | undefined;
