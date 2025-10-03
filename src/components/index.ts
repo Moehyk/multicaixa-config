@@ -4,6 +4,5 @@ export { default as GridItem } from "./GridItem";
 export { default as GridError } from "./GridError";
 export { default as ErrorWidget } from "./ErrorWidget";
 export { default as GridLoading } from "./GridLoading";
-export { Toolbar } from "./header";
-export { EmpresaLoader, NoEmpresa } from "./empresa";
+export { EmpresaLoader, NoEmpresa, EmpresaToolbar } from "./empresa";
 export { GridServicos, ServicosList } from "./servico";
