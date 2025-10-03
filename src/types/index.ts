@@ -28,10 +28,10 @@ export type {
   ReferenciaInputProps,
   ProdutoFormProps,
   GroupButtonsSize,
-  GroupButtonsProps,
   McxSelectionViewProps,
   McxSelectBtnProps,
   McxAppType,
+  ConfirmDeleteProps,
 } from "./props";
 
 export type {

@@ -1,62 +1,65 @@
-import type { Dispatch, SetStateAction, KeyboardEvent } from "react";
-import type { CustomInputValueType, GridButton, Views } from "./misc";
+import type {
+  CustomInputValueType,
+  GridButton,
+  Views,
+  BaseApiResponse,
+  DeleteHandler,
+  DataModel,
+} from "./misc";
 
-export type ProdutoFormProps = {
+export interface ProdutoFormProps {
   action: "Criar" | "Editar";
   isSubmitting: boolean;
-};
+}
 
-export type McxInputsProps = {
+export interface McxInputsProps {
   value: string;
   valueLength: number;
   valueType: CustomInputValueType;
   onChange: (combinedOtp: string) => void;
-};
+}
 
-export type McxInputProps = MontanteInputProps | ReferenciaInputProps;
-
-export type MontanteInputProps = {
+export interface MontanteInputProps {
   valueType: "MONTANTE";
   min: number;
   max: number;
-};
+}
 
-export type ReferenciaInputProps = {
+export interface ReferenciaInputProps {
   valueType: "REFERENCIA";
   tamanhoReferencia: number;
   textoEcraReferencia: string;
   desigReferencia: string;
-};
+}
 
-export type GroupButtonsSize = {
+export type McxInputProps = MontanteInputProps | ReferenciaInputProps;
+
+export interface GroupButtonsSize {
   hasOnlyOneGroup?: boolean;
   isMultiGroupFirstOrLastPage?: boolean;
   isMultiGroupBetweenPage?: boolean;
-};
+}
 
-export type GroupButtonsProps = {
-  buttons: GridButton[];
-  currentPage: number;
-  dispatch: Dispatch<SetStateAction<number>>;
-  lastPage?: number;
-  isFreeAmount?: boolean;
-  toFreeAmount: () => void;
-  target: Views;
-  buttonsGroups: GridButton[][];
-};
-
-export type McxSelectionViewProps = {
+export interface McxSelectionViewProps {
   buttons: GridButton[];
   target: Views;
   hasFreeAmount?: boolean;
   toFreeAmount?: () => void;
-};
+}
 
-export type McxSelectBtnProps = {
+export interface McxSelectBtnProps {
   onClick: () => void;
   selectKey: string;
   selectText: string;
   selectSecondarytext?: string;
-};
+}
 
-export type McxAppType = "APP" | "PREVIEW";
+export type McxAppType = "DATA" | "PREVIEW";
+
+export interface ConfirmDeleteProps<
+  T extends BaseApiResponse = BaseApiResponse
+> {
+  onDelete: DeleteHandler<T>;
+  dataId: string;
+  model: DataModel;
+}
