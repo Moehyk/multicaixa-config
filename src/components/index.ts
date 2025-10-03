@@ -6,4 +6,4 @@ export { default as ErrorWidget } from "./ErrorWidget";
 export { default as GridLoading } from "./GridLoading";
 export { Toolbar } from "./header";
 export { GridServicos } from "./servico";
-export { EmpresaToolbar, EmpresaLoading } from "./empresa";
+export { EmpresaToolbar } from "./empresa";
