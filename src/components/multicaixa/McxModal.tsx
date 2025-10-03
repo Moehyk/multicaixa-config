@@ -19,7 +19,7 @@ function McxAppPreview() {
 
 const renderApp = (type: McxAppType) => {
   switch (type) {
-    case "APP": {
+    case "DATA": {
       return <McxApp />;
     }
     case "PREVIEW": {

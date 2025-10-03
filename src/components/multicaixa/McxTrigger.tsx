@@ -14,7 +14,7 @@ export default function McxTrigger() {
             modal: "mcx-modal",
             size: 1200,
             innerProps: {
-              type: "APP",
+              type: "DATA",
             },
           })
         }
