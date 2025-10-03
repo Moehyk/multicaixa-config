@@ -1,5 +1,4 @@
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { usePathname } from "next/navigation";
+import { useUserData } from "@/hooks/user";
 
 import Link from "next/link";
 import { LogoutLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
@@ -15,8 +14,7 @@ function UserWrapper({ children }: React.PropsWithChildren) {
 }
 
 export default function User() {
-  const { user, isLoading, isAuthenticated } = useKindeBrowserClient();
-  const isHome = usePathname() === "/";
+  const { user, isLoading, isAuthenticated, isHome } = useUserData();
 
   if (isLoading) {
     return (
