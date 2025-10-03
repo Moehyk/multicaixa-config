@@ -1,13 +1,15 @@
+"use client";
+
+import { mcxDataStore } from "@/context/mcx";
+
 import { Grid } from "@/components";
 import ServicoItem from "./ServicoItem";
 
 import type { ServicoData } from "@/types";
 
-export default async function GridServicos({
-  servicos,
-}: {
-  servicos: ServicoData[];
-}) {
+export default function GridServicos() {
+  const { servicos } = mcxDataStore();
+
   return (
     <>
       {servicos.map((servico) => (

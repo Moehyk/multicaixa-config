@@ -1,4 +1,4 @@
-import { EmpresaToolbar } from "@/components";
+import { EmpresaLoader, EmpresaToolbar } from "@/components/empresa";
 
 export default function MulticaixaLayout({
   children,
@@ -7,7 +7,9 @@ export default function MulticaixaLayout({
 }) {
   return (
     <>
-      <EmpresaToolbar />
+      <EmpresaLoader>
+        <EmpresaToolbar />
+      </EmpresaLoader>
       <div className="mt-28">{children}</div>
     </>
   );

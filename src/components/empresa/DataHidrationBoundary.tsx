@@ -3,7 +3,7 @@
 import { initiateDataStore } from "@/context/mcx/data-store";
 import type { DataStore } from "@/types";
 
-export default function McxHidrationBoundary({
+export default function DataHidrationBoundary({
   children,
   empresa,
 }: {
