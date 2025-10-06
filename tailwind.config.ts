@@ -65,6 +65,7 @@ export default {
         accent: "rgb(var(--brand-accent) / <alpha-value>)",
         "user-accent": "rgb(var(--user-accent) / <alpha-value>)",
         "brand-text": "rgb(var(--brand-text) / <alpha-value>)",
+        paper: "rgb(var(--paper) / <alpha-value>)",
       },
     },
   },
