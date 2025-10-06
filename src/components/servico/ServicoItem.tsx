@@ -7,7 +7,7 @@ import { modals } from "@mantine/modals";
 import Link from "next/link";
 import { GridItem } from "@/components";
 import ServicoModalForm from "./ServicoModalForm";
-import { Card, Collapse, Tooltip, ActionIcon } from "@mantine/core";
+import { Paper, Collapse, Tooltip, ActionIcon } from "@mantine/core";
 import { IconTrash, IconEdit, IconPlus } from "@tabler/icons-react";
 
 import type { ServicoData } from "@/types";
@@ -101,9 +101,10 @@ function ServicoItemCollapse({
       animateOpacity={false}
       transitionTimingFunction="linear"
     >
-      <Card
+      <Paper
         withBorder
-        className="gap-4 mt-8"
+        p={16}
+        className="flex flex-col gap-4 mt-8"
         styles={{
           root: {
             backgroundColor: "var(--mantine-body-accent)",
@@ -111,7 +112,7 @@ function ServicoItemCollapse({
         }}
       >
         {children}
-      </Card>
+      </Paper>
     </Collapse>
   );
 }
