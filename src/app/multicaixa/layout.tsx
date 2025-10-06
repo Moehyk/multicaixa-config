@@ -10,15 +10,13 @@ export default function MulitcaixaLayout({
   children,
 }: React.PropsWithChildren) {
   return (
-    <>
+    <EmpresaLoader>
       <PageWrapper>
         <Header />
-        <EmpresaLoader>
-          <EmpresaToolbar />
-        </EmpresaLoader>
+        <EmpresaToolbar />
         {children}
       </PageWrapper>
       <Footer />
-    </>
+    </EmpresaLoader>
   );
 }
