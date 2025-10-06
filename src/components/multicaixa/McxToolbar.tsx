@@ -3,7 +3,7 @@
 import { useResetMcx, useCloseMcxModal } from "@/hooks/reset-mcx";
 
 import { Button } from "@mantine/core";
-import { IconX } from "@tabler/icons-react";
+import { IconX, IconRestore } from "@tabler/icons-react";
 
 export default function McxToolbar() {
   const reset = useResetMcx();
@@ -15,7 +15,7 @@ export default function McxToolbar() {
         <Button
           size="compact-sm"
           color="orange"
-          leftSection={<IconX size={16} />}
+          leftSection={<IconRestore size={16} />}
           onClick={reset}
           className="focus:outline-orange-500"
         >
