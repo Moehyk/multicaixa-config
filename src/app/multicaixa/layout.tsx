@@ -1,14 +1,24 @@
-import { EmpresaLoader, EmpresaToolbar } from "@/components";
+import {
+  PageWrapper,
+  Header,
+  EmpresaLoader,
+  EmpresaToolbar,
+  Footer,
+} from "@/components";
 
 export default function MulitcaixaLayout({
   children,
 }: React.PropsWithChildren) {
   return (
     <>
-      <EmpresaLoader>
-        <EmpresaToolbar />
-      </EmpresaLoader>
-      <div className="mt-28">{children}</div>
+      <PageWrapper>
+        <Header />
+        <EmpresaLoader>
+          <EmpresaToolbar />
+        </EmpresaLoader>
+        {children}
+      </PageWrapper>
+      <Footer />
     </>
   );
 }
