@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 
 export const useUserData = () => {
   const { user, isLoading, isAuthenticated } = useKindeBrowserClient();
-  const isHome = usePathname() === "/";
+  const isHome = usePathname() === "/home";
 
   return {
     user,
