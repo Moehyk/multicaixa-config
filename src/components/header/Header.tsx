@@ -2,7 +2,7 @@
 
 import { usePathname } from "next/navigation";
 
-import Authentication from "./Authentication";
+import AuthDisplayer from "./AuthDisplayer";
 import Image from "next/image";
 
 import logo from "@/assets/logo_light.svg";
@@ -17,7 +17,7 @@ function AppHeader() {
         height={40}
         className="object-contain"
       />
-      <Authentication />
+      <AuthDisplayer />
     </div>
   );
 }
@@ -39,7 +39,7 @@ export default function Header() {
           height={40}
           className="object-contain"
         />
-        <Authentication />
+        <AuthDisplayer />
       </div>
     </header>
   );
