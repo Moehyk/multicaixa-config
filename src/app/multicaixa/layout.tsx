@@ -2,7 +2,7 @@ import {
   PageWrapper,
   Header,
   EmpresaLoader,
-  EmpresaToolbar,
+  EmpresaDisplayer,
   Footer,
 } from "@/components";
 
@@ -13,7 +13,7 @@ export default function MulitcaixaLayout({
     <EmpresaLoader>
       <PageWrapper>
         <Header />
-        <EmpresaToolbar />
+        <EmpresaDisplayer />
         {children}
       </PageWrapper>
       <Footer />

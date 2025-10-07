@@ -55,3 +55,5 @@ export type McxInputActions = (
   continueHandler: () => void;
   clearHandler: () => void;
 };
+
+export type MaybeNotString = string | undefined | null;
