@@ -1,11 +1,7 @@
 "use client";
 
-import { useRef, RefObject, useEffect } from "react";
-import { mcxDataStore } from "@/context/mcx";
-import { openContextModal } from "@mantine/modals";
-import { useHeadroom, useIntersection, useInViewport } from "@mantine/hooks";
+import { useEmpresaDisplayer } from "@/hooks/empresa-displayer";
 import { motion } from "motion/react";
-import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -19,23 +15,22 @@ import type { MaybeNotString } from "@/types";
 function EmpresaToolbar({
   empresaName,
   isVisible,
-  ref,
+  openModal,
   userFirstName,
   userLastName,
   userPicture,
 }: {
   empresaName: string;
   isVisible: boolean | undefined;
-  ref: (element: any) => void;
+  openModal: () => void;
   userFirstName: MaybeNotString;
   userLastName: MaybeNotString;
   userPicture: MaybeNotString;
 }) {
   return (
     <motion.div
-      animate={{ opacity: isVisible ? 1 : 0 }}
+      animate={{ display: isVisible ? "block" : "none" }}
       transition={{ duration: 0.15, ease: "easeInOut" }}
-      ref={ref}
       className="fixed top-8 left-1/2 -translate-x-1/2 z-20 w-[calc(100vw-2rem)] sm:w-[calc(100vw-3rem)] lg:w-[calc(100vw-4rem)] max-w-6xl  "
     >
       <div className="flex items-center justify-between bg-paper/80 py-2 px-4 rounded-full border border-border backdrop-blur-lg drop-shadow-md">
@@ -65,15 +60,7 @@ function EmpresaToolbar({
                 variant="default"
                 color="red"
                 radius={999}
-                onClick={() =>
-                  openContextModal({
-                    modal: "mcx-modal",
-                    size: 1200,
-                    innerProps: {
-                      type: "DATA",
-                    },
-                  })
-                }
+                onClick={openModal}
               >
                 <IconDeviceDesktop size={20} />
               </ActionIcon>
@@ -100,13 +87,15 @@ function EmpresaToolbar({
 }
 
 export default function EmpresaDisplayer() {
-  const { nome } = mcxDataStore();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const { ref, entry } = useIntersection({
-    root: containerRef.current,
-    threshold: 0.025,
-  });
-  const { user } = useKindeBrowserClient();
+  const {
+    nome,
+    isIntercepted,
+    openModal,
+    ref,
+    userFirstName,
+    userLastName,
+    userPicture,
+  } = useEmpresaDisplayer();
 
   return (
     <>
@@ -126,29 +115,21 @@ export default function EmpresaDisplayer() {
           <Button
             size="md"
             variant="default"
-            onClick={() =>
-              openContextModal({
-                modal: "mcx-modal",
-                size: 1200,
-                innerProps: {
-                  type: "DATA",
-                },
-              })
-            }
+            onClick={openModal}
             rightSection={<IconDeviceDesktop size={20} />}
           >
             Multicaixa
           </Button>
         </div>
-        <EmpresaToolbar
-          empresaName={nome}
-          isVisible={!entry?.isIntersecting}
-          ref={ref}
-          userFirstName={user?.given_name}
-          userLastName={user?.family_name}
-          userPicture={user?.picture}
-        />
       </div>
+      <EmpresaToolbar
+        empresaName={nome}
+        isVisible={!isIntercepted}
+        openModal={openModal}
+        userFirstName={userFirstName}
+        userLastName={userLastName}
+        userPicture={userPicture}
+      />
     </>
   );
 }
