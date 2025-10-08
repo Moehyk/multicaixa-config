@@ -1,16 +1,15 @@
 "use client";
 
 import { useKindeBrowserClient } from "@kinde-oss/kinde-auth-nextjs";
-import { usePathname } from "next/navigation";
+import { userStore } from "@/context/user";
 
-export const useUserData = () => {
-  const { user, isLoading, isAuthenticated } = useKindeBrowserClient();
-  const isHome = usePathname() === "/home";
+export const useAuthInfo = () => {
+  const user = userStore();
+  const { isAuthenticated, isLoading } = useKindeBrowserClient();
 
   return {
-    user,
-    isLoading,
     isAuthenticated,
-    isHome,
+    isLoading,
+    user,
   };
 };
