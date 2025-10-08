@@ -1,4 +1,4 @@
-import type { Dispatch, SetStateAction } from "react";
+import { Utilizador } from "@prisma/client";
 
 export type DataModel =
   | "utilizador"
@@ -56,4 +56,4 @@ export type McxInputActions = (
   clearHandler: () => void;
 };
 
-export type MaybeNotString = string | undefined | null;
+export type UserInfo = Pick<Utilizador, "name" | "surname" | "picture">;

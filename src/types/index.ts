@@ -57,5 +57,5 @@ export type {
   CustomInputValueType,
   Views,
   McxInputActions,
-  MaybeNotString,
+  UserInfo,
 } from "./misc";
