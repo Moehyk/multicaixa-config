@@ -1,29 +1,17 @@
 "use client";
 
-import { useUserData } from "@/hooks/user";
+import { useAuthInfo } from "@/hooks/user";
 
 import Link from "next/link";
-import { LogoutLink, LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
-import { Button, Avatar, Loader } from "@mantine/core";
-import { IconLogin, IconLogout } from "@tabler/icons-react";
+import UserDisplayer from "./UserDisplayer";
+import { usePathname } from "next/navigation";
+import { LoginLink } from "@kinde-oss/kinde-auth-nextjs/components";
+import { Button, Avatar } from "@mantine/core";
+import { IconLogin } from "@tabler/icons-react";
 
-function UserWrapper({ children }: React.PropsWithChildren) {
-  return (
-    <div className="flex items-center rounded-full p-2 border border-border gap-8 bg-paper">
-      {children}
-    </div>
-  );
-}
+function LoginButton() {
+  const { isAuthenticated, isLoading, user } = useAuthInfo();
 
-function LoginButton({
-  isAuthenticated,
-  isLoading,
-  picture,
-}: {
-  isAuthenticated: boolean | null;
-  isLoading: boolean | null;
-  picture: string | undefined | null;
-}) {
   if (isLoading) {
     return (
       <Button
@@ -33,7 +21,7 @@ function LoginButton({
         color="white"
         loading
         loaderProps={{
-          type: "bars",
+          size: "sm",
         }}
         styles={{
           label: {
@@ -74,7 +62,9 @@ function LoginButton({
       size="lg"
       variant="outline"
       color="white"
-      leftSection={<Avatar src={picture} alt="Avatar" size="sm" radius="xl" />}
+      leftSection={
+        <Avatar src={user.picture} alt="Avatar" size="sm" radius="xl" />
+      }
       rightSection={<IconLogin size={20} />}
       styles={{
         label: {
@@ -88,46 +78,12 @@ function LoginButton({
 }
 
 export default function AuthDisplayer() {
-  const { user, isLoading, isAuthenticated, isHome } = useUserData();
+  const pathName = usePathname();
+  const isHome = pathName === "/home";
 
   if (isHome) {
-    return (
-      <LoginButton
-        isAuthenticated={isAuthenticated}
-        isLoading={isLoading}
-        picture={user?.picture}
-      />
-    );
+    return <LoginButton />;
   }
 
-  if (isLoading) {
-    return (
-      <UserWrapper>
-        <div className="flex items-center h-[28px] w-16 justify-center">
-          <Loader size="sm" type="bars" />
-        </div>
-      </UserWrapper>
-    );
-  }
-
-  return (
-    <UserWrapper>
-      <div className="flex items-center gap-2">
-        <Avatar src={user?.picture} alt="Avatar" size="sm" radius="xl" />
-        <span className="text-sm">
-          <span>Bem vindo&#44;&nbsp;</span>
-          <span className="font-semibold">{`${user?.given_name} ${user?.family_name}`}</span>
-        </span>
-      </div>
-      <Button
-        component={LogoutLink}
-        color="red"
-        size="xs"
-        radius={999}
-        rightSection={<IconLogout size={20} />}
-      >
-        Sair
-      </Button>
-    </UserWrapper>
-  );
+  return <UserDisplayer />;
 }
