@@ -14,7 +14,10 @@ export default function NoEmpresa() {
         <span className="font-medium">
           <p>
             Bem vindo ao&nbsp;
-            <span className="font-bold text-brand-text">MCX Config</span>&#46;
+            <span className="font-bold text-[var(--mantine-color-brand-text)]">
+              MCX Config
+            </span>
+            &#46;
           </p>
           <p>Para começar deve criar a sua empresa.</p>
         </span>
