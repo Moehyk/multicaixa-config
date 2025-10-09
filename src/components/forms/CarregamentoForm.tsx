@@ -10,6 +10,7 @@ import {
   Button,
   Select,
   Fieldset,
+  Paper,
 } from "@mantine/core";
 import { IconTrash, IconPlus, IconDeviceDesktop } from "@tabler/icons-react";
 
@@ -83,7 +84,12 @@ export default function CarregamentoForm({
           />
         )}
       </div>
-      <div className="p-6 bg-body-accent border border-border rounded-md flex flex-col gap-4">
+      <Paper
+        withBorder
+        p={24}
+        bg={"var(--mantine-body-accent)"}
+        className="flex flex-col gap-4"
+      >
         {montanteTipo !== "montante_pre_definido" && (
           <div className="flex w-full  gap-4">
             <NumberInput
@@ -168,7 +174,7 @@ export default function CarregamentoForm({
             </div>
           </div>
         )}
-      </div>
+      </Paper>
       <div className="flex gap-2 pt-8">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
           Voltar

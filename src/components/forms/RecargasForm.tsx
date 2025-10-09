@@ -4,7 +4,7 @@ import { useRecargasForm } from "@/hooks/forms";
 
 import Link from "next/link";
 import MaxItemsAlert from "./MaxItemsAlert";
-import { TextInput, NumberInput, Button, Fieldset, Alert } from "@mantine/core";
+import { TextInput, NumberInput, Button, Fieldset, Paper } from "@mantine/core";
 import { IconTrash, IconDeviceDesktop } from "@tabler/icons-react";
 
 import type { ProdutoFormProps } from "@/types";
@@ -42,7 +42,7 @@ export default function RecargasForm({
         />
       </div>
       <h2 className="text-lg font-semibold my-2">Configurar Recargas</h2>
-      <div className="p-6 bg-body-accent border border-border rounded-md">
+      <Paper withBorder p={24} bg={"var(--mantine-body-accent)"}>
         <div className="flex gap-4 items-center mb-4">
           <Button
             variant="default"
@@ -92,7 +92,7 @@ export default function RecargasForm({
             </Fieldset>
           ))}
         </div>
-      </div>
+      </Paper>
 
       <div className="flex gap-2 pt-8">
         <Button component={Link} href="/multicaixa" variant="default" size="md">
