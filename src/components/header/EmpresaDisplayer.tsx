@@ -17,24 +17,23 @@ export default function EmpresaDisplayer({
   return (
     <section ref={ref} className="pb-16">
       <h2 className="text-4xl font-semibold mb-4">{nome}</h2>
-      <div className="flex gap-4">
+      <div className="flex gap-2 max-w-88">
         <Button
-          size="md"
-          variant="default"
           component={Link}
           href="/multicaixa/empresa"
-          color="black"
+          variant="default"
           rightSection={<IconEdit size={20} />}
+          flex={1}
         >
           Editar Empresa
         </Button>
         <Button
-          size="md"
           variant="default"
           onClick={openModal}
           rightSection={<IconDeviceDesktop size={20} />}
+          flex={1}
         >
-          Multicaixa
+          Ver Multicaixa
         </Button>
       </div>
     </section>
