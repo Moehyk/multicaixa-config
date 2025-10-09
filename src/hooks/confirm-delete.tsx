@@ -1,4 +1,4 @@
-"use cliente";
+"use client";
 
 import { useFormMutation } from "@/hooks/forms";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
