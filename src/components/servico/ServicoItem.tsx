@@ -105,11 +105,7 @@ function ServicoItemCollapse({
         withBorder
         p={16}
         className="flex flex-col gap-4 mt-8"
-        styles={{
-          root: {
-            backgroundColor: "var(--mantine-body-accent)",
-          },
-        }}
+        bg={"var(--mantine-body-accent)"}
       >
         {children}
       </Paper>
