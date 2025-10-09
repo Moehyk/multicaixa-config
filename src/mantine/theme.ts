@@ -4,7 +4,7 @@ import {
   NumberInput,
   Select,
   Modal,
-  Card,
+  Paper,
 } from "@mantine/core";
 import { brand, gray, green, orange, red } from "./colors";
 import { geistMono, geistSans } from "@/utils";
@@ -31,11 +31,11 @@ export const theme = createTheme({
   fontFamily: geistSans.style.fontFamily,
   fontFamilyMonospace: geistMono.style.fontFamily,
   components: {
-    Card: Card.extend({
+    Paper: Paper.extend({
       defaultProps: {
         styles: {
           root: {
-            backgroundColor: "var(--mantine-color-body)",
+            backgroundColor: "var(--mantine-paper-body)",
           },
         },
       },
