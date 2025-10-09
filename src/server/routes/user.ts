@@ -1,8 +1,7 @@
 import { cache } from "react";
 import { db } from "..";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
-import { revalidatePath } from "next/cache";
-import { validateUser, processErrors } from "@/utils/errors";
+import { processErrors } from "@/utils/errors";
 
 export const user = {
   get: cache(async () => {
