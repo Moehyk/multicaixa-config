@@ -1,4 +1,4 @@
-import { Card, Divider } from "@mantine/core";
+import { Divider, Paper } from "@mantine/core";
 
 export default function FormCardHeader({
   children,
@@ -10,13 +10,13 @@ export default function FormCardHeader({
   subheader: string;
 }) {
   return (
-    <Card p={32} withBorder>
+    <Paper p={32} withBorder>
       <div className="flex items-center gap-4 mb-12">
         <span className="text-2xl font-semibold">{header}</span>
         <Divider orientation="vertical" />
         <span className="text-lg font-medium">{subheader}</span>
       </div>
       {children}
-    </Card>
+    </Paper>
   );
 }

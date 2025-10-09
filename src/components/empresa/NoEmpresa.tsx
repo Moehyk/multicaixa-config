@@ -3,12 +3,12 @@
 import { modals } from "@mantine/modals";
 
 import CriarEmpresaModal from "./CriarEmpresaModal";
-import { Card, Button } from "@mantine/core";
+import { Paper, Button } from "@mantine/core";
 import { IconHomePlus } from "@tabler/icons-react";
 
 export default function NoEmpresa() {
   return (
-    <Card withBorder w={"max-content"} p={48} className="mx-auto mt-10">
+    <Paper withBorder w={"max-content"} p={48} className="mx-auto mt-10">
       <div className="flex items-center mb-8">
         <div className="bg-accent w-1 h-12 mr-4" />
         <span className="font-medium">
@@ -32,6 +32,6 @@ export default function NoEmpresa() {
       >
         Criar Empresa
       </Button>
-    </Card>
+    </Paper>
   );
 }

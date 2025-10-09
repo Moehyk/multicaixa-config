@@ -1,6 +1,6 @@
 "use client";
 
-import { Card, ActionIcon } from "@mantine/core";
+import { Paper, ActionIcon } from "@mantine/core";
 
 export default function GridItem({
   actionsSection,
@@ -12,12 +12,12 @@ export default function GridItem({
   titleSection: React.ReactNode;
 }) {
   return (
-    <Card withBorder>
+    <Paper withBorder>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">{titleSection}</div>
         <ActionIcon.Group>{actionsSection}</ActionIcon.Group>
       </div>
       {collapseSection}
-    </Card>
+    </Paper>
   );
 }
