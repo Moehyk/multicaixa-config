@@ -1,6 +1,6 @@
 import { getEmpresa } from "@/server/services";
 
-import { NoEmpresa, EmpresaLoader, ServicosList } from "@/components";
+import { NoEmpresa, ServicosList } from "@/components";
 
 export default async function MulticaixaPage() {
   const { data: empresa } = await getEmpresa();
@@ -9,11 +9,7 @@ export default async function MulticaixaPage() {
     return <NoEmpresa />;
   }
 
-  return (
-    <EmpresaLoader>
-      <ServicosList />
-    </EmpresaLoader>
-  );
+  return <ServicosList />;
 }
 
 export const dynamic = "force-dynamic";
