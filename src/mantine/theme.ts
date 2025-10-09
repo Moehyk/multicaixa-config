@@ -6,7 +6,7 @@ import {
   Modal,
   Paper,
 } from "@mantine/core";
-import { brand, gray, green, orange, red } from "./colors";
+import { brand, green, orange, red } from "./colors";
 import { geistMono, geistSans } from "@/utils";
 
 export const theme = createTheme({
@@ -26,7 +26,6 @@ export const theme = createTheme({
     green,
     orange,
     red,
-    gray,
   },
   fontFamily: geistSans.style.fontFamily,
   fontFamilyMonospace: geistMono.style.fontFamily,
