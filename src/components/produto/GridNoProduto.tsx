@@ -12,6 +12,9 @@ export default function GridNoProduto({ id }: { id: string }) {
       icon={icon}
       w="100%"
       styles={{
+        root: {
+          backgroundColor: "var(--mantine-paper-body)",
+        },
         wrapper: {
           alignItems: "center",
           gap: "0.5rem",
