@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "motion/react";
 import { useDisclosure } from "@mantine/hooks";
 
-import { IconChevronDown, IconX } from "@tabler/icons-react";
+import { IconX } from "@tabler/icons-react";
 
 const MotionIcon = motion.create(IconX, {
   forwardMotionProps: true,
