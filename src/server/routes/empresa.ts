@@ -4,7 +4,7 @@ import { db } from "..";
 import { getUser } from "../services";
 import { validateUser, processErrors } from "@/utils/errors";
 
-import type { EmpresaForm, DataStore } from "@/types";
+import type { EmpresaForm } from "@/types";
 
 export const empresa = {
   create: async (input: EmpresaForm) => {
