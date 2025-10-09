@@ -59,7 +59,6 @@ export default {
         },
         transparent: "transparent",
         current: "currentColor",
-        body: "rgb(var(--bg-body) / <alpha-value>)",
         "body-accent": "rgb(var(--bg-accent) / <alpha-value>)",
         border: "rgb(var(--border) / <alpha-value>)",
         accent: "rgb(var(--brand-accent) / <alpha-value>)",
