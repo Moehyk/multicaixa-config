@@ -85,7 +85,7 @@ export const empresa = {
     try {
       validateUser(user);
 
-      const data = (await db.empresa.findUnique({
+      const data = await db.empresa.findUnique({
         where: {
           utilizadorId: user.id,
         },
@@ -110,7 +110,7 @@ export const empresa = {
             },
           },
         },
-      })) as DataStore;
+      });
 
       return { data, status: 200 };
     } catch (error) {
