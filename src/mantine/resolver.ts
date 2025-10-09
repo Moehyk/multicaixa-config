@@ -7,6 +7,7 @@ export const resolver: CSSVariablesResolver = (theme) => ({
     "--mantine-color-text": theme.colors.gray[7],
     "--mantine-paper-body": theme.white,
     "--mantine-body-accent": theme.colors.gray[1],
+    "--mantine-color-default-color": theme.colors.gray[7],
     "--paper": "255 255 255",
     "--border": "222 226 230",
   },

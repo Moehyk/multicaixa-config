@@ -7,6 +7,8 @@ import Link from "next/link";
 import { Button } from "@mantine/core";
 import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
 
+import classes from "./buttons.module.css";
+
 export default function EmpresaDisplayer({
   ref,
 }: {
@@ -24,6 +26,9 @@ export default function EmpresaDisplayer({
           variant="default"
           rightSection={<IconEdit size={20} />}
           flex={1}
+          classNames={{
+            root: classes.btn,
+          }}
         >
           Editar Empresa
         </Button>
@@ -32,6 +37,9 @@ export default function EmpresaDisplayer({
           onClick={openModal}
           rightSection={<IconDeviceDesktop size={20} />}
           flex={1}
+          classNames={{
+            root: classes.btn,
+          }}
         >
           Ver Multicaixa
         </Button>

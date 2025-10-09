@@ -1,0 +1,7 @@
+.btn {
+  transition: all 0.25s ease-in-out;
+}
+
+[data-mantine-color-scheme="light"] .btn:hover {
+  background-color: var(--mantine-color-gray-1);
+}
