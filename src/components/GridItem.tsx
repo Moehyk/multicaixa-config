@@ -12,7 +12,7 @@ export default function GridItem({
   titleSection: React.ReactNode;
 }) {
   return (
-    <Paper withBorder>
+    <Paper p={16} withBorder>
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">{titleSection}</div>
         <ActionIcon.Group>{actionsSection}</ActionIcon.Group>
