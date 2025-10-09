@@ -16,7 +16,8 @@ function CarregamentoMontantes({
   tamanhoReferencia,
   montanteMax,
   montanteMin,
-  ...props
+  desigReferencia,
+  textoEcraReferencia,
 }: NonNullable<CarregamentoData>) {
   const { screen, continueHandler, clearHandler } = useMcxInputActions(
     tamanhoReferencia,
@@ -34,8 +35,8 @@ function CarregamentoMontantes({
           <McxInput
             valueType="REFERENCIA"
             tamanhoReferencia={tamanhoReferencia}
-            desigReferencia={props.desigReferencia}
-            textoEcraReferencia={props.textoEcraReferencia}
+            desigReferencia={desigReferencia}
+            textoEcraReferencia={textoEcraReferencia}
           />
         </McxInputsView>
       )}
