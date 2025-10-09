@@ -10,11 +10,14 @@ import type {
 } from "./data";
 import type { Views, PreviewViews } from "./misc";
 
-export type DataStore = Empresa & {
+export type EmpresaStore = Empresa & {
   servicos: ServicoData[];
 };
 
-export type McxDataStore = Pick<DataStore, "desigEcra" | "nome" | "id"> & {
+export type McxEmpresaStore = Pick<
+  EmpresaStore,
+  "desigEcra" | "nome" | "id"
+> & {
   servicos: ServicoData[];
   produtos: ProdutoData[];
   getServico: (id?: string) => ServicoData | undefined;

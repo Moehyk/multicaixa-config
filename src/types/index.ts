@@ -35,8 +35,8 @@ export type {
 } from "./props";
 
 export type {
-  DataStore,
-  McxDataStore,
+  EmpresaStore,
+  McxEmpresaStore,
   ViewsStore,
   ViewEndStoreData,
   ViewEndStore,

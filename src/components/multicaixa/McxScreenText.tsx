@@ -1,7 +1,7 @@
-import { mcxDataStore } from "@/context/mcx";
+import { mcxEmpresaStore } from "@/context/mcx";
 
 export default function McxScreenText({ subtext }: { subtext?: string }) {
-  const { desigEcra } = mcxDataStore();
+  const { desigEcra } = mcxEmpresaStore();
 
   return (
     <div className="text-center uppercase text-white flex-1 pt-8">

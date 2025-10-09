@@ -1,8 +1,8 @@
-import { mcxDataStore, useViewsStore } from "@/context/mcx";
+import { mcxEmpresaStore, useViewsStore } from "@/context/mcx";
 
 export const useMcxData = () => {
   const { id } = useViewsStore();
-  const { getServico, getProduto } = mcxDataStore();
+  const { getServico, getProduto } = mcxEmpresaStore();
 
   const servico = getServico(id);
   const produto = getProduto(id);
