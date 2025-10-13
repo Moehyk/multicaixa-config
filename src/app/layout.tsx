@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { RootWrapper } from "@/components/wrappers";
 import { AuthProvider, StylesProvider } from "@/components/providers";
-import { UserLoader } from "@/context/user";
+import { UserStoreInit } from "@/context/user";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
 
 import { geistMono, geistSans } from "@/utils";
@@ -31,9 +31,9 @@ export default function RootLayout({
           className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         >
           <StylesProvider>
-            <UserLoader>
+            <UserStoreInit>
               <RootWrapper>{children}</RootWrapper>
-            </UserLoader>
+            </UserStoreInit>
           </StylesProvider>
         </body>
       </html>
