@@ -11,7 +11,7 @@ export default async function CriarEmpresaPage() {
   }
 
   return (
-    <FormCard header={data.nome} subheader="Dados da Empresa">
+    <FormCard header="Dados da Empresa">
       <EmpresaForm {...data} />
     </FormCard>
   );
