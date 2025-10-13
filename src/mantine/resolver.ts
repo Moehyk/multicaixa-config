@@ -1,9 +1,5 @@
 import { CSSVariablesResolver } from "@mantine/core";
 
-const bgAccent = "#0B34A7";
-const bd = "#0A2C8F";
-const dBgAccent = "2 7 24";
-
 export const resolver: CSSVariablesResolver = (theme) => ({
   variables: {},
   light: {
@@ -14,6 +10,7 @@ export const resolver: CSSVariablesResolver = (theme) => ({
     "--mantine-color-default-color": theme.colors.gray[7],
     "--paper": "255 255 255",
     "--border": "222 226 230",
+    "--brand-accent": "16 74 238",
     "--mcx-bg": "9 66 214",
     "--mcx-bg-accent": "11 52 167",
     "--mcx-btn-bg": "255 255 255",
@@ -28,6 +25,7 @@ export const resolver: CSSVariablesResolver = (theme) => ({
     "--mantine-body-accent": theme.colors.dark[8],
     "--paper": "36 36 36",
     "--border": "66 66 66",
+    "--brand-accent": "9 66 214",
     "--mcx-bg": "5 22 71",
     "--mcx-bg-accent": "3 15 48",
     "--mcx-btn-bg": "46 46 46",
