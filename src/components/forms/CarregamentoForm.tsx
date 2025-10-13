@@ -2,7 +2,7 @@
 
 import { useCarregamentoForm } from "@/hooks/forms";
 
-import Link from "next/link";
+import FormActions from "./FormActions";
 import MaxItemsAlert from "../forms/MaxItemsAlert";
 import {
   TextInput,
@@ -12,7 +12,7 @@ import {
   Fieldset,
   Paper,
 } from "@mantine/core";
-import { IconTrash, IconPlus, IconDeviceDesktop } from "@tabler/icons-react";
+import { IconTrash, IconPlus } from "@tabler/icons-react";
 
 import type { MontanteTipo } from "@prisma/client";
 import type { ProdutoFormProps } from "@/types";
@@ -26,9 +26,9 @@ export default function CarregamentoForm({
     montanteTipo,
     montantes,
     handleMontanteTipoChange,
-    handleOpenPreviewModal,
     handleInsertItem,
     handleRemoveItem,
+    values,
   } = useCarregamentoForm();
 
   return (
@@ -118,7 +118,6 @@ export default function CarregamentoForm({
             />
           </div>
         )}
-
         {montanteTipo !== "montante_livre" && (
           <div className="flex flex-col gap-4">
             <div className="flex items-center gap-2">
@@ -159,7 +158,6 @@ export default function CarregamentoForm({
                     {...getInputProps(`carregamento.montantes.${i}.descricao`)}
                     label="Descrição"
                   />
-
                   <Button
                     variant="outline"
                     color="red"
@@ -175,22 +173,11 @@ export default function CarregamentoForm({
           </div>
         )}
       </Paper>
-      <div className="flex gap-2 pt-8">
-        <Button component={Link} href="/multicaixa" variant="default" size="md">
-          Voltar
-        </Button>
-        <Button
-          variant="outline"
-          size="md"
-          rightSection={<IconDeviceDesktop size={20} />}
-          onClick={handleOpenPreviewModal}
-        >
-          Visualizar
-        </Button>
-        <Button size="md" type="submit" loading={isSubmitting}>
-          {action}
-        </Button>
-      </div>
+      <FormActions
+        isSubmitting={isSubmitting}
+        submitText={action}
+        previewValues={values}
+      />
     </>
   );
 }
