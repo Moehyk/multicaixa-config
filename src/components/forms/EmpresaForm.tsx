@@ -2,8 +2,8 @@
 
 import { useEmpresaForm } from "@/hooks/forms";
 
-import Link from "next/link";
-import { Button, TextInput } from "@mantine/core";
+import FormActions from "./FormActions";
+import { TextInput } from "@mantine/core";
 
 import type { EmpresaForm } from "@/types";
 
@@ -76,14 +76,7 @@ export default function EmpresaForm(data: EmpresaForm) {
           className="flex-1"
         />
       </div>
-      <div className="flex gap-2">
-        <Button component={Link} href="/multicaixa" variant="default" size="md">
-          Voltar
-        </Button>
-        <Button size="md" type="submit" loading={isMutating}>
-          Salvar
-        </Button>
-      </div>
+      <FormActions isSubmitting={isMutating} submitText="Salvar" />
     </form>
   );
 }
