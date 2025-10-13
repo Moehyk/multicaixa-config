@@ -6,6 +6,7 @@ import {
   Modal,
   Paper,
   Notification,
+  Button,
 } from "@mantine/core";
 import { brand, green, orange, red } from "./colors";
 import { geistMono, geistSans } from "@/utils";
@@ -75,6 +76,20 @@ export const theme = createTheme({
             color: "var(--mantine-color-text)",
           },
         },
+      },
+    }),
+    Button: Button.extend({
+      vars: (_, { variant }) => {
+        if (variant === "light") {
+          return {
+            root: {
+              "--button-bd": "1px solid var(--mantine-color-brand-light)",
+            },
+          };
+        }
+        return {
+          root: {},
+        };
       },
     }),
   },
