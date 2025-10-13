@@ -1,16 +1,16 @@
 import { MantineColorsTuple } from "@mantine/core";
 
 export const brand: MantineColorsTuple = [
-  "#e6f2ff",
-  "#d1e0ff",
-  "#a2befa",
-  "#709af3",
-  "#467bee",
-  "#2b68ec",
-  "#1a5eeb",
-  "#084ed2",
-  "#0045bd",
-  "#003ba8",
+  "#e8f1ff",
+  "#d1ddff",
+  "#a1b9fa",
+  "#6e91f5",
+  "#4470f1",
+  "#295bef",
+  "#104aee",
+  "#0942d6",
+  "#003ac0",
+  "#0032aa",
 ];
 export const red: MantineColorsTuple = [
   "#fef2f2",

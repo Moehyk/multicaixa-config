@@ -13,7 +13,7 @@ export const theme = createTheme({
   cursorType: "pointer",
   defaultRadius: "md",
   primaryColor: "brand",
-  primaryShade: { light: 5, dark: 7 },
+  primaryShade: { light: 6, dark: 7 },
   shadows: {
     xs: "0 1px 2px 0 rgb(0 0 0 / 0.05)",
     sm: "0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1)",
