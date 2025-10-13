@@ -5,6 +5,7 @@ import {
   Select,
   Modal,
   Paper,
+  Notification,
 } from "@mantine/core";
 import { brand, green, orange, red } from "./colors";
 import { geistMono, geistSans } from "@/utils";
@@ -64,6 +65,15 @@ export const theme = createTheme({
         },
         header: {
           backgroundColor: "var(--mantine-paper-body)",
+        },
+      },
+    }),
+    Notification: Notification.extend({
+      defaultProps: {
+        styles: {
+          description: {
+            color: "var(--mantine-color-text)",
+          },
         },
       },
     }),
