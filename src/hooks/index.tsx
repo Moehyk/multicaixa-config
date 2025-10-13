@@ -1,4 +1,3 @@
-export { useMotionIcon } from "./useMotionIcon";
 export { useInputSeparators } from "./useInputSeparators";
 export { useMcxCustomInput } from "./useMcxCustomInput";
 export { useEmpresaDisplayer } from "./empresa-displayer";
