@@ -12,4 +12,4 @@ export const initUserStore = (user: UserInfo) => {
   userStore.setState(user);
 };
 
-export { default as UserLoader } from "./UserLoader";
+export { default as UserStoreInit } from "./UserStoreInit";

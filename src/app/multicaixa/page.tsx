@@ -1,14 +1,10 @@
-import { getEmpresa } from "@/server/services";
+import { getEmpresa, getUser } from "@/server/services";
+
+import { UserLoader } from "@/context/user";
 
 import { NoEmpresa, ServicosList } from "@/components";
 
 export default async function MulticaixaPage() {
-  const { data: empresa } = await getEmpresa();
-
-  if (!empresa) {
-    return <NoEmpresa />;
-  }
-
   return <ServicosList />;
 }
 
