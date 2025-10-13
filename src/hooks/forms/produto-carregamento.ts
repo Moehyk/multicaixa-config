@@ -8,9 +8,7 @@ import {
 import { useEffect } from "react";
 import { useCarrForm, useCarregamentoFormContext } from "@/context/forms";
 import { useFormMutation } from "./mutation";
-import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
-import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 import { produtoCarregamentoSchema } from "@/utils/schemas";
@@ -95,8 +93,9 @@ export const useCarregamentoForm = () => {
     setFieldValue,
   } = useCarregamentoFormContext();
 
-  const montanteTipo = getValues().carregamento?.montanteTipo;
-  const montantes = getValues().carregamento?.montantes;
+  const values = getValues();
+  const montanteTipo = values.carregamento?.montanteTipo;
+  const montantes = values.carregamento?.montantes;
 
   const handleInsertItem = () =>
     insertListItem("carregamento.montantes", {
@@ -125,34 +124,13 @@ export const useCarregamentoForm = () => {
     setFieldValue("carregamento.montanteTipo", e as MontanteTipo);
   };
 
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    useAppPreviewStore.setState({
-      produto: {
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "carregamentos",
-        carregamento: values.carregamento!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        type: "PREVIEW",
-      },
-    });
-  };
-
   return {
     getInputProps,
     montanteTipo,
     montantes,
     handleMontanteTipoChange,
-    handleOpenPreviewModal,
     handleInsertItem,
     handleRemoveItem,
+    values,
   };
 };
