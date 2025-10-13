@@ -61,6 +61,7 @@ export default {
         current: "currentColor",
         border: "rgb(var(--border) / <alpha-value>)",
         paper: "rgb(var(--paper) / <alpha-value>)",
+        "brand-accent": "rgb(var(--brand-accent) / <alpha-value>)",
         "mcx-bg": "rgb(var(--mcx-bg) / <alpha-value>)",
         "mcx-bg-accent": "rgb(var(--mcx-bg-accent) / <alpha-value>)",
         "mcx-btn-bg": "rgb(var(--mcx-btn-bg) / <alpha-value>)",
