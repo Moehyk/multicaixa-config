@@ -20,7 +20,7 @@ export default function ServicoModalForm({
   );
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="pt-4">
       <div className="flex flex-col">
         <TextInput
           {...getInputProps("desigSistema")}
