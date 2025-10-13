@@ -62,6 +62,9 @@ export const theme = createTheme({
           fontSize: "var(--mantine-font-size-xl)",
           fontWeight: 600,
         },
+        header: {
+          backgroundColor: "var(--mantine-paper-body)",
+        },
       },
     }),
   },
