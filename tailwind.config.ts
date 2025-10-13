@@ -73,8 +73,8 @@ export default {
         "fade-out": "fadeOut 0.3s ease-in-out",
         "slide-down": "slideDown 0.3s ease-out",
         "slide-up": "slideUp 0.3s ease-out",
-        "mcx-from-left": "mcxFromLeft 0.3s ease-out",
-        "mcx-from-right": "mcxFromRight 0.3s ease-out",
+        "mcx-from-left": "mcxFromLeft 0.3s ease-in-out",
+        "mcx-from-right": "mcxFromRight 0.3s ease-in-out",
       },
       keyframes: {
         fadeIn: {
@@ -107,7 +107,7 @@ export default {
         },
         mcxFromLeft: {
           "0%": {
-            transform: "translateX(-50%)",
+            transform: "translateX(-15%)",
             opacity: "0",
           },
           "100%": {
@@ -117,7 +117,7 @@ export default {
         },
         mcxFromRight: {
           "0%": {
-            transform: "translateX(50%)",
+            transform: "translateX(15%)",
             opacity: "0",
           },
           "100%": {
