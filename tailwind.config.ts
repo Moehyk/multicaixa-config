@@ -73,6 +73,8 @@ export default {
         "fade-out": "fadeOut 0.3s ease-in-out",
         "slide-down": "slideDown 0.3s ease-out",
         "slide-up": "slideUp 0.3s ease-out",
+        "mcx-from-left": "mcxFromLeft 0.3s ease-out",
+        "mcx-from-right": "mcxFromRight 0.3s ease-out",
       },
       keyframes: {
         fadeIn: {
@@ -101,6 +103,26 @@ export default {
           "100%": {
             opacity: "1",
             transform: "translateY(0px)",
+          },
+        },
+        mcxFromLeft: {
+          "0%": {
+            transform: "translateX(-50%)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+            opacity: "1",
+          },
+        },
+        mcxFromRight: {
+          "0%": {
+            transform: "translateX(50%)",
+            opacity: "0",
+          },
+          "100%": {
+            transform: "translateX(0%)",
+            opacity: "1",
           },
         },
       },
