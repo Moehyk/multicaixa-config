@@ -2,10 +2,10 @@
 
 import { useRecargasForm } from "@/hooks/forms";
 
-import Link from "next/link";
+import FormActions from "./FormActions";
 import MaxItemsAlert from "./MaxItemsAlert";
 import { TextInput, NumberInput, Button, Fieldset, Paper } from "@mantine/core";
-import { IconTrash, IconDeviceDesktop } from "@tabler/icons-react";
+import { IconTrash } from "@tabler/icons-react";
 
 import type { ProdutoFormProps } from "@/types";
 
@@ -93,23 +93,11 @@ export default function RecargasForm({
           ))}
         </div>
       </Paper>
-
-      <div className="flex gap-2 pt-8">
-        <Button component={Link} href="/multicaixa" variant="default" size="md">
-          Voltar
-        </Button>
-        <Button
-          variant="outline"
-          size="md"
-          rightSection={<IconDeviceDesktop size={20} />}
-          onClick={handleOpenPreviewModal}
-        >
-          Visualizar
-        </Button>
-        <Button size="md" type="submit" loading={isSubmitting}>
-          {action}
-        </Button>
-      </div>
+      <FormActions
+        isSubmitting={isSubmitting}
+        submitText={action}
+        openPreviewModal={handleOpenPreviewModal}
+      />
     </>
   );
 }

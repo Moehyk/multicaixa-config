@@ -2,9 +2,8 @@
 
 import { usePagamentoForm } from "@/hooks/forms";
 
-import Link from "next/link";
-import { TextInput, NumberInput, Button } from "@mantine/core";
-import { IconDeviceDesktop } from "@tabler/icons-react";
+import FormActions from "./FormActions";
+import { TextInput, NumberInput } from "@mantine/core";
 
 import type { ProdutoFormProps } from "@/types";
 
@@ -72,22 +71,11 @@ export default function PagamentoForm({
           min={0}
         />
       </div>
-      <div className="flex gap-2 pt-4">
-        <Button component={Link} href="/multicaixa" variant="default" size="md">
-          Voltar
-        </Button>
-        <Button
-          variant="outline"
-          size="md"
-          rightSection={<IconDeviceDesktop size={20} />}
-          onClick={handleOpenPreviewModal}
-        >
-          Visualizar
-        </Button>
-        <Button size="md" type="submit" loading={isSubmitting}>
-          {action}
-        </Button>
-      </div>
+      <FormActions
+        isSubmitting={isSubmitting}
+        submitText={action}
+        openPreviewModal={handleOpenPreviewModal}
+      />
     </>
   );
 }
