@@ -6,6 +6,14 @@ import { UnstyledButton } from "@mantine/core";
 
 import type { McxSelectBtnProps } from "@/types";
 
+function ButtonKey({ selectKey }: { selectKey: string }) {
+  return (
+    <div className="h-16 w-16 bg-mcx-btn-accent rounded flex justify-center items-center text-white text-3xl font-semibold">
+      {selectKey}
+    </div>
+  );
+}
+
 export default function McxSelectBtn({
   onClick,
   selectKey,
@@ -21,7 +29,7 @@ export default function McxSelectBtn({
       transition={{ duration: 0.25 }}
     >
       <UnstyledButton
-        className="flex items-center justify-between bg-white h-28 px-4 rounded border-[6px] border-solid border-blue-950 text-2xl font-bold w-full focus:bg-yellow-100 focus:outline-none"
+        className="flex items-center justify-between bg-mcx-btn-bg h-28 px-4 rounded border-[6px] border-solid border-mcx-btn-bd text-2xl font-bold w-full focus:bg-mcx-btn-focus focus:outline-none"
         onClick={onClick}
       >
         {!isOdd && (
@@ -30,17 +38,13 @@ export default function McxSelectBtn({
               <p> {selectText}</p>
               <p> {selectSecondarytext}</p>
             </div>
-            <div className="h-16 w-16 bg-orange-400 rounded flex justify-center items-center text-white text-3xl font-semibold">
-              {selectKey}
-            </div>
+            <ButtonKey selectKey={selectKey} />
           </>
         )}
 
         {isOdd && (
           <>
-            <div className="h-16 w-16 bg-orange-400 rounded flex justify-center items-center text-white text-3xl font-semibold">
-              {selectKey}
-            </div>
+            <ButtonKey selectKey={selectKey} />
             <div className="text-end">
               <p> {selectText}</p>
               <p> {selectSecondarytext}</p>
