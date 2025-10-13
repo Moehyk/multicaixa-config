@@ -1,11 +1,15 @@
-import { getEmpresa, getUser } from "@/server/services";
+import { getOnlyEmpresa } from "@/server/services";
 
-import { UserLoader } from "@/context/user";
-
-import { NoEmpresa, ServicosList } from "@/components";
+import { NoEmpresa, ServicosLoader } from "@/components";
 
 export default async function MulticaixaPage() {
-  return <ServicosList />;
+  const { data } = await getOnlyEmpresa();
+
+  if (!data) {
+    return <NoEmpresa />;
+  }
+
+  return <ServicosLoader id={data.id} />;
 }
 
 export const dynamic = "force-dynamic";
