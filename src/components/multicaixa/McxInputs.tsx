@@ -80,7 +80,7 @@ export default function McxInputs({
     e.target.setSelectionRange(0, e.target.value.length);
 
   return (
-    <div className="bg-brand-900 w-full  mb-4 py-12 rounded flex flex-col items-center">
+    <div className="bg-mcx-bg-accent w-full  mb-4 py-12 rounded flex flex-col items-center">
       <div className="flex flex-col items-stretch">
         <div className="flex gap-1 items-end">
           {valueItems.map((value, i) => (

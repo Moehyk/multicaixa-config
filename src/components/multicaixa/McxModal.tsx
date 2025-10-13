@@ -34,7 +34,7 @@ export default function McxModal({
   type: McxAppType;
 }>) {
   return (
-    <div className="bg-brand-700 h-[820px]">
+    <div className="bg-mcx-bg h-[820px]">
       <div className="h-full flex flex-col">
         <McxToolbar />
         {renderApp(type)}

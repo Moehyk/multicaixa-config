@@ -61,6 +61,12 @@ export default {
         current: "currentColor",
         border: "rgb(var(--border) / <alpha-value>)",
         paper: "rgb(var(--paper) / <alpha-value>)",
+        "mcx-bg": "rgb(var(--mcx-bg) / <alpha-value>)",
+        "mcx-bg-accent": "rgb(var(--mcx-bg-accent) / <alpha-value>)",
+        "mcx-btn-bg": "rgb(var(--mcx-btn-bg) / <alpha-value>)",
+        "mcx-btn-bd": "rgb(var(--mcx-btn-bd) / <alpha-value>)",
+        "mcx-btn-accent": "rgb(var(--mcx-btn-accent) / <alpha-value>)",
+        "mcx-btn-focus": "rgb(var(--mcx-btn-focus) / <alpha-value>)",
       },
       animation: {
         "fade-in": "fadeIn 0.3s ease-in-out",
