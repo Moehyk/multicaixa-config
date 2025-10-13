@@ -28,7 +28,7 @@ export default function CarregamentoForm({
     handleMontanteTipoChange,
     handleInsertItem,
     handleRemoveItem,
-    values,
+    handleOpenPreviewModal,
   } = useCarregamentoForm();
 
   return (
@@ -176,7 +176,7 @@ export default function CarregamentoForm({
       <FormActions
         isSubmitting={isSubmitting}
         submitText={action}
-        previewValues={values}
+        openPreviewModal={handleOpenPreviewModal}
       />
     </>
   );
