@@ -7,5 +7,10 @@ export { PageWrapper } from "./wrappers";
 export { HomeHeader, AppHeader } from "./header";
 export { Footer } from "./footer";
 export { EmpresaLoader, NoEmpresa } from "./empresa";
-export { GridServicos, ServicosList } from "./servico";
+export {
+  GridServicos,
+  ServicosList,
+  ServicosLoader,
+  ServicosLoading,
+} from "./servico";
 export { default as LogoLink } from "./LogoLink";
