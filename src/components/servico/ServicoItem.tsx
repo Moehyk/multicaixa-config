@@ -1,36 +1,34 @@
 "use client";
 
 import { deleteServico } from "@/server/services";
-import { useMotionIcon } from "@/hooks";
+import { useDisclosure } from "@mantine/hooks";
 import { modals } from "@mantine/modals";
 
 import Link from "next/link";
 import { GridItem } from "@/components";
 import ServicoModalForm from "./ServicoModalForm";
 import { Paper, Collapse, Tooltip, ActionIcon } from "@mantine/core";
-import { IconTrash, IconEdit, IconPlus } from "@tabler/icons-react";
+import { IconTrash, IconEdit, IconPlus, IconX } from "@tabler/icons-react";
 
 import type { ServicoData } from "@/types";
 
 function ServicoItemTitle({
   title,
-  motion,
+  opened,
+  toggle,
 }: {
   title: string;
-  motion: {
-    MotionIcon: React.ComponentType<any>;
-    openedIcon: boolean;
-    motionIcon: () => void;
-  };
+  opened: boolean;
+  toggle: () => void;
 }) {
   return (
     <>
-      <ActionIcon variant="default" onClick={motion.motionIcon} size="lg">
-        <motion.MotionIcon
+      <ActionIcon variant="default" onClick={toggle} size="lg">
+        <IconX
           size={16}
-          variants={{ open: { rotate: -135 }, closed: { rotate: 0 } }}
-          animate={motion.openedIcon ? "open" : "closed"}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
+          className={`${
+            opened ? "rotate-0" : "-rotate-[135deg]"
+          } duration-[0.2s] ease-in-out`}
         />
       </ActionIcon>
       <h2 className="font-semibold text-xl">{title}</h2>
@@ -120,18 +118,15 @@ export default function ServicoItem({
   children?: React.ReactNode;
   servico: ServicoData;
 }) {
-  const { MotionIcon, openedIcon, opened, motionIcon } = useMotionIcon();
+  const [opened, { toggle }] = useDisclosure(true);
 
   return (
     <GridItem
       titleSection={
         <ServicoItemTitle
           title={servico.desigSistema}
-          motion={{
-            MotionIcon,
-            openedIcon,
-            motionIcon,
-          }}
+          opened={opened}
+          toggle={toggle}
         />
       }
       actionsSection={
