@@ -1,9 +1,9 @@
 import { amountFormatter } from "./amount-formatter";
 
-export const renderMontanteText = (min: number, max: number) =>
-  `Deve introduzir um montante entre ${amountFormatter(
-    min
-  )} e ${amountFormatter(max)}`;
+export const renderMontanteText = (min: number | null, max: number | null) =>
+  `Deve introduzir um montante entre ${
+    min ? amountFormatter(min) : "[Montante Mínimo]"
+  } e ${max ? amountFormatter(max) : "[Montante Máximo]"}`;
 
 export const renderReferenciaText = (text: string) =>
   `Introduza o número de ${text}`;
