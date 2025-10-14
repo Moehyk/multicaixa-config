@@ -1,6 +1,5 @@
 "use client";
 
-import { RefObject } from "react";
 import { useEmpresaDisplayer } from "@/hooks";
 
 import Link from "next/link";
