@@ -1,11 +1,18 @@
 "use client";
 
 import { useHandleKeyPress } from "./handle-key-press";
-import { useAppPreviewStore, usePreViewStore } from "@/context/mcx";
+import {
+  mcxPreviewStore,
+  usePreViewStore,
+  mcxEmpresaStore,
+} from "@/context/mcx";
 
 export const useMcxServicoPreview = () => {
-  const { produto } = useAppPreviewStore();
+  const { getServico } = mcxEmpresaStore();
+  const { produto } = mcxPreviewStore.getState();
   const { setPreviewViews } = usePreViewStore();
+
+  const servico = getServico(produto.servicoId);
 
   const handleClick = () => setPreviewViews("produto");
 
@@ -18,7 +25,7 @@ export const useMcxServicoPreview = () => {
   useHandleKeyPress(handleKeyDown);
 
   return {
-    textEcra: produto.desigEcra,
+    textEcra: servico?.desigEcra,
     textSeleccao: produto.desigTeclaSeleccao,
     handleClick,
   };
