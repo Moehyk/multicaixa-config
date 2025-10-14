@@ -18,12 +18,9 @@ export const initialState: ProdutoData = {
     isNew: true,
     tamanhoReferencia: 0,
   },
-  servico: {
-    desigSistema: "",
-  },
   servicoId: "",
 };
 
-export const useAppPreviewStore = create<McxPreviewStore>((set) => ({
+export const mcxPreviewStore = create<McxPreviewStore>((set) => ({
   produto: initialState,
 }));
