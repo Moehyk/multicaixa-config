@@ -1,7 +1,7 @@
 "use client";
 
-import { ServicosLoading } from "@/components";
+import { GlobalLoader } from "@/components";
 
 export default function MulticaixaLoading() {
-  return <ServicosLoading />;
+  return <GlobalLoader />;
 }
