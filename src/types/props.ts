@@ -21,8 +21,8 @@ export interface McxInputsProps {
 
 export interface MontanteInputProps {
   valueType: "MONTANTE";
-  min: number;
-  max: number;
+  min: number | null;
+  max: number | null;
 }
 
 export interface ReferenciaInputProps {

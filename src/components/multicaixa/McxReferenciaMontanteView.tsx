@@ -33,7 +33,7 @@ export default function McxReferenciaMontanteView({
         />
       )}
       {screen === 2 && (
-        <McxInput valueType="MONTANTE" min={montanteMin!} max={montanteMax!} />
+        <McxInput valueType="MONTANTE" min={montanteMin} max={montanteMax} />
       )}
     </McxInputsView>
   );

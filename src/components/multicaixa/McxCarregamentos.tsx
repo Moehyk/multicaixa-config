@@ -50,11 +50,7 @@ function CarregamentoMontantes({
       )}
       {screen === 3 && (
         <McxInputsView onClear={clearHandler} onContinue={continueHandler}>
-          <McxInput
-            valueType="MONTANTE"
-            min={montanteMin ?? 0}
-            max={montanteMax ?? 0}
-          />
+          <McxInput valueType="MONTANTE" min={montanteMin} max={montanteMax} />
         </McxInputsView>
       )}
     </>
