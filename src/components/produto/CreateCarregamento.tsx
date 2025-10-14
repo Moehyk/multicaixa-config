@@ -1,8 +1,8 @@
 "use client";
 
+import { useEffect } from "react";
 import { useCreateCarregamentoForm } from "@/hooks/forms";
 import { CarregamentoFormProvider } from "@/context/forms";
-
 import { CarregamentoForm } from "@/components/forms";
 
 export default function CreateCarregamento({
@@ -12,6 +12,10 @@ export default function CreateCarregamento({
 }) {
   const { form, isMutating, handleSubmit } =
     useCreateCarregamentoForm(servicoId);
+
+  useEffect(() => {
+    form.setValues({ servicoId });
+  }, [servicoId]);
 
   return (
     <CarregamentoFormProvider form={form}>
