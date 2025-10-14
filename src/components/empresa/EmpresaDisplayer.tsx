@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { useEmpresaDisplayer } from "@/hooks";
+import { empresaDisplayerRefStore } from "@/context/empresa-displayer-ref";
 
 import Link from "next/link";
 import { Button } from "@mantine/core";
@@ -10,9 +12,14 @@ import classes from "./buttons.module.css";
 
 export default function EmpresaDisplayer() {
   const { nome, openModal } = useEmpresaDisplayer();
+  const sentinelRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    empresaDisplayerRefStore.setState({ ref: sentinelRef });
+  }, [sentinelRef]);
 
   return (
-    <section className="pb-16">
+    <section ref={sentinelRef} className="pb-16">
       <h2 className="text-4xl font-semibold mb-4">{nome}</h2>
       <div className="flex gap-2 max-w-88">
         <Button
