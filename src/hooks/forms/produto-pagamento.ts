@@ -8,7 +8,7 @@ import {
 import { useEffect } from "react";
 import { usePagForm, usePagamentoFormContext } from "@/context/forms";
 import { useFormMutation } from "./mutation";
-import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
+import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { openContextModal } from "@mantine/modals";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
@@ -80,12 +80,13 @@ export const usePagamentoForm = () => {
   const handleOpenPreviewModal = () => {
     const values = getValues();
 
-    useAppPreviewStore.setState({
+    mcxPreviewStore.setState({
       produto: {
         desigEcra: values.desigEcra,
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "pagamento",
         pagamento: values.pagamento!,
+        servicoId: values.servicoId,
       },
     });
 

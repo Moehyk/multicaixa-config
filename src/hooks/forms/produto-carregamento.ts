@@ -8,7 +8,7 @@ import {
 import { useEffect } from "react";
 import { useCarrForm, useCarregamentoFormContext } from "@/context/forms";
 import { useFormMutation } from "./mutation";
-import { useAppPreviewStore } from "@/context/mcx/app-preview-store";
+import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
@@ -127,12 +127,13 @@ export const useCarregamentoForm = () => {
   };
 
   const handleOpenPreviewModal = () => {
-    useAppPreviewStore.setState({
+    mcxPreviewStore.setState({
       produto: {
         desigEcra: values.desigEcra,
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "carregamentos",
         carregamento: values.carregamento!,
+        servicoId: values.servicoId!,
       },
     });
 
