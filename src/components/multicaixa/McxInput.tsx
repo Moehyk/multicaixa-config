@@ -23,14 +23,24 @@ function ReferenciaInput({
 
   return (
     <>
-      <McxInputsView.Title title={renderReferenciaText(desigReferencia)} />
+      <McxInputsView.Title
+        title={renderReferenciaText(
+          desigReferencia ? desigReferencia : "[Designação p/ Referência]"
+        )}
+      />
       <McxInputsView.Inputs
         onChange={setReferencia}
         value={referencia ?? ""}
         valueLength={tamanhoReferencia}
         valueType="REFERENCIA"
       />
-      <McxInputsView.Text text={textoEcraReferencia} />
+      <McxInputsView.Text
+        text={
+          textoEcraReferencia
+            ? textoEcraReferencia
+            : "[Texto do Ecrã de Referência]"
+        }
+      />
     </>
   );
 }

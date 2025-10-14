@@ -14,7 +14,7 @@ export default function McxServicoPreView() {
         <div className="w-full grid grid-cols-2 gap-8">
           <McxSelectBtn
             selectKey="1"
-            selectText={textSeleccao}
+            selectText={textSeleccao ? textSeleccao : "[Designação p/ Tecla]"}
             onClick={handleClick}
           />
         </div>

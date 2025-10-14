@@ -1,4 +1,4 @@
-import { useAppPreviewStore } from "@/context/mcx";
+import { mcxPreviewStore } from "@/context/mcx";
 
 import McxScreenText from "./McxScreenText";
 import McxRecargas from "./McxRecargas";
@@ -27,10 +27,13 @@ export const renderProdutoView = (produto: McxProdutoPreview) => {
 };
 
 export default function McxProdutoPreView() {
-  const { produto } = useAppPreviewStore();
+  const { produto } = mcxPreviewStore();
+
   return (
     <>
-      <McxScreenText subtext={produto.desigEcra} />
+      <McxScreenText
+        subtext={produto.desigEcra ? produto.desigEcra : "[Designação p/ Ecrã]"}
+      />
       {renderProdutoView(produto)}
     </>
   );
