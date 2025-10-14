@@ -6,11 +6,7 @@ export { default as ErrorWidget } from "./ErrorWidget";
 export { PageWrapper } from "./wrappers";
 export { HomeHeader, AppHeader } from "./header";
 export { Footer } from "./footer";
-export { EmpresaLoader, NoEmpresa } from "./empresa";
-export {
-  GridServicos,
-  ServicosList,
-  ServicosLoader,
-  ServicosLoading,
-} from "./servico";
+export { default as GlobalLoader } from "./GlobalLoader";
+export { EmpresaLoader, NoEmpresa, EmpresaDisplayer } from "./empresa";
+export { GridServicos, ServicosList } from "./servico";
 export { default as LogoLink } from "./LogoLink";
