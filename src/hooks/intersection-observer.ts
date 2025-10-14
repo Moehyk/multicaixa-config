@@ -1,7 +1,8 @@
 import { useLayoutEffect, useState, useRef, useCallback } from "react";
+import { empresaDisplayerRefStore } from "@/context/empresa-displayer-ref";
 
 export const useIntersectionObserver = (options: IntersectionObserverInit) => {
-  const sentinelRef = useRef<HTMLElement>(null);
+  const { ref } = empresaDisplayerRefStore();
   const [intersecting, setIntersecting] = useState(true);
 
   const observer = useCallback(
@@ -17,12 +18,12 @@ export const useIntersectionObserver = (options: IntersectionObserverInit) => {
   );
 
   useLayoutEffect(() => {
-    if (sentinelRef.current !== null) {
-      observer().observe(sentinelRef.current);
+    if (ref.current !== null) {
+      observer().observe(ref.current);
     }
 
     return () => observer().disconnect();
-  }, [sentinelRef]);
+  }, [ref]);
 
-  return { intersecting, sentinelRef };
+  return { intersecting };
 };
