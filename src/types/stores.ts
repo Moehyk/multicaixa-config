@@ -28,6 +28,7 @@ export type McxProdutoPreview = Pick<
   Produto,
   "desigEcra" | "desigTeclaSeleccao"
 > &
+  Partial<Pick<Produto, "servicoId">> &
   (
     | {
         type: ProdutoType[0];
