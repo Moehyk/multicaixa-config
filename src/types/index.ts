@@ -19,6 +19,7 @@ export type {
   CarregamentoPre,
   CarregamentoMontante,
   RecargasMontante,
+  EmpresaData,
 } from "./data";
 
 export type {

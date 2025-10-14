@@ -6,6 +6,7 @@ import type {
   RecaMontante,
   Carregamento,
   CarrMontante,
+  Empresa,
 } from "@prisma/client";
 
 export type PagamentoData =
@@ -54,9 +55,8 @@ export type CarregamentoData =
 
 export type ProdutoType = ["pagamento", "recargas", "carregamentos"];
 
-export type ProdutoData = Omit<Produto, "type"> & {
-  servico: Pick<Servico, "desigSistema">;
-} & (
+export type ProdutoData = Omit<Produto, "type"> &
+  (
     | {
         type: ProdutoType[0];
         pagamento: NonNullable<PagamentoData>;
@@ -72,6 +72,10 @@ export type ProdutoData = Omit<Produto, "type"> & {
   );
 
 export type ServicoData = Servico & { produtos: ProdutoData[] };
+
+export type EmpresaData = Empresa & {
+  servicos: ServicoData[];
+};
 
 export type Referencia = Pick<
   Carregamento,
