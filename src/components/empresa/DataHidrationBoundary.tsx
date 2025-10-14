@@ -1,14 +1,14 @@
 "use client";
 
 import { initiateEmpresaStore } from "@/context/mcx/data-store";
-import type { EmpresaStore } from "@/types";
+import type { EmpresaData } from "@/types";
 
 export default function DataHidrationBoundary({
   children,
   empresa,
 }: {
   children: React.ReactNode;
-  empresa: EmpresaStore;
+  empresa: EmpresaData;
 }) {
   initiateEmpresaStore(empresa);
 
