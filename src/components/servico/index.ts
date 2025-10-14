@@ -1,5 +1,3 @@
-export { default as ServicosLoader } from "./ServicosLoader";
-export { default as ServicosLoading } from "./ServicosLoading";
 export { default as ServicosList } from "./ServicosList";
 export { default as GridServicos } from "./GridServicos";
 export { default as GridNoServico } from "./GridNoServico";
