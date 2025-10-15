@@ -108,20 +108,14 @@ export const useCarregamentoForm = () => {
   const handleRemoveItem = (i: number) =>
     removeListItem(`carregamento.montantes`, i);
 
+  const resetToInitialValues = () => {
+    setFieldValue("carregamento.montantes", initialCarregamentoMontante);
+    setFieldValue("carregamento.montanteMin", 0);
+    setFieldValue("carregamento.montanteMax", 0);
+  };
+
   const handleMontanteTipoChange = (e: MontanteTipo) => {
-    switch (e) {
-      case "montante_livre": {
-        setFieldValue("carregamento.montantes", initialCarregamentoMontante);
-        break;
-      }
-      case "montante_pre_definido": {
-        setFieldValue("carregamento.montanteMin", 0);
-        setFieldValue("carregamento.montanteMax", 0);
-        break;
-      }
-      default:
-        break;
-    }
+    resetToInitialValues();
     setFieldValue("carregamento.montanteTipo", e as MontanteTipo);
   };
 
