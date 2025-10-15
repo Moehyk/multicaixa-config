@@ -95,9 +95,8 @@ export const useCarregamentoForm = () => {
     setFieldValue,
   } = useCarregamentoFormContext();
 
-  const values = getValues();
-  const montanteTipo = values.carregamento?.montanteTipo;
-  const montantes = values.carregamento?.montantes;
+  const montanteTipo = getValues().carregamento?.montanteTipo;
+  const montantes = getValues().carregamento?.montantes;
 
   const handleInsertItem = () =>
     insertListItem("carregamento.montantes", {
@@ -127,6 +126,8 @@ export const useCarregamentoForm = () => {
   };
 
   const handleOpenPreviewModal = () => {
+    const values = getValues();
+
     mcxPreviewStore.setState({
       produto: {
         desigEcra: values.desigEcra,
