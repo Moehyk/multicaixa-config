@@ -17,6 +17,116 @@ import { IconTrash, IconPlus } from "@tabler/icons-react";
 import type { MontanteTipo } from "@prisma/client";
 import type { ProdutoFormProps } from "@/types";
 
+function MontanteLivre() {
+  const { getInputProps } = useCarregamentoForm();
+
+  return (
+    <div className="flex w-full  gap-4">
+      <NumberInput
+        {...getInputProps("carregamento.montanteMin")}
+        label="Montante mínimo"
+        className="flex-1"
+        suffix=" Kzs"
+        allowNegative={false}
+        thousandSeparator=","
+        fixedDecimalScale
+        decimalScale={2}
+        max={99999999.99}
+        min={0}
+      />
+      <NumberInput
+        {...getInputProps("carregamento.montanteMax")}
+        label="Montante máximo"
+        className="flex-1"
+        suffix=" Kzs"
+        allowNegative={false}
+        thousandSeparator=","
+        fixedDecimalScale
+        decimalScale={2}
+        max={99999999.99}
+        min={0}
+      />
+    </div>
+  );
+}
+
+function MontantePre({ montantesMaxLength }: { montantesMaxLength: number }) {
+  const { getInputProps, montantes, handleInsertItem, handleRemoveItem } =
+    useCarregamentoForm();
+
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-2">
+        <Button
+          variant="default"
+          size="md"
+          disabled={montantes && montantes.length >= montantesMaxLength}
+          leftSection={<IconPlus size={16} />}
+          onClick={handleInsertItem}
+        >
+          Adicionar Montante
+        </Button>
+        <>
+          {montantes && montantes.length === montantesMaxLength && (
+            <MaxItemsAlert max={montantesMaxLength} />
+          )}
+        </>
+      </div>
+      <div className="grid grid-cols-4 grid-rows-auto gap-4">
+        {montantes?.map((m, i) => (
+          <Fieldset
+            legend={`Montante ${i + 1}`}
+            key={m.id ? m.id : m.key}
+            className="flex flex-col"
+          >
+            <NumberInput
+              {...getInputProps(`carregamento.montantes.${i}.montante`)}
+              label="Montante"
+              suffix=" Kzs"
+              allowNegative={false}
+              thousandSeparator=","
+              fixedDecimalScale
+              decimalScale={2}
+              max={99999999.99}
+              min={0}
+            />
+            <TextInput
+              {...getInputProps(`carregamento.montantes.${i}.descricao`)}
+              label="Descrição"
+            />
+            <Button
+              variant="outline"
+              color="red"
+              leftSection={<IconTrash size={16} />}
+              disabled={montantes.length === 1}
+              onClick={() => handleRemoveItem(i)}
+            >
+              Remover
+            </Button>
+          </Fieldset>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function renderMontantesConfig(tipo: MontanteTipo) {
+  if (tipo === "montante_livre") {
+    return <MontanteLivre />;
+  }
+
+  if (tipo === "montante_pre_definido") {
+    return <MontantePre montantesMaxLength={10} />;
+  }
+
+  return (
+    <>
+      <MontanteLivre />
+      <MontantePre montantesMaxLength={8} />
+    </>
+  );
+}
+
 export default function CarregamentoForm({
   action,
   isSubmitting,
@@ -24,10 +134,7 @@ export default function CarregamentoForm({
   const {
     getInputProps,
     montanteTipo,
-    montantes,
     handleMontanteTipoChange,
-    handleInsertItem,
-    handleRemoveItem,
     handleOpenPreviewModal,
   } = useCarregamentoForm();
 
@@ -90,88 +197,7 @@ export default function CarregamentoForm({
         bg={"var(--mantine-body-accent)"}
         className="flex flex-col gap-4"
       >
-        {montanteTipo !== "montante_pre_definido" && (
-          <div className="flex w-full  gap-4">
-            <NumberInput
-              {...getInputProps("carregamento.montanteMin")}
-              label="Montante mínimo"
-              className="flex-1"
-              suffix=" Kzs"
-              allowNegative={false}
-              thousandSeparator=","
-              fixedDecimalScale
-              decimalScale={2}
-              max={99999999.99}
-              min={0}
-            />
-            <NumberInput
-              {...getInputProps("carregamento.montanteMax")}
-              label="Montante máximo"
-              className="flex-1"
-              suffix=" Kzs"
-              allowNegative={false}
-              thousandSeparator=","
-              fixedDecimalScale
-              decimalScale={2}
-              max={99999999.99}
-              min={0}
-            />
-          </div>
-        )}
-        {montanteTipo !== "montante_livre" && (
-          <div className="flex flex-col gap-4">
-            <div className="flex items-center gap-2">
-              <Button
-                variant="default"
-                size="md"
-                disabled={montantes && montantes.length >= 8}
-                leftSection={<IconPlus size={16} />}
-                onClick={handleInsertItem}
-              >
-                Adicionar Montante
-              </Button>
-              <>
-                {montantes && montantes.length === 8 && (
-                  <MaxItemsAlert max={8} />
-                )}
-              </>
-            </div>
-            <div className="grid grid-cols-4 grid-rows-auto gap-4">
-              {montantes?.map((m, i) => (
-                <Fieldset
-                  legend={`Montante ${i + 1}`}
-                  key={m.id ? m.id : m.key}
-                  className="flex flex-col"
-                >
-                  <NumberInput
-                    {...getInputProps(`carregamento.montantes.${i}.montante`)}
-                    label="Montante"
-                    suffix=" Kzs"
-                    allowNegative={false}
-                    thousandSeparator=","
-                    fixedDecimalScale
-                    decimalScale={2}
-                    max={99999999.99}
-                    min={0}
-                  />
-                  <TextInput
-                    {...getInputProps(`carregamento.montantes.${i}.descricao`)}
-                    label="Descrição"
-                  />
-                  <Button
-                    variant="outline"
-                    color="red"
-                    leftSection={<IconTrash size={16} />}
-                    disabled={montantes.length === 1}
-                    onClick={() => handleRemoveItem(i)}
-                  >
-                    Remover
-                  </Button>
-                </Fieldset>
-              ))}
-            </div>
-          </div>
-        )}
+        {renderMontantesConfig(montanteTipo!)}
       </Paper>
       <FormActions
         isSubmitting={isSubmitting}
