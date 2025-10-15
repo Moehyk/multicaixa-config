@@ -9,14 +9,11 @@ import McxSelectBtn from "./McxSelectBtn";
 import type { McxSelectionViewProps } from "@/types";
 
 export default function McxSelectionView(props: McxSelectionViewProps) {
-  const toFreeAmount = props.toFreeAmount ?? (() => {});
-
   const {
     setCurrentGroup,
     currentButtons,
     hasPreviousPageBtn,
     hasNextPageBtn,
-    showFreeAmount,
     navigate,
   } = useMcxSelectionButtons(props);
 
@@ -33,7 +30,7 @@ export default function McxSelectionView(props: McxSelectionViewProps) {
         )}
         {currentButtons.map((btn, i) => (
           <McxSelectBtn
-            key={`${btn.id}-${btn.selectText}`}
+            key={randomId("mcx-select-btn")}
             selectText={btn.selectText}
             selectSecondarytext={btn.selectSecondarytext}
             selectKey={`${hasPreviousPageBtn ? i + 2 : i + 1}`}
@@ -46,15 +43,6 @@ export default function McxSelectionView(props: McxSelectionViewProps) {
             selectText="Ecrã Seguinte"
             selectKey="8"
             onClick={() => setCurrentGroup((s) => s + 1)}
-          />
-        )}
-        {showFreeAmount && (
-          <McxSelectBtn
-            selectText="Outro Montante"
-            selectKey={`${
-              currentButtons.length + (hasPreviousPageBtn ? 2 : 1)
-            }`}
-            onClick={toFreeAmount}
           />
         )}
       </div>

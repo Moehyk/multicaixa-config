@@ -43,7 +43,6 @@ export interface GroupButtonsSize {
 export interface McxSelectionViewProps {
   buttons: GridButton[];
   target: Views;
-  hasFreeAmount?: boolean;
   toFreeAmount?: () => void;
 }
 

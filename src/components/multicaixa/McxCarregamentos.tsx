@@ -28,6 +28,13 @@ function CarregamentoMontantes({
 
   const buttons: GridButton[] = createGridButtons(montantes);
 
+  if (montanteTipo === "ambos") {
+    buttons.push({
+      selectText: "Outro Montante",
+      value: undefined,
+    });
+  }
+
   return (
     <>
       {screen === 1 && (
@@ -44,7 +51,6 @@ function CarregamentoMontantes({
         <McxSelectionView
           buttons={buttons}
           target="end"
-          hasFreeAmount={montanteTipo === "ambos"}
           toFreeAmount={continueHandler}
         />
       )}
