@@ -7,7 +7,7 @@ export const sortDataArray = <T extends { montante: number }>(
 export const splitArray = <T>(
   arr: T[],
   firstArrLength: number,
-  arrLength: number
+  minimumArrLength: number
 ): T[][] => {
   if (arr.length <= firstArrLength + 1) {
     return [[...arr]];
@@ -17,8 +17,8 @@ export const splitArray = <T>(
   const restOfArray = arr.slice(firstArrLength);
   const finalArray: T[][] = [firstArray];
 
-  for (let i = 0; i < restOfArray.length; i += arrLength) {
-    finalArray.push(restOfArray.slice(i, i + arrLength));
+  for (let i = 0; i < restOfArray.length; i += minimumArrLength) {
+    finalArray.push(restOfArray.slice(i, i + minimumArrLength));
   }
 
   if (finalArray[finalArray.length - 1].length <= 1) {
