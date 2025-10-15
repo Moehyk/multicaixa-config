@@ -34,7 +34,7 @@ export default function McxSelectionView(props: McxSelectionViewProps) {
             selectText={btn.selectText}
             selectSecondarytext={btn.selectSecondarytext}
             selectKey={`${hasPreviousPageBtn ? i + 2 : i + 1}`}
-            onClick={() => navigate(btn.selectText, btn.value, btn.id)}
+            onClick={() => navigate(btn)}
           />
         ))}
         {hasNextPageBtn && (

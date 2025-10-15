@@ -31,7 +31,7 @@ function CarregamentoMontantes({
   if (montanteTipo === "ambos") {
     buttons.push({
       selectText: "Outro Montante",
-      value: undefined,
+      isFreeAmount: true,
     });
   }
 

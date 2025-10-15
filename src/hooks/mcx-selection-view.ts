@@ -2,7 +2,7 @@ import { useEffect, useCallback, useState, useMemo } from "react";
 import { useEndViewStore, useViewsStore, usePreViewStore } from "@/context/mcx";
 import { splitArray } from "@/utils/arrays";
 
-import type { McxSelectionViewProps } from "@/types";
+import type { McxSelectionViewProps, GridButton } from "@/types";
 
 export const useMcxSelectionButtons = ({
   buttons,
@@ -41,8 +41,8 @@ export const useMcxSelectionButtons = ({
   };
 
   const navigate = useCallback(
-    (selectText: string, value?: string, id?: string) => {
-      if (!value) {
+    ({ selectText, value, id, isFreeAmount }: GridButton) => {
+      if (isFreeAmount) {
         freeAmountHandler();
         return;
       }
@@ -66,7 +66,7 @@ export const useMcxSelectionButtons = ({
             setCurrentGroup((prev) => prev - 1);
           } else if (currentButtons.length >= 1) {
             const btn = currentButtons[0];
-            navigate(btn.selectText, btn.value, btn.id);
+            navigate(btn);
           }
         } else if (keyNumber === 8) {
           if (hasNextPageBtn) {
@@ -74,7 +74,7 @@ export const useMcxSelectionButtons = ({
           } else if (currentButtons.length >= 8) {
             const btnIndex = 8 - (hasPreviousPageBtn ? 2 : 1);
             const btn = currentButtons[btnIndex];
-            navigate(btn.selectText, btn.value, btn.id);
+            navigate(btn);
           }
         } else {
           let buttonIndex = keyNumber - 1;
@@ -82,7 +82,7 @@ export const useMcxSelectionButtons = ({
 
           if (buttonIndex >= 0 && buttonIndex < currentButtons.length) {
             const btn = currentButtons[buttonIndex];
-            navigate(btn.selectText, btn.value, btn.id);
+            navigate(btn);
           }
         }
       }

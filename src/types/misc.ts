@@ -35,6 +35,7 @@ export type GridButton = {
   selectText: string;
   selectSecondarytext?: string;
   value?: string;
+  isFreeAmount?: boolean;
 };
 
 export type CustomInputValueType = "REFERENCIA" | "MONTANTE";
