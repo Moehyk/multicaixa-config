@@ -26,18 +26,37 @@ export function createGridButtons(
   const sortedMontantes = sortDataArray(montantes);
 
   return sortedMontantes.map((montante) => {
+    const montanteText =
+      montante.montante > 0
+        ? amountFormatter(montante.montante)
+        : "[Montante] KZS";
+
     if (isMontanteComDescricao(montante)) {
       return {
         id: montante.id,
-        selectText: montante.descricao,
-        selectSecondarytext: amountFormatter(montante.montante),
+        selectText:
+          montante.descricao !== "" ? montante.descricao : "[Descrição]",
+        selectSecondarytext: montanteText,
         value: `${montante.montante}00`,
       };
     } else {
+      let quantidade = "[Qtde]";
+      let unidade = "[Unidade]";
+
+      if (montante.quantidade > 0) {
+        quantidade = montante.quantidade.toString();
+      }
+
+      if (designacao !== "") {
+        unidade = designacao;
+      }
+
+      const selectText = `${quantidade} ${unidade}`;
+
       return {
         id: montante.id,
-        selectText: `${amountFormatter(montante.quantidade, designacao)}`,
-        selectSecondarytext: amountFormatter(montante.montante),
+        selectText,
+        selectSecondarytext: montanteText,
         value: `${montante.montante}00`,
       };
     }
