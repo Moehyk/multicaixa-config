@@ -1,8 +1,9 @@
 "use client";
 
+import { mcxEmpresaStore } from "@/context/mcx";
+
 import { Grid, GridHeader } from "@/components";
 import { ServicoItem } from ".";
-import { mcxEmpresaStore } from "@/context/mcx";
 
 export default function ServicosList() {
   const { id, servicos } = mcxEmpresaStore();
