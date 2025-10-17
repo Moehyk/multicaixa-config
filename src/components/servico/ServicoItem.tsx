@@ -122,6 +122,7 @@ export default function ServicoItem({
 
   return (
     <GridItem
+      isCollapsed={opened}
       titleSection={
         <ServicoItemTitle
           title={servico.desigSistema}
