@@ -17,6 +17,6 @@ export const mcxEmpresaStore = create<McxEmpresaStore>((_, get) => ({
 }));
 
 export const initiateEmpresaStore = (data: EmpresaStore) => {
-  mcxEmpresaStore.setState({ ...data });
+  mcxEmpresaStore.setState({ empresa: { ...data }, servicos: data.servicos });
   mcxEmpresaStore().produtos = data.servicos.flatMap((s) => s.produtos);
 };
