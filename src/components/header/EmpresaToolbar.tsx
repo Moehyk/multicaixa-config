@@ -9,7 +9,12 @@ import { ActionIcon, Divider, Tooltip } from "@mantine/core";
 import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
 
 export default function EmpresaToolbar({ isVisible }: { isVisible: boolean }) {
-  const { nome, openModal } = useEmpresaDisplayer();
+  const { empresa, openModal } = useEmpresaDisplayer();
+
+  if (!empresa) {
+    return null;
+  }
+
   const shouldRender = useRenderWithAnimation(isVisible);
 
   if (!shouldRender) return null;
@@ -22,7 +27,7 @@ export default function EmpresaToolbar({ isVisible }: { isVisible: boolean }) {
     >
       <LogoLink hasType={false} />
       <Divider orientation="vertical" mx={16} my={6} />
-      <h2 className="text-xl font-semibold">{nome}</h2>
+      <h2 className="text-xl font-semibold">{empresa.nome}</h2>
       <div className="flex gap-2 pl-6">
         <Tooltip label="Editar Empresa" position="top">
           <ActionIcon

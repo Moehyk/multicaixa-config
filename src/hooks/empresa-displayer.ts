@@ -2,7 +2,7 @@ import { mcxEmpresaStore } from "@/context/mcx";
 import { openContextModal } from "@mantine/modals";
 
 export const useEmpresaDisplayer = () => {
-  const { nome } = mcxEmpresaStore();
+  const { empresa } = mcxEmpresaStore();
 
   const openModal = () =>
     openContextModal({
@@ -14,7 +14,7 @@ export const useEmpresaDisplayer = () => {
     });
 
   return {
-    nome,
+    empresa,
     openModal,
   };
 };

@@ -11,7 +11,12 @@ import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
 import classes from "./buttons.module.css";
 
 export default function EmpresaDisplayer() {
-  const { nome, openModal } = useEmpresaDisplayer();
+  const { empresa, openModal } = useEmpresaDisplayer();
+
+  if (!empresa) {
+    return null;
+  }
+
   const sentinelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -20,7 +25,7 @@ export default function EmpresaDisplayer() {
 
   return (
     <section ref={sentinelRef} className="pb-16">
-      <h2 className="text-4xl font-semibold mb-4">{nome}</h2>
+      <h2 className="text-4xl font-semibold mb-4">{empresa.nome}</h2>
       <div className="flex gap-2 max-w-88">
         <Button
           component={Link}
