@@ -92,13 +92,7 @@ export const useMcxSelectionButtons = ({
     return () => {
       document.removeEventListener("keydown", keyPressHandler);
     };
-  }, [
-    currentButtons,
-    hasPreviousPageBtn,
-    hasNextPageBtn,
-    navigate,
-    setCurrentGroup,
-  ]);
+  }, [currentButtons, hasPreviousPageBtn, hasNextPageBtn, navigate]);
 
   return {
     setCurrentGroup,
