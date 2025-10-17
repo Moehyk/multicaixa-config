@@ -3,9 +3,7 @@ import { create } from "zustand";
 import type { McxEmpresaStore, EmpresaStore } from "@/types";
 
 export const mcxEmpresaStore = create<McxEmpresaStore>((_, get) => ({
-  id: "",
-  nome: "",
-  desigEcra: "",
+  empresa: null,
   servicos: [],
   produtos: [],
   getServico: (id?: string) => {

@@ -14,10 +14,8 @@ export type EmpresaStore = Empresa & {
   servicos: ServicoData[];
 };
 
-export type McxEmpresaStore = Pick<
-  EmpresaStore,
-  "desigEcra" | "nome" | "id"
-> & {
+export type McxEmpresaStore = {
+  empresa: Empresa | null;
   servicos: ServicoData[];
   produtos: ProdutoData[];
   getServico: (id?: string) => ServicoData | undefined;
