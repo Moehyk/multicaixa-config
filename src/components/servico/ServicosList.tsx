@@ -2,15 +2,21 @@
 
 import { mcxEmpresaStore } from "@/context/mcx";
 
-import { Grid, GridHeader } from "@/components";
+import { Grid, GridHeader, NoEmpresa } from "@/components";
 import { ServicoItem } from ".";
 
-export default function ServicosList() {
-  const { id, servicos } = mcxEmpresaStore();
+import type { ServicoData } from "@/types";
 
+export default function ServicosList({
+  empresaId,
+  servicos,
+}: {
+  empresaId: string;
+  servicos: ServicoData[];
+}) {
   return (
     <>
-      <GridHeader id={id} />
+      <GridHeader id={empresaId} />
       <Grid>
         {servicos.map((servico) => (
           <ServicoItem key={servico.id} servico={servico}>
