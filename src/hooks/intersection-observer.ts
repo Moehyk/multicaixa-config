@@ -14,7 +14,7 @@ export const useIntersectionObserver = (options: IntersectionObserverInit) => {
           setIntersecting(false);
         }
       }, options),
-    [setIntersecting]
+    [setIntersecting, options]
   );
 
   useLayoutEffect(() => {
@@ -23,7 +23,7 @@ export const useIntersectionObserver = (options: IntersectionObserverInit) => {
     }
 
     return () => observer().disconnect();
-  }, [ref]);
+  }, [ref, observer]);
 
   return { intersecting };
 };
