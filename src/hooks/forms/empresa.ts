@@ -16,7 +16,6 @@ import {
 import { initialEmpresaFormValues } from "@/constants/form-values";
 
 import { EmpresaForm } from "@/types";
-import { get } from "http";
 
 export const useEmpresaForm = (values: EmpresaForm) => {
   const { isMutating, setIsFetching, startTransition, push } =
@@ -45,7 +44,7 @@ export const useEmpresaForm = (values: EmpresaForm) => {
   useEffect(() => {
     setInitialValues(values);
     setValues(values);
-  }, [values]);
+  }, [values, setInitialValues, setValues]);
 
   return { getInputProps, handleSubmit, isMutating };
 };
