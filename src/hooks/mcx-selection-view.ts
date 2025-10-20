@@ -50,7 +50,7 @@ export const useMcxSelectionButtons = ({
       setRecargasValues(selectText, value ?? "");
       toNextView(id);
     },
-    [target, setRecargasValues, toNextView]
+    [target, setRecargasValues, toNextView, freeAmountHandler]
   );
 
   ///////////////////////////////////////////////////
