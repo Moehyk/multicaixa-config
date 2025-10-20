@@ -42,7 +42,7 @@ export const useServicoForm = (id: string, values?: ServicoForm) => {
       setInitialValues(values);
       setValues(values);
     }
-  }, [values]);
+  }, [values, setInitialValues, setValues]);
 
   return { isMutating, handleSubmit, getInputProps };
 };
