@@ -2,14 +2,20 @@
 
 import { useEffect } from "react";
 import { useMcxData } from "./useMcxData";
-import { useResetMcx, useCloseMcxModal } from "./reset-mcx";
+import { useResetMcx } from "./reset-mcx";
 import { useEndViewStore } from "@/context/mcx";
+import { openContextModal } from "@mantine/modals";
 
 export const useMcxEndView = () => {
   const { produto } = useMcxData();
   const { montante, referencia, unidades } = useEndViewStore();
   const reset = useResetMcx();
-  const closeModal = useCloseMcxModal();
+
+  const openReciboModal = () =>
+    openContextModal({
+      modal: "mcx-recibo",
+      innerProps: {},
+    });
 
   useEffect(() => {
     const keyPressHandler = (e: globalThis.KeyboardEvent) => {
@@ -19,7 +25,7 @@ export const useMcxEndView = () => {
         reset();
       }
       if (key === "2") {
-        closeModal();
+        openReciboModal();
       }
     };
 
@@ -28,14 +34,14 @@ export const useMcxEndView = () => {
     return () => {
       document.removeEventListener("keydown", keyPressHandler);
     };
-  }, [reset, closeModal]);
+  }, []);
 
   return {
     produto,
     montante,
     referencia,
     unidades,
-    closeModal,
     reset,
+    openReciboModal,
   };
 };

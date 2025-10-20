@@ -20,7 +20,7 @@ function DadosConfirmados({
 }
 
 export default function McxEndView() {
-  const { closeModal, montante, referencia, unidades, produto, reset } =
+  const { montante, referencia, unidades, produto, reset, openReciboModal } =
     useMcxEndView();
 
   return (
@@ -43,7 +43,7 @@ export default function McxEndView() {
         <div className="w-full grid grid-cols-2 gap-8">
           <McxSelectBtn onClick={reset} selectText="Cancelar" selectKey="1" />
           <McxSelectBtn
-            onClick={closeModal}
+            onClick={openReciboModal}
             selectText="Confirmar"
             selectKey="2"
           />
