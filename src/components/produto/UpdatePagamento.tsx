@@ -13,15 +13,15 @@ export default function UpdatePagamento(props: ProdutoPagamentoForm) {
   const { form, isMutating, handleSubmit } = useUpdatePagamentoForm(props);
   const { getServico } = mcxEmpresaStore();
 
+  useEffect(() => {
+    form.setValues({ servicoId: props.servicoId });
+  }, [props.servicoId, form]);
+
   const servico = getServico(props.servicoId);
 
   if (!servico) {
     return <div>Ups...</div>;
   }
-
-  useEffect(() => {
-    form.setValues({ servicoId: props.servicoId });
-  }, [props.servicoId]);
 
   return (
     <FormCard header={servico.desigEcra} subheader={form.getValues().desigEcra}>
