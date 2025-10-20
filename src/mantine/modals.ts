@@ -1,5 +1,5 @@
 import ConfirmDeleteModal from "@/components/ConfirmDeleteModal";
-import McxModal from "@/components/multicaixa/McxModal";
+import { McxModal } from "@/components/multicaixa";
 
 import type { ModalsProviderProps } from "@mantine/modals";
 
