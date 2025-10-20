@@ -6,3 +6,5 @@ export { default as McxProdutoView } from "./McxProdutoView";
 export { default as McxEndView } from "./McxEndView";
 export { default as McxServicoPreView } from "./McxServicoPreView";
 export { default as McxProdutoPreView } from "./McxProdutoPreView";
+export { default as McxModal } from "./McxModal";
+export { default as McxRecibo } from "./McxRecibo";
