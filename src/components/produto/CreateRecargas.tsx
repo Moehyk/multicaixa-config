@@ -10,7 +10,7 @@ export default function CreateRecargas({ servicoId }: { servicoId: string }) {
 
   useEffect(() => {
     form.setValues({ servicoId });
-  }, [servicoId]);
+  }, [servicoId, form]);
 
   return (
     <RecargasFormProvider form={form}>

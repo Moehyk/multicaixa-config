@@ -15,7 +15,7 @@ export default function CreateCarregamento({
 
   useEffect(() => {
     form.setValues({ servicoId });
-  }, [servicoId]);
+  }, [servicoId, form]);
 
   return (
     <CarregamentoFormProvider form={form}>

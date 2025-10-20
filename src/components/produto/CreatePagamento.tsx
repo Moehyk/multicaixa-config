@@ -10,7 +10,7 @@ export default function CreatePagamento({ servicoId }: { servicoId: string }) {
 
   useEffect(() => {
     form.setValues({ servicoId });
-  }, [servicoId]);
+  }, [servicoId, form]);
 
   return (
     <PagamentoFormProvider form={form}>
