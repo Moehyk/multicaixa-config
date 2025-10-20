@@ -12,16 +12,15 @@ import classes from "./buttons.module.css";
 
 export default function EmpresaDisplayer() {
   const { empresa, openModal } = useEmpresaDisplayer();
-
-  if (!empresa) {
-    return null;
-  }
-
   const sentinelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     empresaDisplayerRefStore.setState({ ref: sentinelRef });
   }, [sentinelRef]);
+
+  if (!empresa) {
+    return null;
+  }
 
   return (
     <section ref={sentinelRef} className="pb-16">

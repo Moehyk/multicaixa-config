@@ -11,13 +11,11 @@ import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
 export default function EmpresaToolbar({ isVisible }: { isVisible: boolean }) {
   const { empresa, openModal } = useEmpresaDisplayer();
 
-  if (!empresa) {
-    return null;
-  }
-
   const shouldRender = useRenderWithAnimation(isVisible);
 
-  if (!shouldRender) return null;
+  if (!empresa || !shouldRender) {
+    return null;
+  }
 
   return (
     <div
