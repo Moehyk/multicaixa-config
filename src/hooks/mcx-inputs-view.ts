@@ -21,7 +21,7 @@ const useReferenciaError = (length: number) => {
     } else {
       setError(false);
     }
-  }, [referencia]);
+  }, [referencia, length]);
 
   return error;
 };
@@ -38,7 +38,7 @@ const useMontanteError = (mmin: number, mmax: number) => {
     } else {
       setError(false);
     }
-  }, [montante]);
+  }, [montanteNum, mmin, mmax]);
 
   return error;
 };
