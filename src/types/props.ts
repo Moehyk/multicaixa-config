@@ -62,3 +62,8 @@ export interface ConfirmDeleteProps<
   dataId: string;
   model: DataModel;
 }
+
+export type ErrorBoundaryProps = {
+  error: Error & { digest?: string };
+  reset: () => void;
+};

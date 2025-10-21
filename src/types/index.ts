@@ -33,6 +33,7 @@ export type {
   McxSelectBtnProps,
   McxAppType,
   ConfirmDeleteProps,
+  ErrorBoundaryProps,
 } from "./props";
 
 export type {
