@@ -22,35 +22,24 @@ export const useMcxSelectionButtons = ({
   ///////////////////////////////////////////////////
   // MANAGING VIEW NAVIGATION AND DATA STORING
   ///////////////////////////////////////////////////
-  const freeAmountHandler = toFreeAmount ?? (() => {});
+
   const { setView } = useViewsStore();
   const { setPreviewViews } = usePreViewStore();
   const { setUnidades, setMontante } = useEndViewStore();
 
-  const toNextView = (id?: string) => {
-    setView(target, id);
-    setPreviewViews("end");
-  };
-
-  const setRecargasValues = (
-    unidades: string | undefined,
-    montante: string
-  ) => {
-    setUnidades(unidades);
-    setMontante(montante);
-  };
-
   const navigate = useCallback(
     ({ selectText, value, id, isFreeAmount }: GridButton) => {
-      if (isFreeAmount) {
-        freeAmountHandler();
+      if (isFreeAmount && toFreeAmount) {
+        toFreeAmount();
         return;
       }
 
-      setRecargasValues(selectText, value ?? "");
-      toNextView(id);
+      setUnidades(selectText);
+      setMontante(value ?? "");
+      setView(target, id);
+      setPreviewViews("end");
     },
-    [setRecargasValues, toNextView, freeAmountHandler]
+    [setMontante, setUnidades, setView, setPreviewViews, toFreeAmount]
   );
 
   ///////////////////////////////////////////////////
