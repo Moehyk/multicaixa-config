@@ -1,5 +1,7 @@
 "use client";
 
+import { setMcxPreviewStoreID } from "@/context/mcx";
+
 import { FormCard } from "../forms";
 import CreatePagamento from "./CreatePagamento";
 import CreateCarregamento from "./CreateCarregamento";
@@ -15,6 +17,8 @@ export default function CriarProdutoForm({
   headerText: string;
   id: string;
 }) {
+  setMcxPreviewStoreID(id);
+
   return (
     <FormCard header={headerText} subheader="Criar Produto">
       <Tabs defaultValue="pagamento" variant="pills">
