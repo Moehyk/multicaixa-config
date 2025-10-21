@@ -87,26 +87,8 @@ export const useUpdateCarregamentoForm = (values: ProdutoCarregamentoForm) => {
 };
 
 export const useCarregamentoForm = () => {
-  const {
-    getInputProps,
-    insertListItem,
-    removeListItem,
-    getValues,
-    setFieldValue,
-  } = useCarregamentoFormContext();
-
-  const montanteTipo = getValues().carregamento?.montanteTipo;
-  const montantes = getValues().carregamento?.montantes;
-
-  const handleInsertItem = () =>
-    insertListItem("carregamento.montantes", {
-      descricao: "",
-      montante: 0.0,
-      key: randomId(),
-    });
-
-  const handleRemoveItem = (i: number) =>
-    removeListItem(`carregamento.montantes`, i);
+  const { getInputProps, getValues, setFieldValue } =
+    useCarregamentoFormContext();
 
   const resetToInitialValues = () => {
     setFieldValue("carregamento.montantes", initialCarregamentoMontante);
@@ -128,7 +110,6 @@ export const useCarregamentoForm = () => {
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "carregamentos",
         carregamento: values.carregamento!,
-        servicoId: values.servicoId!,
       },
     });
 
@@ -143,11 +124,8 @@ export const useCarregamentoForm = () => {
 
   return {
     getInputProps,
-    montanteTipo,
-    montantes,
+    getValues,
     handleMontanteTipoChange,
     handleOpenPreviewModal,
-    handleInsertItem,
-    handleRemoveItem,
   };
 };
