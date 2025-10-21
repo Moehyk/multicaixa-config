@@ -33,7 +33,7 @@ const useForm = (values?: ProdutoCarregamentoForm) => {
       form.setInitialValues(values);
       form.setValues(values);
     }
-  }, [values, form]);
+  }, [values]);
 
   return form;
 };
