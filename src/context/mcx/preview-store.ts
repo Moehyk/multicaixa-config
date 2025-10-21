@@ -29,7 +29,6 @@ export const mcxPreviewStore = create<McxPreviewStore>((set, get) => ({
   setServicoId: (id: string) => {
     const { produto } = get();
     set({ produto: { ...produto, servicoId: id } });
-    console.log("setter produto", produto);
   },
 }));
 
