@@ -6,6 +6,7 @@ export { MulticaixaRouteWrapper } from "./wrappers";
 export { HomeHeader, AppHeader } from "./header";
 export { Footer } from "./footer";
 export { default as GlobalLoader } from "./GlobalLoader";
+export { default as LogoLink } from "./LogoLink";
 export { EmpresaLoader, NoEmpresa, EmpresaDisplayer } from "./empresa";
 export { ServicosList, GridNoServico } from "./servico";
-export { default as LogoLink } from "./LogoLink";
+export { CriarProduto } from "./produto";
