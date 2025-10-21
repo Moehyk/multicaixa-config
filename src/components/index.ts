@@ -9,4 +9,9 @@ export { default as GlobalLoader } from "./GlobalLoader";
 export { default as LogoLink } from "./LogoLink";
 export { EmpresaLoader, NoEmpresa, EmpresaDisplayer } from "./empresa";
 export { ServicosList, GridNoServico } from "./servico";
-export { CriarProduto } from "./produto";
+export {
+  CriarProduto,
+  UpdateCarregamento,
+  UpdatePagamento,
+  UpdateRecargas,
+} from "./produto";
