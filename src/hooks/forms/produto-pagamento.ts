@@ -86,7 +86,6 @@ export const usePagamentoForm = () => {
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "pagamento",
         pagamento: values.pagamento!,
-        servicoId: values.servicoId,
       },
     });
 

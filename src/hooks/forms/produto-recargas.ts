@@ -100,7 +100,6 @@ export const useRecargasForm = () => {
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "recargas",
         recargas: values.recargas!,
-        servicoId: values.servicoId!,
       },
     });
 
