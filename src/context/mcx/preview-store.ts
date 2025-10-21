@@ -21,6 +21,16 @@ export const initialState: ProdutoData = {
   servicoId: "",
 };
 
-export const mcxPreviewStore = create<McxPreviewStore>((set) => ({
+export const mcxPreviewStore = create<McxPreviewStore>((set, get) => ({
   produto: initialState,
+  setProduto: (produto: ProdutoData) => {
+    set({ produto });
+  },
+  setServicoId: (id: string) => {
+    const { produto } = get();
+    set({ produto: { ...produto, servicoId: id } });
+    console.log("setter produto", produto);
+  },
 }));
+
+export const setMcxPreviewStoreID = mcxPreviewStore.getState().setServicoId;
