@@ -3,10 +3,11 @@ import { notFound } from "next/navigation";
 import { sortDataArray } from "@/utils/arrays";
 
 import {
+  ErrorWidget,
   UpdatePagamento,
   UpdateRecargas,
   UpdateCarregamento,
-} from "@/components/produto";
+} from "@/components";
 
 import type { ProdutoData } from "@/types";
 
@@ -34,7 +35,11 @@ export default async function DynamicProdutoPage({
 }) {
   const { slug } = await params;
 
-  const { data } = await getProduto(slug[0]);
+  const { data, error, message } = await getProduto(slug[0]);
+
+  if (error) {
+    return <ErrorWidget message={message} />;
+  }
 
   if (!data) {
     notFound();

@@ -5,14 +5,14 @@ import {
   ServicosList,
   GridHeader,
   GridNoServico,
-  GridError,
+  ErrorWidget,
 } from "@/components";
 
 export default async function MulticaixaPage() {
   const { data, error, message } = await getEmpresa();
 
   if (error) {
-    return <GridError message={message} />;
+    return <ErrorWidget message={message} />;
   }
 
   if (!data) {
