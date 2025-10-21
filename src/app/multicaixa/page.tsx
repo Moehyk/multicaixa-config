@@ -9,11 +9,7 @@ import {
 } from "@/components";
 
 export default async function MulticaixaPage() {
-  const { data, error, message } = await getEmpresa();
-
-  if (error) {
-    return <ErrorWidget message={message} />;
-  }
+  const { data } = await getEmpresa();
 
   if (!data) {
     return <NoEmpresa />;

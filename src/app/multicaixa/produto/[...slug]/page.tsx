@@ -35,11 +35,7 @@ export default async function DynamicProdutoPage({
 }) {
   const { slug } = await params;
 
-  const { data, error, message } = await getProduto(slug[0]);
-
-  if (error) {
-    return <ErrorWidget message={message} />;
-  }
+  const { data } = await getProduto(slug[0]);
 
   if (!data) {
     notFound();
