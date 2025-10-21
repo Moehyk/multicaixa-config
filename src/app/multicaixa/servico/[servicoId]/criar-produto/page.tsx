@@ -1,4 +1,6 @@
-import { CriarProduto } from "@/components/produto";
+import { getServico } from "@/server/services";
+
+import { CriarProduto, ErrorWidget } from "@/components";
 
 export default async function CriarProdutoPage({
   params,
@@ -7,5 +9,15 @@ export default async function CriarProdutoPage({
 }) {
   const { servicoId } = await params;
 
-  return <CriarProduto id={servicoId} />;
+  const { data, error, message } = await getServico(servicoId);
+
+  if (error) {
+    return <ErrorWidget message={message} />;
+  }
+
+  if (!data) {
+    return <ErrorWidget message="Serviço não encontrado" />;
+  }
+
+  return <CriarProduto id={servicoId} headerText={data.desigSistema} />;
 }
