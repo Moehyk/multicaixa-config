@@ -15,12 +15,12 @@ export default function MulitcaixaLayout({
     <>
       <MulticaixaRouteWrapper>
         <AppHeader />
-        <Suspense fallback={<GlobalLoader />}>
+        <Suspense fallback={<div>Loading empresa...</div>}>
           <EmpresaLoader>
             <EmpresaDisplayer />
-            {children}
           </EmpresaLoader>
         </Suspense>
+        {children}
       </MulticaixaRouteWrapper>
       <Footer />
     </>
