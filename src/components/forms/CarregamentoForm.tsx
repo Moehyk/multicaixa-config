@@ -1,6 +1,8 @@
 "use client";
 
 import { useCarregamentoForm } from "@/hooks/forms";
+import { useCarregamentoFormContext } from "@/context/forms";
+import { randomId } from "@mantine/hooks";
 
 import FormActions from "./FormActions";
 import MaxItemsAlert from "../forms/MaxItemsAlert";
@@ -18,7 +20,7 @@ import type { MontanteTipo } from "@prisma/client";
 import type { ProdutoFormProps } from "@/types";
 
 function MontanteLivre() {
-  const { getInputProps } = useCarregamentoForm();
+  const { getInputProps } = useCarregamentoFormContext();
 
   return (
     <div className="flex w-full  gap-4">
@@ -51,8 +53,10 @@ function MontanteLivre() {
 }
 
 function MontantePre({ montantesMaxLength }: { montantesMaxLength: number }) {
-  const { getInputProps, montantes, handleInsertItem, handleRemoveItem } =
-    useCarregamentoForm();
+  const { getInputProps, getValues, insertListItem, removeListItem } =
+    useCarregamentoFormContext();
+
+  const montantes = getValues().carregamento?.montantes;
 
   return (
     <div className="flex flex-col gap-4">
@@ -62,7 +66,13 @@ function MontantePre({ montantesMaxLength }: { montantesMaxLength: number }) {
           size="md"
           disabled={montantes && montantes.length >= montantesMaxLength}
           leftSection={<IconPlus size={16} />}
-          onClick={handleInsertItem}
+          onClick={() =>
+            insertListItem("carregamento.montantes", {
+              descricao: "",
+              montante: 0.0,
+              key: randomId(),
+            })
+          }
         >
           Adicionar Montante
         </Button>
@@ -99,7 +109,7 @@ function MontantePre({ montantesMaxLength }: { montantesMaxLength: number }) {
               color="red"
               leftSection={<IconTrash size={16} />}
               disabled={montantes.length === 1}
-              onClick={() => handleRemoveItem(i)}
+              onClick={() => removeListItem(`carregamento.montantes`, i)}
             >
               Remover
             </Button>
@@ -133,10 +143,12 @@ export default function CarregamentoForm({
 }: ProdutoFormProps) {
   const {
     getInputProps,
-    montanteTipo,
+    getValues,
     handleMontanteTipoChange,
     handleOpenPreviewModal,
   } = useCarregamentoForm();
+
+  const montanteTipo = getValues().carregamento?.montanteTipo;
 
   return (
     <>
@@ -197,7 +209,7 @@ export default function CarregamentoForm({
         bg={"var(--mantine-body-accent)"}
         className="flex flex-col gap-4"
       >
-        {renderMontantesConfig(montanteTipo!)}
+        {renderMontantesConfig(montanteTipo as MontanteTipo)}
       </Paper>
       <FormActions
         isSubmitting={isSubmitting}
