@@ -1,36 +1,23 @@
-"use client";
-
-import { mcxEmpresaStore } from "@/context/mcx";
-
-import { Grid, GridHeader, NoEmpresa } from "@/components";
-import { ServicoItem } from ".";
+import ServicoItem from "./ServicoItem";
+import GridNoServico from "./GridNoServico";
+import { GridNoProduto, GridProdutos } from "../produto";
 
 import type { ServicoData } from "@/types";
 
 export default function ServicosList({
-  empresaId,
   servicos,
 }: {
-  empresaId: string;
   servicos: ServicoData[];
 }) {
+  if (servicos.length === 0) return <GridNoServico />;
+
   return (
-    <>
-      <GridHeader id={empresaId} />
-      <Grid>
-        {servicos.map((servico) => (
-          <ServicoItem key={servico.id} servico={servico}>
-            <>
-              {servico.produtos.length === 0 && (
-                <Grid.NoProduto id={servico.id} />
-              )}
-              {servico.produtos.length > 0 && (
-                <Grid.Produtos key={servico.id} produtos={servico.produtos} />
-              )}
-            </>
-          </ServicoItem>
-        ))}
-      </Grid>
-    </>
+    <div className="flex flex-col gap-4">
+      {servicos.map((servico) => (
+        <ServicoItem key={servico.id} servico={servico}>
+          <GridProdutos id={servico.id} produtos={servico.produtos} />
+        </ServicoItem>
+      ))}
+    </div>
   );
 }

@@ -1,7 +1,11 @@
 import { Alert } from "@mantine/core";
 import { IconAlertTriangle } from "@tabler/icons-react";
 
-export default function GridError({ message }: { message: string }) {
+export default function GridError({
+  message,
+}: {
+  message: string | undefined;
+}) {
   const icon = <IconAlertTriangle />;
 
   return (
