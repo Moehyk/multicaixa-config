@@ -11,7 +11,6 @@ import { useFormMutation } from "./mutation";
 import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
 import { openContextModal } from "@mantine/modals";
-import { randomId } from "@mantine/hooks";
 import { errorNotification, sucessNotification } from "@/utils/notifications";
 import { produtoCarregamentoSchema } from "@/utils/schemas";
 import {
@@ -106,6 +105,7 @@ export const useCarregamentoForm = () => {
 
     mcxPreviewStore.setState({
       produto: {
+        ...mcxPreviewStore.getState().produto,
         desigEcra: values.desigEcra,
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "carregamentos",

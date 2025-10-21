@@ -82,6 +82,7 @@ export const usePagamentoForm = () => {
 
     mcxPreviewStore.setState({
       produto: {
+        ...mcxPreviewStore.getState().produto,
         desigEcra: values.desigEcra,
         desigTeclaSeleccao: values.desigTeclaSeleccao,
         type: "pagamento",
