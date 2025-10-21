@@ -45,6 +45,8 @@ export type {
   InputRefsStore,
   PreviewViewsStore,
   McxPreviewStore,
+  McxPreviewStoreActions,
+  McxPreviewStoreData,
   McxProdutoPreview,
 } from "./stores";
 

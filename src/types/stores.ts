@@ -42,13 +42,16 @@ export type McxProdutoPreview = Pick<
       }
   );
 
-export type McxPreviewStore = {
+export type McxPreviewStoreData = {
   produto: McxProdutoPreview;
 };
 
 export type McxPreviewStoreActions = {
   setProduto: (pagamento: ProdutoData) => void;
+  setServicoId: (id: string) => void;
 };
+
+export type McxPreviewStore = McxPreviewStoreData & McxPreviewStoreActions;
 
 export type ViewsStore = {
   id?: string;
