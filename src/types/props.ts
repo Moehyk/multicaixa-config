@@ -1,3 +1,4 @@
+import type { EmpresaData } from "./data";
 import type {
   CustomInputValueType,
   GridButton,
@@ -53,7 +54,16 @@ export interface McxSelectBtnProps {
   selectSecondarytext?: string;
 }
 
-export type McxAppType = "DATA" | "PREVIEW";
+type McxDataType = {
+  type: "DATA";
+  data: EmpresaData;
+};
+
+type McxPreviewType = {
+  type: "PREVIEW";
+};
+
+export type McxApp = McxDataType | McxPreviewType;
 
 export interface ConfirmDeleteProps<
   T extends BaseApiResponse = BaseApiResponse
