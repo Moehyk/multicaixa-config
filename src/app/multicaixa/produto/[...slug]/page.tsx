@@ -1,15 +1,16 @@
 import { getProduto } from "@/server/services";
 import { notFound } from "next/navigation";
-import { sortDataArray } from "@/utils/arrays";
+import { sortDataArray, renderServicoNomeParam } from "@/utils";
 
 import {
-  ErrorWidget,
+  FormCard,
   UpdatePagamento,
   UpdateRecargas,
   UpdateCarregamento,
 } from "@/components";
 
 import type { ProdutoData } from "@/types";
+import type { SearchParams } from "nuqs";
 
 const renderProduto = (data: ProdutoData) => {
   switch (data.type) {
@@ -30,10 +31,13 @@ const renderProduto = (data: ProdutoData) => {
 
 export default async function DynamicProdutoPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ slug: string[] }>;
+  searchParams: Promise<SearchParams>;
 }) {
   const { slug } = await params;
+  const { s } = await searchParams;
 
   const { data } = await getProduto(slug[0]);
 
@@ -41,5 +45,11 @@ export default async function DynamicProdutoPage({
     notFound();
   }
 
-  return <>{renderProduto(data)}</>;
+  const servicoDesigSistema = renderServicoNomeParam(s);
+
+  return (
+    <FormCard header={servicoDesigSistema} subheader={data.desigEcra}>
+      {renderProduto(data)}
+    </FormCard>
+  );
 }
