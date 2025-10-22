@@ -62,4 +62,5 @@ export type {
   Views,
   McxInputActions,
   UserInfo,
+  ServicoSearchParams,
 } from "./misc";

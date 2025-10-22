@@ -58,3 +58,8 @@ export type McxInputActions = (
 };
 
 export type UserInfo = Pick<Utilizador, "name" | "surname" | "picture">;
+
+export type ServicoSearchParams = {
+  s: string;
+  e: string;
+};
