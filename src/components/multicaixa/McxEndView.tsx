@@ -20,12 +20,18 @@ function DadosConfirmados({
 }
 
 export default function McxEndView() {
-  const { closeModal, montante, referencia, unidades, produto, reset } =
-    useMcxEndView();
+  const {
+    closeModal,
+    montante,
+    referencia,
+    unidades,
+    produtoDesigEcra,
+    reset,
+  } = useMcxEndView();
 
   return (
     <>
-      <McxScreenText subtext={produto?.desigEcra} />
+      <McxScreenText subtext={produtoDesigEcra} />
       <div className="flex flex-col w-full h-full items-center justify-between px-16 pb-8 pt-16">
         <div className="bg-mcx-bg-accent rounded-lg p-14 flex gap-4 flex-col text-white text-center">
           <p className="text-2xl font-semibold mb-4">

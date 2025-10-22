@@ -1,15 +1,35 @@
 "use client";
 
 import { useEffect } from "react";
-import { useMcxData } from "./useMcxData";
+import { useMcxData } from "./mcx-data";
 import { useResetMcx, useCloseMcxModal } from "./reset-mcx";
-import { useEndViewStore } from "@/context/mcx";
+import { useEndViewStore, mcxPreviewStore } from "@/context/mcx";
+
+import type { ProdutoData, McxProdutoPreview } from "@/types";
+
+const renderDesigEcra = (
+  data: ProdutoData | undefined,
+  state: McxProdutoPreview
+) => {
+  if (data) {
+    return data.desigEcra;
+  }
+
+  if (state.desigEcra) {
+    return state.desigEcra;
+  }
+
+  return "[Designação p/ Ecrã]";
+};
 
 export const useMcxEndView = () => {
   const { produto } = useMcxData();
+  const { produto: previewProduto } = mcxPreviewStore.getState();
   const { montante, referencia, unidades } = useEndViewStore();
   const reset = useResetMcx();
   const closeModal = useCloseMcxModal();
+
+  const produtoDesigEcra = renderDesigEcra(produto, previewProduto);
 
   useEffect(() => {
     const keyPressHandler = (e: globalThis.KeyboardEvent) => {
@@ -31,7 +51,7 @@ export const useMcxEndView = () => {
   }, [reset, closeModal]);
 
   return {
-    produto,
+    produtoDesigEcra,
     montante,
     referencia,
     unidades,
