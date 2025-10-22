@@ -5,7 +5,6 @@ import {
   ServicosList,
   GridHeader,
   GridNoServico,
-  ErrorWidget,
 } from "@/components";
 
 export default async function MulticaixaPage() {
@@ -15,19 +14,11 @@ export default async function MulticaixaPage() {
     return <NoEmpresa />;
   }
 
-  if (data.servicos.length === 0) {
-    return (
-      <>
-        <GridHeader id={data.id} />
-        <GridNoServico />
-      </>
-    );
-  }
-
   return (
     <>
       <GridHeader id={data.id} />
-      <ServicosList servicos={data.servicos} />
+      {data.servicos.length === 0 && <GridNoServico />}
+      {data.servicos.length > 0 && <ServicosList servicos={data.servicos} />}
     </>
   );
 }
