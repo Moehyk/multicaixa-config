@@ -94,7 +94,9 @@ export const usePagamentoForm = () => {
       modal: "mcx-modal",
       size: 1200,
       innerProps: {
-        type: "PREVIEW",
+        app: {
+          type: "PREVIEW",
+        },
       },
     });
   };
