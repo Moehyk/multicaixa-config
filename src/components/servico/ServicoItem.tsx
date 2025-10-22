@@ -43,6 +43,10 @@ function ServicoItemActions({
   id: string;
   servico: ServicoData;
 }) {
+  const url = `/multicaixa/servico/${
+    servico.id
+  }/criar-produto?e=${servico.desigEcra.replaceAll(" ", "%")}`;
+
   const handleEditServico = () =>
     modals.open({
       title: "Editar Serviço",
@@ -63,12 +67,7 @@ function ServicoItemActions({
   return (
     <>
       <Tooltip label="Criar Produto" position="top">
-        <ActionIcon
-          component={Link}
-          href={`/multicaixa/servico/${servico.id}/criar-produto`}
-          size="lg"
-          variant="default"
-        >
+        <ActionIcon component={Link} href={url} size="lg" variant="default">
           <IconPlus size={16} />
         </ActionIcon>
       </Tooltip>
