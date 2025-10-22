@@ -1,18 +1,15 @@
 "use client";
 
+import { useQueryState } from "nuqs";
 import { useHandleKeyPress } from "./handle-key-press";
-import {
-  mcxPreviewStore,
-  usePreViewStore,
-  mcxEmpresaStore,
-} from "@/context/mcx";
+import { mcxPreviewStore, usePreViewStore } from "@/context/mcx";
 
 export const useMcxServicoPreview = () => {
-  const { getServico } = mcxEmpresaStore();
+  const [e] = useQueryState("e");
   const { produto } = mcxPreviewStore.getState();
   const { setPreviewViews } = usePreViewStore();
 
-  const servico = getServico(produto.servicoId);
+  const textEcra = e ? e.replaceAll("%", " ") : "SERVIÇO";
 
   const handleClick = () => setPreviewViews("produto");
 
@@ -25,7 +22,7 @@ export const useMcxServicoPreview = () => {
   useHandleKeyPress(handleKeyDown);
 
   return {
-    textEcra: servico?.desigEcra,
+    textEcra,
     textSeleccao: produto.desigTeclaSeleccao,
     handleClick,
   };
