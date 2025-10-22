@@ -31,14 +31,15 @@ export type {
   GroupButtonsSize,
   McxSelectionViewProps,
   McxSelectBtnProps,
-  McxAppType,
+  McxApp,
   ConfirmDeleteProps,
   ErrorBoundaryProps,
 } from "./props";
 
 export type {
   EmpresaStore,
-  McxEmpresaStore,
+  McxDataProps,
+  McxDataState,
   ViewsStore,
   ViewEndStoreData,
   ViewEndStore,
