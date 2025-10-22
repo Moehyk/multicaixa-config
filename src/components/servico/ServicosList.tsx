@@ -1,6 +1,6 @@
 import ServicoItem from "./ServicoItem";
 import GridNoServico from "./GridNoServico";
-import { GridNoProduto, GridProdutos } from "../produto";
+import { GridProdutos } from "../produto";
 
 import type { ServicoData } from "@/types";
 
@@ -15,7 +15,11 @@ export default function ServicosList({
     <div className="flex flex-col gap-4">
       {servicos.map((servico) => (
         <ServicoItem key={servico.id} servico={servico}>
-          <GridProdutos id={servico.id} produtos={servico.produtos} />
+          <GridProdutos
+            id={servico.id}
+            produtos={servico.produtos}
+            servicoName={servico.desigSistema}
+          />
         </ServicoItem>
       ))}
     </div>

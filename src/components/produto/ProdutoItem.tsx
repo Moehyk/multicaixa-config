@@ -29,7 +29,13 @@ function ProdutoItemTitle({
   );
 }
 
-function ProdutoItemActions({ id }: { id: string }) {
+function ProdutoItemActions({
+  id,
+  servicoName,
+}: {
+  id: string;
+  servicoName: string;
+}) {
   const handleDeleteProduto = () =>
     modals.openContextModal({
       title: "Apagar Produto",
@@ -41,12 +47,14 @@ function ProdutoItemActions({ id }: { id: string }) {
       },
     });
 
+  const servicoNameSplit = servicoName.replaceAll(" ", "%");
+
   return (
     <>
       <Tooltip label="Editar Produto" position="top">
         <ActionIcon
           component={Link}
-          href={`/multicaixa/produto/${id}`}
+          href={`/multicaixa/produto/${id}?s=${servicoNameSplit}`}
           size="lg"
           variant="default"
         >
@@ -62,11 +70,21 @@ function ProdutoItemActions({ id }: { id: string }) {
   );
 }
 
-export default function ProdutoItem({ id, desigEcra, type }: Produto) {
+export default function ProdutoItem({
+  produto,
+  servicoName,
+}: {
+  produto: Produto;
+  servicoName: string;
+}) {
   return (
     <GridItem
-      titleSection={<ProdutoItemTitle title={desigEcra} type={type} />}
-      actionsSection={<ProdutoItemActions id={id} />}
+      titleSection={
+        <ProdutoItemTitle title={produto.desigEcra} type={produto.type} />
+      }
+      actionsSection={
+        <ProdutoItemActions id={produto.id} servicoName={servicoName} />
+      }
     />
   );
 }
