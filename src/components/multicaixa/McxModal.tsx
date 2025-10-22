@@ -1,26 +1,42 @@
 "use client";
 
-import { useViewsStore, usePreViewStore } from "@/context/mcx";
+import { useViewsStore, usePreViewStore, McxDataProvider } from "@/context/mcx";
 
 import McxToolbar from "./McxToolbar";
 
-import type { McxAppType } from "@/types";
+import type { McxApp, EmpresaData } from "@/types";
 import type { ContextModalProps } from "@mantine/modals";
 
-function McxApp() {
+function McxApp({ data }: { data: EmpresaData }) {
   const { McxView } = useViewsStore();
-  return <McxView />;
+
+  const servicos = data.servicos;
+  const produtos = data.servicos.flatMap((s) => s.produtos);
+
+  return (
+    <McxDataProvider
+      empresa={{ ...data }}
+      servicos={servicos}
+      produtos={produtos}
+    >
+      <McxView />
+    </McxDataProvider>
+  );
 }
 
 function McxAppPreview() {
   const { McxPreviewView } = usePreViewStore();
-  return <McxPreviewView />;
+  return (
+    <McxDataProvider empresa={null} servicos={[]} produtos={[]}>
+      <McxPreviewView />
+    </McxDataProvider>
+  );
 }
 
-const renderApp = (type: McxAppType) => {
-  switch (type) {
+const renderApp = (app: McxApp) => {
+  switch (app.type) {
     case "DATA": {
-      return <McxApp />;
+      return <McxApp data={app.data} />;
     }
     case "PREVIEW": {
       return <McxAppPreview />;
@@ -29,15 +45,15 @@ const renderApp = (type: McxAppType) => {
 };
 
 export default function McxModal({
-  innerProps: { type },
+  innerProps: { app },
 }: ContextModalProps<{
-  type: McxAppType;
+  app: McxApp;
 }>) {
   return (
     <div className="bg-mcx-bg h-[820px]">
       <div className="h-full flex flex-col">
         <McxToolbar />
-        {renderApp(type)}
+        {renderApp(app)}
       </div>
     </div>
   );
