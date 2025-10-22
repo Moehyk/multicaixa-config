@@ -1,6 +1,7 @@
 import { getServico } from "@/server/services";
+import { notFound } from "next/navigation";
 
-import { CriarProduto } from "@/components";
+import { CriarProduto, FormCard } from "@/components";
 
 export default async function CriarProdutoPage({
   params,
@@ -12,8 +13,12 @@ export default async function CriarProdutoPage({
   const { data } = await getServico(servicoId);
 
   if (!data) {
-    return <div>Ups...</div>;
+    notFound();
   }
 
-  return <CriarProduto id={servicoId} headerText={data.desigSistema} />;
+  return (
+    <FormCard header={data.desigSistema} subheader="Criar Produto">
+      <CriarProduto id={servicoId} />
+    </FormCard>
+  );
 }
