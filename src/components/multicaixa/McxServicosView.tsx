@@ -1,4 +1,4 @@
-import { useMcxData } from "@/hooks/useMcxData";
+import { useMcxData } from "@/hooks/mcx-data";
 import { createDataGridButtons } from "@/utils/create-grid-buttons";
 
 import McxScreenText from "./McxScreenText";

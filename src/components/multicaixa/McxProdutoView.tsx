@@ -1,4 +1,4 @@
-import { useMcxData } from "@/hooks/useMcxData";
+import { useMcxData } from "@/hooks/mcx-data";
 
 import McxScreenText from "./McxScreenText";
 import NoMcxView from "./NoMcxView";
