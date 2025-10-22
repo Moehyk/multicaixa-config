@@ -1,20 +1,36 @@
-import { mcxEmpresaStore } from "@/context/mcx";
-import { openContextModal } from "@mantine/modals";
+"use client";
 
-export const useEmpresaDisplayer = () => {
-  const { empresa } = mcxEmpresaStore();
+import { useEffect, useMemo } from "react";
+import { openContextModal } from "@mantine/modals";
+import { useLocalStorage } from "@mantine/hooks";
+
+import type { EmpresaData } from "@/types";
+
+export const useEmpresaDisplayer = (data: EmpresaData) => {
+  const [_, setEmpresa] = useLocalStorage<string | null>({
+    key: "empresa",
+    defaultValue: null,
+  });
+
+  const empresaNome = useMemo(() => data.desigEcra, [data]);
+
+  useEffect(() => {
+    setEmpresa(empresaNome);
+  }, []);
 
   const openModal = () =>
     openContextModal({
       modal: "mcx-modal",
       size: 1200,
       innerProps: {
-        type: "DATA",
+        app: {
+          type: "DATA",
+          data,
+        },
       },
     });
 
   return {
-    empresa,
     openModal,
   };
 };
