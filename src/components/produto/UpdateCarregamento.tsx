@@ -10,12 +10,10 @@ export default function UpdateCarregamento(props: ProdutoCarregamentoForm) {
   const { isMutating, handleSubmit, form } = useUpdateCarregamentoForm(props);
 
   return (
-    <FormCard header="Yo" subheader={form.getValues().desigEcra}>
-      <CarregamentoFormProvider form={form}>
-        <form onSubmit={handleSubmit}>
-          <CarregamentoForm action="Editar" isSubmitting={isMutating} />
-        </form>
-      </CarregamentoFormProvider>
-    </FormCard>
+    <CarregamentoFormProvider form={form}>
+      <form onSubmit={handleSubmit}>
+        <CarregamentoForm action="Editar" isSubmitting={isMutating} />
+      </form>
+    </CarregamentoFormProvider>
   );
 }

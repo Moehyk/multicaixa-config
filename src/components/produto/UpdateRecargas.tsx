@@ -10,12 +10,10 @@ export default function UpdateRecargas(props: ProdutoRecargasForm) {
   const { form, isMutating, handleSubmit } = useUpdateRecargasForm(props);
 
   return (
-    <FormCard header="Yo" subheader={form.getValues().desigEcra}>
-      <RecargasFormProvider form={form}>
-        <form onSubmit={handleSubmit}>
-          <RecargasForm action="Editar" isSubmitting={isMutating} />
-        </form>
-      </RecargasFormProvider>
-    </FormCard>
+    <RecargasFormProvider form={form}>
+      <form onSubmit={handleSubmit}>
+        <RecargasForm action="Editar" isSubmitting={isMutating} />
+      </form>
+    </RecargasFormProvider>
   );
 }
