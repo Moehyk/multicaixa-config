@@ -1,5 +1,5 @@
 import type { JSXElementConstructor, RefObject } from "react";
-import type { Empresa, Produto, ProdutoTipo } from "@prisma/client";
+import type { Empresa, Produto } from "@prisma/client";
 import type {
   ServicoData,
   ProdutoData,
