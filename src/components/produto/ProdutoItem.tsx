@@ -10,6 +10,7 @@ import { IconTrash, IconEdit } from "@tabler/icons-react";
 
 import { GridProdutosBadgeColor } from "@/config";
 
+import type { ServicoSearchParams } from "@/types";
 import type { Produto, ProdutoTipo } from "@prisma/client";
 
 function ProdutoItemTitle({
@@ -31,11 +32,16 @@ function ProdutoItemTitle({
 
 function ProdutoItemActions({
   id,
-  servicoName,
+  servicoParams,
 }: {
   id: string;
-  servicoName: string;
+  servicoParams: ServicoSearchParams;
 }) {
+  const url = `/multicaixa/produto/${id}?s=${servicoParams.s.replaceAll(
+    " ",
+    "%"
+  )}&e=${servicoParams.e.replaceAll(" ", "%")}`;
+
   const handleDeleteProduto = () =>
     modals.openContextModal({
       title: "Apagar Produto",
@@ -47,17 +53,10 @@ function ProdutoItemActions({
       },
     });
 
-  const servicoNameSplit = servicoName.replaceAll(" ", "%");
-
   return (
     <>
       <Tooltip label="Editar Produto" position="top">
-        <ActionIcon
-          component={Link}
-          href={`/multicaixa/produto/${id}?s=${servicoNameSplit}`}
-          size="lg"
-          variant="default"
-        >
+        <ActionIcon component={Link} href={url} size="lg" variant="default">
           <IconEdit size={16} />
         </ActionIcon>
       </Tooltip>
@@ -72,10 +71,10 @@ function ProdutoItemActions({
 
 export default function ProdutoItem({
   produto,
-  servicoName,
+  servicoParams,
 }: {
   produto: Produto;
-  servicoName: string;
+  servicoParams: ServicoSearchParams;
 }) {
   return (
     <GridItem
@@ -83,7 +82,7 @@ export default function ProdutoItem({
         <ProdutoItemTitle title={produto.desigEcra} type={produto.type} />
       }
       actionsSection={
-        <ProdutoItemActions id={produto.id} servicoName={servicoName} />
+        <ProdutoItemActions id={produto.id} servicoParams={servicoParams} />
       }
     />
   );
