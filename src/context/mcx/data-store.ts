@@ -1,22 +1,31 @@
-import { create } from "zustand";
+"use client";
 
-import type { McxEmpresaStore, EmpresaStore } from "@/types";
+import { createContext } from "react";
+import { createStore } from "zustand";
 
-export const mcxEmpresaStore = create<McxEmpresaStore>((_, get) => ({
-  empresa: null,
-  servicos: [],
-  produtos: [],
-  getServico: (id?: string) => {
-    const servico = get().servicos.find((s) => s.id === id);
-    return servico;
-  },
-  getProduto: (id?: string) => {
-    const produto = get().produtos.find((p) => p.id === id);
-    return produto;
-  },
-}));
+import type { McxDataProps, McxDataState } from "@/types";
 
-export const initiateEmpresaStore = (data: EmpresaStore) => {
-  mcxEmpresaStore.setState({ empresa: { ...data }, servicos: data.servicos });
-  mcxEmpresaStore().produtos = data.servicos.flatMap((s) => s.produtos);
+export type McxDataStore = ReturnType<typeof createEmpresaStore>;
+
+export const createEmpresaStore = (initProps?: Partial<McxDataProps>) => {
+  const DEFAULT_PROPS: McxDataProps = {
+    empresa: null,
+    servicos: [],
+    produtos: [],
+  };
+
+  return createStore<McxDataState>((set, get) => ({
+    ...DEFAULT_PROPS,
+    ...initProps,
+    getServico: (id?: string) => {
+      const servico = get().servicos.find((s) => s.id === id);
+      return servico;
+    },
+    getProduto: (id?: string) => {
+      const produto = get().produtos.find((p) => p.id === id);
+      return produto;
+    },
+  }));
 };
+
+export const McxDataContext = createContext<McxDataStore | null>(null);
