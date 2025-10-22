@@ -17,3 +17,5 @@ export {
 } from "./mcxinputs-helpers";
 
 export { createGridButtons } from "./create-grid-buttons";
+export { splitArray, sortDataArray } from "./arrays";
+export { renderServicoNomeParam } from "./render-servico-nome";
