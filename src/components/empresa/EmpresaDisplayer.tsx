@@ -9,22 +9,19 @@ import { Button } from "@mantine/core";
 import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
 
 import classes from "./buttons.module.css";
+import { EmpresaData } from "@/types";
 
-export default function EmpresaDisplayer() {
-  const { empresa, openModal } = useEmpresaDisplayer();
+export default function EmpresaDisplayer({ data }: { data: EmpresaData }) {
+  const { openModal } = useEmpresaDisplayer(data);
   const sentinelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     empresaDisplayerRefStore.setState({ ref: sentinelRef });
   }, [sentinelRef]);
 
-  if (!empresa) {
-    return null;
-  }
-
   return (
     <section ref={sentinelRef} className="pb-16">
-      <h2 className="text-4xl font-semibold mb-4">{empresa.nome}</h2>
+      <h2 className="text-4xl font-semibold mb-4">{data.nome}</h2>
       <div className="flex gap-2 max-w-88">
         <Button
           component={Link}

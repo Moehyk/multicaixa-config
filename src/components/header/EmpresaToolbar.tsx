@@ -8,12 +8,20 @@ import Link from "next/link";
 import { ActionIcon, Divider, Tooltip } from "@mantine/core";
 import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
 
-export default function EmpresaToolbar({ isVisible }: { isVisible: boolean }) {
-  const { empresa, openModal } = useEmpresaDisplayer();
+import type { EmpresaData } from "@/types";
+
+export default function EmpresaToolbar({
+  isVisible,
+  empresa,
+}: {
+  isVisible: boolean;
+  empresa: EmpresaData;
+}) {
+  const { openModal } = useEmpresaDisplayer(empresa);
 
   const shouldRender = useRenderWithAnimation(isVisible);
 
-  if (!empresa || !shouldRender) {
+  if (!shouldRender) {
     return null;
   }
 
