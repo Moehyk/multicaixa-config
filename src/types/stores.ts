@@ -14,10 +14,13 @@ export type EmpresaStore = Empresa & {
   servicos: ServicoData[];
 };
 
-export type McxEmpresaStore = {
+export type McxDataProps = {
   empresa: Empresa | null;
   servicos: ServicoData[];
   produtos: ProdutoData[];
+};
+
+export type McxDataState = McxDataProps & {
   getServico: (id?: string) => ServicoData | undefined;
   getProduto: (id?: string) => ProdutoData | undefined;
 };
