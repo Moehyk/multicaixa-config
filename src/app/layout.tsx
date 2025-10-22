@@ -4,6 +4,7 @@ import { RootWrapper } from "@/components/wrappers";
 import { AuthProvider, StylesProvider } from "@/components/providers";
 import { UserStoreInit } from "@/context/user";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 import { geistMono, geistSans } from "@/utils";
 
@@ -27,15 +28,17 @@ export default function RootLayout({
         <head>
           <ColorSchemeScript />
         </head>
-        <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-        >
-          <StylesProvider>
-            <UserStoreInit>
-              <RootWrapper>{children}</RootWrapper>
-            </UserStoreInit>
-          </StylesProvider>
-        </body>
+        <NuqsAdapter>
+          <body
+            className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          >
+            <StylesProvider>
+              <UserStoreInit>
+                <RootWrapper>{children}</RootWrapper>
+              </UserStoreInit>
+            </StylesProvider>
+          </body>
+        </NuqsAdapter>
       </html>
     </AuthProvider>
   );
