@@ -28,7 +28,7 @@ export function createGridButtons(
   return sortedMontantes.map((montante) => {
     const montanteText =
       montante.montante > 0
-        ? amountFormatter(montante.montante)
+        ? `${amountFormatter(montante.montante)} KZS`
         : "[Montante] KZS";
 
     if (isMontanteComDescricao(montante)) {
@@ -44,7 +44,7 @@ export function createGridButtons(
       let unidade = "[Unidade]";
 
       if (montante.quantidade > 0) {
-        quantidade = montante.quantidade.toString();
+        quantidade = amountFormatter(montante.quantidade);
       }
 
       if (designacao !== "") {
