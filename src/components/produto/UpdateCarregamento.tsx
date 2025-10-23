@@ -2,7 +2,7 @@
 
 import { useUpdateCarregamentoForm } from "@/hooks/forms";
 import { CarregamentoFormProvider } from "@/context/forms";
-import { CarregamentoForm, FormCard } from "@/components/forms";
+import { CarregamentoForm } from "@/components/forms";
 
 import type { ProdutoCarregamentoForm } from "@/types";
 
