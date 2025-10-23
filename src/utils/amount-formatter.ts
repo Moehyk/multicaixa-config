@@ -1,7 +1,7 @@
-export const amountFormatter = (amount: number, unit: string = "KZS") => {
+export const amountFormatter = (amount: number) => {
   const formatter = new Intl.NumberFormat("pt-BR");
 
-  return `${formatter.format(amount)} ${unit}`;
+  return `${formatter.format(amount)}`;
 };
 
 export const amountFractionFormatter = (amount: number) => {
