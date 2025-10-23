@@ -70,8 +70,8 @@ export default {
         "mcx-btn-focus": "rgb(var(--mcx-btn-focus) / <alpha-value>)",
       },
       animation: {
-        "fade-in": "fadeIn 0.3s ease-in-out",
-        "fade-out": "fadeOut 0.3s ease-in-out",
+        "fade-in": "fadeIn 0.15s ease-in-out",
+        "fade-out": "fadeOut 0.15s ease-in-out",
         "slide-down": "slideDown 0.3s ease-out",
         "slide-up": "slideUp 0.3s ease-out",
         "mcx-from-left": "mcxFromLeft 0.3s ease-in-out",
