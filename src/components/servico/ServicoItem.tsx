@@ -39,13 +39,17 @@ function ServicoItemTitle({
 function ServicoItemActions({
   id,
   servico,
+  empresaDesigEcra,
 }: {
   id: string;
   servico: ServicoData;
+  empresaDesigEcra: string;
 }) {
   const url = `/multicaixa/servico/${
     servico.id
-  }/criar-produto?e=${servico.desigEcra.replaceAll(" ", "%")}`;
+  }/criar-produto?s=${encodeURIComponent(
+    servico.desigEcra
+  )}&e=${encodeURIComponent(empresaDesigEcra)}`;
 
   const handleEditServico = () =>
     modals.open({
@@ -113,9 +117,11 @@ function ServicoItemCollapse({
 export default function ServicoItem({
   children,
   servico,
+  empresaDesigEcra,
 }: {
   children?: React.ReactNode;
   servico: ServicoData;
+  empresaDesigEcra: string;
 }) {
   const [opened, { toggle }] = useDisclosure(true);
 
@@ -130,7 +136,11 @@ export default function ServicoItem({
         />
       }
       actionsSection={
-        <ServicoItemActions id={servico.empresaId} servico={servico} />
+        <ServicoItemActions
+          id={servico.empresaId}
+          servico={servico}
+          empresaDesigEcra={empresaDesigEcra}
+        />
       }
       collapseSection={
         <ServicoItemCollapse opened={opened}>{children}</ServicoItemCollapse>

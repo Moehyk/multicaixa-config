@@ -6,15 +6,17 @@ import type { ServicoData } from "@/types";
 
 export default function ServicosList({
   servicos,
+  empresaDesigEcra,
 }: {
   servicos: ServicoData[];
+  empresaDesigEcra: string;
 }) {
   if (servicos.length === 0) return <GridNoServico />;
 
   return (
     <div className="flex flex-col gap-4">
       {servicos.map((s) => (
-        <ServicoItem key={s.id} servico={s}>
+        <ServicoItem key={s.id} servico={s} empresaDesigEcra={empresaDesigEcra}>
           {s.produtos.length === 0 && <GridNoProduto id={s.id} />}
           {s.produtos.length > 0 && (
             <>
@@ -23,8 +25,8 @@ export default function ServicosList({
                   key={p.id}
                   produto={p}
                   servicoParams={{
-                    s: s.desigSistema,
-                    e: s.desigEcra,
+                    s: s.desigEcra,
+                    e: empresaDesigEcra,
                   }}
                 />
               ))}

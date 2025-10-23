@@ -37,10 +37,9 @@ function ProdutoItemActions({
   id: string;
   servicoParams: ServicoSearchParams;
 }) {
-  const url = `/multicaixa/produto/${id}?s=${servicoParams.s.replaceAll(
-    " ",
-    "%"
-  )}&e=${servicoParams.e.replaceAll(" ", "%")}`;
+  const url = `/multicaixa/produto/${id}?s=${encodeURIComponent(
+    servicoParams.s
+  )}&e=${encodeURIComponent(servicoParams.e)}`;
 
   const handleDeleteProduto = () =>
     modals.openContextModal({
