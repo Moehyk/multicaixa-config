@@ -5,26 +5,30 @@ import {
   ServicosList,
   GridHeader,
   GridNoServico,
+  EmpresaLoader,
 } from "@/components";
 
-export default async function MulticaixaPage() {
-  const { data } = await getEmpresa();
-
-  if (!data) {
-    return <NoEmpresa />;
-  }
-
+export default function MulticaixaPage() {
   return (
-    <>
-      <GridHeader id={data.id} />
-      {data.servicos.length === 0 && <GridNoServico />}
-      {data.servicos.length > 0 && (
-        <ServicosList
-          servicos={data.servicos}
-          empresaDesigEcra={data.desigEcra}
-        />
+    <EmpresaLoader>
+      {(data) => (
+        <>
+          {!data && <NoEmpresa />}
+          {data && (
+            <>
+              <GridHeader id={data.id} />
+              {data.servicos.length === 0 && <GridNoServico />}
+              {data.servicos.length > 0 && (
+                <ServicosList
+                  servicos={data.servicos}
+                  empresaDesigEcra={data.desigEcra}
+                />
+              )}
+            </>
+          )}
+        </>
       )}
-    </>
+    </EmpresaLoader>
   );
 }
 

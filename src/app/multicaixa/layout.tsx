@@ -2,9 +2,10 @@ import { getEmpresa } from "@/server/services";
 
 import {
   MulticaixaRouteWrapper,
+  EmpresaLoader,
   AppHeader,
-  Footer,
   EmpresaDisplayer,
+  Footer,
 } from "@/components";
 
 export default async function MulitcaixaLayout({
@@ -15,8 +16,14 @@ export default async function MulitcaixaLayout({
   return (
     <>
       <MulticaixaRouteWrapper>
-        <AppHeader data={data} />
-        {data && <EmpresaDisplayer data={data} />}
+        <EmpresaLoader>
+          {(data) => (
+            <>
+              <AppHeader data={data} />
+              {data && <EmpresaDisplayer data={data} />}
+            </>
+          )}
+        </EmpresaLoader>
         {children}
       </MulticaixaRouteWrapper>
       <Footer />
