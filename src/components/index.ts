@@ -8,7 +8,7 @@ export { Footer } from "./footer";
 export { default as GlobalLoader } from "./GlobalLoader";
 export { default as LogoLink } from "./LogoLink";
 export { FormCard } from "./forms";
-export { NoEmpresa, EmpresaDisplayer } from "./empresa";
+export { NoEmpresa, EmpresaDisplayer, EmpresaLoader } from "./empresa";
 export { ServicosList, GridNoServico } from "./servico";
 export {
   CriarProduto,
