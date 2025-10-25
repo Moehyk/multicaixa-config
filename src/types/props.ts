@@ -10,7 +10,6 @@ import type {
 
 export interface ProdutoFormProps {
   action: "Criar" | "Editar";
-  isSubmitting: boolean;
 }
 
 export interface McxInputsProps {
