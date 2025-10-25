@@ -9,10 +9,7 @@ import { IconTrash } from "@tabler/icons-react";
 
 import type { ProdutoFormProps } from "@/types";
 
-export default function RecargasForm({
-  action,
-  isSubmitting,
-}: ProdutoFormProps) {
+export default function RecargasForm({ action }: ProdutoFormProps) {
   const {
     getInputProps,
     montantes,
@@ -94,7 +91,6 @@ export default function RecargasForm({
         </div>
       </Paper>
       <FormActions
-        isSubmitting={isSubmitting}
         submitText={action}
         openPreviewModal={handleOpenPreviewModal}
       />

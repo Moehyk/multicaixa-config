@@ -3,11 +3,9 @@ import { Button } from "@mantine/core";
 import { IconDeviceDesktop } from "@tabler/icons-react";
 
 export default function FormActions({
-  isSubmitting,
   openPreviewModal,
   submitText,
 }: {
-  isSubmitting: boolean;
   submitText: string;
   openPreviewModal?: () => void;
 }) {
@@ -26,7 +24,7 @@ export default function FormActions({
           Visualizar
         </Button>
       )}
-      <Button size="md" type="submit" loading={isSubmitting}>
+      <Button size="md" type="submit">
         {submitText}
       </Button>
     </div>

@@ -7,10 +7,7 @@ import { TextInput, NumberInput } from "@mantine/core";
 
 import type { ProdutoFormProps } from "@/types";
 
-export default function PagamentoForm({
-  action,
-  isSubmitting,
-}: ProdutoFormProps) {
+export default function PagamentoForm({ action }: ProdutoFormProps) {
   const { getInputProps, handleOpenPreviewModal } = usePagamentoForm();
 
   return (
@@ -72,7 +69,6 @@ export default function PagamentoForm({
         />
       </div>
       <FormActions
-        isSubmitting={isSubmitting}
         submitText={action}
         openPreviewModal={handleOpenPreviewModal}
       />

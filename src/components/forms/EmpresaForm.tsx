@@ -3,7 +3,7 @@
 import { useEmpresaForm } from "@/hooks/forms";
 
 import FormActions from "./FormActions";
-import { TextInput } from "@mantine/core";
+import { TextInput, LoadingOverlay } from "@mantine/core";
 
 import type { EmpresaForm } from "@/types";
 
@@ -11,7 +11,8 @@ export default function EmpresaForm(data: EmpresaForm) {
   const { getInputProps, handleSubmit, isMutating } = useEmpresaForm(data);
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="relative">
+      <LoadingOverlay visible={isMutating} />
       <div className="flex gap-4">
         <TextInput
           {...getInputProps("sigla")}
@@ -76,7 +77,7 @@ export default function EmpresaForm(data: EmpresaForm) {
           className="flex-1"
         />
       </div>
-      <FormActions isSubmitting={isMutating} submitText="Salvar" />
+      <FormActions submitText="Salvar" />
     </form>
   );
 }

@@ -137,10 +137,7 @@ function renderMontantesConfig(tipo: MontanteTipo) {
   );
 }
 
-export default function CarregamentoForm({
-  action,
-  isSubmitting,
-}: ProdutoFormProps) {
+export default function CarregamentoForm({ action }: ProdutoFormProps) {
   const {
     getInputProps,
     getValues,
@@ -212,7 +209,6 @@ export default function CarregamentoForm({
         {renderMontantesConfig(montanteTipo as MontanteTipo)}
       </Paper>
       <FormActions
-        isSubmitting={isSubmitting}
         submitText={action}
         openPreviewModal={handleOpenPreviewModal}
       />
