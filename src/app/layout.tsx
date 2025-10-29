@@ -33,9 +33,7 @@ export default function RootLayout({
             className={`${geistSans.variable} ${geistMono.variable} antialiased`}
           >
             <StylesProvider>
-              <UserStoreInit>
-                <RootWrapper>{children}</RootWrapper>
-              </UserStoreInit>
+              <UserStoreInit>{children}</UserStoreInit>
             </StylesProvider>
           </body>
         </NuqsAdapter>
