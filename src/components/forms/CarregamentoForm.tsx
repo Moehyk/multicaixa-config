@@ -16,7 +16,6 @@ import {
 import { IconTrash, IconPlus } from "@tabler/icons-react";
 
 import type { MontanteTipo } from "@prisma/client";
-import type { ProdutoFormProps } from "@/types";
 
 function MontanteLivre() {
   const { getInputProps } = useCarregamentoFormContext();
@@ -136,11 +135,12 @@ function renderMontantesConfig(tipo: MontanteTipo) {
   );
 }
 
-export default function CarregamentoForm({ action }: ProdutoFormProps) {
+export default function CarregamentoForm() {
   const { getInputProps, getValues, handleMontanteTipoChange } =
     useCarregamentoForm();
 
   const montanteTipo = getValues().carregamento?.montanteTipo;
+  const id = getValues().carregamento?.id;
 
   return (
     <>
@@ -179,7 +179,7 @@ export default function CarregamentoForm({ action }: ProdutoFormProps) {
       </div>
       <div className="flex items-center gap-4 mb-2 mt-4">
         <h2 className="text-lg font-semibold my-2">Configurar Montantes</h2>
-        {action === "Criar" && (
+        {!id && (
           <Select
             size="xs"
             value={montanteTipo}
