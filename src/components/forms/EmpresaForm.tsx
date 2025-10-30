@@ -77,7 +77,10 @@ export default function EmpresaForm(data: EmpresaForm) {
           className="flex-1"
         />
       </div>
-      <FormActions submitText="Salvar" />
+      <FormActions>
+        <FormActions.Voltar />
+        <FormActions.Editar />
+      </FormActions>
     </form>
   );
 }
