@@ -127,6 +127,10 @@ export default {
           },
         },
       },
+
+      backgroundImage: {
+        hero: "url('@/assets/hero.png')",
+      },
     },
   },
   plugins: [
