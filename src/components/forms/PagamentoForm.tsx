@@ -2,12 +2,9 @@
 
 import { usePagamentoForm } from "@/hooks/forms";
 
-import FormActions from "./FormActions";
 import { TextInput, NumberInput } from "@mantine/core";
 
-import type { ProdutoFormProps } from "@/types";
-
-export default function PagamentoForm({ action }: ProdutoFormProps) {
+export default function PagamentoForm() {
   const { getInputProps } = usePagamentoForm();
 
   return (

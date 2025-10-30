@@ -2,14 +2,11 @@
 
 import { useRecargasForm } from "@/hooks/forms";
 
-import FormActions from "./FormActions";
 import MaxItemsAlert from "./MaxItemsAlert";
 import { TextInput, NumberInput, Button, Fieldset, Paper } from "@mantine/core";
 import { IconTrash } from "@tabler/icons-react";
 
-import type { ProdutoFormProps } from "@/types";
-
-export default function RecargasForm({ action }: ProdutoFormProps) {
+export default function RecargasForm() {
   const { getInputProps, montantes, handleInsertItem, handleRemoveItem } =
     useRecargasForm();
 
