@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 
-import { RootWrapper } from "@/components/wrappers";
 import { AuthProvider, StylesProvider } from "@/components/providers";
 import { UserStoreInit } from "@/context/user";
 import { ColorSchemeScript, mantineHtmlProps } from "@mantine/core";
