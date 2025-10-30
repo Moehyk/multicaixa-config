@@ -29,7 +29,7 @@ const useForm = (values?: ProdutoPagamentoForm) => {
       form.setInitialValues(values);
       form.setValues(values);
     }
-  }, [values]);
+  }, [values]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return form;
 };
