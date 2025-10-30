@@ -28,7 +28,6 @@ export type {
   McxInputsProps,
   MontanteInputProps,
   ReferenciaInputProps,
-  ProdutoFormProps,
   GroupButtonsSize,
   McxSelectionViewProps,
   McxSelectBtnProps,

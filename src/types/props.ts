@@ -8,10 +8,6 @@ import type {
   DataModel,
 } from "./misc";
 
-export interface ProdutoFormProps {
-  action: "Criar" | "Editar";
-}
-
 export interface McxInputsProps {
   value: string;
   valueLength: number;
