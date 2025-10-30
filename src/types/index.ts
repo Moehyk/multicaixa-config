@@ -5,6 +5,7 @@ export type {
   ProdutoCarregamentoForm,
   ProdutoPagamentoForm,
   ProdutoRecargasForm,
+  AllFormTypes,
 } from "./forms";
 
 export type {

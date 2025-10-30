@@ -40,3 +40,8 @@ export type ProdutoRecargasForm = ProdutoForm & {
 export type ProdutoCarregamentoForm = ProdutoForm & {
   carregamento: CarregamentoData;
 };
+
+export type AllFormTypes =
+  | ProdutoCarregamentoForm
+  | ProdutoPagamentoForm
+  | ProdutoRecargasForm;
