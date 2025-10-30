@@ -4,7 +4,6 @@ import { useCarregamentoForm } from "@/hooks/forms";
 import { useCarregamentoFormContext } from "@/context/forms";
 import { randomId } from "@mantine/hooks";
 
-import FormActions from "./FormActions";
 import MaxItemsAlert from "../forms/MaxItemsAlert";
 import {
   TextInput,
@@ -138,12 +137,8 @@ function renderMontantesConfig(tipo: MontanteTipo) {
 }
 
 export default function CarregamentoForm({ action }: ProdutoFormProps) {
-  const {
-    getInputProps,
-    getValues,
-    handleMontanteTipoChange,
-    handleOpenPreviewModal,
-  } = useCarregamentoForm();
+  const { getInputProps, getValues, handleMontanteTipoChange } =
+    useCarregamentoForm();
 
   const montanteTipo = getValues().carregamento?.montanteTipo;
 
@@ -208,10 +203,6 @@ export default function CarregamentoForm({ action }: ProdutoFormProps) {
       >
         {renderMontantesConfig(montanteTipo as MontanteTipo)}
       </Paper>
-      <FormActions
-        submitText={action}
-        openPreviewModal={handleOpenPreviewModal}
-      />
     </>
   );
 }
