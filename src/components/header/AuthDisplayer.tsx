@@ -18,7 +18,6 @@ function LoginButton() {
         radius={999}
         size="lg"
         variant="outline"
-        color="white"
         loading
         loaderProps={{
           size: "sm",
@@ -41,7 +40,6 @@ function LoginButton() {
         postLoginRedirectURL="/multicaixa"
         radius={999}
         size="lg"
-        variant="white"
         rightSection={<IconLogin size={20} />}
         styles={{
           label: {
@@ -61,7 +59,6 @@ function LoginButton() {
       radius={999}
       size="lg"
       variant="outline"
-      color="white"
       leftSection={
         <Avatar src={user.picture} alt="Avatar" size="sm" radius="xl" />
       }
