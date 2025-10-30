@@ -8,11 +8,13 @@ import {
 import { useEffect } from "react";
 import { useCarrForm, useCarregamentoFormContext } from "@/context/forms";
 import { useFormMutation } from "./mutation";
-import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
-import { openContextModal } from "@mantine/modals";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
-import { produtoCarregamentoSchema } from "@/utils/schemas";
+import {
+  produtoCarregamentoSchema,
+  errorNotification,
+  sucessNotification,
+  openPreviewModal,
+} from "@/utils";
 import {
   initialProdutoCarregamentoFormValues,
   initialCarregamentoMontante,
@@ -42,6 +44,8 @@ export const useCreateCarregamentoForm = (servicoId: string) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm();
 
+  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+
   const handleSubmit = form.onSubmit(
     async (values: ProdutoCarregamentoForm) => {
       setIsFetching(true);
@@ -60,12 +64,14 @@ export const useCreateCarregamentoForm = (servicoId: string) => {
     }
   );
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, handleSubmit, form, handleOpenPreviewModal };
 };
 
 export const useUpdateCarregamentoForm = (values: ProdutoCarregamentoForm) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm(values);
+
+  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(
     async (values: ProdutoCarregamentoForm) => {
@@ -82,7 +88,7 @@ export const useUpdateCarregamentoForm = (values: ProdutoCarregamentoForm) => {
     }
   );
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, handleSubmit, form, handleOpenPreviewModal };
 };
 
 export const useCarregamentoForm = () => {
@@ -100,34 +106,9 @@ export const useCarregamentoForm = () => {
     setFieldValue("carregamento.montanteTipo", e as MontanteTipo);
   };
 
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    mcxPreviewStore.setState({
-      produto: {
-        ...mcxPreviewStore.getState().produto,
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "carregamentos",
-        carregamento: values.carregamento!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        app: {
-          type: "PREVIEW",
-        },
-      },
-    });
-  };
-
   return {
     getInputProps,
     getValues,
     handleMontanteTipoChange,
-    handleOpenPreviewModal,
   };
 };

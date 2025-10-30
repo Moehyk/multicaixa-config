@@ -8,12 +8,14 @@ import {
 import { useEffect } from "react";
 import { useRecaForm, useRecargasFormContext } from "@/context/forms";
 import { useFormMutation } from "./mutation";
-import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
-import { openContextModal } from "@mantine/modals";
 import { randomId } from "@mantine/hooks";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
-import { produtoRecargasSchema } from "@/utils/schemas";
+import {
+  produtoRecargasSchema,
+  errorNotification,
+  sucessNotification,
+  openPreviewModal,
+} from "@/utils";
 import { initialProdutoRecargasFormValues } from "@/constants/form-values";
 
 import { ProdutoRecargasForm } from "@/types";
@@ -39,6 +41,8 @@ export const useCreateRecargasForm = (servicoId: string) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm();
 
+  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+
   const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
     const response = await createProdutoRecargas({ ...values, servicoId });
@@ -52,12 +56,14 @@ export const useCreateRecargasForm = (servicoId: string) => {
     }
   });
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, handleSubmit, form, handleOpenPreviewModal };
 };
 
 export const useUpdateRecargasForm = (values: ProdutoRecargasForm) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm(values);
+
+  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
@@ -72,7 +78,7 @@ export const useUpdateRecargasForm = (values: ProdutoRecargasForm) => {
     }
   });
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, handleSubmit, form, handleOpenPreviewModal };
 };
 
 export const useRecargasForm = () => {
@@ -91,35 +97,10 @@ export const useRecargasForm = () => {
   const handleRemoveItem = (i: number) =>
     removeListItem(`recargas.montantes`, i);
 
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    mcxPreviewStore.setState({
-      produto: {
-        ...mcxPreviewStore.getState().produto,
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "recargas",
-        recargas: values.recargas!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        app: {
-          type: "PREVIEW",
-        },
-      },
-    });
-  };
-
   return {
     getInputProps,
     montantes,
     handleInsertItem,
     handleRemoveItem,
-    handleOpenPreviewModal,
   };
 };

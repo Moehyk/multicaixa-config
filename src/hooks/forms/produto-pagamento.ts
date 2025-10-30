@@ -8,11 +8,13 @@ import {
 import { useEffect } from "react";
 import { usePagForm, usePagamentoFormContext } from "@/context/forms";
 import { useFormMutation } from "./mutation";
-import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { zodResolver } from "mantine-form-zod-resolver";
-import { openContextModal } from "@mantine/modals";
-import { errorNotification, sucessNotification } from "@/utils/notifications";
-import { produtoPagamentoSchema } from "@/utils/schemas";
+import {
+  produtoPagamentoSchema,
+  errorNotification,
+  sucessNotification,
+  openPreviewModal,
+} from "@/utils";
 import { initialProdutoPagamentoFormValues } from "@/constants/form-values";
 
 import { ProdutoPagamentoForm } from "@/types";
@@ -38,6 +40,8 @@ export const useCreatePagamentoForm = (servicoId: string) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm();
 
+  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+
   const handleSubmit = form.onSubmit(async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);
     const response = await createProdutoPagamento({ ...values, servicoId });
@@ -51,12 +55,14 @@ export const useCreatePagamentoForm = (servicoId: string) => {
     }
   });
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, handleSubmit, form, handleOpenPreviewModal };
 };
 
 export const useUpdatePagamentoForm = (values: ProdutoPagamentoForm) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm(values);
+
+  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);
@@ -71,35 +77,11 @@ export const useUpdatePagamentoForm = (values: ProdutoPagamentoForm) => {
     }
   });
 
-  return { isMutating, handleSubmit, form };
+  return { isMutating, handleSubmit, form, handleOpenPreviewModal };
 };
 
 export const usePagamentoForm = () => {
-  const { getInputProps, getValues } = usePagamentoFormContext();
+  const { getInputProps } = usePagamentoFormContext();
 
-  const handleOpenPreviewModal = () => {
-    const values = getValues();
-
-    mcxPreviewStore.setState({
-      produto: {
-        ...mcxPreviewStore.getState().produto,
-        desigEcra: values.desigEcra,
-        desigTeclaSeleccao: values.desigTeclaSeleccao,
-        type: "pagamento",
-        pagamento: values.pagamento!,
-      },
-    });
-
-    openContextModal({
-      modal: "mcx-modal",
-      size: 1200,
-      innerProps: {
-        app: {
-          type: "PREVIEW",
-        },
-      },
-    });
-  };
-
-  return { getInputProps, handleOpenPreviewModal };
+  return { getInputProps };
 };
