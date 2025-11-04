@@ -16,3 +16,4 @@ export {
   UpdatePagamento,
   UpdateRecargas,
 } from "./produto";
+export { HomeHeroSection } from "./home";
