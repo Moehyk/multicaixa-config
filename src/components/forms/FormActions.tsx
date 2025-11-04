@@ -39,7 +39,7 @@ function CriarAction() {
 function EditarAction() {
   return (
     <Button size="md" type="submit">
-      Editar
+      Salvar
     </Button>
   );
 }
