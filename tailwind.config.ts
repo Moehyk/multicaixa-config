@@ -129,7 +129,7 @@ export default {
       },
 
       backgroundImage: {
-        hero: "url('@/assets/hero.png')",
+        hero: "url('/hero.png')",
       },
     },
   },
