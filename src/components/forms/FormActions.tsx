@@ -1,7 +1,6 @@
 import Link from "next/link";
 import { Button } from "@mantine/core";
 import { IconDeviceDesktop } from "@tabler/icons-react";
-import { Form } from "@mantine/form";
 
 function VoltarAction() {
   return (
