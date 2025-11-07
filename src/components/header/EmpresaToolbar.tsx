@@ -1,6 +1,7 @@
 "use client";
 
-import { useEmpresaDisplayer, useRenderWithAnimation } from "@/hooks";
+import { useRenderWithAnimation } from "@/hooks";
+import { openMcxDataModal } from "@/utils";
 
 import { LogoLink } from "@/components";
 import Link from "next/link";
@@ -17,8 +18,6 @@ export default function EmpresaToolbar({
   isVisible: boolean;
   empresa: EmpresaData;
 }) {
-  const { openModal } = useEmpresaDisplayer(empresa);
-
   const shouldRender = useRenderWithAnimation(isVisible);
 
   if (!shouldRender) {
@@ -50,7 +49,7 @@ export default function EmpresaToolbar({
             variant="default"
             color="red"
             radius={999}
-            onClick={openModal}
+            onClick={() => openMcxDataModal(empresa)}
           >
             <IconDeviceDesktop size={20} />
           </ActionIcon>

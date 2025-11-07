@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { useEmpresaDisplayer } from "@/hooks";
 import { empresaDisplayerRefStore } from "@/context/empresa-displayer-ref";
+import { openMcxDataModal } from "@/utils";
 
 import Link from "next/link";
 import { Button } from "@mantine/core";
@@ -12,7 +12,6 @@ import classes from "./buttons.module.css";
 import { EmpresaData } from "@/types";
 
 export default function EmpresaDisplayer({ data }: { data: EmpresaData }) {
-  const { openModal } = useEmpresaDisplayer(data);
   const sentinelRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
@@ -37,7 +36,7 @@ export default function EmpresaDisplayer({ data }: { data: EmpresaData }) {
         </Button>
         <Button
           variant="default"
-          onClick={openModal}
+          onClick={() => openMcxDataModal(data)}
           rightSection={<IconDeviceDesktop size={20} />}
           flex={1}
           classNames={{
