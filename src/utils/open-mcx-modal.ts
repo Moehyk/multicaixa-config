@@ -1,9 +1,21 @@
 import { mcxPreviewStore } from "@/context/mcx/preview-store";
 import { openContextModal } from "@mantine/modals";
 
-import type { AllFormTypes } from "@/types";
+import type { EmpresaData, AllFormTypes } from "@/types";
 
-export const openPreviewModal = <T extends AllFormTypes>(
+export const openMcxDataModal = (data: EmpresaData) =>
+  openContextModal({
+    modal: "mcx-modal",
+    size: 1200,
+    innerProps: {
+      app: {
+        type: "DATA",
+        data,
+      },
+    },
+  });
+
+export const openMcxPreviewModal = <T extends AllFormTypes>(
   getValues: () => T
 ) => {
   const values = getValues();
