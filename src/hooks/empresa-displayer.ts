@@ -16,7 +16,7 @@ export const useEmpresaDisplayer = (data: EmpresaData) => {
 
   useEffect(() => {
     setEmpresa(empresaNome);
-  }, []);
+  }, [empresaNome, setEmpresa]);
 
   const openModal = () =>
     openContextModal({
