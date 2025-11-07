@@ -1,16 +1,17 @@
-import React from "react";
+function Footer() {
+  return <footer className="container w-full py-8">Footer</footer>;
+}
 
 export default function MulticaixaRouteWrapper({
   children,
 }: React.PropsWithChildren) {
   return (
-    <div className="flex flex-col flex-1">
-      <div className="flex flex-col-fluid flex-row ">
-        <div className="flex-row-fluid relative flex min-h-dvh flex-col">
-          <div className="flex-1 mt-28 overflow-hidden">
-            <div className="container flex flex-col">{children}</div>
-          </div>
+    <div className="relative  min-h-dvh flex flex-col">
+      <div className="flex flex-col flex-1 overflow-hidden">
+        <div className="container w-full flex flex-col flex-1 mt-28">
+          {children}
         </div>
+        <Footer />
       </div>
     </div>
   );
