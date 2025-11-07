@@ -13,7 +13,7 @@ import {
   produtoPagamentoSchema,
   errorNotification,
   sucessNotification,
-  openPreviewModal,
+  openMcxPreviewModal,
 } from "@/utils";
 import { initialProdutoPagamentoFormValues } from "@/constants/form-values";
 
@@ -40,7 +40,7 @@ export const useCreatePagamentoForm = (servicoId: string) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm();
 
-  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+  const handleOpenPreviewModal = () => openMcxPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);
@@ -62,7 +62,7 @@ export const useUpdatePagamentoForm = (values: ProdutoPagamentoForm) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm(values);
 
-  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+  const handleOpenPreviewModal = () => openMcxPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(async (values: ProdutoPagamentoForm) => {
     setIsFetching(true);

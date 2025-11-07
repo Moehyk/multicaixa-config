@@ -14,7 +14,7 @@ import {
   produtoRecargasSchema,
   errorNotification,
   sucessNotification,
-  openPreviewModal,
+  openMcxPreviewModal,
 } from "@/utils";
 import { initialProdutoRecargasFormValues } from "@/constants/form-values";
 
@@ -41,7 +41,7 @@ export const useCreateRecargasForm = (servicoId: string) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm();
 
-  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+  const handleOpenPreviewModal = () => openMcxPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
     setIsFetching(true);
@@ -63,7 +63,7 @@ export const useUpdateRecargasForm = (values: ProdutoRecargasForm) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm(values);
 
-  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+  const handleOpenPreviewModal = () => openMcxPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(async (values: ProdutoRecargasForm) => {
     setIsFetching(true);

@@ -13,7 +13,7 @@ import {
   produtoCarregamentoSchema,
   errorNotification,
   sucessNotification,
-  openPreviewModal,
+  openMcxPreviewModal,
 } from "@/utils";
 import {
   initialProdutoCarregamentoFormValues,
@@ -44,7 +44,7 @@ export const useCreateCarregamentoForm = (servicoId: string) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm();
 
-  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+  const handleOpenPreviewModal = () => openMcxPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(
     async (values: ProdutoCarregamentoForm) => {
@@ -71,7 +71,7 @@ export const useUpdateCarregamentoForm = (values: ProdutoCarregamentoForm) => {
   const { isMutating, setIsFetching, back } = useFormMutation();
   const form = useForm(values);
 
-  const handleOpenPreviewModal = () => openPreviewModal(form.getValues);
+  const handleOpenPreviewModal = () => openMcxPreviewModal(form.getValues);
 
   const handleSubmit = form.onSubmit(
     async (values: ProdutoCarregamentoForm) => {
