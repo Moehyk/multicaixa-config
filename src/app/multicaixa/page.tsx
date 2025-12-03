@@ -3,7 +3,6 @@ import { getEmpresa } from "@/server/services";
 import {
   NoEmpresa,
   ServicosList,
-  GridHeader,
   GridNoServico,
   EmpresaLoader,
 } from "@/components";
@@ -16,7 +15,6 @@ export default function MulticaixaPage() {
           {!data && <NoEmpresa />}
           {data && (
             <>
-              <GridHeader id={data.id} />
               {data.servicos.length === 0 && <GridNoServico />}
               {data.servicos.length > 0 && (
                 <ServicosList
