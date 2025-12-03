@@ -27,7 +27,7 @@ export default function AppHeader({ data }: { data: EmpresaData | undefined }) {
   });
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-20 h-16 bg-paper/50 flex items-center border-b border-border backdrop-blur-xl drop-shadow-sm">
+    <header className="fixed top-0 left-0 right-0 z-20 h-20 bg-paper/50 flex items-center border-b border-border backdrop-blur-xl drop-shadow-sm">
       <div className="container w-full flex items-center justify-between">
         <div>
           {intersecting && <MotionLogoLink isVisible={true} />}
