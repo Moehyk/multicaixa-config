@@ -8,7 +8,7 @@ export { default as GlobalLoader } from "./GlobalLoader";
 export { default as LogoLink } from "./LogoLink";
 export { FormCard } from "./forms";
 export { NoEmpresa, EmpresaDisplayer, EmpresaLoader } from "./empresa";
-export { ServicosList, GridNoServico } from "./servico";
+export { ServicosList, GridNoServico, ServicoModalForm } from "./servico";
 export {
   CriarProduto,
   UpdateCarregamento,
