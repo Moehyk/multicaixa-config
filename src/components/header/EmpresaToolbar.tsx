@@ -2,12 +2,13 @@
 
 import { useRenderWithAnimation } from "@/hooks";
 import { openMcxDataModal } from "@/utils";
+import { modals } from "@mantine/modals";
 
-import { LogoLink } from "@/components";
+import { LogoLink, ServicoModalForm } from "@/components";
 import Link from "next/link";
 
 import { ActionIcon, Divider, Tooltip } from "@mantine/core";
-import { IconEdit, IconDeviceDesktop } from "@tabler/icons-react";
+import { IconEdit, IconDeviceDesktop, IconPlus } from "@tabler/icons-react";
 
 import type { EmpresaData } from "@/types";
 
@@ -47,11 +48,23 @@ export default function EmpresaToolbar({
         <Tooltip label="Multicaixa" position="top">
           <ActionIcon
             variant="default"
-            color="red"
             radius={999}
             onClick={() => openMcxDataModal(empresa)}
           >
             <IconDeviceDesktop size={20} />
+          </ActionIcon>
+        </Tooltip>
+        <Tooltip label="Novo Serviço" position="top">
+          <ActionIcon
+            radius={999}
+            onClick={() =>
+              modals.open({
+                title: "Criar Novo Serviço",
+                children: <ServicoModalForm empresaId={empresa.id} />,
+              })
+            }
+          >
+            <IconPlus size={20} />
           </ActionIcon>
         </Tooltip>
       </div>
