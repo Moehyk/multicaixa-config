@@ -22,7 +22,7 @@ export const processErrors = (
     noId: boolean;
     existentId?: boolean;
     invalidInput?: boolean;
-    user: Utilizador | KindeUser<Record<string, any>> | undefined;
+    user: Utilizador | KindeUser<Record<string, any>> | null;
   }
 ) => {
   console.error("Error Stack:", error.stack);

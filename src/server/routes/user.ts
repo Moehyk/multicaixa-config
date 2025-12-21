@@ -36,7 +36,7 @@ export const user = {
     } catch (error) {
       if (error instanceof Error) {
         const response = processErrors(error, {
-          noId: !!user.id,
+          noId: !!user,
           user: user,
         });
 
